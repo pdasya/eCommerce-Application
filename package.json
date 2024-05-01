@@ -2,7 +2,7 @@
   "name": "eCommerce-Application",
   "version": "1.0.0",
   "description": "Final task for RSSchool",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "webpack serve --open",
     "dev": "webpack --node-env=development",
@@ -21,6 +21,9 @@
     "postcss-loader": "^8.1.1",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "typescript-plugin-css-modules": "^5.1.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"

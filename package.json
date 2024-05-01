@@ -1,0 +1,36 @@
+{
+  "name": "eCommerce-Application",
+  "version": "1.0.0",
+  "description": "Final task for RSSchool",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --open",
+    "dev": "webpack --node-env=development",
+    "prod": "webpack --node-env=production"
+  },
+  "author": "ViP",
+  "license": "ISC",
+  "keywords": [],
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "5.1.1",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "postcss": "^8.4.38",
+    "postcss-loader": "^8.1.1",
+    "sass-loader": "^14.2.1",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie < 11",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ]
+}

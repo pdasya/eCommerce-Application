@@ -24,6 +24,6 @@
     "node_modules",
     "dist",
     "scripts",
-    "webpack",
+    "webpack"
   ]
 }

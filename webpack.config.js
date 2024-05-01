@@ -61,6 +61,10 @@ module.exports = {
         use: [styleHandler, cssLoaderWithModules, 'postcss-loader', 'sass-loader'],
       },
       {
+        test: /\.tsx$/i,
+        use: 'ts-loader',
+      },
+      {
         test: /\.(jpg|png|svg|jpeg|gif)$/,
         type: 'asset/resource',
       },

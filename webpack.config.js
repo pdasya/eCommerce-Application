@@ -19,6 +19,7 @@ const styleHandler = devMode
         defaultExport: true,
       },
     };
+
 const cssLoaderWithModules = {
   loader: 'css-loader',
   options: {
@@ -43,22 +44,40 @@ module.exports = {
       {
         test: /\.css$/i,
         exclude: /\.module\.css$/i,
-        use: [styleHandler, cssLoaderNoModules, 'postcss-loader'],
+        use: [
+          styleHandler,
+          cssLoaderNoModules,
+          'postcss-loader',
+        ],
       },
       {
         test: /\.css$/i,
         include: /\.module\.css$/i,
-        use: [styleHandler, cssLoaderWithModules, 'postcss-loader'],
+        use: [
+          styleHandler,
+          cssLoaderWithModules,
+          'postcss-loader',
+        ],
       },
       {
         test: /\.s[ac]ss$/i,
         exclude: /\.module\.s[ac]ss$/i,
-        use: [styleHandler, cssLoaderNoModules, 'postcss-loader', 'sass-loader'],
+        use: [
+          styleHandler,
+          cssLoaderNoModules,
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.s[ac]ss$/i,
         include: /\.module\.s[ac]ss$/i,
-        use: [styleHandler, cssLoaderWithModules, 'postcss-loader', 'sass-loader'],
+        use: [
+          styleHandler,
+          cssLoaderWithModules,
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.tsx$/i,
@@ -71,7 +90,11 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [
+      '.tsx',
+      '.ts',
+      '.js',
+    ],
   },
   output: {
     path: path.resolve(__dirname, `./${distFolder}`),

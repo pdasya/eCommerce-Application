@@ -6,7 +6,13 @@
   "scripts": {
     "start": "webpack serve --open",
     "dev": "webpack --node-env=development",
-    "prod": "webpack --node-env=production"
+    "prod": "webpack --node-env=production",
+    "prepare": "husky"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "author": "ViP",
   "license": "ISC",
@@ -21,6 +27,7 @@
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "5.1.1",
     "html-webpack-plugin": "^5.6.0",
+    "husky": "^9.0.11",
     "mini-css-extract-plugin": "^2.9.0",
     "postcss": "^8.4.38",
     "postcss-loader": "^8.1.1",

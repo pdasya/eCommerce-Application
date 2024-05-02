@@ -18,6 +18,8 @@
   "license": "ISC",
   "keywords": [],
   "devDependencies": {
+    "@cspell/dict-ru_ru": "^2.2.1",
+    "@cspell/eslint-plugin": "^8.7.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.15",

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './App.module.css';
 
-const App = () => (
+const App: FC = () => (
   <section>
     <div className={styles.App}>
       <h1 className={styles.App__title}>React TypeScript Webpack Starter Template</h1>

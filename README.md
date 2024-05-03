@@ -7,5 +7,24 @@ This project is an eCommerce platform designed to bridge the cultural and geogra
 HTML, SCSS, TypeScript, React, Material UI, Webpack, Jest, eCommerce API
 
 ## Getting Started
-To get started with this project, clone the repository, and ensure you have Node.js and npm installed.
-To be continued...
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (which includes npm)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone git@github.com:pdasya/eCommerce-Application.git
+   cd eCommerce-Application
+
+2. **Install dependencies**
+   ```bash
+   npm install
+
+3. **Set up environment variables**
+   - Copy the `.env.example` file to a new file named `.env`.
+   - Modify the `.env` file to include your local environment variables and API keys necessary for the project.

@@ -7,9 +7,16 @@
     "start": "webpack serve --open",
     "dev": "webpack --node-env=development",
     "prod": "webpack --node-env=production",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "ci:lint": "eslint . --ext .ts,.tsx",
     "prepare": "husky",
     "pre-push": "validate-branch-name",
     "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "eslint"
+    ]
   },
   "validate-branch-name": {
     "pattern": "^(master|main|develop|sprint-\\d{1,2}){1}$|^(RSS-ECOMM-\\d{1,2}_\\d{2,4}|CUSTOM-ECOMM-\\d{1,4})-([a-z]{2,}([A-Z]([a-z]+)){0,})$",

@@ -9,6 +9,8 @@
     "prod": "webpack --node-env=production",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "ci:lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write .",
+    "ci:format": "prettier --check .",
     "prepare": "husky",
     "pre-push": "validate-branch-name",
     "pre-commit": "lint-staged"
@@ -16,6 +18,9 @@
   "lint-staged": {
     "**/*.{ts,tsx}": [
       "eslint"
+    ],
+    "*": [
+      "prettier --check"
     ]
   },
   "validate-branch-name": {

@@ -85,18 +85,18 @@ module.exports = {
       // Class naming: "PascalCase"
       {
         selector: ['class'],
-        format: ['PascalCase'],
+        format: ['StrictPascalCase'],
       },
       // Class properties (public/protected): "camelCase"
       {
         selector: ['classProperty'],
         modifiers: ['public'],
-        format: ['camelCase'],
+        format: ['strictCamelCase'],
       },
       {
         selector: ['classProperty'],
         modifiers: ['protected'],
-        format: ['camelCase'],
+        format: ['strictCamelCase'],
       },
       // Class properties (private): underscore-prefixed "camelCase"
       {
@@ -107,34 +107,34 @@ module.exports = {
         ],
         modifiers: ['private'],
         prefix: ['_'],
-        format: ['camelCase'],
+        format: ['strictCamelCase'],
       },
       // Class methods: "camelCase"
       {
         selector: ['classMethod'],
-        format: ['camelCase'],
+        format: ['strictCamelCase'],
       },
       // Parameters and arguments: "camelCase"
       {
         selector: ['parameter'],
-        format: ['camelCase'],
+        format: ['strictCamelCase'],
       },
       // Interfaces: prefix "I"
       {
         selector: ['interface'],
         prefix: ['I'],
-        format: ['PascalCase'],
+        format: ['StrictPascalCase'],
       },
       // Variables: "camelCase"
       {
         selector: ['variable'],
-        format: ['camelCase'],
+        format: ['strictCamelCase'],
       },
       // Constants: "camelCase"
       {
         selector: ['variable'],
-        modifiers: ['const'],
-        format: ['camelCase'],
+        format: ['strictCamelCase', 'StrictPascalCase'],
+        types: ['function'],
       },
     ],
     // Class fields: explicit member accessibility

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styles from './App.module.css';
+import styles from './app.component.module.css';
 
 const App: FC = () => (
   <section>
@@ -9,4 +9,5 @@ const App: FC = () => (
     </div>
   </section>
 );
+
 export default App;

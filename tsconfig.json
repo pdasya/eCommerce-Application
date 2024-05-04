@@ -18,7 +18,15 @@
       {
         "name": "typescript-plugin-css-modules"
       }
-    ]
+    ],
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@widgets/*": ["./src/widgets/*"],
+      "@features/*": ["./src/features/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@shared/*": ["./src/shared/*"]
+    }
   },
   "exclude": [
     "node_modules",

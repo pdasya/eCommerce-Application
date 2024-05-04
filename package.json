@@ -13,7 +13,8 @@
     "ci:format": "prettier --check .",
     "prepare": "husky",
     "pre-push": "validate-branch-name",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "test": "jest"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
@@ -35,16 +36,22 @@
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.16",
     "@types/node": "^20.12.8",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-react": "^7.24.1",
     "@cspell/dict-ru_ru": "^2.2.1",
     "@cspell/eslint-plugin": "^8.7.0",
     "@shopify/eslint-plugin": "^44.0.0",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.6",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
+    "babel-jest": "^29.7.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "5.1.1",
     "dotenv-webpack": "^8.1.0",
@@ -56,6 +63,10 @@
     "eslint-plugin-unicorn": "^52.0.0",
     "html-webpack-plugin": "^5.6.0",
     "husky": "^9.0.11",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-transformer-svg": "^2.0.2",
     "lint-staged": "^15.2.2",
     "mini-css-extract-plugin": "^2.9.0",
     "postcss": "^8.4.38",
@@ -63,6 +74,7 @@
     "prettier-plugin-multiline-arrays": "^3.0.4",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
+    "ts-jest": "^29.1.2",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5",
     "typescript-plugin-css-modules": "^5.1.0",

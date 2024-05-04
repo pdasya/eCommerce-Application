@@ -13,8 +13,7 @@
     "ci:format": "prettier --check .",
     "prepare": "husky",
     "pre-push": "validate-branch-name",
-    "pre-commit": "lint-staged",
-    "test": "jest"
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [

@@ -4,8 +4,10 @@ import '@testing-library/jest-dom';
 import { Dummy } from '..';
 
 describe('dummy component', () => {
+  let rendered: ReturnType<typeof render>;
+
   beforeEach(() => {
-    render(<Dummy />);
+    rendered = render(<Dummy />);
   });
 
   test("renders heading with 'Some header' text content", () => {
@@ -25,6 +27,6 @@ describe('dummy component', () => {
   });
 
   test('snapshot test', () => {
-    expect(screen).toMatchSnapshot('dummy');
+    expect(rendered.asFragment()).toMatchSnapshot('dummy');
   });
 });

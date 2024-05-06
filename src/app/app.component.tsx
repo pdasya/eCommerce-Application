@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Product } from '@commercetools/platform-sdk';
 import { apiRoot } from '../commercetools/client';
+import { lineBreaker } from '../constants/constants';
 
 const App = (): ReactElement => {
   const [productsList, setProductsList] = useState<Product[]>([]);
@@ -22,7 +23,7 @@ const App = (): ReactElement => {
   return (
     <div>
       {productsList.map(product => (
-        <pre key={product.id}>{JSON.stringify(product, undefined)}</pre>
+        <pre key={product.id}>{JSON.stringify(product, undefined, lineBreaker)}</pre>
       ))}
     </div>
   );

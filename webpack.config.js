@@ -81,7 +81,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.tsx$/i,
+        test: /\.(ts|tsx)$/i,
         use: 'ts-loader',
       },
       {

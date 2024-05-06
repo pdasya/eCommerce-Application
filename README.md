@@ -38,3 +38,71 @@ Before you begin, ensure you have the following installed:
 3. **Set up environment variables**
    - Copy the `.env.example` file to a new file named `.env`.
    - Modify the `.env` file to include your local environment variables and API keys necessary for the project.
+
+### Available scripts
+
+`start` : Launches webpack in development server mode and automatically opens the browser.
+
+```bash
+   npm run start
+```
+
+`dev` : Builds the project using webpack in development mode.
+
+```bash
+   npm run dev
+```
+
+`prod` : Builds the project using webpack in production mode.
+
+```bash
+   npm run prod
+```
+
+`lint` : Runs ESLint to check all `.ts` and `.tsx` files in the project and automatically fixes detected issues.
+
+```bash
+   npm run lint
+```
+
+`ci:lint` : Runs ESLint to check all `.ts` and `.tsx` files in the project without automatic fixing.
+
+```bash
+   npm run ci:lint
+```
+
+`format` : Runs Prettier to format all files in the project.
+
+```bash
+   npm run format
+```
+
+`ci:format` : Checks all project files with Prettier for formatting compliance.
+
+```bash
+   npm run ci:format
+```
+
+`prepare` : Sets up Husky hooks
+
+```bash
+   npm run prepare
+```
+
+`pre-push` : Checks the branch name before pushing to the remote repository.
+
+```bash
+   npm run pre-push
+```
+
+`pre-commit` : Runs `lint-staged` to apply linters only to the staged files before committing.
+
+```bash
+   npm run pre-commit
+```
+
+`test` : Runs tests using Jest.
+
+```bash
+   npm run test
+```

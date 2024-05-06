@@ -1,13 +1,31 @@
-import React, { FC } from 'react';
-import styles from './app.component.module.css';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Product } from '@commercetools/platform-sdk';
+import { apiRoot } from '../commercetools/client';
 
-const App: FC = () => (
-  <section>
-    <div className={styles.App}>
-      <h1 className={styles.App__title}>React TypeScript Webpack Starter Template</h1>
-      <p className={styles.App__text}>Text</p>
+const App = (): ReactElement => {
+  const [productsList, setProductsList] = useState<Product[]>([]);
+
+  const getProductsList = async (): Promise<void> => {
+    try {
+      const response = await apiRoot.products().get().execute();
+      const products = response.body.results;
+      setProductsList(products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductsList();
+  }, []);
+
+  return (
+    <div>
+      {productsList.map(product => (
+        <pre key={product.id}>{JSON.stringify(product, undefined)}</pre>
+      ))}
     </div>
-  </section>
-);
+  );
+};
 
 export default App;

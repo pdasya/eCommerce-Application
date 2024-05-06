@@ -12,8 +12,9 @@
     "format": "prettier --write .",
     "ci:format": "prettier --check .",
     "prepare": "husky",
-    "pre-push": "validate-branch-name",
-    "pre-commit": "lint-staged"
+    "pre-push": "validate-branch-name && npm run test",
+    "pre-commit": "lint-staged",
+    "test": "jest"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [

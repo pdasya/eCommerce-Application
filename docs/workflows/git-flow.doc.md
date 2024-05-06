@@ -23,9 +23,20 @@ For each feature separate branch should be created from `sprint-n` branch in for
 
   _Example:_ `CUSTOM-ECOMM-1-addSomethingToProject`
 
+# Approving
+
+:warning: Performing a merge without at least one approval from any team member or any mentor is prohibited
+
+:information_source: Please use only `Approve` or `Request changes`, but not `Comment` review type
+
+- If you leave only recommendations that it is advisable to take into account and it is not necessary to make corrections right now, or the changes are so insignificant that they do not require re-approval - use `Approve` type
+- If there are significant comments or issues that require consideration and discussion with re-checking, use `Request changes` type
+
+:information_source: If the task does not block other tasks and does not create potential merge conflicts that are difficult to resolve, it is recommended to wait for approval from all team members. This approach will help us to be up to date with the project's code base, learn from each other, and pass on best practices.
+
 # Merging
 
-:warning: Direct pushes into `main`, `develop` or `sprint-n` branches are prohibited. All merging operations must be performed only via `Pull requests`.
+:warning: Direct pushes into `main`, `develop` or `sprint-n` branches are prohibited. All merging operations must be performed only via `Pull requests`
 
 **To keep commit history clean:**
 

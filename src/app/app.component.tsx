@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { Product } from '@commercetools/platform-sdk';
 import { apiRoot } from '../commercetools/client';
 import { lineBreaker } from '../constants/constants';
+import styles from './app.component.module.css';
 
 const App = (): ReactElement => {
   const [productsList, setProductsList] = useState<Product[]>([]);
@@ -21,9 +22,11 @@ const App = (): ReactElement => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.app}>
       {productsList.map(product => (
-        <pre key={product.id}>{JSON.stringify(product, undefined, lineBreaker)}</pre>
+        <pre className={styles.app__item} key={product.id}>
+          {JSON.stringify(product, undefined, lineBreaker)}
+        </pre>
       ))}
     </div>
   );

@@ -1,3 +1,4 @@
+import React from 'react';
 import App from '@app/app.component';
 import { AboutPage } from '@pages/about/about.page';
 import { CartPage } from '@pages/cart/cart.page';
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
   {
     path: Route.main,
     Component: MainPage,
+    errorElement: <Http404Page />,
   },
   {
     path: Route.app,

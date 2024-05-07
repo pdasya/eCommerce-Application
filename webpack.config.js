@@ -7,10 +7,11 @@ const Dotenv = require('dotenv-webpack');
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const devTool = devMode ? 'inline-source-map' : undefined;
-const devServer = devMode ? { static: path.resolve(__dirname, './dist') } : undefined;
 const distFolder = 'dist';
 const srcImageFolder = path.resolve(__dirname, './src/images');
 const distImageFolder = path.resolve(__dirname, `./${distFolder}/images`);
+
+const devServer = { static: path.resolve(__dirname, './dist'), historyApiFallback: true };
 
 const styleHandler = devMode
   ? 'style-loader'
@@ -39,7 +40,7 @@ module.exports = {
   entry: path.resolve(__dirname, './src/index'),
   mode: mode,
   devtool: devTool,
-  devServer: devServer,
+  devServer: devMode ? devServer : undefined,
   module: {
     rules: [
       {
@@ -97,7 +98,7 @@ module.exports = {
       '.js',
     ],
     alias: {
-      '@': path.resolve(__dirname, './'),
+      '@': path.resolve(__dirname, './src'),
       '@app': path.resolve(__dirname, './src/app'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@widgets': path.resolve(__dirname, './src/widgets'),

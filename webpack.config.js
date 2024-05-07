@@ -96,6 +96,15 @@ module.exports = {
       '.ts',
       '.js',
     ],
+    alias: {
+      '@': path.resolve(__dirname, './'),
+      '@app': path.resolve(__dirname, './src/app'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@widgets': path.resolve(__dirname, './src/widgets'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@entities': path.resolve(__dirname, './src/entities'),
+      '@shared': path.resolve(__dirname, './src/shared'),
+    },
   },
   output: {
     path: path.resolve(__dirname, `./${distFolder}`),

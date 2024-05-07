@@ -30,6 +30,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    'import/extensions': 'off',
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
     'no-debugger': 'off',
     'no-console': 'off',

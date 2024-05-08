@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styles from './signUpForm.component.module.scss';
+import styles from './sign-up-form.component.module.scss';
 
 export const Dummy: FC = () => (
   <section>

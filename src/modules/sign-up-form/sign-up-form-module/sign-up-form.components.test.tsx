@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Dummy } from './signUpForm.component';
+import { Dummy } from './sign-up-form.component';
 
 describe('dummy component', () => {
   let rendered: ReturnType<typeof render>;

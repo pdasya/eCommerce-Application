@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IProduct } from '../interfaces/product.interface';
+import { IProduct } from './product.interface';
 
 type CartItem = {
   amount: number;

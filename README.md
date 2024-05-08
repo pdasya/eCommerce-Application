@@ -83,6 +83,18 @@ Before you begin, ensure you have the following installed:
    npm run ci:format
 ```
 
+`stylelint` : Runs Stylelint to automatic fix all `.css` and `.scss` files, where possible.
+
+```bash
+   npm run stylelint
+```
+
+`ci:stylelint` : Runs Stylelint to checks all `.css` and `.scss` files in the project without automatic fixing.
+
+```bash
+   npm run ci:stylelint
+```
+
 `prepare` : Sets up Husky hooks
 
 ```bash

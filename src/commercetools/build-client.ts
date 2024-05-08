@@ -8,7 +8,7 @@ import {
   apiUrl,
   scopes,
 } from '../constants/constants';
-import assertIsDefined from '../asserts/asserts';
+import assertIsDefined from '../types/asserts';
 
 assertIsDefined(projectKey);
 assertIsDefined(clientSecret);

@@ -18,12 +18,12 @@ export enum Route {
   cart = '/cart',
   catalog = '/catalog',
   http404 = '/404',
-  http500 = '500',
+  http500 = '/500',
   main = '/',
   product = '/product',
   profile = '/profile',
   signIn = '/sign-in',
-  signUp = 'signUp',
+  signUp = '/signUp',
 }
 
 export const router = createBrowserRouter([

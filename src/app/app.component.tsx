@@ -26,7 +26,7 @@ const App = (): ReactElement => {
     <div className={styles.app}>
       <DummyCart />
       {productsList.map(product => (
-        <pre className={styles.app__item} key={product.id}>
+        <pre className={styles.item} key={product.id}>
           {JSON.stringify(product, undefined, lineBreaker)}
         </pre>
       ))}

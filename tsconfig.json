@@ -13,6 +13,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": true,
     "esModuleInterop": true,
     "plugins": [
       {

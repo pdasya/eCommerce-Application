@@ -29,6 +29,44 @@ module.exports = {
     browser: true,
     node: true,
   },
+  overrides: [
+    {
+      // Overrides only for redux toolkit slices
+      files: ['src/**/*.slice.ts'],
+      rules: {
+        /**
+         * Due to `createSlice` use the Immer library to enable
+         * writing immutable updates using "mutating" JS syntax
+         **/
+        'no-param-reassign': ['error', { props: false }],
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          {
+            varsIgnorePattern: '^(action)$',
+          },
+        ],
+        /**
+         * Because type inference works well in this case and allows
+         * us to write more readable code without redundant typing
+         *
+         * Note from official docs: Instead of enabling typedef, it is generally
+         * recommended to use the --noImplicitAny and --strictPropertyInitialization
+         * compiler options to enforce type annotations only when useful.
+         *
+         * So maybe we need to disable this rule for the entire codebase.
+         * For now, we’ll try this, and if there are problems,
+         * we’ll turn it off for the entire project.
+         */
+        '@typescript-eslint/typedef': [
+          'error',
+          {
+            parameter: false,
+          },
+        ],
+      },
+    },
+  ],
   rules: {
     'import/extensions': 'off',
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],

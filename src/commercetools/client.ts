@@ -1,6 +1,6 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { client } from './build-client';
-import { projectKey } from '../constants/constants';
+import { projectKey } from '../config/constants';
 import assertIsDefined from '../types/asserts';
 
 assertIsDefined(projectKey);

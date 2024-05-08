@@ -4,7 +4,7 @@ exports[`dummy component snapshot test: dummy 1`] = `
 <DocumentFragment>
   <section>
     <div
-      class="Dummy"
+      class="dummy"
     >
       <h1>
         Some header

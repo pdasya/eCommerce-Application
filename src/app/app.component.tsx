@@ -3,7 +3,6 @@ import { Product } from '@commercetools/platform-sdk';
 import { apiRoot } from '../commercetools/client';
 import { lineBreaker } from '../config/constants';
 import styles from './app.component.module.css';
-import { DummyCart } from '../my-components/molecules/test-cart/test-cart.component';
 
 const App = (): ReactElement => {
   const [productsList, setProductsList] = useState<Product[]>([]);
@@ -24,7 +23,6 @@ const App = (): ReactElement => {
 
   return (
     <div className={styles.app}>
-      <DummyCart />
       {productsList.map(product => (
         <pre className={styles.item} key={product.id}>
           {JSON.stringify(product, undefined, lineBreaker)}

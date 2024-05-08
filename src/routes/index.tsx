@@ -11,6 +11,7 @@ import { ProfilePage } from '@pages/profile/profile.page';
 import { SignInPage } from '@pages/sign-in/sign-in.page';
 import { SignUpPage } from '@pages/sign-up/sign-up.page';
 import { createBrowserRouter } from 'react-router-dom';
+import { ReduxTestPage } from '@pages/redux-test/redux-test.page';
 
 export enum Route {
   app = '/app',
@@ -24,6 +25,7 @@ export enum Route {
   profile = '/profile',
   signIn = '/sign-in',
   signUp = '/signUp',
+  reduxTest = '/redux-test',
 }
 
 export const router = createBrowserRouter([
@@ -72,5 +74,9 @@ export const router = createBrowserRouter([
   {
     path: Route.signUp,
     Component: SignUpPage,
+  },
+  {
+    path: Route.reduxTest,
+    Component: ReduxTestPage,
   },
 ]);

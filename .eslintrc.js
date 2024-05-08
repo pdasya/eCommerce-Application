@@ -39,6 +39,7 @@ module.exports = {
          * writing immutable updates using "mutating" JS syntax
          **/
         'no-param-reassign': ['error', { props: false }],
+        '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',
           {

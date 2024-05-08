@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Product } from '@commercetools/platform-sdk';
 import { apiRoot } from '../commercetools/client';
-import { lineBreaker } from '../constants/constants';
+import { lineBreaker } from '../config/constants';
 import styles from './app.component.module.css';
 import { DummyCart } from '../my-components/molecules/test-cart/test-cart.component';
 

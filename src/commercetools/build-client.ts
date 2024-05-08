@@ -1,13 +1,6 @@
 import axios from 'axios';
 import { ClientBuilder } from '@commercetools/sdk-client-v2';
-import {
-  projectKey,
-  clientSecret,
-  clientId,
-  authUrl,
-  apiUrl,
-  scopes,
-} from '../constants/constants';
+import { projectKey, clientSecret, clientId, authUrl, apiUrl, scopes } from '../config/constants';
 import assertIsDefined from '../types/asserts';
 
 assertIsDefined(projectKey);

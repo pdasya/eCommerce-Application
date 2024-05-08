@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Product } from '@commercetools/platform-sdk';
 import { apiRoot } from '../commercetools/client';
-import { lineBreaker } from '../constants/constants';
+import { lineBreaker } from '../config/constants';
 import styles from './app.component.module.css';
 
 const App = (): ReactElement => {
@@ -24,7 +24,7 @@ const App = (): ReactElement => {
   return (
     <div className={styles.app}>
       {productsList.map(product => (
-        <pre className={styles.app__item} key={product.id}>
+        <pre className={styles.item} key={product.id}>
           {JSON.stringify(product, undefined, lineBreaker)}
         </pre>
       ))}

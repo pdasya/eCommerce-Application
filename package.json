@@ -23,7 +23,7 @@
       "eslint"
     ],
     "**/*{.css,.scss}": [
-      "ci:stylelint"
+      "stylelint"
     ],
     "*": [
       "prettier --check"

@@ -11,6 +11,8 @@
     "ci:lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
     "ci:format": "prettier --check .",
+    "stylelint": "stylelint './src/**/*{.css,.scss}' --fix",
+    "ci:stylelint": "stylelint './src/**/*{.css,.scss}'",
     "prepare": "husky",
     "pre-push": "validate-branch-name && npm run test",
     "pre-commit": "lint-staged",
@@ -19,6 +21,9 @@
   "lint-staged": {
     "**/*.{ts,tsx}": [
       "eslint"
+    ],
+    "./src/**/*{.css,.scss}": [
+      "ci:stylelint"
     ],
     "*": [
       "prettier --check"

@@ -5,6 +5,7 @@ import { FormTemplate } from '../../../components/input-form/input-form.componen
 /* eslint-disable max-lines-per-function */
 export const SignUpForm: FC = () => {
   const minPasswordLength = 8;
+  const minStreetNameLength = 1;
 
   const initialValues = {
     email: '',
@@ -33,6 +34,18 @@ export const SignUpForm: FC = () => {
     lastName: Yup.string()
       .matches(/^[A-Za-z]+$/, 'Last name must contain only alphabetic characters')
       .required('Last name is required'),
+    street: Yup.string()
+      .min(minStreetNameLength, 'Street must contain at least one character')
+      .required('Street is required'),
+    city: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
+      .required('City is required'),
+    postalCode: Yup.string()
+      .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
+      .required('Postal code is required'),
+    country: Yup.string()
+      .oneOf(['US'], 'Invalid country selection')
+      .required('Country is required'),
   });
 
   const handleSubmit = (values: Record<string, string>): void => {

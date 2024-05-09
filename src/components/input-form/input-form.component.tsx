@@ -1,5 +1,7 @@
-import React, { FC } from 'react';
-import { Formik, Field, Form } from 'formik';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-nested-ternary */ // With it not possible to write the condition
+import React, { FC, useState } from 'react';
+import { Formik, Field, Form, FieldProps } from 'formik';
 import {
   TextField,
   Button,
@@ -10,8 +12,13 @@ import {
   Select,
   InputLabel,
   FormControl,
+  InputAdornment,
+  IconButton,
 } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import * as Yup from 'yup';
+import styles from './input-form.component.module.scss';
 
 interface IFormField {
   id: string;
@@ -30,6 +37,29 @@ interface IFormTemplateProperties {
   validationSchema: Yup.ObjectSchema<Record<string, string>>;
   onSubmit: (values: Record<string, string>) => void;
 }
+
+const PasswordInputComponent: FC<FieldProps> = ({ field, ...props }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = (): void => setShowPassword(show => !show);
+  return (
+    <FormControl className={styles.passwordInput}>
+      <Field
+        {...props}
+        as={TextField}
+        type={showPassword ? 'text' : 'password'}
+        name={field.name}
+        variant="standard"
+      />
+      <div className={styles.passwordIcon}>
+        <InputAdornment position="end">
+          <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword}>
+            {showPassword ? <VisibilityOff /> : <Visibility />}
+          </IconButton>
+        </InputAdornment>
+      </div>
+    </FormControl>
+  );
+};
 
 /* eslint-disable max-lines-per-function */
 export const FormTemplate: FC<IFormTemplateProperties> = ({
@@ -72,6 +102,21 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
                         </MenuItem>
                       ))}
                     </Field>
+                  </FormControl>
+                ) : field.type === 'password' ? (
+                  <FormControl fullWidth variant="standard">
+                    <Field
+                      as={TextField}
+                      fullWidth
+                      label={field.label}
+                      name={field.name}
+                      type={field.type}
+                      required={field.required}
+                      variant="standard"
+                      error={touched[field.name] && Boolean(errors[field.name])}
+                      helperText={touched[field.name] && errors[field.name]}
+                      component={PasswordInputComponent}
+                    />
                   </FormControl>
                 ) : (
                   <Field

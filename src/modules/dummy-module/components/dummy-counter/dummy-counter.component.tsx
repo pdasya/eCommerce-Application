@@ -1,9 +1,9 @@
 import { Button, InputLabel } from '@mui/material';
 import React, { FC } from 'react';
 import styles from './dummy-counter.component.module.scss';
-import { useAppSelector } from '@/hooks/redux/useAppSelector.hook';
+import { useAppSelector } from '@/hooks/use-app-selector.hook';
 import { decrement, increment, selectCount } from './dummy-counter.slice';
-import { useAppDispatch } from '@/hooks/redux/useAppDispatch.hook';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 
 export const DummyCounter: FC = () => {
   const count = useAppSelector(selectCount);

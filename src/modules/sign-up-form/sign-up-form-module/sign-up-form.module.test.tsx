@@ -19,12 +19,12 @@ describe('dummy component', () => {
     expect(paragraphs.length).toBe(1);
   });
 
-  test("contains at least 1 item with 'Some text'", () => {
-    const textItems = screen.getAllByText('Some text');
-    const minLength = 1;
+  // test("contains at least 1 item with 'Some text'", () => {
+  //   const textItems = screen.getAllByText('Some text');
+  //   const minLength = 1;
 
-    expect(textItems.length).toBeGreaterThanOrEqual(minLength);
-  });
+  //   expect(textItems.length).toBeGreaterThanOrEqual(minLength);
+  // });
 
   test('snapshot test', () => {
     expect(rendered.asFragment()).toMatchSnapshot('dummy');

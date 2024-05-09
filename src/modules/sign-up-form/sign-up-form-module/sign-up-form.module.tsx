@@ -1,33 +1,25 @@
 import React, { FC } from 'react';
 import { FormTemplate } from '../../../components/input-form/input-form.component';
-// import * as Yup from 'yup';
 
 /* eslint-disable max-lines-per-function */
 export const SignUpForm: FC = () => {
   const initialValues = {
-    username: '',
     email: '',
     password: '',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    street: '',
+    city: '',
+    postalCode: '',
+    country: '',
   };
-
-  // const validationSchema = Yup.object({
-  //   username: Yup.string().required('Username is required'),
-  //   email: Yup.string().email('Invalid email address').required('Email is required'),
-  //   password: Yup.string().required('Password is required'),
-  // });
 
   const handleSubmit = (values: Record<string, string>): void => {
     console.log('Form Values:', values);
   };
 
   const fields = [
-    {
-      id: 'username',
-      name: 'username',
-      label: 'Username',
-      type: 'text',
-      required: true,
-    },
     {
       id: 'email',
       name: 'email',
@@ -42,6 +34,60 @@ export const SignUpForm: FC = () => {
       type: 'password',
       required: true,
     },
+    {
+      id: 'firstName',
+      name: 'firstName',
+      label: 'First Name',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'lastName',
+      name: 'lastName',
+      label: 'Last Name',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'dateOfBirth',
+      name: 'dateOfBirth',
+      label: 'Date of Birth',
+      type: 'date',
+      required: true,
+    },
+    {
+      id: 'street',
+      name: 'street',
+      label: 'Street',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'city',
+      name: 'city',
+      label: 'City',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'postalCode',
+      name: 'postalCode',
+      label: 'Postal Code',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'country',
+      name: 'country',
+      label: 'Country',
+      type: 'select',
+      required: true,
+      options: [
+        { label: 'United States', value: 'US' },
+        { label: 'Canada', value: 'CA' },
+        { label: 'United Kingdom', value: 'UK' },
+      ],
+    },
   ];
 
   return (
@@ -50,7 +96,6 @@ export const SignUpForm: FC = () => {
       buttonText="Register"
       fields={fields}
       initialValues={initialValues}
-      // validationSchema={validationSchema}
       onSubmit={handleSubmit}
     />
   );

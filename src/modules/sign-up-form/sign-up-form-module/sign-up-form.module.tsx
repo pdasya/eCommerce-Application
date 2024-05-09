@@ -4,6 +4,8 @@ import { FormTemplate } from '../../../components/input-form/input-form.componen
 
 /* eslint-disable max-lines-per-function */
 export const SignUpForm: FC = () => {
+  const minPasswordLength = 8;
+
   const initialValues = {
     email: '',
     password: '',
@@ -18,6 +20,13 @@ export const SignUpForm: FC = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
+    password: Yup.string()
+      .min(minPasswordLength, 'Password must be at least 8 characters long')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+      )
+      .required('Password is required'),
   });
 
   const handleSubmit = (values: Record<string, string>): void => {

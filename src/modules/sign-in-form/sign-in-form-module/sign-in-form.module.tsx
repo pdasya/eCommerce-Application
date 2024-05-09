@@ -12,7 +12,13 @@ export const SignInForm: FC = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email address').required('Email is required'),
+    email: Yup.string()
+      .email('Invalid email address')
+      .matches(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/,
+        'Email must be at example name@example.com',
+      )
+      .required('Email is required'),
     password: Yup.string()
       .min(minPasswordLength, 'Password must be at least 8 characters long')
       .matches(

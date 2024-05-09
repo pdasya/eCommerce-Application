@@ -1,24 +1,23 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { FormTemplate } from '../../../components/input-form/input-form.component';
+// import * as Yup from 'yup';
 
 /* eslint-disable max-lines-per-function */
 export const SignUpForm: FC = () => {
-  const [form, setForm] = useState({
+  const initialValues = {
     username: '',
     email: '',
     password: '',
-  });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = event.target;
-    setForm(previousForm => ({
-      ...previousForm,
-      [name]: value,
-    }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
+  // const validationSchema = Yup.object({
+  //   username: Yup.string().required('Username is required'),
+  //   email: Yup.string().email('Invalid email address').required('Email is required'),
+  //   password: Yup.string().required('Password is required'),
+  // });
+
+  const handleSubmit = (values: Record<string, string>): void => {
+    console.log('Form Values:', values);
   };
 
   const fields = [
@@ -27,8 +26,6 @@ export const SignUpForm: FC = () => {
       name: 'username',
       label: 'Username',
       type: 'text',
-      value: form.username,
-      onChange: handleChange,
       required: true,
     },
     {
@@ -36,8 +33,6 @@ export const SignUpForm: FC = () => {
       name: 'email',
       label: 'Email',
       type: 'email',
-      value: form.email,
-      onChange: handleChange,
       required: true,
     },
     {
@@ -45,13 +40,18 @@ export const SignUpForm: FC = () => {
       name: 'password',
       label: 'Password',
       type: 'password',
-      value: form.password,
-      onChange: handleChange,
       required: true,
     },
   ];
 
   return (
-    <FormTemplate title="Sign Up" buttonText="Register" fields={fields} onSubmit={handleSubmit} />
+    <FormTemplate
+      title="Sign Up"
+      buttonText="Register"
+      fields={fields}
+      initialValues={initialValues}
+      // validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    />
   );
 };

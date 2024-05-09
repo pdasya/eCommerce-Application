@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import * as Yup from 'yup';
 import { FormTemplate } from '../../../components/input-form/input-form.component';
 
 /* eslint-disable max-lines-per-function */
@@ -14,6 +15,10 @@ export const SignUpForm: FC = () => {
     postalCode: '',
     country: '',
   };
+
+  const validationSchema = Yup.object({
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+  });
 
   const handleSubmit = (values: Record<string, string>): void => {
     console.log('Form Values:', values);
@@ -82,11 +87,7 @@ export const SignUpForm: FC = () => {
       label: 'Country',
       type: 'select',
       required: true,
-      options: [
-        { label: 'United States', value: 'US' },
-        { label: 'Canada', value: 'CA' },
-        { label: 'United Kingdom', value: 'UK' },
-      ],
+      options: [{ label: 'United States', value: 'US' }],
     },
   ];
 
@@ -96,6 +97,7 @@ export const SignUpForm: FC = () => {
       buttonText="Register"
       fields={fields}
       initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={handleSubmit}
     />
   );

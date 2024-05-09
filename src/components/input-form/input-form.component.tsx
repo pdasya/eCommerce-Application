@@ -11,6 +11,7 @@ import {
   InputLabel,
   FormControl,
 } from '@mui/material';
+import * as Yup from 'yup';
 
 interface IFormField {
   id: string;
@@ -26,6 +27,7 @@ interface IFormTemplateProperties {
   buttonText: string;
   fields: IFormField[];
   initialValues: Record<string, string>;
+  validationSchema: Yup.ObjectSchema<Record<string, string>>;
   onSubmit: (values: Record<string, string>) => void;
 }
 
@@ -35,6 +37,7 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
   buttonText,
   fields,
   initialValues,
+  validationSchema,
   onSubmit,
 }) => (
   <Paper
@@ -48,7 +51,7 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
     <Typography variant="h2" align="center" gutterBottom>
       {title}
     </Typography>
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {({ errors, touched }) => (
         <Form>
           <Grid container spacing={2}>

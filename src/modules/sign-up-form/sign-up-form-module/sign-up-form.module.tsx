@@ -27,6 +27,12 @@ export const SignUpForm: FC = () => {
         'Password must contain at least one uppercase letter, one lowercase letter, and one number',
       )
       .required('Password is required'),
+    firstName: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'First name must contain only alphabetic characters')
+      .required('First name is required'),
+    lastName: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'Last name must contain only alphabetic characters')
+      .required('Last name is required'),
   });
 
   const handleSubmit = (values: Record<string, string>): void => {

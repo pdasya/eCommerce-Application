@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { FormTemplate } from '../../../components/input-form/input-form.component';
+import { minPasswordLength } from '@/config/constants';
 
 /* eslint-disable max-lines-per-function */
 export const SignUpForm: FC = () => {
-  const minPasswordLength = 8;
   const minStreetNameLength = 1;
   const minAge = 13;
 

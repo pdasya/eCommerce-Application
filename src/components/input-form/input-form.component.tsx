@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */ // With it not possible to write the condition
 import React, { FC, useState } from 'react';
-import { Formik, Field, Form, FieldProps } from 'formik';
+import { Formik, Field, Form, FieldProps, ErrorMessage } from 'formik';
 import {
   TextField,
   Button,
@@ -14,6 +14,7 @@ import {
   FormControl,
   InputAdornment,
   IconButton,
+  FormHelperText,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -61,6 +62,17 @@ const PasswordInputComponent: FC<FieldProps> = ({ field, ...props }) => {
   );
 };
 
+const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
+  <ErrorMessage
+    name={name}
+    render={msg => (
+      <FormHelperText error style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
+        {msg}
+      </FormHelperText>
+    )}
+  />
+);
+
 /* eslint-disable max-lines-per-function */
 export const FormTemplate: FC<IFormTemplateProperties> = ({
   title,
@@ -102,6 +114,7 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
                         </MenuItem>
                       ))}
                     </Field>
+                    {touched[field.name] && <BoldUppercaseError name={field.name} />}
                   </FormControl>
                 ) : field.type === 'password' ? (
                   <FormControl fullWidth variant="standard">
@@ -114,7 +127,7 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
                       required={field.required}
                       variant="standard"
                       error={touched[field.name] && Boolean(errors[field.name])}
-                      helperText={touched[field.name] && errors[field.name]}
+                      helperText={touched[field.name] && <BoldUppercaseError name={field.name} />}
                       component={PasswordInputComponent}
                     />
                   </FormControl>
@@ -128,7 +141,7 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
                     required={field.required}
                     variant="standard"
                     error={touched[field.name] && Boolean(errors[field.name])}
-                    helperText={touched[field.name] && errors[field.name]}
+                    helperText={touched[field.name] && <BoldUppercaseError name={field.name} />}
                   />
                 )}
               </Grid>

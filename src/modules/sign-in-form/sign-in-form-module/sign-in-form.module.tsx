@@ -13,7 +13,7 @@ export const SignInForm: FC = () => {
   const validationSchema = Yup.object({
     email: Yup.string()
       .matches(
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/,
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)$/,
         "Email must be at example user@example.com and doesn't have spaces",
       )
       .required('Email is required'),

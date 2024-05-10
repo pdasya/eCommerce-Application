@@ -6,3 +6,5 @@ export const apiUrl = process.env.CTP_API_URL;
 export const scopes = process.env.CTP_SCOPES;
 
 export const lineBreaker = 2;
+
+export const minPasswordLength = 8;

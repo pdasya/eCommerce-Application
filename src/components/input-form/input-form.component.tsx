@@ -1,7 +1,17 @@
 import React, { FC } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { TextField, Button, Paper, Typography, Grid } from '@mui/material';
-// import * as Yup from 'yup';
+import {
+  TextField,
+  Button,
+  Paper,
+  Typography,
+  Grid,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
+import * as Yup from 'yup';
 
 interface IFormField {
   id: string;
@@ -9,6 +19,7 @@ interface IFormField {
   label: string;
   type: string;
   required?: boolean;
+  options?: { label: string; value: string }[]; // For select input
 }
 
 interface IFormTemplateProperties {
@@ -16,7 +27,7 @@ interface IFormTemplateProperties {
   buttonText: string;
   fields: IFormField[];
   initialValues: Record<string, string>;
-  // validationSchema: Yup.ObjectSchema;
+  validationSchema: Yup.ObjectSchema<Record<string, string | Date>>;
   onSubmit: (values: Record<string, string>) => void;
 }
 
@@ -26,7 +37,7 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
   buttonText,
   fields,
   initialValues,
-  // validationSchema,
+  validationSchema,
   onSubmit,
 }) => (
   <Paper
@@ -40,26 +51,41 @@ export const FormTemplate: FC<IFormTemplateProperties> = ({
     <Typography variant="h2" align="center" gutterBottom>
       {title}
     </Typography>
-    <Formik
-      initialValues={initialValues}
-      // validationSchema={validationSchema}
-      onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {({ errors, touched }) => (
         <Form>
           <Grid container spacing={2}>
             {fields.map(field => (
               <Grid item xs={12} key={field.id}>
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label={field.label}
-                  name={field.name}
-                  type={field.type}
-                  required={field.required}
-                  variant="standard"
-                  error={touched[field.name] && Boolean(errors[field.name])}
-                  helperText={touched[field.name] && errors[field.name]}
-                />
+                {field.type === 'select' ? (
+                  <FormControl fullWidth variant="standard">
+                    <InputLabel required={field.required}>{field.label}</InputLabel>
+                    <Field
+                      as={Select}
+                      name={field.name}
+                      label={field.label}
+                      required={field.required}
+                      error={touched[field.name] && Boolean(errors[field.name])}>
+                      {field.options?.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Field>
+                  </FormControl>
+                ) : (
+                  <Field
+                    as={TextField}
+                    fullWidth
+                    label={field.label}
+                    name={field.name}
+                    type={field.type}
+                    required={field.required}
+                    variant="standard"
+                    error={touched[field.name] && Boolean(errors[field.name])}
+                    helperText={touched[field.name] && errors[field.name]}
+                  />
+                )}
               </Grid>
             ))}
           </Grid>

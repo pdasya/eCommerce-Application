@@ -27,7 +27,7 @@ interface IFormTemplateProperties {
   buttonText: string;
   fields: IFormField[];
   initialValues: Record<string, string>;
-  validationSchema: Yup.ObjectSchema<Record<string, string>>;
+  validationSchema: Yup.ObjectSchema<Record<string, string | Date>>;
   onSubmit: (values: Record<string, string>) => void;
 }
 

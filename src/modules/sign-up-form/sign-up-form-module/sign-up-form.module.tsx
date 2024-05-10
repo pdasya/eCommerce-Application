@@ -6,6 +6,7 @@ import { FormTemplate } from '../../../components/input-form/input-form.componen
 export const SignUpForm: FC = () => {
   const minPasswordLength = 8;
   const minStreetNameLength = 1;
+  const minAge = 13;
 
   const initialValues = {
     email: '',
@@ -34,6 +35,12 @@ export const SignUpForm: FC = () => {
     lastName: Yup.string()
       .matches(/^[A-Za-z]+$/, 'Last name must contain only alphabetic characters')
       .required('Last name is required'),
+    dateOfBirth: Yup.date()
+      .max(
+        new Date(new Date().setFullYear(new Date().getFullYear() - minAge)),
+        'You must be at least 13 years old',
+      )
+      .required('Date of birth is required'),
     street: Yup.string()
       .min(minStreetNameLength, 'Street must contain at least one character')
       .required('Street is required'),

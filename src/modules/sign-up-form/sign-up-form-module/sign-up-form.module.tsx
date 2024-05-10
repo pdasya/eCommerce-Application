@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { FormTemplate } from '../../../components/input-form/input-form.component';
 import { minPasswordLength } from '@/config/constants';
 
@@ -55,27 +54,6 @@ export const SignUpForm: FC = () => {
       .oneOf(['US'], 'Invalid country selection')
       .required('Country is required'),
   });
-
-  const [countries, setCountries] = useState([]);
-
-  const getCountries = async (): Promise<void> => {
-    try {
-      const response = await axios('https://restcountries.com/v3.1/all');
-      const countriesList = response.data.map(
-        (country: { name: { common: string }; cca2: string }) => ({
-          label: country.name.common,
-          value: country.cca2,
-        }),
-      );
-      setCountries(countriesList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getCountries();
-  }, []);
 
   const handleSubmit = (values: Record<string, string>): void => {
     console.log('Form Values:', values);
@@ -144,7 +122,7 @@ export const SignUpForm: FC = () => {
       label: 'Country',
       type: 'select',
       required: true,
-      options: countries,
+      options: [{ label: 'United States', value: 'US' }],
     },
   ];
 

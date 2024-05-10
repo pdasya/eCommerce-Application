@@ -66,7 +66,7 @@ const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage
     name={name}
     render={msg => (
-      <FormHelperText error style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
+      <FormHelperText error className={styles.errorMessage}>
         {msg}
       </FormHelperText>
     )}

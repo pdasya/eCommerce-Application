@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { AccountCircle } from '@mui/icons-material';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { Route } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
@@ -21,15 +21,17 @@ export const UserBar: FC = () => {
 
   return (
     <div className={styles.bar}>
-      <IconButton
-        size="large"
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={handleMenu}
-        color="inherit">
-        <AccountCircle />
-      </IconButton>
+      <Tooltip title="Account">
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit">
+          <AccountCircle />
+        </IconButton>
+      </Tooltip>
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}

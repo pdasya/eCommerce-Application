@@ -20,13 +20,13 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
-      "eslint"
+      "npm run lint"
     ],
     "**/*{.css,.scss}": [
-      "stylelint"
+      "stylelint --fix"
     ],
     "*": [
-      "prettier --check"
+      "npm run format"
     ]
   },
   "validate-branch-name": {

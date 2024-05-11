@@ -28,8 +28,6 @@ export const NavBar: FC = () => {
     { caption: 'Product', path: Route.product },
     { caption: 'Profile', path: Route.profile },
     { caption: 'Test', path: Route.reduxTest },
-    { caption: 'SingIn', path: Route.signIn },
-    { caption: 'SingUp', path: Route.signUp },
   ];
 
   return (

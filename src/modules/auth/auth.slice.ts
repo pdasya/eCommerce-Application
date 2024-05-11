@@ -3,12 +3,12 @@ import { RootState } from '@/store';
 
 interface IAuthState {
   isAuthorized: boolean;
-  id: number;
+  id: number | null;
 }
 
 const initialState: IAuthState = {
   isAuthorized: false,
-  id: -1,
+  id: null,
 };
 
 const authSlice = createSlice({

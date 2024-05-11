@@ -7,10 +7,6 @@ interface ICustomRouterLinkProperties extends LinkProps {
   activeClassName?: string;
 }
 
-const defaultProperties = {
-  activeClassName: '',
-};
-
 export const CustomRouterLink = ({
   children,
   to,
@@ -29,5 +25,3 @@ export const CustomRouterLink = ({
     </Link>
   );
 };
-
-CustomRouterLink.defaultProps = defaultProperties;

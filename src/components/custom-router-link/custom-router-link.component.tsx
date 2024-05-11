@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Link, LinkProps, useMatch, useResolvedPath } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './custom-router-link.component.module.scss';
@@ -13,7 +13,7 @@ const defaultProperties = {
 
 // Spread used because it is just wrapper
 // eslint-disable-next-line react/jsx-props-no-spreading
-export const CustomRouterLink: FC = ({
+export const CustomRouterLink = ({
   children,
   to,
   activeClassName = '',

@@ -11,8 +11,6 @@ const defaultProperties = {
   activeClassName: '',
 };
 
-// Spread used because it is just wrapper
-// eslint-disable-next-line react/jsx-props-no-spreading
 export const CustomRouterLink = ({
   children,
   to,
@@ -25,7 +23,6 @@ export const CustomRouterLink = ({
   return (
     <Link
       to={to}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       className={classNames(styles.link, props.className, match && activeClassName)}>
       {children}

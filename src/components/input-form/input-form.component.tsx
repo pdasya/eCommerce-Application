@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-nested-ternary */ // With it not possible to write the condition
 import React, { FC, useState } from 'react';
 import { Formik, Field, Form, FieldProps, ErrorMessage } from 'formik';
 import {
@@ -73,7 +71,6 @@ const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   />
 );
 
-/* eslint-disable max-lines-per-function */
 export const FormTemplate: FC<IFormTemplateProperties> = ({
   title,
   buttonText,

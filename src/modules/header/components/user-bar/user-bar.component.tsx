@@ -1,14 +1,12 @@
-/* eslint-disable */
-import { IconButton, Menu, MenuItem } from '@mui/material';
 import React, { FC } from 'react';
+import { AccountCircle } from '@mui/icons-material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import { Route } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
-import styles from './user-bar.component.module.scss';
-import { AccountCircle } from '@mui/icons-material';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 import { unauthorize } from '@/modules/auth/auth.slice';
+import styles from './user-bar.component.module.scss';
 
-// eslint-disable-next-line max-lines-per-function
 export const UserBar: FC = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

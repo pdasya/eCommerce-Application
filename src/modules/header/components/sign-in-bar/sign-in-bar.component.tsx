@@ -1,12 +1,11 @@
-/* eslint-disable */
-import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import React, { FC } from 'react';
+import { Button, IconButton, Tooltip, Typography } from '@mui/material';
+import { HowToReg, Login } from '@mui/icons-material';
 import { Route } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
-import styles from './sign-in-bar.component.module.scss';
-import { HowToReg, Login } from '@mui/icons-material';
 
-// eslint-disable-next-line max-lines-per-function
+import styles from './sign-in-bar.component.module.scss';
+
 export const SignInBar: FC = () => (
   <div className={styles.bar}>
     <CustomRouterLink to={Route.signIn}>

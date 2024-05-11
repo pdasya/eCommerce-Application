@@ -1,14 +1,12 @@
-/* eslint-disable */
 import React, { FC } from 'react';
+import { useMatch, useResolvedPath } from 'react-router-dom';
 import { Box, Button, IconButton, MenuItem, Tooltip, Typography } from '@mui/material';
+import { Menu as MenuIcon } from '@mui/icons-material';
+import Menu from '@mui/material/Menu';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { Route } from '@/routes';
 import styles from './nav-bar.component.module.scss';
-import { useMatch, useResolvedPath } from 'react-router-dom';
-import { Menu as MenuIcon } from '@mui/icons-material';
-import Menu from '@mui/material/Menu';
 
-// eslint-disable-next-line max-lines-per-function
 export const NavBar: FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 

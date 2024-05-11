@@ -36,6 +36,8 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
+    'no-nested-ternary': 'off',
+    'react/jsx-props-no-spreading': 'off',
     curly: 'error',
   },
   noInlineConfig: false,

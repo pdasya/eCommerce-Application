@@ -26,7 +26,14 @@ module.exports = {
     browser: true,
     node: true,
   },
-  overrides: [],
+  overrides: [
+    {
+      files: ['src/**/*.slice.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
+  ],
   rules: {
     'no-param-reassign': 'off',
     'import/extensions': 'off',

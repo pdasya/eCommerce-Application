@@ -20,7 +20,6 @@ const authSlice = createSlice({
       state.isAuthorized = true;
       state.id = action.payload.id;
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     unauthorize(state, action) {
       console.log('logged out');
       state.isAuthorized = false;

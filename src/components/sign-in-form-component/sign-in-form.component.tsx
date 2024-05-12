@@ -14,7 +14,7 @@ interface IFormField {
   required?: boolean;
 }
 
-interface ISignInFormTemplateProperties {
+interface ISignInFormComponentProperties {
   title: string;
   buttonText: string;
   fields: IFormField[];
@@ -27,7 +27,7 @@ const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
 );
 
-export const SignInFormTemplate: FC<ISignInFormTemplateProperties> = ({
+const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
   title,
   buttonText,
   fields,
@@ -75,3 +75,5 @@ export const SignInFormTemplate: FC<ISignInFormTemplateProperties> = ({
     </Formik>
   </Paper>
 );
+
+export default SignInFormComponent;

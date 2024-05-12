@@ -1,35 +1,15 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { Product } from '@commercetools/platform-sdk';
-import { apiRoot } from '../commercetools/client';
-import { lineBreaker } from '../config/constants';
-import styles from './app.component.module.css';
+import React, { ReactElement } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Header } from '@/modules/header';
+import styles from './app.component.module.scss';
 
-const App = (): ReactElement => {
-  const [productsList, setProductsList] = useState<Product[]>([]);
-
-  const getProductsList = async (): Promise<void> => {
-    try {
-      const response = await apiRoot.products().get().execute();
-      const products = response.body.results;
-      setProductsList(products);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getProductsList();
-  }, []);
-
-  return (
-    <div className={styles.app}>
-      {productsList.map(product => (
-        <pre className={styles.item} key={product.id}>
-          {JSON.stringify(product, undefined, lineBreaker)}
-        </pre>
-      ))}
-    </div>
-  );
-};
+const App = (): ReactElement => (
+  <div className={styles.app}>
+    <Header />
+    <section className={styles.mainContent}>
+      <Outlet />
+    </section>
+  </div>
+);
 
 export default App;

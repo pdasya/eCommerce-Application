@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import { FormTemplate } from '../../../components/input-form/input-form.component';
 import { minPasswordLength } from '@/config/constants';
 
-/* eslint-disable max-lines-per-function */
 export const SignInForm: FC = () => {
   const initialValues = {
     email: '',

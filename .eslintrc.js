@@ -26,7 +26,14 @@ module.exports = {
     browser: true,
     node: true,
   },
-  overrides: [],
+  overrides: [
+    {
+      files: ['src/**/*.slice.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
+  ],
   rules: {
     'no-param-reassign': 'off',
     'import/extensions': 'off',
@@ -36,6 +43,9 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
+    'no-nested-ternary': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
     curly: 'error',
   },
   noInlineConfig: false,

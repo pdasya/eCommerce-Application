@@ -14,7 +14,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import { ReduxTestPage } from '@pages/redux-test/redux-test.page';
 
 export enum Route {
-  app = '/app',
   about = '/about',
   cart = '/cart',
   catalog = '/catalog',
@@ -24,59 +23,62 @@ export enum Route {
   product = '/product',
   profile = '/profile',
   signIn = '/sign-in',
-  signUp = '/signUp',
+  signUp = '/sign-up',
   reduxTest = '/redux-test',
 }
 
 export const router = createBrowserRouter([
   {
     path: Route.main,
-    Component: MainPage,
-    errorElement: <Http404Page />,
-  },
-  {
-    path: Route.app,
     Component: App,
-  },
-  {
-    path: Route.about,
-    Component: AboutPage,
-  },
-  {
-    path: Route.cart,
-    Component: CartPage,
-  },
-  {
-    path: Route.catalog,
-    Component: CatalogPage,
-  },
-  {
-    path: Route.http404,
-    Component: Http404Page,
-  },
-  {
-    path: Route.http500,
-    Component: Http500Page,
-  },
+    errorElement: <Http404Page />,
+    children: [
+      {
+        path: Route.main,
+        Component: MainPage,
+        errorElement: <Http404Page />,
+      },
+      {
+        path: Route.about,
+        Component: AboutPage,
+      },
+      {
+        path: Route.cart,
+        Component: CartPage,
+      },
+      {
+        path: Route.catalog,
+        Component: CatalogPage,
+      },
+      {
+        path: Route.http404,
+        Component: Http404Page,
+      },
+      {
+        path: Route.http500,
+        Component: Http500Page,
+      },
 
-  {
-    path: Route.product,
-    Component: ProductPage,
-  },
-  {
-    path: Route.profile,
-    Component: ProfilePage,
-  },
-  {
-    path: Route.signIn,
-    Component: SignInPage,
-  },
-  {
-    path: Route.signUp,
-    Component: SignUpPage,
-  },
-  {
-    path: Route.reduxTest,
-    Component: ReduxTestPage,
+      {
+        path: Route.product,
+        Component: ProductPage,
+      },
+      {
+        path: Route.profile,
+        Component: ProfilePage,
+      },
+      {
+        path: Route.signIn,
+        Component: SignInPage,
+      },
+      {
+        path: Route.signUp,
+        Component: SignUpPage,
+      },
+      {
+        path: Route.reduxTest,
+        Component: ReduxTestPage,
+      },
+    ],
   },
 ]);

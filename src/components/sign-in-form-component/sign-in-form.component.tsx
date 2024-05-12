@@ -12,7 +12,6 @@ interface IFormField {
   label: string;
   type: string;
   required?: boolean;
-  options?: { label: string; value: string }[]; // For select input
 }
 
 interface ISignInFormTemplateProperties {

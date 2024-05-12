@@ -36,7 +36,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: Route.main,
-
         Component: MainPage,
         errorElement: <Http404Page />,
       },

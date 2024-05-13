@@ -10,8 +10,9 @@ import { ProductPage } from '@pages/product/product.page';
 import { ProfilePage } from '@pages/profile/profile.page';
 import { SignInPage } from '@pages/sign-in/sign-in.page';
 import { SignUpPage } from '@pages/sign-up/sign-up.page';
-import { createBrowserRouter } from 'react-router-dom';
 import { ReduxTestPage } from '@pages/redux-test/redux-test.page';
+import { createBrowserRouter } from 'react-router-dom';
+import { PrivateRoute } from '@/components/private-route/private-route.component';
 
 export enum Route {
   about = '/about',
@@ -65,15 +66,27 @@ export const router = createBrowserRouter([
       },
       {
         path: Route.profile,
-        Component: ProfilePage,
+        element: (
+          <PrivateRoute redirectTo={Route.main} redirectIf="unauthorized">
+            <ProfilePage />
+          </PrivateRoute>
+        ),
       },
       {
         path: Route.signIn,
-        Component: SignInPage,
+        element: (
+          <PrivateRoute redirectTo={Route.main} redirectIf="authorized">
+            <SignInPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: Route.signUp,
-        Component: SignUpPage,
+        element: (
+          <PrivateRoute redirectTo={Route.main} redirectIf="authorized">
+            <SignUpPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: Route.reduxTest,

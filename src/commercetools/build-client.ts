@@ -1,5 +1,8 @@
-import axios from 'axios';
-import { ClientBuilder } from '@commercetools/sdk-client-v2';
+import {
+  AnonymousAuthMiddlewareOptions,
+  ClientBuilder,
+  HttpMiddlewareOptions,
+} from '@commercetools/sdk-client-v2';
 import { projectKey, clientSecret, clientId, authUrl, apiUrl, scopes } from '../config/constants';
 import assertIsDefined from '../types/asserts';
 
@@ -10,7 +13,7 @@ assertIsDefined(authUrl);
 assertIsDefined(apiUrl);
 assertIsDefined(scopes);
 
-const authMiddlewareOptions = {
+const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
   host: authUrl,
   projectKey,
   credentials: {
@@ -18,17 +21,15 @@ const authMiddlewareOptions = {
     clientSecret,
   },
   scopes: [scopes],
-  axios,
 };
 
-const httpMiddlewareOptions = {
+const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: apiUrl,
-  axios,
 };
 
 export const client = new ClientBuilder()
   .withProjectKey(projectKey)
-  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withAnonymousSessionFlow(anonymousAuthMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware()
   .build();

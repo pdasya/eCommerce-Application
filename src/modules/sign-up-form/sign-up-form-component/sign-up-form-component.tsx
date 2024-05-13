@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Formik, Form } from 'formik';
 import { Button, Paper, Typography, Grid } from '@mui/material';
 import * as Yup from 'yup';
-
+import styles from './sign-up-form-component.module.scss';
 import FieldComponent from '../components/field-component/field-component';
 
 export interface IFormField {
@@ -31,14 +31,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
   validationSchema,
   onSubmit,
 }) => (
-  <Paper
-    elevation={3}
-    style={{
-      padding: 20,
-      maxWidth: 400,
-      margin: '20px auto',
-      border: '2px solid black',
-    }}>
+  <Paper elevation={3} className={styles.signUpForm}>
     <Typography variant="h2" align="center" gutterBottom>
       {title}
     </Typography>
@@ -61,7 +54,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
             variant="contained"
             color="primary"
             fullWidth
-            style={{ marginTop: 20 }}>
+            className={styles.submitButton}>
             {buttonText}
           </Button>
         </Form>

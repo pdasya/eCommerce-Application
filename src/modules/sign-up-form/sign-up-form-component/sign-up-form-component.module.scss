@@ -5,18 +5,6 @@
   margin: 20px auto;
 }
 
-.password {
-  &Input {
-    position: relative;
-  }
-
-  &Icon {
-    position: absolute;
-    top: 20px;
-    right: 0;
-  }
-}
-
 .button {
   margin-top: 20px !important;
 }
@@ -24,4 +12,15 @@
 .errorMessage {
   font-weight: 700 !important;
   text-transform: uppercase;
+}
+
+.signUpForm {
+  max-width: 400px;
+  padding: 20px;
+  border: 2px solid black;
+  margin: 20px auto;
+}
+
+.submitButton {
+  margin-top: 20px !important;
 }

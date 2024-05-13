@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
-import { SignUpFormComponent } from '../components/sign-up-form-component/sign-up-form-component';
+import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { minPasswordLength } from '@/config/constants';
 
 export const SignUpForm: FC = () => {

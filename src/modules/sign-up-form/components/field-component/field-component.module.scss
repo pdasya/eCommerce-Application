@@ -1,0 +1,14 @@
+.errorMessage {
+  font-weight: 700 !important;
+  text-transform: uppercase;
+}
+
+.dateOfBirthInput {
+  input:focus::-webkit-datetime-edit {
+    color: black !important;
+  }
+
+  input:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+  }
+}

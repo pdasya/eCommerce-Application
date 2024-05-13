@@ -1,0 +1,22 @@
+.signUpForm {
+  max-width: 400px;
+  padding: 20px;
+  border: 2px solid black;
+  margin: 20px auto;
+}
+
+.submitButton {
+  margin-top: 20px !important;
+}
+
+.dateOfBirthInput {
+  color: red;
+}
+
+// input[type='date']:focus::-webkit-datetime-edit {
+//   color: black !important;
+// }
+
+// input[type='date']:required:invalid::-webkit-datetime-edit {
+//   color: transparent;
+// }

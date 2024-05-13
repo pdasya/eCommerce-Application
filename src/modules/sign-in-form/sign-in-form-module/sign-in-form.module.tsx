@@ -2,9 +2,11 @@ import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { minPasswordLength } from '@/config/constants';
 import SignInFormComponent from '@/modules/sign-in-form/sign-in-form-component/sign-in-form.component';
+import { LoginValues } from '@/interfaces/login-form';
+import { apiRoot } from '@/commercetools/client';
 
 export const SignInForm: FC = () => {
-  const initialValues = {
+  const initialValues: LoginValues = {
     email: '',
     password: '',
   };
@@ -26,8 +28,22 @@ export const SignInForm: FC = () => {
       .required('Password is required'),
   });
 
-  const handleSubmit = (values: Record<string, string>): void => {
-    console.log('Form Values:', values);
+  const handleSubmit = async (values: LoginValues): Promise<void> => {
+    try {
+      const request = await apiRoot
+        .me()
+        .login()
+        .post({
+          body: {
+            email: values.email,
+            password: values.password,
+          },
+        })
+        .execute();
+      console.log(request);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fields = [

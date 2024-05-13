@@ -5,6 +5,7 @@ import { TextField, Button, Paper, Typography, Grid, FormControl } from '@mui/ma
 import * as Yup from 'yup';
 import PasswordInputComponent from '../../../components/password-input-component/password-input-component';
 import styles from './sign-in-form.component.module.scss';
+import { LoginValues } from '@/interfaces/login-form';
 
 interface IFormField {
   id: string;
@@ -18,9 +19,9 @@ interface ISignInFormComponentProperties {
   title: string;
   buttonText: string;
   fields: IFormField[];
-  initialValues: Record<string, string>;
-  validationSchema: Yup.ObjectSchema<Record<string, string>>;
-  onSubmit: (values: Record<string, string>) => void;
+  initialValues: LoginValues;
+  validationSchema: Yup.ObjectSchema<LoginValues>;
+  onSubmit: (values: LoginValues) => Promise<void>;
 }
 
 const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
@@ -39,7 +40,10 @@ const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
     <Typography variant="h2" align="center" gutterBottom>
       {title}
     </Typography>
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values: LoginValues) => onSubmit(values)}>
       {({ errors, touched }) => (
         <Form>
           <Grid container spacing={2}>

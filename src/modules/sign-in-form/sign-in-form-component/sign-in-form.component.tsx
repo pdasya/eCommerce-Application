@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { TextField, Button, Paper, Typography, Grid, FormControl } from '@mui/material';
 import * as Yup from 'yup';
-import PasswordInputComponent from '../password-input-component/password-input-component';
+import PasswordInputComponent from '../../../components/password-input-component/password-input-component';
 import styles from './sign-in-form.component.module.scss';
 
 interface IFormField {

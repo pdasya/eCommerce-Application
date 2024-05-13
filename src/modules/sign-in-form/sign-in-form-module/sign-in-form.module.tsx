@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { minPasswordLength } from '@/config/constants';
-import SignInFormComponent from '@/components/sign-in-form-component/sign-in-form.component';
+import SignInFormComponent from '@/modules/sign-in-form/sign-in-form-component/sign-in-form.component';
 
 export const SignInForm: FC = () => {
   const initialValues = {

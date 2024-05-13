@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
-import { FormTemplate } from '../../../components/input-form/input-form.component';
+import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { minPasswordLength } from '@/config/constants';
 
 export const SignUpForm: FC = () => {
@@ -126,7 +126,7 @@ export const SignUpForm: FC = () => {
   ];
 
   return (
-    <FormTemplate
+    <SignUpFormComponent
       title="Sign Up"
       buttonText="Register"
       fields={fields}

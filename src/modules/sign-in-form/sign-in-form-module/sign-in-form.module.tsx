@@ -1,11 +1,16 @@
 import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { minPasswordLength } from '@/config/constants';
-import SignInFormComponent from '@/modules/sign-in-form/sign-in-form-component/sign-in-form.component';
+import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
 import { LoginValues } from '@/interfaces/login-form';
 import { apiRoot } from '@/commercetools/client';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
+import { authorize } from '@/modules/auth/auth.slice';
 
 export const SignInForm: FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const initialValues: LoginValues = {
     email: '',
     password: '',
@@ -29,21 +34,25 @@ export const SignInForm: FC = () => {
   });
 
   const handleSubmit = async (values: LoginValues): Promise<void> => {
-    try {
-      const request = await apiRoot
-        .me()
-        .login()
-        .post({
-          body: {
-            email: values.email,
-            password: values.password,
-          },
-        })
-        .execute();
-      console.log(request);
-    } catch (error) {
-      console.log(error);
-    }
+    await apiRoot
+      .me()
+      .login()
+      .post({
+        body: {
+          email: values.email,
+          password: values.password,
+        },
+      })
+      .execute()
+      .then(data => {
+        const userData = {
+          id: data.body.customer.id,
+          email: data.body.customer.email,
+        };
+        dispatch(authorize(userData));
+        navigate('/');
+      })
+      .catch(error => console.log(error));
   };
 
   const fields = [

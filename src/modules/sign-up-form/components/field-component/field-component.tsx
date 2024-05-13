@@ -67,6 +67,19 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched }
             component={PasswordInputComponent}
           />
         );
+      case 'date':
+        return (
+          <Field
+            as={TextField}
+            fullWidth
+            label={field.label}
+            name={field.name}
+            type={field.type}
+            required={field.required}
+            variant="standard"
+            InputLabelProps={{ shrink: true }}
+          />
+        );
 
       default:
         return (

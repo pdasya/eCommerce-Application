@@ -1,12 +1,3 @@
-.button {
-  margin-top: 20px !important;
-}
-
-.errorMessage {
-  font-weight: 700 !important;
-  text-transform: uppercase;
-}
-
 .signUpForm {
   max-width: 400px;
   padding: 20px;
@@ -18,10 +9,14 @@
   margin-top: 20px !important;
 }
 
-input[type='date']:focus::-webkit-datetime-edit {
-  color: black !important;
+.dateOfBirthInput {
+  color: red;
 }
 
-input[type='date']:required:invalid::-webkit-datetime-edit {
-  color: transparent;
-}
+// input[type='date']:focus::-webkit-datetime-edit {
+//   color: black !important;
+// }
+
+// input[type='date']:required:invalid::-webkit-datetime-edit {
+//   color: transparent;
+// }

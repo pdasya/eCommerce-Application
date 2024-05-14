@@ -3,12 +3,14 @@ import { RootState } from '@/store';
 
 interface IAuthState {
   isAuthorized: boolean;
-  id: number | null;
+  id: string;
+  email: string;
 }
 
 const initialState: IAuthState = {
   isAuthorized: false,
-  id: null,
+  id: '',
+  email: '',
 };
 
 const authSlice = createSlice({
@@ -19,11 +21,13 @@ const authSlice = createSlice({
       console.log('logged in');
       state.isAuthorized = true;
       state.id = action.payload.id;
+      state.email = action.payload.email;
     },
     unauthorize(state, action) {
       console.log('logged out');
       state.isAuthorized = false;
       state.id = initialState.id;
+      state.email = initialState.email;
     },
   },
 });

@@ -12,14 +12,6 @@ import {
   scopes,
   tokenCache,
 } from '../config/constants';
-import assertIsDefined from '../types/asserts';
-
-assertIsDefined(projectKey);
-assertIsDefined(clientSecret);
-assertIsDefined(clientId);
-assertIsDefined(authUrl);
-assertIsDefined(apiUrl);
-assertIsDefined(scopes);
 
 const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
   host: authUrl,
@@ -37,6 +29,11 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 };
 
 export const client = new ClientBuilder()
+  .defaultClient(authUrl, { clientId, clientSecret })
+  .withLoggerMiddleware()
+  .build();
+
+export const client2 = new ClientBuilder()
   .withProjectKey(projectKey)
   .withAnonymousSessionFlow(anonymousAuthMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)

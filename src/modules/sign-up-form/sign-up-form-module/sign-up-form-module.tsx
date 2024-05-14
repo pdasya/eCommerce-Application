@@ -4,6 +4,7 @@ import { CustomerDraft } from '@commercetools/platform-sdk';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { minPasswordLength } from '@/config/constants';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
+import styles from './sign-up-form-module.module.scss';
 
 export const SignUpForm: FC = () => {
   const minStreetNameLength = 1;
@@ -56,7 +57,10 @@ export const SignUpForm: FC = () => {
       .required('Country is required'),
   });
 
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [registrationStatus, setRegistrationStatus] = useState<{
+    success: boolean;
+    message?: string;
+  }>({ success: false });
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
     const customerDraft: CustomerDraft = {
@@ -75,17 +79,14 @@ export const SignUpForm: FC = () => {
       ],
     };
 
-    console.log('Form Values:', values);
-    console.log('Customer Draft:', customerDraft);
-
     try {
-      await createCustomerInStore(customerDraft);
-      setRegistrationSuccess(true);
+      const response = await createCustomerInStore(customerDraft);
+      console.log('Response:', response);
+      setRegistrationStatus({ success: true, message: 'Registration successful' });
     } catch (error) {
       console.error('Error creating customer:', error);
+      setRegistrationStatus({ success: false, message: 'Registration failed' });
     }
-
-    console.log(registrationSuccess);
   };
 
   const fields = [
@@ -156,13 +157,18 @@ export const SignUpForm: FC = () => {
   ];
 
   return (
-    <SignUpFormComponent
-      title="Sign Up"
-      buttonText="Register"
-      fields={fields}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    />
+    <>
+      {registrationStatus.success && (
+        <p className={styles.registrationSuccessMessage}>{registrationStatus.message}</p>
+      )}
+      <SignUpFormComponent
+        title="Sign Up"
+        buttonText="Register"
+        fields={fields}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };

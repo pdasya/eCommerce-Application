@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
 import { CustomerDraft } from '@commercetools/platform-sdk';
+import { toast } from 'react-toastify';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { minPasswordLength } from '@/config/constants';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
-import styles from './sign-up-form-module.module.scss';
 
 export const SignUpForm: FC = () => {
   const minStreetNameLength = 1;
@@ -57,10 +57,6 @@ export const SignUpForm: FC = () => {
       .required('Country is required'),
   });
 
-  const [registrationStatus, setRegistrationStatus] = useState<{
-    success: boolean;
-    message?: string;
-  }>({ success: false });
   const [formValues, setFormValues] = useState(initialValues);
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
@@ -83,11 +79,11 @@ export const SignUpForm: FC = () => {
     try {
       const response = await createCustomerInStore(customerDraft);
       console.log('Response:', response);
-      setRegistrationStatus({ success: true, message: 'Registration successful' });
       setFormValues(initialValues);
+      toast.success('Customer Successfully Created');
     } catch (error) {
+      toast.error(`${error.message}`);
       console.error('Error creating customer:', error);
-      setRegistrationStatus({ success: false, message: 'Registration failed' });
     }
   };
 
@@ -159,18 +155,13 @@ export const SignUpForm: FC = () => {
   ];
 
   return (
-    <>
-      {registrationStatus.success && (
-        <p className={styles.registrationSuccessMessage}>{registrationStatus.message}</p>
-      )}
-      <SignUpFormComponent
-        title="Sign Up"
-        buttonText="Register"
-        fields={fields}
-        initialValues={formValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      />
-    </>
+    <SignUpFormComponent
+      title="Sign Up"
+      buttonText="Register"
+      fields={fields}
+      initialValues={formValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    />
   );
 };

@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
-import { LoginValues } from '@/interfaces/login-form';
-import { apiRoot } from '@/commercetools/client';
+import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 import { authorize } from '@/modules/auth/auth.slice';
+import { signIn } from '../sign-in-form-api/sign-in-form-api';
 
 export const SignInForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const initialValues: LoginValues = {
+  const initialValues: IUserDraft = {
     email: '',
     password: '',
   };
@@ -33,27 +33,18 @@ export const SignInForm: FC = () => {
       .required('Password is required'),
   });
 
-  const handleSubmit = async (values: LoginValues): Promise<void> => {
-    await apiRoot
-      .me()
-      .login()
-      .post({
-        body: {
-          email: values.email,
-          password: values.password,
-        },
-      })
-      .execute()
-      .then(data => {
-        const userData = {
-          id: data.body.customer.id,
-          email: data.body.customer.email,
-        };
-        dispatch(authorize(userData));
+  const handleSubmit = async (values: IUserDraft): Promise<void> => {
+    const userDraft: IUserDraft = {
+      email: values.email,
+      password: values.password,
+    };
+    await signIn(userDraft)
+      .then(() => {
+        dispatch(authorize(userDraft));
         tokenStorage.set('token', tokenCache.get());
         navigate('/');
       })
-      .catch(error => console.log(error));
+      .catch(console.error);
   };
 
   const fields = [

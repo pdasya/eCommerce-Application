@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { minPasswordLength } from '@/config/constants';
+import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
 import { LoginValues } from '@/interfaces/login-form';
 import { apiRoot } from '@/commercetools/client';
@@ -50,6 +50,7 @@ export const SignInForm: FC = () => {
           email: data.body.customer.email,
         };
         dispatch(authorize(userData));
+        tokenStorage.set('token', tokenCache.get());
         navigate('/');
       })
       .catch(error => console.log(error));

@@ -20,7 +20,7 @@ interface ISignUpFormComponentProperties {
   fields: IFormField[];
   initialValues: Record<string, string>;
   validationSchema: Yup.ObjectSchema<Record<string, string | Date>>;
-  onSubmit: (values: Record<string, string>) => void;
+  onSubmit: (values: Record<string, string>) => Promise<void>; // Теперь onSubmit возвращает Promise<void>
 }
 
 export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
@@ -35,7 +35,13 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
     <Typography variant="h2" align="center" gutterBottom>
       {title}
     </Typography>
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={async (values, { resetForm }) => {
+        await onSubmit(values); // Дождаться выполнения onSubmit
+        resetForm(); // Сбросить форму после успешной отправки
+      }}>
       {({ errors, touched }) => (
         <Form>
           <Grid container spacing={2}>

@@ -61,6 +61,7 @@ export const SignUpForm: FC = () => {
     success: boolean;
     message?: string;
   }>({ success: false });
+  const [formValues, setFormValues] = useState(initialValues);
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
     const customerDraft: CustomerDraft = {
@@ -83,6 +84,7 @@ export const SignUpForm: FC = () => {
       const response = await createCustomerInStore(customerDraft);
       console.log('Response:', response);
       setRegistrationStatus({ success: true, message: 'Registration successful' });
+      setFormValues(initialValues);
     } catch (error) {
       console.error('Error creating customer:', error);
       setRegistrationStatus({ success: false, message: 'Registration failed' });
@@ -165,7 +167,7 @@ export const SignUpForm: FC = () => {
         title="Sign Up"
         buttonText="Register"
         fields={fields}
-        initialValues={initialValues}
+        initialValues={formValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       />

@@ -17,8 +17,8 @@ export const MainPage: FC = () => {
   });
 
   return (
-    <div>
-      <ul className={styles.page}>
+    <div className={styles.page}>
+      <ul>
         <Button
           variant="contained"
           color="success"

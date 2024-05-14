@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Header } from '@/modules/header';
 import styles from './app.component.module.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import { Footer } from '@/modules/footer';
 
 const App = (): ReactElement => (
   <div className={styles.app}>
@@ -21,8 +22,11 @@ const App = (): ReactElement => (
         pauseOnHover
         theme="colored"
       />
-      <Outlet />
+      <div className={styles.outlet}>
+        <Outlet />
+      </div>
     </section>
+    <Footer />
   </div>
 );
 

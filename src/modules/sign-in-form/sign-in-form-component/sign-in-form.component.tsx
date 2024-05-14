@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { FC } from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import { TextField, Button, Paper, Typography, Grid, FormControl } from '@mui/material';
 import * as Yup from 'yup';
-import PasswordInputComponent from '../password-input-component/password-input-component';
+import PasswordInputComponent from '../../../components/password-input-component/password-input-component';
 import styles from './sign-in-form.component.module.scss';
+import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
 
 interface IFormField {
   id: string;
@@ -18,14 +19,10 @@ interface ISignInFormComponentProperties {
   title: string;
   buttonText: string;
   fields: IFormField[];
-  initialValues: Record<string, string>;
-  validationSchema: Yup.ObjectSchema<Record<string, string>>;
-  onSubmit: (values: Record<string, string>) => void;
+  initialValues: IUserDraft;
+  validationSchema: Yup.ObjectSchema<IUserDraft>;
+  onSubmit: (values: IUserDraft) => Promise<void>;
 }
-
-const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
-  <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
-);
 
 const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
   title,
@@ -39,7 +36,10 @@ const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
     <Typography variant="h2" align="center" gutterBottom>
       {title}
     </Typography>
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values: IUserDraft) => onSubmit(values)}>
       {({ errors, touched }) => (
         <Form>
           <Grid container spacing={2}>
@@ -55,7 +55,7 @@ const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
                     variant="standard"
                     autoComplete="on"
                     error={touched[field.name] && Boolean(errors[field.name])}
-                    helperText={touched[field.name] && <BoldUppercaseError name={field.name} />}
+                    helperText={touched[field.name] && errors[field.name]}
                     component={field.type === 'password' ? PasswordInputComponent : null}
                   />
                 </FormControl>

@@ -1,10 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
-import { minPasswordLength } from '@/config/constants';
-import SignInFormComponent from '@/components/sign-in-form-component/sign-in-form.component';
+import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
+import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
+import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
+import { signIn } from '../sign-in-form-api/sign-in-form-api';
 
 export const SignInForm: FC = () => {
-  const initialValues = {
+  const [message, setMessage] = useState('');
+  const initialValues: IUserDraft = {
     email: '',
     password: '',
   };
@@ -26,8 +29,21 @@ export const SignInForm: FC = () => {
       .required('Password is required'),
   });
 
-  const handleSubmit = (values: Record<string, string>): void => {
-    console.log('Form Values:', values);
+  const handleSubmit = async (values: IUserDraft): Promise<void> => {
+    const userDraft: IUserDraft = {
+      email: values.email,
+      password: values.password,
+    };
+    await signIn(userDraft)
+      .then(response => {
+        tokenStorage.set('token', tokenCache.get());
+        console.log(response);
+        setMessage('User was logined!');
+      })
+      .catch(error => {
+        console.error(error);
+        setMessage('User was not logined! Check your email or password.');
+      });
   };
 
   const fields = [
@@ -48,13 +64,23 @@ export const SignInForm: FC = () => {
   ];
 
   return (
-    <SignInFormComponent
-      title="Sign In"
-      buttonText="Login"
-      fields={fields}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    />
+    <>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: 20,
+        }}>
+        {message}
+      </div>
+      <SignInFormComponent
+        title="Sign In"
+        buttonText="Login"
+        fields={fields}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };

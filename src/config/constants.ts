@@ -1,3 +1,6 @@
+import TokenCacheUtil from '@/utils/token-cache';
+import TokenStorage from '@/utils/token-storage';
+
 export const projectKey = process.env.CTP_PROJECT_KEY;
 export const clientSecret = process.env.CTP_CLIENT_SECRET;
 export const clientId = process.env.CTP_CLIENT_ID;
@@ -9,3 +12,6 @@ export const storeKey = process.env.STORE_KEY as string;
 export const lineBreaker = 2;
 
 export const minPasswordLength = 8;
+
+export const tokenCache = new TokenCacheUtil();
+export const tokenStorage = new TokenStorage(localStorage);

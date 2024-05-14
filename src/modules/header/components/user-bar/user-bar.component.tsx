@@ -6,7 +6,6 @@ import { CustomRouterLink } from '@/components/custom-router-link/custom-router-
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 import { unauthorize } from '@/modules/auth/auth.slice';
 import styles from './user-bar.component.module.scss';
-import { tokenStorage } from '@/config/constants';
 
 export const UserBar: FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +17,6 @@ export const UserBar: FC = () => {
 
   const handleClose = (): void => {
     setAnchorEl(null);
-    tokenStorage.clear();
   };
 
   return (

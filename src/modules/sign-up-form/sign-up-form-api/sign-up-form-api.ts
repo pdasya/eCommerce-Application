@@ -1,7 +1,6 @@
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { apiRoot } from '@/commercetools/client';
-
-const storeKey = 'e58af6c6-618a-49cd-9cfa-84ffcf3cf879';
+import { storeKey } from '@/config/constants';
 
 export const createCustomerInStore = async (customerDraft: CustomerDraft) => {
   try {

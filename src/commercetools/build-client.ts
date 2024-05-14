@@ -3,7 +3,15 @@ import {
   ClientBuilder,
   HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
-import { projectKey, clientSecret, clientId, authUrl, apiUrl, scopes } from '../config/constants';
+import {
+  projectKey,
+  clientSecret,
+  clientId,
+  authUrl,
+  apiUrl,
+  scopes,
+  tokenCache,
+} from '../config/constants';
 import assertIsDefined from '../types/asserts';
 
 assertIsDefined(projectKey);
@@ -21,6 +29,7 @@ const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
     clientSecret,
   },
   scopes: [scopes],
+  tokenCache,
 };
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {

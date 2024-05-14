@@ -4,7 +4,7 @@ import { Box, Button, IconButton, MenuItem, Tooltip, Typography } from '@mui/mat
 import { Menu as MenuIcon } from '@mui/icons-material';
 import Menu from '@mui/material/Menu';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
-import { Route } from '@/routes';
+import { RoutePath } from '@/routes';
 import styles from './nav-bar.component.module.scss';
 
 export const NavBar: FC = () => {
@@ -19,15 +19,14 @@ export const NavBar: FC = () => {
   };
 
   const navItems = [
-    { caption: 'Home', path: Route.main },
-    { caption: 'Catalog', path: Route.catalog },
-    { caption: 'Cart', path: Route.cart },
-    { caption: 'About', path: Route.about },
-    { caption: '404', path: Route.http404 },
-    { caption: '500', path: Route.http500 },
-    { caption: 'Product', path: Route.product },
-    { caption: 'Profile', path: Route.profile },
-    { caption: 'Test', path: Route.reduxTest },
+    { caption: 'Home', path: RoutePath.main },
+    { caption: 'Catalog', path: RoutePath.catalog },
+    { caption: 'Cart', path: RoutePath.cart },
+    { caption: 'About', path: RoutePath.about },
+    { caption: '404', path: RoutePath.http404 },
+    { caption: 'Product', path: RoutePath.product },
+    { caption: 'Profile', path: RoutePath.profile },
+    { caption: 'Test', path: RoutePath.reduxTest },
   ];
 
   return (

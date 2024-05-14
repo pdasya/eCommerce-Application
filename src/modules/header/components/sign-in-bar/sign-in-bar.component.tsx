@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { HowToReg, Login } from '@mui/icons-material';
-import { Route } from '@/routes';
+import { RoutePath } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 
 import styles from './sign-in-bar.component.module.scss';
 
 export const SignInBar: FC = () => (
   <div className={styles.bar}>
-    <CustomRouterLink to={Route.signIn}>
+    <CustomRouterLink to={RoutePath.signIn}>
       <Button
         sx={{
           display: { xs: 'none', sm: 'flex' },
@@ -37,7 +37,7 @@ export const SignInBar: FC = () => (
       or
     </Typography>
 
-    <CustomRouterLink to={Route.signUp}>
+    <CustomRouterLink to={RoutePath.signUp}>
       <Button
         sx={{
           display: { xs: 'none', sm: 'flex' },

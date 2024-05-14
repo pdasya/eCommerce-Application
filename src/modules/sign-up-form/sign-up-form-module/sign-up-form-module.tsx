@@ -59,7 +59,7 @@ export const SignUpForm: FC = () => {
 
   const [formValues, setFormValues] = useState(initialValues);
 
-  const handleSubmit = (values: Record<string, string>): void => {
+  const handleSubmit = async (values: Record<string, string>): Promise<void> => {
     const customerDraft: CustomerDraft = {
       email: values.email,
       password: values.password,
@@ -77,7 +77,7 @@ export const SignUpForm: FC = () => {
     };
 
     try {
-      const response = createCustomerInStore(customerDraft);
+      const response = await createCustomerInStore(customerDraft);
       console.log('Response:', response);
       setFormValues(initialValues);
       toast.success('Customer Successfully Created');

@@ -1,16 +1,12 @@
-import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
 import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
 import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
-import { authorize } from '@/modules/auth/auth.slice';
 import { signIn } from '../sign-in-form-api/sign-in-form-api';
 
 export const SignInForm: FC = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const [message, setMessage] = useState('');
   const initialValues: IUserDraft = {
     email: '',
     password: '',
@@ -39,12 +35,15 @@ export const SignInForm: FC = () => {
       password: values.password,
     };
     await signIn(userDraft)
-      .then(() => {
-        dispatch(authorize(userDraft));
+      .then(response => {
         tokenStorage.set('token', tokenCache.get());
-        navigate('/');
+        console.log(response);
+        setMessage('User was logined!');
       })
-      .catch(console.error);
+      .catch(error => {
+        console.error(error);
+        setMessage('User was not logined! Check your email or password.');
+      });
   };
 
   const fields = [
@@ -65,13 +64,23 @@ export const SignInForm: FC = () => {
   ];
 
   return (
-    <SignInFormComponent
-      title="Sign In"
-      buttonText="Login"
-      fields={fields}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    />
+    <>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: 20,
+        }}>
+        {message}
+      </div>
+      <SignInFormComponent
+        title="Sign In"
+        buttonText="Login"
+        fields={fields}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };

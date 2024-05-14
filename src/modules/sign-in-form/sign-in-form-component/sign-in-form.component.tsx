@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { FC } from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import { TextField, Button, Paper, Typography, Grid, FormControl } from '@mui/material';
 import * as Yup from 'yup';
 import PasswordInputComponent from '../../../components/password-input-component/password-input-component';
@@ -23,10 +23,6 @@ interface ISignInFormComponentProperties {
   validationSchema: Yup.ObjectSchema<IUserDraft>;
   onSubmit: (values: IUserDraft) => Promise<void>;
 }
-
-const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
-  <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
-);
 
 const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
   title,
@@ -59,7 +55,7 @@ const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
                     variant="standard"
                     autoComplete="on"
                     error={touched[field.name] && Boolean(errors[field.name])}
-                    helperText={touched[field.name] && <BoldUppercaseError name={field.name} />}
+                    helperText={touched[field.name] && errors[field.name]}
                     component={field.type === 'password' ? PasswordInputComponent : null}
                   />
                 </FormControl>

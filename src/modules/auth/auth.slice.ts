@@ -3,14 +3,14 @@ import { RootState } from '@/store';
 
 interface IAuthState {
   isAuthorized: boolean;
-  id: string | null;
-  email: string | null;
+  id: string;
+  email: string;
 }
 
 const initialState: IAuthState = {
   isAuthorized: false,
-  id: null,
-  email: null,
+  id: '',
+  email: '',
 };
 
 const authSlice = createSlice({

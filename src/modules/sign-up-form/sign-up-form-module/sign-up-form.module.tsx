@@ -1,7 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
+import { CustomerDraft } from '@commercetools/platform-sdk';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { minPasswordLength } from '@/config/constants';
+import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
 
 export const SignUpForm: FC = () => {
   const minStreetNameLength = 1;
@@ -54,8 +56,36 @@ export const SignUpForm: FC = () => {
       .required('Country is required'),
   });
 
-  const handleSubmit = (values: Record<string, string>): void => {
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+  const handleSubmit = async (values: Record<string, string>): Promise<void> => {
+    const customerDraft: CustomerDraft = {
+      email: values.email,
+      password: values.password,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      dateOfBirth: values.dateOfBirth,
+      addresses: [
+        {
+          country: values.country,
+          city: values.city,
+          streetName: values.street,
+          postalCode: values.postalCode,
+        },
+      ],
+    };
+
     console.log('Form Values:', values);
+    console.log('Customer Draft:', customerDraft);
+
+    try {
+      await createCustomerInStore(customerDraft);
+      setRegistrationSuccess(true);
+    } catch (error) {
+      console.error('Error creating customer:', error);
+    }
+
+    console.log(registrationSuccess);
   };
 
   const fields = [

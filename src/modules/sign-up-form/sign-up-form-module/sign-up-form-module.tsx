@@ -1,7 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
+import { CustomerDraft } from '@commercetools/platform-sdk';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { minPasswordLength } from '@/config/constants';
+import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
+import styles from './sign-up-form-module.module.scss';
 
 export const SignUpForm: FC = () => {
   const minStreetNameLength = 1;
@@ -54,8 +57,38 @@ export const SignUpForm: FC = () => {
       .required('Country is required'),
   });
 
-  const handleSubmit = (values: Record<string, string>): void => {
-    console.log('Form Values:', values);
+  const [registrationStatus, setRegistrationStatus] = useState<{
+    success: boolean;
+    message?: string;
+  }>({ success: false });
+  const [formValues, setFormValues] = useState(initialValues);
+
+  const handleSubmit = async (values: Record<string, string>): Promise<void> => {
+    const customerDraft: CustomerDraft = {
+      email: values.email,
+      password: values.password,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      dateOfBirth: values.dateOfBirth,
+      addresses: [
+        {
+          country: values.country,
+          city: values.city,
+          streetName: values.street,
+          postalCode: values.postalCode,
+        },
+      ],
+    };
+
+    try {
+      const response = await createCustomerInStore(customerDraft);
+      console.log('Response:', response);
+      setRegistrationStatus({ success: true, message: 'Registration successful' });
+      setFormValues(initialValues);
+    } catch (error) {
+      console.error('Error creating customer:', error);
+      setRegistrationStatus({ success: false, message: 'Registration failed' });
+    }
   };
 
   const fields = [
@@ -126,13 +159,18 @@ export const SignUpForm: FC = () => {
   ];
 
   return (
-    <SignUpFormComponent
-      title="Sign Up"
-      buttonText="Register"
-      fields={fields}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    />
+    <>
+      {registrationStatus.success && (
+        <p className={styles.registrationSuccessMessage}>{registrationStatus.message}</p>
+      )}
+      <SignUpFormComponent
+        title="Sign Up"
+        buttonText="Register"
+        fields={fields}
+        initialValues={formValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };

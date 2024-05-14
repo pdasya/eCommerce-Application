@@ -57,13 +57,9 @@ export const SignUpForm: FC = () => {
       .required('Country is required'),
   });
 
-  // const [registrationStatus, setRegistrationStatus] = useState<{
-  //   success: boolean;
-  //   message?: string;
-  // }>({ success: false });
   const [formValues, setFormValues] = useState(initialValues);
 
-  const handleSubmit = async (values: Record<string, string>): Promise<void> => {
+  const handleSubmit = (values: Record<string, string>): void => {
     const customerDraft: CustomerDraft = {
       email: values.email,
       password: values.password,
@@ -81,14 +77,13 @@ export const SignUpForm: FC = () => {
     };
 
     try {
-      const response = await createCustomerInStore(customerDraft);
+      const response = createCustomerInStore(customerDraft);
       console.log('Response:', response);
-      // setRegistrationStatus({ success: true, message: 'Registration successful' });
       setFormValues(initialValues);
       toast.success('Customer Successfully Created');
     } catch (error) {
+      toast.error(`${error.message}`);
       console.error('Error creating customer:', error);
-      // setRegistrationStatus({ success: false, message: 'Registration failed' });
     }
   };
 

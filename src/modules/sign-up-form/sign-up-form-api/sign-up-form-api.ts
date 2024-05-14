@@ -10,8 +10,9 @@ export const createCustomerInStore = async (customerDraft: CustomerDraft) => {
       .post({ body: customerDraft })
       .execute();
 
-    console.log('Customer created:', response.body);
+    return response.body;
   } catch (error) {
     console.error('Error creating customer:', error);
+    return null;
   }
 };

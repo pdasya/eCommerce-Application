@@ -13,6 +13,7 @@ export const signIn = async (userDraft: IUserDraft) =>
 
 export const existCustomerByEmail = async (customerEmail: string) =>
   apiRoot
+    .inStoreKeyWithStoreKeyValue({ storeKey })
     .customers()
     .get({
       queryArgs: {

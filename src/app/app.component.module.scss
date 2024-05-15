@@ -1,12 +1,22 @@
 .app {
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
-  justify-content: center;
-  background-color: pink;
+  align-items: center;
+  background-color: white;
+  background-color: rgb(25 118 210);
 }
 
 .mainContent {
+  display: flex;
   width: 100%;
   max-width: 1920px;
-  margin: auto;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.outlet {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }

@@ -13,6 +13,7 @@ import { ReduxTestPage } from '@pages/redux-test/redux-test.page';
 import { createHashRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import { ErrorPage } from '@pages/error/error.page';
 import { PrivateRoute } from '@/components/private-route/private-route.component';
+import { ErrorBoundary } from '@/modules/error-boundary';
 
 export enum RoutePath {
   about = '/about',
@@ -30,7 +31,7 @@ export enum RoutePath {
 
 export const router = createHashRouter(
   createRoutesFromElements(
-    <Route path={RoutePath.main} element={<App />} errorElement={<ErrorPage />}>
+    <Route path={RoutePath.main} element={<App />} errorElement={<ErrorBoundary />}>
       <Route path="*" element={<Http404Page />} />
       <Route index element={<MainPage />} />
       <Route path={RoutePath.about} element={<AboutPage />} />

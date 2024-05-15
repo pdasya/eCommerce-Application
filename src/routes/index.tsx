@@ -25,6 +25,7 @@ export enum RoutePath {
   signIn = '/sign-in',
   signUp = '/sign-up',
   reduxTest = '/redux-test',
+  error = '/error',
 }
 
 export const router = createHashRouter(
@@ -38,6 +39,7 @@ export const router = createHashRouter(
       <Route path={RoutePath.http404} element={<Http404Page />} />
       <Route path={RoutePath.product} element={<ProductPage />} />
       <Route path={RoutePath.reduxTest} element={<ReduxTestPage />} />
+      <Route path={RoutePath.error} element={<ErrorPage />} />
       <Route
         path={RoutePath.profile}
         element={

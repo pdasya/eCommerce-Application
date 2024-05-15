@@ -13,7 +13,7 @@ export const Header: FC = () => {
   const isAuthorized = useAppSelector(selectAuthorization);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static">
         <Toolbar className={styles.toolbar}>
           <Logo />

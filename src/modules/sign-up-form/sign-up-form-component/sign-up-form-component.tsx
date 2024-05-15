@@ -50,12 +50,10 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
                 return (
                   <React.Fragment key={field.id}>
                     <Grid item xs={12}>
-                      <Typography
-                        variant="subtitle1"
-                        style={{ marginTop: 20, textAlign: 'center', fontWeight: 600 }}>
-                        ADDRESS
+                      <Typography variant="subtitle1" className={styles.shippingAddressHeader}>
+                        Shipping Address
                       </Typography>
-                      <Divider style={{ marginBottom: 10, opacity: 0.8 }} />
+                      <Divider className={styles.shippingAddressDivider} />
                     </Grid>
                     <Grid item xs={12}>
                       <FieldComponent

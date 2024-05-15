@@ -22,6 +22,9 @@
 }
 
 .errorMessage {
+  display: flex;
+  align-items: center;
+  color: #d32f2f;
   font-weight: 700 !important;
   text-transform: uppercase;
 }

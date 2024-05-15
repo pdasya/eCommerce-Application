@@ -1,11 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
 import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
+import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
+import { existCustomerByEmail, signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
-import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
-import { existCustomerByEmail, signIn } from '../sign-in-form-api/sign-in-form-api';
 
 export const SignInForm: FC = () => {
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
   const initialValues: IUserDraft = {
     email: '',
     password: '',
@@ -36,27 +38,31 @@ export const SignInForm: FC = () => {
     };
     await existCustomerByEmail(values.email).then(({ body }) => {
       if (body.results.length === 0) {
-        console.error(`User with email ${values.email} is not registered`);
+        setErrorEmail('The user with this email is not registered');
       } else {
         signIn(userDraft)
           .then(() => {
             tokenStorage.set('token', tokenCache.get());
             console.log('User was logged!');
+            setErrorEmail('');
           })
           .catch(() => {
-            console.error('Incorrect password');
+            setErrorPassword('Incorrect password');
           });
+        setErrorPassword('');
       }
     });
   };
 
-  const fields = [
+  const fields: IFormField[] = [
     {
       id: 'email',
       name: 'email',
       label: 'Email',
       type: 'text',
       required: true,
+      error: errorEmail,
+      setError: setErrorEmail,
     },
     {
       id: 'password',
@@ -64,6 +70,8 @@ export const SignInForm: FC = () => {
       label: 'Password',
       type: 'password',
       required: true,
+      error: errorPassword,
+      setError: setErrorPassword,
     },
   ];
 

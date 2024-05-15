@@ -13,10 +13,14 @@
   color: red;
 }
 
-// input[type='date']:focus::-webkit-datetime-edit {
-//   color: black !important;
-// }
+.shippingAddressHeader {
+  margin-top: 20px;
+  font-weight: 600 !important;
+  text-align: center;
+  text-transform: uppercase;
+}
 
-// input[type='date']:required:invalid::-webkit-datetime-edit {
-//   color: transparent;
-// }
+.shippingAddressDivider {
+  margin-bottom: 10px;
+  opacity: 0.8;
+}

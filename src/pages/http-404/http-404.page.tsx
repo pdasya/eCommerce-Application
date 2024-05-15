@@ -39,7 +39,12 @@ export const Http404Page: FC = () => (
       <div className={styles.bannerTitle}>THE PAGE</div>
       <div className={styles.bannerSubtitle}>WAS NOT FOUND</div>
       <CustomRouterLink to={RoutePath.main}>
-        <Button variant="outlined" color="inherit" size="large">
+        <Button
+          className={styles.bannerButton}
+          variant="outlined"
+          color="inherit"
+          size="large"
+          sx={{ ':hover': { backgroundColor: 'white' } }}>
           back to home
         </Button>
       </CustomRouterLink>

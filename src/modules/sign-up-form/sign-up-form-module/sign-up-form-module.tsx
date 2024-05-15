@@ -20,6 +20,7 @@ export const SignUpForm: FC = () => {
     city: '',
     postalCode: '',
     country: '',
+    setDefaultAddress: false,
   };
 
   const validationSchema = Yup.object({
@@ -60,20 +61,21 @@ export const SignUpForm: FC = () => {
   const [formValues, setFormValues] = useState(initialValues);
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
+    const address = {
+      country: values.country,
+      city: values.city,
+      streetName: values.street,
+      postalCode: values.postalCode,
+    };
+
     const customerDraft: CustomerDraft = {
       email: values.email,
       password: values.password,
       firstName: values.firstName,
       lastName: values.lastName,
       dateOfBirth: values.dateOfBirth,
-      addresses: [
-        {
-          country: values.country,
-          city: values.city,
-          streetName: values.street,
-          postalCode: values.postalCode,
-        },
-      ],
+      addresses: [address],
+      defaultShippingAddress: values.setDefaultAddress ? 0 : undefined,
     };
 
     try {
@@ -155,8 +157,8 @@ export const SignUpForm: FC = () => {
     {
       id: 'setDefaultAddress',
       name: 'setDefaultAddress',
-      label: 'Set address as default',
-      type: 'checkbox',
+      label: 'Set shipping address as default',
+      type: 'switch',
     },
   ];
 

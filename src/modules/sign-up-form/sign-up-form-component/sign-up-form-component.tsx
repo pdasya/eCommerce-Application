@@ -18,9 +18,9 @@ interface ISignUpFormComponentProperties {
   title: string;
   buttonText: string;
   fields: IFormField[];
-  initialValues: Record<string, string>;
+  initialValues: Record<string, string | boolean>;
   validationSchema: Yup.ObjectSchema<Record<string, string | Date>>;
-  onSubmit: (values: Record<string, string>) => void;
+  onSubmit: (values: Record<string, string | boolean>) => void;
 }
 
 export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({

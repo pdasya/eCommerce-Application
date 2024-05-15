@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ErrorMessage, Field } from 'formik';
+import { ErrorMessage, Field, useFormikContext } from 'formik';
 import {
   TextField,
   FormControl,
@@ -8,7 +8,7 @@ import {
   Select,
   FormHelperText,
   FormControlLabel,
-  Checkbox,
+  Switch,
 } from '@mui/material';
 import PasswordInputComponent from '@/components/password-input-component/password-input-component';
 import styles from './field-component.module.scss';
@@ -40,6 +40,12 @@ const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
 );
 
 const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched }) => {
+  const { setFieldValue } = useFormikContext();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setFieldValue(field.name, checked);
+  };
+
   const renderFieldInput = () => {
     switch (field.type) {
       case 'select':
@@ -81,15 +87,13 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched }
             className={styles.dateOfBirthInput}
           />
         );
-      case 'checkbox':
+      case 'switch':
         return (
           <FormControlLabel
             label={field.label}
             name={field.name}
-            control={<Checkbox />}
-            // type={field.type}
+            control={<Switch onChange={handleChange} />}
             required={field.required}
-            // className={styles.dateOfBirthInput}
           />
         );
       default:

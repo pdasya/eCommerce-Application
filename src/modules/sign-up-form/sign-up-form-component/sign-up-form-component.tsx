@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Formik, Form } from 'formik';
-import { Button, Paper, Typography, Grid } from '@mui/material';
+import { Button, Paper, Typography, Grid, Divider } from '@mui/material';
 import * as Yup from 'yup';
 import styles from './sign-up-form-component.module.scss';
 import FieldComponent from '../components/field-component/field-component';
@@ -45,15 +45,38 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
       {({ errors, touched }) => (
         <Form noValidate>
           <Grid container spacing={2}>
-            {fields.map(field => (
-              <Grid item xs={12} key={field.id}>
-                <FieldComponent
-                  field={field}
-                  error={errors[field.name]}
-                  touched={touched[field.name]}
-                />
-              </Grid>
-            ))}
+            {fields.map(field => {
+              if (field.name === 'street') {
+                return (
+                  <React.Fragment key={field.id}>
+                    <Grid item xs={12}>
+                      <Typography
+                        variant="subtitle1"
+                        style={{ marginTop: 20, textAlign: 'center', fontWeight: 600 }}>
+                        ADDRESS
+                      </Typography>
+                      <Divider style={{ marginBottom: 10, opacity: 0.8 }} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FieldComponent
+                        field={field}
+                        error={errors[field.name]}
+                        touched={touched[field.name]}
+                      />
+                    </Grid>
+                  </React.Fragment>
+                );
+              }
+              return (
+                <Grid item xs={12} key={field.id}>
+                  <FieldComponent
+                    field={field}
+                    error={errors[field.name]}
+                    touched={touched[field.name]}
+                  />
+                </Grid>
+              );
+            })}
           </Grid>
           <Button
             type="submit"

@@ -152,6 +152,12 @@ export const SignUpForm: FC = () => {
       required: true,
       options: [{ label: 'United States', value: 'US' }],
     },
+    {
+      id: 'setDefaultAddress',
+      name: 'setDefaultAddress',
+      label: 'Set address as default',
+      type: 'checkbox',
+    },
   ];
 
   return (

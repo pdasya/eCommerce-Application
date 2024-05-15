@@ -7,6 +7,8 @@ import {
   MenuItem,
   Select,
   FormHelperText,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import PasswordInputComponent from '@/components/password-input-component/password-input-component';
 import styles from './field-component.module.scss';
@@ -53,7 +55,6 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched }
             </Field>
           </>
         );
-
       case 'password':
         return (
           <Field
@@ -78,6 +79,17 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched }
             required={field.required}
             variant="standard"
             className={styles.dateOfBirthInput}
+          />
+        );
+      case 'checkbox':
+        return (
+          <FormControlLabel
+            label={field.label}
+            name={field.name}
+            control={<Checkbox />}
+            // type={field.type}
+            required={field.required}
+            // className={styles.dateOfBirthInput}
           />
         );
       default:

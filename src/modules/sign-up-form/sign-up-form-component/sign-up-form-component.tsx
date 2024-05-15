@@ -43,7 +43,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
         resetForm();
       }}>
       {({ errors, touched }) => (
-        <Form>
+        <Form noValidate>
           <Grid container spacing={2}>
             {fields.map(field => (
               <Grid item xs={12} key={field.id}>

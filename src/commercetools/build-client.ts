@@ -29,11 +29,6 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 };
 
 export const client = new ClientBuilder()
-  .defaultClient(authUrl, { clientId, clientSecret })
-  .withLoggerMiddleware()
-  .build();
-
-export const client2 = new ClientBuilder()
   .withProjectKey(projectKey)
   .withAnonymousSessionFlow(anonymousAuthMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)

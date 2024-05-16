@@ -12,8 +12,6 @@ export interface IFormField {
   label: string;
   type: string;
   required?: boolean;
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface ISignInFormComponentProperties {

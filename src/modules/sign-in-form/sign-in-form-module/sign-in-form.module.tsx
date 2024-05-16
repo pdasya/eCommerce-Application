@@ -1,13 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
-import { existCustomerByEmail, signIn } from '../sign-in-form-api/sign-in-form.api';
+import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
 
 export const SignInForm: FC = () => {
-  const [errorEmail, setErrorEmail] = useState('');
-  const [errorPassword, setErrorPassword] = useState('');
   const initialValues: IUserDraft = {
     email: '',
     password: '',
@@ -36,22 +35,15 @@ export const SignInForm: FC = () => {
       email: values.email,
       password: values.password,
     };
-    await existCustomerByEmail(values.email).then(({ body }) => {
-      if (body.results.length === 0) {
-        setErrorEmail('The user with this email is not registered');
-      } else {
-        signIn(userDraft)
-          .then(() => {
-            tokenStorage.set('token', tokenCache.get());
-            console.log('User was logged!');
-            setErrorEmail('');
-          })
-          .catch(() => {
-            setErrorPassword('Incorrect password');
-          });
-        setErrorPassword('');
-      }
-    });
+    await signIn(userDraft)
+      .then(() => {
+        tokenStorage.set('token', tokenCache.get());
+      })
+      .catch(error => {
+        if (error.status === 400) {
+          toast.error('Incorrect email or password.');
+        }
+      });
   };
 
   const fields: IFormField[] = [
@@ -61,8 +53,6 @@ export const SignInForm: FC = () => {
       label: 'Email',
       type: 'text',
       required: true,
-      error: errorEmail,
-      setError: setErrorEmail,
     },
     {
       id: 'password',
@@ -70,8 +60,6 @@ export const SignInForm: FC = () => {
       label: 'Password',
       type: 'password',
       required: true,
-      error: errorPassword,
-      setError: setErrorPassword,
     },
   ];
 

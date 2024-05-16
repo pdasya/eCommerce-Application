@@ -12,14 +12,6 @@ import {
   scopes,
   tokenCache,
 } from '../config/constants';
-import assertIsDefined from '../types/asserts';
-
-assertIsDefined(projectKey);
-assertIsDefined(clientSecret);
-assertIsDefined(clientId);
-assertIsDefined(authUrl);
-assertIsDefined(apiUrl);
-assertIsDefined(scopes);
 
 const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
   host: authUrl,

@@ -1,30 +1,9 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { FC } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { TextField, Button, Paper, Typography, Grid, FormControl } from '@mui/material';
-import * as Yup from 'yup';
 import PasswordInputComponent from '../../../components/password-input-component/password-input-component';
+import { ISignInFormComponentProperties } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import styles from './sign-in-form.component.module.scss';
-import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
-import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
-import { RoutePath } from '@/routes';
-
-interface IFormField {
-  id: string;
-  name: string;
-  label: string;
-  type: string;
-  required?: boolean;
-}
-
-interface ISignInFormComponentProperties {
-  title: string;
-  buttonText: string;
-  fields: IFormField[];
-  initialValues: IUserDraft;
-  validationSchema: Yup.ObjectSchema<IUserDraft>;
-  onSubmit: (values: IUserDraft) => Promise<void>;
-}
 
 const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
@@ -50,10 +29,7 @@ const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
     <Typography variant="h2" align="center" gutterBottom>
       {title}
     </Typography>
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values: IUserDraft) => onSubmit(values)}>
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {({ errors, touched }) => (
         <Form>
           <Grid container spacing={2}>

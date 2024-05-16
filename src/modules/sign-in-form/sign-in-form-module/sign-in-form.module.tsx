@@ -1,12 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
+import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
+import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
-import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
-import { signIn } from '../sign-in-form-api/sign-in-form-api';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
+import { authorize } from '@/modules/auth/auth.slice';
 
 export const SignInForm: FC = () => {
-  const [message, setMessage] = useState('');
+  const dispatch = useAppDispatch();
   const initialValues: IUserDraft = {
     email: '',
     password: '',
@@ -37,17 +40,23 @@ export const SignInForm: FC = () => {
     };
     await signIn(userDraft)
       .then(response => {
+        toast.success('Login successful!');
         tokenStorage.set('token', tokenCache.get());
-        console.log(response);
-        setMessage('User was logined!');
+        dispatch(
+          authorize({
+            id: response.body.customer.id,
+            email: response.body.customer.email,
+          }),
+        );
       })
       .catch(error => {
-        console.error(error);
-        setMessage('User was not logined! Check your email or password.');
+        if (error.status === 400) {
+          toast.error('Incorrect email or password.');
+        }
       });
   };
 
-  const fields = [
+  const fields: IFormField[] = [
     {
       id: 'email',
       name: 'email',
@@ -65,23 +74,13 @@ export const SignInForm: FC = () => {
   ];
 
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: 20,
-        }}>
-        {message}
-      </div>
-      <SignInFormComponent
-        title="Sign In"
-        buttonText="Login"
-        fields={fields}
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      />
-    </>
+    <SignInFormComponent
+      title="Sign In"
+      buttonText="Login"
+      fields={fields}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    />
   );
 };

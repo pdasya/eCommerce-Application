@@ -63,7 +63,7 @@ export const NavBar: FC = () => {
             display: { xs: 'block', md: 'none' },
           }}>
           {navItems.map(item => (
-            <MenuItem key={item.path} onClick={handleCloseNavMenu}>
+            <MenuItem key={item.path} onClick={handleCloseNavMenu} role="navigation">
               <CustomRouterLink to={item.path} key={item.caption}>
                 <Typography textAlign="center">{item.caption}</Typography>
               </CustomRouterLink>
@@ -79,7 +79,7 @@ export const NavBar: FC = () => {
           display: { xs: 'none', md: 'flex' },
         }}>
         {navItems.map(item => (
-          <CustomRouterLink to={item.path} key={item.caption}>
+          <CustomRouterLink to={item.path} key={item.caption} role="navigation">
             <Button
               variant="contained"
               sx={{ color: '#fff' }}

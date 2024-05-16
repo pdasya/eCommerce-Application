@@ -69,6 +69,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorWarning MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorWarning css-n98s6m-MuiButtonBase-root-MuiButton-root"
@@ -84,6 +85,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/catalog"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
@@ -99,6 +101,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/cart"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
@@ -114,6 +117,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/about"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
@@ -129,6 +133,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/404"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
@@ -144,6 +149,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/product"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
@@ -159,6 +165,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/profile"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
@@ -174,6 +181,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/redux-test"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
@@ -189,6 +197,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             <a
               class="link"
               href="/error"
+              role="navigation"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"

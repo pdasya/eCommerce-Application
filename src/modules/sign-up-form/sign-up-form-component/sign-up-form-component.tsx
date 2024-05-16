@@ -128,7 +128,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
                       </Typography>
                       <Divider className={styles.shippingAddressDivider} />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={6}>
                       <FieldComponent
                         field={field}
                         error={errors[field.name]}
@@ -154,7 +154,27 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
                       </Typography>
                       <Divider className={styles.billingAddressDivider} />
                     </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <FieldComponent
+                        field={field}
+                        error={errors[field.name]}
+                        touched={touched[field.name]}
+                        values={values}
+                      />
+                    </Grid>
+                  </React.Fragment>
+                );
+              }
+              if (field.name === 'email') {
+                return (
+                  <React.Fragment key={field.id}>
                     <Grid item xs={12}>
+                      <Typography variant="subtitle1" className={styles.generalInfoHeader}>
+                        General Information
+                      </Typography>
+                      <Divider className={styles.generalInfoDivider} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                       <FieldComponent
                         field={field}
                         error={errors[field.name]}
@@ -166,7 +186,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
                 );
               }
               return (
-                <Grid item xs={12} key={field.id}>
+                <Grid item xs={12} sm={6} key={field.id}>
                   <FieldComponent
                     field={field}
                     error={errors[field.name]}

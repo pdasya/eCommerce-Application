@@ -20,7 +20,12 @@ export const SignUpForm: FC = () => {
     shippingCity: '',
     shippingPostalCode: '',
     shippingCountry: '',
-    setDefaultAddress: false,
+    setDefaultShippingAddress: false,
+    billingStreet: '',
+    billingCity: '',
+    billingPostalCode: '',
+    billingCountry: '',
+    setDefaultBillingAddress: false,
   };
 
   const validationSchema = Yup.object({
@@ -54,6 +59,18 @@ export const SignUpForm: FC = () => {
       .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
       .required('Postal code is required'),
     shippingCountry: Yup.string()
+      .oneOf(['US'], 'Invalid country selection')
+      .required('Country is required'),
+    billingStreet: Yup.string()
+      .min(minStreetNameLength, 'Street must contain at least one character')
+      .required('Street is required'),
+    billingCity: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
+      .required('City is required'),
+    billingPostalCode: Yup.string()
+      .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
+      .required('Postal code is required'),
+    billingCountry: Yup.string()
       .oneOf(['US'], 'Invalid country selection')
       .required('Country is required'),
   });

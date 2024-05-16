@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import PasswordInputComponent from '../../../components/password-input-component/password-input-component';
 import styles from './sign-in-form.component.module.scss';
 import { IUserDraft } from '@/modules/sign-in-form/interface/sign-in-form';
+import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
+import { RoutePath } from '@/routes';
 
 interface IFormField {
   id: string;
@@ -26,6 +28,14 @@ interface ISignInFormComponentProperties {
 
 const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
+);
+
+const ButtonToRegisterPage: FC = () => (
+  <CustomRouterLink to={RoutePath.signUp}>
+    <Button className={styles.button} variant="contained" color="primary" fullWidth>
+      Register
+    </Button>
+  </CustomRouterLink>
 );
 
 const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
@@ -74,6 +84,7 @@ const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
             fullWidth>
             {buttonText}
           </Button>
+          <ButtonToRegisterPage />
         </Form>
       )}
     </Formik>

@@ -21,7 +21,7 @@ export const SignUpForm: FC = () => {
     shippingPostalCode: '',
     shippingCountry: '',
     setDefaultShippingAddress: false,
-    setSameBillingAddress: true,
+    setSameBillingAddress: false,
     billingStreet: '',
     billingCity: '',
     billingPostalCode: '',

@@ -5,8 +5,11 @@ import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants'
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
+import { authorize } from '@/modules/auth/auth.slice';
 
 export const SignInForm: FC = () => {
+  const dispatch = useAppDispatch();
   const initialValues: IUserDraft = {
     email: '',
     password: '',
@@ -36,8 +39,14 @@ export const SignInForm: FC = () => {
       password: values.password,
     };
     await signIn(userDraft)
-      .then(() => {
+      .then(response => {
         tokenStorage.set('token', tokenCache.get());
+        dispatch(
+          authorize({
+            id: response.body.customer.id,
+            email: response.body.customer.email,
+          }),
+        );
       })
       .catch(error => {
         if (error.status === 400) {

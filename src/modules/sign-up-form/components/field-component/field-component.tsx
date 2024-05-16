@@ -99,7 +99,6 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched, 
             label={field.label}
             name={field.name}
             control={<Switch checked={values[field.name] as boolean} onChange={handleChange} />}
-            required={field.required}
           />
         );
       case 'checkbox':
@@ -110,7 +109,6 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched, 
             control={
               <Checkbox checked={values[field.name] as boolean} onChange={handleCheckboxChange} />
             }
-            required={field.required}
           />
         );
       default:

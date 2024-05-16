@@ -19,7 +19,7 @@ interface ISignUpFormComponentProperties {
   buttonText: string;
   fields: IFormField[];
   initialValues: Record<string, string | boolean>;
-  validationSchema: Yup.ObjectSchema<Record<string, string | Date | boolean>>;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onSubmit: (values: Record<string, string | boolean>) => void;
 }
 

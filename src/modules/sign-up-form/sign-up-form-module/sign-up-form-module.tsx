@@ -78,11 +78,18 @@ export const SignUpForm: FC = () => {
   const [formValues, setFormValues] = useState(initialValues);
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
-    const address = {
+    const shippingAddress = {
       country: values.shippingCountry,
       city: values.shippingCity,
       streetName: values.shippingStreet,
       postalCode: values.shippingPostalCode,
+    };
+
+    const billingAddress = {
+      country: values.billingCountry,
+      city: values.billingCity,
+      streetName: values.billingStreet,
+      postalCode: values.billingPostalCode,
     };
 
     const customerDraft: CustomerDraft = {
@@ -91,8 +98,9 @@ export const SignUpForm: FC = () => {
       firstName: values.firstName,
       lastName: values.lastName,
       dateOfBirth: values.dateOfBirth,
-      addresses: [address],
+      addresses: [shippingAddress, billingAddress],
       defaultShippingAddress: values.setDefaultShippingAddress ? 0 : undefined,
+      defaultBillingAddress: values.setDefaultBillingAddress ? 1 : undefined,
     };
 
     try {

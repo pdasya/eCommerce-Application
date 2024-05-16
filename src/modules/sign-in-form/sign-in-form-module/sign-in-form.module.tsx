@@ -75,7 +75,7 @@ export const SignInForm: FC = () => {
   return (
     <SignInFormComponent
       title="Sign In"
-      buttonText="Sing In"
+      buttonText="Sign In"
       fields={fields}
       initialValues={initialValues}
       validationSchema={validationSchema}

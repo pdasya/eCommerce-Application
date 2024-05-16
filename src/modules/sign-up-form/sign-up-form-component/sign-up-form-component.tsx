@@ -19,16 +19,89 @@ interface ISignUpFormComponentProperties {
   buttonText: string;
   fields: IFormField[];
   initialValues: Record<string, string | boolean>;
-  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onSubmit: (values: Record<string, string | boolean>) => void;
 }
+
+const getValidationSchema = (values: Record<string, string | boolean>) => {
+  const minPasswordLength = 8;
+  const minStreetNameLength = 1;
+  const minAge = 13;
+
+  const baseSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+    password: Yup.string()
+      .min(minPasswordLength, `Password must be at least ${minPasswordLength} characters long`)
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+      )
+      .required('Password is required'),
+    firstName: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'First name must contain only alphabetic characters')
+      .required('First name is required'),
+    lastName: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'Last name must contain only alphabetic characters')
+      .required('Last name is required'),
+    dateOfBirth: Yup.date()
+      .max(
+        new Date(new Date().setFullYear(new Date().getFullYear() - minAge)),
+        `You must be at least ${minAge} years old`,
+      )
+      .required('Date of birth is required'),
+    shippingStreet: Yup.string()
+      .min(minStreetNameLength, 'Street must contain at least one character')
+      .required('Street is required'),
+    shippingCity: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
+      .required('City is required'),
+    shippingPostalCode: Yup.string()
+      .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
+      .required('Postal code is required'),
+    shippingCountry: Yup.string()
+      .oneOf(['US'], 'Invalid country selection')
+      .required('Country is required'),
+  });
+
+  const billingSchema = Yup.object().shape({
+    billingStreet: Yup.string()
+      .min(minStreetNameLength, 'Street must contain at least one character')
+      .required('Billing street is required'),
+    billingCity: Yup.string()
+      .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
+      .required('Billing city is required'),
+    billingPostalCode: Yup.string()
+      .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
+      .required('Billing postal code is required'),
+    billingCountry: Yup.string()
+      .oneOf(['US'], 'Invalid country selection')
+      .required('Billing country is required'),
+  });
+
+  return values.setSameBillingAddress ? baseSchema : baseSchema.concat(billingSchema);
+};
+
+const validate = (values: Record<string, string | boolean>) => {
+  try {
+    getValidationSchema(values).validateSync(values, { abortEarly: false });
+    return {};
+  } catch (err) {
+    const errors: Record<string, string> = {};
+    if (err.inner) {
+      err.inner.forEach((error: Yup.ValidationError) => {
+        if (error.path) {
+          errors[error.path] = error.message;
+        }
+      });
+    }
+    return errors;
+  }
+};
 
 export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
   title,
   buttonText,
   fields,
   initialValues,
-  validationSchema,
   onSubmit,
 }) => (
   <Paper elevation={3} className={styles.signUpForm}>
@@ -37,7 +110,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
     </Typography>
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validate={validate}
       onSubmit={async (values, { resetForm }) => {
         await onSubmit(values);
         resetForm();

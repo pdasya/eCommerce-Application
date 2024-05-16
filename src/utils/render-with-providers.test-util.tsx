@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { render } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import { setupStore } from '@/store';
 import type { AppStore, RootState } from '@/store';
 
@@ -10,7 +11,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   store?: AppStore;
 }
 
-export function renderWithRedux(
+export function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {},
@@ -19,7 +20,9 @@ export function renderWithRedux(
   }: ExtendedRenderOptions = {},
 ) {
   const Wrapper = ({ children }: PropsWithChildren<object>): JSX.Element => (
-    <Provider store={store}>{children}</Provider>
+    <Provider store={store}>
+      <MemoryRouter>{children}</MemoryRouter>
+    </Provider>
   );
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }

@@ -40,6 +40,7 @@ export const SignInForm: FC = () => {
     };
     await signIn(userDraft)
       .then(response => {
+        toast.success('Login successful!');
         tokenStorage.set('token', tokenCache.get());
         dispatch(
           authorize({
@@ -75,7 +76,7 @@ export const SignInForm: FC = () => {
   return (
     <SignInFormComponent
       title="Sign In"
-      buttonText="Sign In"
+      buttonText="Login"
       fields={fields}
       initialValues={initialValues}
       validationSchema={validationSchema}

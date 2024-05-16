@@ -46,12 +46,31 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
         <Form noValidate>
           <Grid container spacing={2}>
             {fields.map(field => {
-              if (field.name === 'street') {
+              if (field.name === 'shippingStreet') {
                 return (
                   <React.Fragment key={field.id}>
                     <Grid item xs={12}>
                       <Typography variant="subtitle1" className={styles.shippingAddressHeader}>
                         Shipping Address
+                      </Typography>
+                      <Divider className={styles.shippingAddressDivider} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FieldComponent
+                        field={field}
+                        error={errors[field.name]}
+                        touched={touched[field.name]}
+                      />
+                    </Grid>
+                  </React.Fragment>
+                );
+              }
+              if (field.name === 'billingStreet') {
+                return (
+                  <React.Fragment key={field.id}>
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle1" className={styles.shippingAddressHeader}>
+                        Billing Address
                       </Typography>
                       <Divider className={styles.shippingAddressDivider} />
                     </Grid>

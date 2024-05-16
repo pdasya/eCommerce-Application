@@ -16,10 +16,10 @@ export const SignUpForm: FC = () => {
     firstName: '',
     lastName: '',
     dateOfBirth: '',
-    street: '',
-    city: '',
-    postalCode: '',
-    country: '',
+    shippingStreet: '',
+    shippingCity: '',
+    shippingPostalCode: '',
+    shippingCountry: '',
     setDefaultAddress: false,
   };
 
@@ -44,16 +44,16 @@ export const SignUpForm: FC = () => {
         'You must be at least 13 years old',
       )
       .required('Date of birth is required'),
-    street: Yup.string()
+    shippingStreet: Yup.string()
       .min(minStreetNameLength, 'Street must contain at least one character')
       .required('Street is required'),
-    city: Yup.string()
+    shippingCity: Yup.string()
       .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
       .required('City is required'),
-    postalCode: Yup.string()
+    shippingPostalCode: Yup.string()
       .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
       .required('Postal code is required'),
-    country: Yup.string()
+    shippingCountry: Yup.string()
       .oneOf(['US'], 'Invalid country selection')
       .required('Country is required'),
   });
@@ -62,10 +62,10 @@ export const SignUpForm: FC = () => {
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
     const address = {
-      country: values.country,
-      city: values.city,
-      streetName: values.street,
-      postalCode: values.postalCode,
+      country: values.shippingCountry,
+      city: values.shippingCity,
+      streetName: values.shippingStreet,
+      postalCode: values.shippingPostalCode,
     };
 
     const customerDraft: CustomerDraft = {
@@ -75,7 +75,7 @@ export const SignUpForm: FC = () => {
       lastName: values.lastName,
       dateOfBirth: values.dateOfBirth,
       addresses: [address],
-      defaultShippingAddress: values.setDefaultAddress ? 0 : undefined,
+      defaultShippingAddress: values.setDefaultShippingAddress ? 0 : undefined,
     };
 
     try {
@@ -126,38 +126,73 @@ export const SignUpForm: FC = () => {
       required: true,
     },
     {
-      id: 'street',
-      name: 'street',
+      id: 'shippingStreet',
+      name: 'shippingStreet',
       label: 'Street',
       type: 'text',
       required: true,
     },
     {
-      id: 'city',
-      name: 'city',
+      id: 'shippingCity',
+      name: 'shippingCity',
       label: 'City',
       type: 'text',
       required: true,
     },
     {
-      id: 'postalCode',
-      name: 'postalCode',
+      id: 'shippingPostalCode',
+      name: 'shippingPostalCode',
       label: 'Postal Code',
       type: 'text',
       required: true,
     },
     {
-      id: 'country',
-      name: 'country',
+      id: 'shippingCountry',
+      name: 'shippingCountry',
       label: 'Country',
       type: 'select',
       required: true,
       options: [{ label: 'United States', value: 'US' }],
     },
     {
-      id: 'setDefaultAddress',
-      name: 'setDefaultAddress',
+      id: 'setDefaultShippingAddress',
+      name: 'setDefaultShippingAddress',
       label: 'Set shipping address as default',
+      type: 'switch',
+    },
+    {
+      id: 'billingStreet',
+      name: 'billingStreet',
+      label: 'Street',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'billingCity',
+      name: 'billingCity',
+      label: 'City',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'billingPostalCode',
+      name: 'billingPostalCode',
+      label: 'Postal Code',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'billingCountry',
+      name: 'billingCountry',
+      label: 'Country',
+      type: 'select',
+      required: true,
+      options: [{ label: 'United States', value: 'US' }],
+    },
+    {
+      id: 'setDefaultBillingAddress',
+      name: 'setDefaultBillingAddress',
+      label: 'Set billing address as default',
       type: 'switch',
     },
   ];

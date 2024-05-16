@@ -19,7 +19,7 @@ interface ISignUpFormComponentProperties {
   buttonText: string;
   fields: IFormField[];
   initialValues: Record<string, string | boolean>;
-  validationSchema: Yup.ObjectSchema<Record<string, string | Date>>;
+  validationSchema: Yup.ObjectSchema<Record<string, string | Date | boolean>>;
   onSubmit: (values: Record<string, string | boolean>) => void;
 }
 
@@ -42,7 +42,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
         await onSubmit(values);
         resetForm();
       }}>
-      {({ errors, touched }) => (
+      {({ errors, touched, values }) => (
         <Form noValidate>
           <Grid container spacing={2}>
             {fields.map(field => {
@@ -60,25 +60,33 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
                         field={field}
                         error={errors[field.name]}
                         touched={touched[field.name]}
+                        values={values}
                       />
                     </Grid>
                   </React.Fragment>
                 );
               }
+              if (
+                (field.name.includes('billing') || field.name.includes('DefaultBilling')) &&
+                values.setSameBillingAddress
+              ) {
+                return null;
+              }
               if (field.name === 'billingStreet') {
                 return (
                   <React.Fragment key={field.id}>
                     <Grid item xs={12}>
-                      <Typography variant="subtitle1" className={styles.shippingAddressHeader}>
+                      <Typography variant="subtitle1" className={styles.billingAddressHeader}>
                         Billing Address
                       </Typography>
-                      <Divider className={styles.shippingAddressDivider} />
+                      <Divider className={styles.billingAddressDivider} />
                     </Grid>
                     <Grid item xs={12}>
                       <FieldComponent
                         field={field}
                         error={errors[field.name]}
                         touched={touched[field.name]}
+                        values={values}
                       />
                     </Grid>
                   </React.Fragment>
@@ -90,6 +98,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
                     field={field}
                     error={errors[field.name]}
                     touched={touched[field.name]}
+                    values={values}
                   />
                 </Grid>
               );

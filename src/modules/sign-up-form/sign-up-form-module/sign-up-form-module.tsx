@@ -21,6 +21,7 @@ export const SignUpForm: FC = () => {
     shippingPostalCode: '',
     shippingCountry: '',
     setDefaultShippingAddress: false,
+    setSameBillingAddress: false,
     billingStreet: '',
     billingCity: '',
     billingPostalCode: '',
@@ -184,6 +185,12 @@ export const SignUpForm: FC = () => {
       name: 'setDefaultShippingAddress',
       label: 'Set shipping address as default',
       type: 'switch',
+    },
+    {
+      id: 'setSameBillingAddress',
+      name: 'setSameBillingAddress',
+      label: 'Also use as billing address',
+      type: 'checkbox',
     },
     {
       id: 'billingStreet',

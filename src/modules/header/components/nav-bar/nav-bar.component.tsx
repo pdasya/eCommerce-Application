@@ -26,7 +26,6 @@ export const NavBar: FC = () => {
     { caption: '404', path: RoutePath.http404 },
     { caption: 'Product', path: RoutePath.product },
     { caption: 'Profile', path: RoutePath.profile },
-    { caption: 'Test', path: RoutePath.reduxTest },
     { caption: 'Error', path: RoutePath.error },
   ];
 

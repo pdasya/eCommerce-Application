@@ -41,7 +41,6 @@ export const SignInForm: FC = () => {
     await signIn(userDraft)
       .then(response => {
         toast.success('Login successful!');
-        tokenStorage.set('token', tokenCache.get());
         dispatch(
           authorize({
             id: response.body.customer.id,
@@ -49,9 +48,14 @@ export const SignInForm: FC = () => {
           }),
         );
       })
+      .then(() => {
+        tokenStorage.set('token', tokenCache.get());
+      })
       .catch(error => {
-        if (error.status === 400) {
+        if (error.statusCode === 400) {
           toast.error('Incorrect email or password.');
+        } else {
+          toast.error('Bad request');
         }
       });
   };

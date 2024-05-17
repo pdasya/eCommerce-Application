@@ -11,11 +11,9 @@ const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
 );
 
-const ButtonToRegisterPage: FC = () => (
-  <CustomRouterLink to={RoutePath.signUp}>
-    <Button className={styles.button} variant="contained" color="primary" fullWidth>
-      Register
-    </Button>
+const LinkToRegisterPage: FC = () => (
+  <CustomRouterLink to={RoutePath.signUp} className={styles.registerLink}>
+    Don&apos;t have an account yet? Register
   </CustomRouterLink>
 );
 
@@ -62,7 +60,7 @@ const SignInFormComponent: FC<ISignInFormComponentProperties> = ({
             fullWidth>
             {buttonText}
           </Button>
-          <ButtonToRegisterPage />
+          <LinkToRegisterPage />
         </Form>
       )}
     </Formik>

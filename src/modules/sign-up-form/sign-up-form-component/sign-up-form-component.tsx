@@ -4,6 +4,8 @@ import { Button, Paper, Typography, Grid, Divider } from '@mui/material';
 import * as Yup from 'yup';
 import styles from './sign-up-form-component.module.scss';
 import FieldComponent from '../components/field-component/field-component';
+import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
+import { RoutePath } from '@/routes';
 
 export interface IFormField {
   id: string;
@@ -21,6 +23,12 @@ interface ISignUpFormComponentProperties {
   initialValues: Record<string, string | boolean>;
   onSubmit: (values: Record<string, string | boolean>) => void;
 }
+
+const LinkToLoginPage: FC = () => (
+  <CustomRouterLink to={RoutePath.signIn} className={styles.loginLink}>
+    Already have an account? Login
+  </CustomRouterLink>
+);
 
 const getValidationSchema = (values: Record<string, string | boolean>) => {
   const minPasswordLength = 8;
@@ -206,6 +214,7 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
             className={styles.submitButton}>
             {buttonText}
           </Button>
+          <LinkToLoginPage />
         </Form>
       )}
     </Formik>

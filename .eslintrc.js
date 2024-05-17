@@ -46,6 +46,10 @@ module.exports = {
     'no-nested-ternary': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.{test,spec}.{ts,tsx}', '**/*.test-util.{ts,tsx}'] },
+    ],
     curly: 'error',
   },
   noInlineConfig: false,

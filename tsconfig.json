@@ -8,6 +8,7 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
@@ -20,20 +21,14 @@
         "name": "typescript-plugin-css-modules"
       }
     ],
-    "paths": {
-      "@app/*": ["./src/app/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@widgets/*": ["./src/widgets/*"],
-      "@features/*": ["./src/features/*"],
-      "@entities/*": ["./src/entities/*"],
-      "@shared/*": ["./src/shared/*"],
-      "@/*": ["./src/*"]
-    }
+    "types": ["@types/jest"],
+    "baseUrl": "."
   },
   "exclude": [
     "node_modules",
     "dist",
     "scripts",
     "webpack"
-  ]
+  ],
+  "extends": "./tsconfig.paths.json"
 }

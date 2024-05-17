@@ -3,9 +3,10 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { Config } from 'jest';
+import { pathsToModuleNameMapper, JestConfigWithTsJest } from 'ts-jest';
+import { compilerOptions } from './tsconfig.paths.json';
 
-const config: Config = {
+const config: JestConfigWithTsJest = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -77,9 +78,10 @@ const config: Config = {
   // maxWorkers: "50%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  // moduleDirectories: [
-  //   "node_modules"
-  // ],
+  moduleDirectories: [
+    'node_modules',
+    '<rootDir>',
+  ],
 
   // An array of file extensions your modules use
   // moduleFileExtensions: [
@@ -97,6 +99,7 @@ const config: Config = {
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '^.+\\.svg$': 'jest-transformer-svg',
+    ...pathsToModuleNameMapper(compilerOptions.paths),
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

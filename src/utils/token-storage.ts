@@ -7,20 +7,20 @@ export default class TokenStorage {
     this.storage = storage;
   }
 
-  get(item: string) {
+  public get(item: string) {
     const storageItem = this.storage.getItem(item);
-    return storageItem ? JSON.parse(storageItem) : '';
+    return storageItem ? JSON.parse(storageItem) : null;
   }
 
-  set(key: string, value: TokenStore) {
+  public set(key: string, value: TokenStore) {
     this.storage.setItem(key, JSON.stringify(value));
   }
 
-  removeItem(item: string) {
+  public removeItem(item: string) {
     this.storage.removeItem(item);
   }
 
-  clear() {
+  public clear() {
     this.storage.clear();
   }
 }

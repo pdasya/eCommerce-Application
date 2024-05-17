@@ -57,10 +57,10 @@
 .gear::before {
   position: absolute;
   z-index: 2;
-  inset: 5px;
   border-radius: 50%;
   background: var(--main-color);
   content: '';
+  inset: 5px;
 }
 
 .gear::after {
@@ -109,19 +109,17 @@
 .gear .bar::before {
   position: absolute;
   z-index: 1;
-  inset: 5px;
   border-radius: 2px;
   background: var(--main-color);
   content: '';
+  inset: 5px;
 }
 
 .gear .bar:nth-child(2) {
   transform: rotate(60deg);
-  transform: rotate(60deg);
 }
 
 .gear .bar:nth-child(3) {
-  transform: rotate(120deg);
   transform: rotate(120deg);
 }
 

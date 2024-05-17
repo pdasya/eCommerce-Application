@@ -1,82 +1,73 @@
 import React, { FC, useState } from 'react';
-import * as Yup from 'yup';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
-import { minPasswordLength } from '@/config/constants';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
 
 export const SignUpForm: FC = () => {
-  const minStreetNameLength = 1;
-  const minAge = 13;
-
   const initialValues = {
     email: '',
     password: '',
     firstName: '',
     lastName: '',
     dateOfBirth: '',
-    street: '',
-    city: '',
-    postalCode: '',
-    country: '',
-    setDefaultAddress: false,
+    shippingStreet: '',
+    shippingCity: '',
+    shippingPostalCode: '',
+    shippingCountry: '',
+    setDefaultShippingAddress: false,
+    setSameBillingAddress: false,
+    billingStreet: '',
+    billingCity: '',
+    billingPostalCode: '',
+    billingCountry: '',
+    setDefaultBillingAddress: false,
   };
-
-  const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string()
-      .min(minPasswordLength, 'Password must be at least 8 characters long')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
-      )
-      .required('Password is required'),
-    firstName: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'First name must contain only alphabetic characters')
-      .required('First name is required'),
-    lastName: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'Last name must contain only alphabetic characters')
-      .required('Last name is required'),
-    dateOfBirth: Yup.date()
-      .max(
-        new Date(new Date().setFullYear(new Date().getFullYear() - minAge)),
-        'You must be at least 13 years old',
-      )
-      .required('Date of birth is required'),
-    street: Yup.string()
-      .min(minStreetNameLength, 'Street must contain at least one character')
-      .required('Street is required'),
-    city: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
-      .required('City is required'),
-    postalCode: Yup.string()
-      .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
-      .required('Postal code is required'),
-    country: Yup.string()
-      .oneOf(['US'], 'Invalid country selection')
-      .required('Country is required'),
-  });
 
   const [formValues, setFormValues] = useState(initialValues);
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
-    const address = {
-      country: values.country,
-      city: values.city,
-      streetName: values.street,
-      postalCode: values.postalCode,
+    const shippingAddress = {
+      country: values.shippingCountry,
+      city: values.shippingCity,
+      streetName: values.shippingStreet,
+      postalCode: values.shippingPostalCode,
     };
 
-    const customerDraft: CustomerDraft = {
-      email: values.email,
-      password: values.password,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      dateOfBirth: values.dateOfBirth,
-      addresses: [address],
-      defaultShippingAddress: values.setDefaultAddress ? 0 : undefined,
-    };
+    const billingAddress = values.setSameBillingAddress
+      ? shippingAddress
+      : {
+          country: values.billingCountry,
+          city: values.billingCity,
+          streetName: values.billingStreet,
+          postalCode: values.billingPostalCode,
+        };
+
+    const customerDraft: CustomerDraft = values.setSameBillingAddress
+      ? {
+          email: values.email,
+          password: values.password,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          dateOfBirth: values.dateOfBirth,
+          addresses: [shippingAddress],
+          defaultShippingAddress: values.setDefaultShippingAddress ? 0 : undefined,
+          defaultBillingAddress: values.setDefaultShippingAddress ? 0 : undefined,
+          shippingAddresses: [0],
+          billingAddresses: [0],
+        }
+      : {
+          email: values.email,
+          password: values.password,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          dateOfBirth: values.dateOfBirth,
+          addresses: [shippingAddress, billingAddress],
+          defaultShippingAddress: values.setDefaultShippingAddress ? 0 : undefined,
+          defaultBillingAddress: values.setDefaultBillingAddress ? 1 : undefined,
+          shippingAddresses: [0],
+          billingAddresses: [1],
+        };
 
     try {
       const response = await createCustomerInStore(customerDraft);
@@ -87,6 +78,8 @@ export const SignUpForm: FC = () => {
       toast.error(`${error.message}`);
       console.error('Error creating customer:', error);
     }
+
+    console.log(formValues);
   };
 
   const fields = [
@@ -126,38 +119,79 @@ export const SignUpForm: FC = () => {
       required: true,
     },
     {
-      id: 'street',
-      name: 'street',
+      id: 'shippingStreet',
+      name: 'shippingStreet',
       label: 'Street',
       type: 'text',
       required: true,
     },
     {
-      id: 'city',
-      name: 'city',
+      id: 'shippingCity',
+      name: 'shippingCity',
       label: 'City',
       type: 'text',
       required: true,
     },
     {
-      id: 'postalCode',
-      name: 'postalCode',
+      id: 'shippingPostalCode',
+      name: 'shippingPostalCode',
       label: 'Postal Code',
       type: 'text',
       required: true,
     },
     {
-      id: 'country',
-      name: 'country',
+      id: 'shippingCountry',
+      name: 'shippingCountry',
       label: 'Country',
       type: 'select',
       required: true,
       options: [{ label: 'United States', value: 'US' }],
     },
     {
-      id: 'setDefaultAddress',
-      name: 'setDefaultAddress',
-      label: 'Set shipping address as default',
+      id: 'setDefaultShippingAddress',
+      name: 'setDefaultShippingAddress',
+      label: 'Set address as default',
+      type: 'switch',
+    },
+    {
+      id: 'setSameBillingAddress',
+      name: 'setSameBillingAddress',
+      label: 'Also use as billing address',
+      type: 'checkbox',
+    },
+    {
+      id: 'billingStreet',
+      name: 'billingStreet',
+      label: 'Street',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'billingCity',
+      name: 'billingCity',
+      label: 'City',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'billingPostalCode',
+      name: 'billingPostalCode',
+      label: 'Postal Code',
+      type: 'text',
+      required: true,
+    },
+    {
+      id: 'billingCountry',
+      name: 'billingCountry',
+      label: 'Country',
+      type: 'select',
+      options: [{ label: 'United States', value: 'US' }],
+      required: true,
+    },
+    {
+      id: 'setDefaultBillingAddress',
+      name: 'setDefaultBillingAddress',
+      label: 'Set address as default',
       type: 'switch',
     },
   ];
@@ -168,7 +202,6 @@ export const SignUpForm: FC = () => {
       buttonText="Register"
       fields={fields}
       initialValues={formValues}
-      validationSchema={validationSchema}
       onSubmit={handleSubmit}
     />
   );

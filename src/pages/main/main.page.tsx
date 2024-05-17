@@ -16,6 +16,20 @@ export const MainPage: FC = () => {
     }
   });
 
+  const isAuth = () => {
+    const token = tokenStorage.get('token');
+    if (token) {
+      dispatch(authorize({}));
+      client.refreshToken(token.refreshToken).customers().get().execute();
+    } else {
+      client.anonymousSession().products().get().execute();
+    }
+  };
+
+  useEffect(() => {
+    isAuth();
+  }, []);
+
   return (
     <div className={styles.page}>
       <ul>

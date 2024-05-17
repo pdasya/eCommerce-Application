@@ -19,9 +19,11 @@ export const MainPage: FC = () => {
   const isAuth = () => {
     const token = tokenStorage.get('token');
     if (token) {
+      console.log('LOGIN');
       dispatch(authorize({}));
       client.refreshToken(token.refreshToken).customers().get().execute();
     } else {
+      console.log('NOT LOGIN');
       client.anonymousSession().products().get().execute();
     }
   };

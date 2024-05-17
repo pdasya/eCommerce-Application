@@ -47,6 +47,7 @@ const getValidationSchema = (values: Record<string, string | boolean>) => {
         new Date(new Date().setFullYear(new Date().getFullYear() - minAge)),
         `You must be at least ${minAge} years old`,
       )
+      .typeError('Date of birth is required')
       .required('Date of birth is required'),
     shippingStreet: Yup.string()
       .min(minStreetNameLength, 'Street must contain at least one character')

@@ -78,8 +78,22 @@ export const SignUpForm: FC = () => {
       console.log('Response:', response);
       setFormValues(initialValues);
       toast.success('Customer Successfully Created');
+      const userDraft: IUserDraft = {
+        email: values.email,
+        password: values.password,
+      };
 
-      tokenStorage.set('token', tokenCache.get());
+      client
+        .passwordSession(userDraft)
+        .me()
+        .login()
+        .post({
+          body: userDraft,
+        })
+        .execute()
+        .then(() => {
+          tokenStorage.set('token', tokenCache.get());
+        });
 
       dispatch(
         authorize({

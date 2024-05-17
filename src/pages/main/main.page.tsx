@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
+import { authorize, unauthorize } from '@store/auth/auth.slice';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
-import { authorize, unauthorize } from '@/modules/auth/auth.slice';
 import styles from './main.page.module.scss';
 import { tokenStorage } from '@/config/constants';
 

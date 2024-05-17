@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
+import { authorize } from '@store/auth/auth.slice';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
 import { tokenCache, tokenStorage } from '@/config/constants';
-import { authorize } from '@/modules/auth/auth.slice';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 
 export const SignUpForm: FC = () => {

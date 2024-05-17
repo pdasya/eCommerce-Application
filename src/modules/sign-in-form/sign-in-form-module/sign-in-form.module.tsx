@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import { authorize } from '@store/auth/auth.slice';
 import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
-import { authorize } from '@/modules/auth/auth.slice';
 
 export const SignInForm: FC = () => {
   const dispatch = useAppDispatch();

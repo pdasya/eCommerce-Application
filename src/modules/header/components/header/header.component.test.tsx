@@ -1,8 +1,8 @@
 import React from 'react';
 import { act, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { authorize } from '@store/auth/auth.slice';
 import { Header } from './header.component';
-import { authorize } from '@/modules/auth/auth.slice';
 import { renderWithProviders } from '@/utils/render-with-providers.test-util';
 
 describe('Header', () => {

@@ -9,6 +9,7 @@ import {
   FormHelperText,
   FormControlLabel,
   Switch,
+  Checkbox,
 } from '@mui/material';
 import PasswordInputComponent from '@/components/password-input-component/password-input-component';
 import styles from './field-component.module.scss';
@@ -26,6 +27,7 @@ interface FieldComponentProps {
   field: IFormField;
   error?: string;
   touched?: boolean;
+  values?: Record<string, string | boolean>;
 }
 
 const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
@@ -39,10 +41,14 @@ const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   />
 );
 
-const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched }) => {
-  const { setFieldValue } = useFormikContext();
+const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched, values = {} }) => {
+  const { setFieldValue } = useFormikContext<Record<string, string | boolean>>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setFieldValue(field.name, checked);
+  };
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     setFieldValue(field.name, checked);
   };
 
@@ -92,8 +98,17 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, error, touched }
           <FormControlLabel
             label={field.label}
             name={field.name}
-            control={<Switch onChange={handleChange} />}
-            required={field.required}
+            control={<Switch checked={values[field.name] as boolean} onChange={handleChange} />}
+          />
+        );
+      case 'checkbox':
+        return (
+          <FormControlLabel
+            label={field.label}
+            name={field.name}
+            control={
+              <Checkbox checked={values[field.name] as boolean} onChange={handleCheckboxChange} />
+            }
           />
         );
       default:

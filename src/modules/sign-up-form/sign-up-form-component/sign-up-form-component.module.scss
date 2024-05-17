@@ -1,5 +1,5 @@
 .signUpForm {
-  max-width: 400px;
+  max-width: 600px;
   padding: 20px;
   border: 2px solid black;
   margin: 20px auto;
@@ -13,14 +13,18 @@
   color: red;
 }
 
-.shippingAddressHeader {
+.shippingAddressHeader,
+.generalInfoHeader,
+.billingAddressHeader {
   margin-top: 20px;
   font-weight: 600 !important;
   text-align: center;
   text-transform: uppercase;
 }
 
-.shippingAddressDivider {
+.shippingAddressDivider,
+.generalInfoDivider,
+.billingAddressDivider {
   margin-bottom: 10px;
   opacity: 0.8;
 }

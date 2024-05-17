@@ -3,8 +3,12 @@ import { CustomerDraft } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
+import { tokenCache, tokenStorage } from '@/config/constants';
+import { authorize } from '@/modules/auth/auth.slice';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 
 export const SignUpForm: FC = () => {
+  const dispatch = useAppDispatch();
   const initialValues = {
     email: '',
     password: '',
@@ -74,12 +78,19 @@ export const SignUpForm: FC = () => {
       console.log('Response:', response);
       setFormValues(initialValues);
       toast.success('Customer Successfully Created');
+
+      tokenStorage.set('token', tokenCache.get());
+
+      dispatch(
+        authorize({
+          id: response.body.customer.id,
+          email: response.body.customer.email,
+        }),
+      );
     } catch (error) {
       toast.error(`${error.message}`);
       console.error('Error creating customer:', error);
     }
-
-    console.log(formValues);
   };
 
   const fields = [

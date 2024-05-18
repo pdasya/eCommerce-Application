@@ -21,12 +21,7 @@ export const NavBar: FC = () => {
   const navItems = [
     { caption: 'Home', path: RoutePath.main },
     { caption: 'Catalog', path: RoutePath.catalog },
-    { caption: 'Cart', path: RoutePath.cart },
     { caption: 'About', path: RoutePath.about },
-    { caption: '404', path: RoutePath.http404 },
-    { caption: 'Product', path: RoutePath.product },
-    { caption: 'Profile', path: RoutePath.profile },
-    { caption: 'Error', path: RoutePath.error },
   ];
 
   return (

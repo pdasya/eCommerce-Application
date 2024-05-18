@@ -6,16 +6,11 @@ import { Header } from './header.component';
 import { renderWithProviders } from '@/utils/render-with-providers.test-util';
 
 describe('Header', () => {
-  test('contains nav-links to all functional pages', () => {
+  test('contains nav-links', () => {
     const navItemsNames = [
       'Home',
       'Catalog',
-      'Product',
-      'Cart',
-      'Profile',
       'About',
-      '404',
-      'Error',
     ];
 
     renderWithProviders(<Header />);

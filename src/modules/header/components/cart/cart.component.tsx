@@ -6,7 +6,7 @@ import { CustomRouterLink } from '@/components/custom-router-link/custom-router-
 import styles from './cart.component.module.scss';
 
 export const Cart: FC = () => (
-  <CustomRouterLink to={RoutePath.cart} className={styles.cart}>
+  <CustomRouterLink to={RoutePath.cart} className={styles.cart} activeClassName={styles.active}>
     <Tooltip title="Cart">
       <IconButton aria-label="cart" color="inherit">
         <ShoppingCart />

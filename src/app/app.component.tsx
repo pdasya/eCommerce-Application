@@ -7,8 +7,8 @@ import { tokenName, tokenStorage } from '@config/constants';
 import { Header } from '@/modules/header';
 import { Footer } from '@/modules/footer';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from './app.component.module.scss';
 import { client } from '../config/constants';
+import styles from './app.component.module.scss';
 
 const App = (): ReactElement => {
   const dispatch = useAppDispatch();

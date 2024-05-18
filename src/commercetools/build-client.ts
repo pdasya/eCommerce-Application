@@ -25,6 +25,8 @@ export default class BuildClient {
 
   private scopes: string[];
 
+  private httpMiddlewareOptions: HttpMiddlewareOptions;
+
   private client: ByProjectKeyRequestBuilder;
 
   constructor(
@@ -41,6 +43,9 @@ export default class BuildClient {
     this.authUrl = authUrl;
     this.apiUrl = apiUrl;
     this.scopes = scopes;
+    this.httpMiddlewareOptions = {
+      host: this.apiUrl,
+    };
     this.client = this.setFlow();
   }
 
@@ -53,9 +58,6 @@ export default class BuildClient {
   }
 
   public anonymousSession() {
-    const httpMiddlewareOptions: HttpMiddlewareOptions = {
-      host: this.apiUrl,
-    };
     const options: AnonymousAuthMiddlewareOptions = {
       host: this.authUrl,
       projectKey: this.projectKey,
@@ -69,8 +71,7 @@ export default class BuildClient {
     const ctpClient = new ClientBuilder()
       .withProjectKey(this.projectKey)
       .withAnonymousSessionFlow(options)
-      .withHttpMiddleware(httpMiddlewareOptions)
-      .withLoggerMiddleware()
+      .withHttpMiddleware(this.httpMiddlewareOptions)
       .build();
 
     this.client = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
@@ -80,9 +81,6 @@ export default class BuildClient {
   }
 
   public passwordSession(userDraft: IUserDraft) {
-    const httpMiddlewareOptions: HttpMiddlewareOptions = {
-      host: this.apiUrl,
-    };
     const options: PasswordAuthMiddlewareOptions = {
       host: this.authUrl,
       projectKey: this.projectKey,
@@ -101,8 +99,7 @@ export default class BuildClient {
     const ctpClient = new ClientBuilder()
       .withProjectKey(this.projectKey)
       .withPasswordFlow(options)
-      .withHttpMiddleware(httpMiddlewareOptions)
-      .withLoggerMiddleware()
+      .withHttpMiddleware(this.httpMiddlewareOptions)
       .build();
 
     this.client = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
@@ -112,9 +109,6 @@ export default class BuildClient {
   }
 
   public refreshToken(refreshToken: string) {
-    const httpMiddlewareOptions: HttpMiddlewareOptions = {
-      host: this.apiUrl,
-    };
     const options: RefreshAuthMiddlewareOptions = {
       host: this.authUrl,
       projectKey: this.projectKey,
@@ -129,8 +123,7 @@ export default class BuildClient {
     const ctpClient = new ClientBuilder()
       .withProjectKey(this.projectKey)
       .withRefreshTokenFlow(options)
-      .withHttpMiddleware(httpMiddlewareOptions)
-      .withLoggerMiddleware()
+      .withHttpMiddleware(this.httpMiddlewareOptions)
       .build();
     this.client = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
       projectKey: this.projectKey,

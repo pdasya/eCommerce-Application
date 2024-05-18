@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
+import { minPasswordLength, tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
@@ -49,7 +49,7 @@ export const SignInForm: FC = () => {
         );
       })
       .then(() => {
-        tokenStorage.set('token', tokenCache.get());
+        tokenStorage.set(tokenName, tokenCache.get());
       })
       .catch(error => {
         if (error.statusCode === 400) {

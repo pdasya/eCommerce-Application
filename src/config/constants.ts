@@ -17,3 +17,4 @@ export const tokenStorage = new TokenStorage(localStorage);
 export const client = new BuildClient(projectKey, clientId, clientSecret, authUrl, apiUrl, [
   scopes,
 ]);
+export const tokenName = 'authorize_token';

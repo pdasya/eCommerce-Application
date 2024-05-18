@@ -9,7 +9,7 @@ import {
   ByProjectKeyRequestBuilder,
   createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
-import { tokenCache, tokenStorage } from '@/config/constants';
+import { tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 
 export default class BuildClient {
@@ -45,7 +45,7 @@ export default class BuildClient {
   }
 
   private setFlow() {
-    const token = tokenStorage.get('token');
+    const token = tokenStorage.get(tokenName);
     if (token) {
       return this.refreshToken(token.refreshToken);
     }

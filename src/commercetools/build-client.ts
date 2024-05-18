@@ -137,4 +137,8 @@ export default class BuildClient {
     });
     return this.client;
   }
+
+  public getClient() {
+    return this.client;
+  }
 }

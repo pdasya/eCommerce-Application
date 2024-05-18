@@ -180,22 +180,6 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             </a>
             <a
               class="link"
-              href="/redux-test"
-              role="navigation"
-            >
-              <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-16dcpmj-MuiButtonBase-root-MuiButton-root"
-                tabindex="0"
-                type="button"
-              >
-                Test
-                <span
-                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                />
-              </button>
-            </a>
-            <a
-              class="link"
               href="/error"
               role="navigation"
             >

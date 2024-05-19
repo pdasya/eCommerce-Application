@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { authorize } from '@modules/auth/auth.slice';
@@ -31,7 +31,8 @@ const App = (): ReactElement => {
               email: response.body.email,
             }),
           ),
-        );
+        )
+        .catch(error => toast.error(error));
     }
   };
 

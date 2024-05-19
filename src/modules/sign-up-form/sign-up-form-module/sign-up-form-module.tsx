@@ -4,8 +4,9 @@ import { toast } from 'react-toastify';
 import { authorize } from '@store/auth/auth.slice';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
-import { tokenCache, tokenStorage } from '@/config/constants';
+import { client, tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
+import { authorize } from '@/modules/auth/auth.slice';
 
 export const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -78,8 +79,22 @@ export const SignUpForm: FC = () => {
       console.log('Response:', response);
       setFormValues(initialValues);
       toast.success('Customer Successfully Created');
+      const userDraft = {
+        email: values.email,
+        password: values.password,
+      };
 
-      tokenStorage.set('token', tokenCache.get());
+      client
+        .passwordSession(userDraft)
+        .me()
+        .login()
+        .post({
+          body: userDraft,
+        })
+        .execute()
+        .then(() => {
+          tokenStorage.set(tokenName, tokenCache.get());
+        });
 
       dispatch(
         authorize({

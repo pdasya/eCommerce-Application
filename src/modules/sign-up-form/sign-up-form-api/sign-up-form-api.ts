@@ -1,13 +1,12 @@
 import { ClientResponse, CustomerDraft, CustomerSignInResult } from '@commercetools/platform-sdk';
-import { apiRoot } from '@/commercetools/client';
-import { storeKey } from '@/config/constants';
+import { client } from '@/config/constants';
 
 export const createCustomerInStore = async (
   customerDraft: CustomerDraft,
 ): Promise<ClientResponse<CustomerSignInResult>> => {
   try {
-    const response = await apiRoot
-      .inStoreKeyWithStoreKeyValue({ storeKey })
+    const response = await client
+      .anonymousSession()
       .customers()
       .post({ body: customerDraft })
       .execute();

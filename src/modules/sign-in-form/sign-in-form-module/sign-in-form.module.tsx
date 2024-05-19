@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { minPasswordLength, tokenCache, tokenStorage } from '@/config/constants';
+import { minPasswordLength, tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
@@ -41,7 +41,6 @@ export const SignInForm: FC = () => {
     await signIn(userDraft)
       .then(response => {
         toast.success('Login successful!');
-        tokenStorage.set('token', tokenCache.get());
         dispatch(
           authorize({
             id: response.body.customer.id,
@@ -49,9 +48,14 @@ export const SignInForm: FC = () => {
           }),
         );
       })
+      .then(() => {
+        tokenStorage.set(tokenName, tokenCache.get());
+      })
       .catch(error => {
-        if (error.status === 400) {
+        if (error.statusCode === 400) {
           toast.error('Incorrect email or password.');
+        } else {
+          toast.error('Bad request');
         }
       });
   };

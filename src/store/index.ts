@@ -1,8 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { authReducer } from '@/modules/auth/auth.slice';
-import { counterReducer } from '@/modules/dummy-module/components/dummy-counter/dummy-counter.slice';
+import { authReducer } from '@store/auth/auth.slice';
 
-const rootReducer = combineReducers({ auth: authReducer, counter: counterReducer });
+const rootReducer = combineReducers({ auth: authReducer });
 
 export function setupStore(preloadedState?: Partial<RootState>) {
   return configureStore({

@@ -6,7 +6,7 @@ import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-i
 import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
-import { authorize } from '@/modules/auth/auth.slice';
+import { authorize } from '@store/auth/auth.slice';
 
 export const SignInForm: FC = () => {
   const dispatch = useAppDispatch();

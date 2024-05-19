@@ -1,7 +1,7 @@
 import React, { FC, Fragment, PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
+import { selectAuthorization } from '@store/auth/auth.slice';
 import { useAppSelector } from '@/hooks/use-app-selector.hook';
-import { selectAuthorization } from '@/modules/auth/auth.slice';
 
 type PrivateRouteProps = PropsWithChildren<{
   redirectTo: `/${string}`;

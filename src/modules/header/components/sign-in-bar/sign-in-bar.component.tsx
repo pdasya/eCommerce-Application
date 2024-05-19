@@ -8,7 +8,7 @@ import styles from './sign-in-bar.component.module.scss';
 
 export const SignInBar: FC = () => (
   <div className={styles.bar}>
-    <CustomRouterLink to={RoutePath.signIn}>
+    <CustomRouterLink to={RoutePath.signIn} activeClassName={styles.active}>
       <Button
         sx={{
           display: { xs: 'none', sm: 'flex' },
@@ -37,7 +37,7 @@ export const SignInBar: FC = () => (
       or
     </Typography>
 
-    <CustomRouterLink to={RoutePath.signUp}>
+    <CustomRouterLink to={RoutePath.signUp} activeClassName={styles.active}>
       <Button
         sx={{
           display: { xs: 'none', sm: 'flex' },

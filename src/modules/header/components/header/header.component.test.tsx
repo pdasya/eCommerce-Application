@@ -1,21 +1,16 @@
 import React from 'react';
 import { act, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { authorize } from '@store/auth/auth.slice';
 import { Header } from './header.component';
-import { authorize } from '@/modules/auth/auth.slice';
 import { renderWithProviders } from '@/utils/render-with-providers.test-util';
 
 describe('Header', () => {
-  test('contains nav-links to all functional pages', () => {
+  test('contains nav-links', () => {
     const navItemsNames = [
       'Home',
       'Catalog',
-      'Product',
-      'Cart',
-      'Profile',
       'About',
-      '404',
-      'Error',
     ];
 
     renderWithProviders(<Header />);

@@ -6,7 +6,6 @@ import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-comp
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
 import { client, tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
-import { authorize } from '@/modules/auth/auth.slice';
 
 export const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();

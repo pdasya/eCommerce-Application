@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
-import { authorize, unauthorize } from '@modules/auth/auth.slice';
+import { authorize } from '@modules/auth/auth.slice';
 import { tokenName, tokenStorage } from '@config/constants';
 import { Header } from '@/modules/header';
 import { Footer } from '@/modules/footer';
@@ -18,11 +18,20 @@ const App = (): ReactElement => {
 
   const init = () => {
     if (isToken) {
-      dispatch(authorize({}));
       client.refreshToken(isToken.refreshToken);
-    } else {
-      dispatch(unauthorize({}));
-      client.getClient();
+      client
+        .getClient()
+        .me()
+        .get()
+        .execute()
+        .then(response =>
+          dispatch(
+            authorize({
+              id: response.body.id,
+              email: response.body.email,
+            }),
+          ),
+        );
     }
   };
 

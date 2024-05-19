@@ -1,3 +1,4 @@
+import BuildClient from '@/commercetools/build-client';
 import TokenCacheUtil from '@/utils/token-cache';
 import TokenStorage from '@/utils/token-storage';
 
@@ -9,9 +10,11 @@ export const apiUrl = process.env.CTP_API_URL as string;
 export const scopes = process.env.CTP_SCOPES as string;
 export const storeKey = process.env.STORE_KEY as string;
 
-export const lineBreaker = 2;
-
 export const minPasswordLength = 8;
 
 export const tokenCache = new TokenCacheUtil();
 export const tokenStorage = new TokenStorage(localStorage);
+export const client = new BuildClient(projectKey, clientId, clientSecret, authUrl, apiUrl, [
+  scopes,
+]);
+export const tokenName = 'authorize_token';

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 import { authorize, unauthorize } from '@/modules/auth/auth.slice';
 import styles from './main.page.module.scss';
-import { tokenStorage } from '@/config/constants';
+import { tokenName, tokenStorage } from '@/config/constants';
 
 export const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ export const MainPage: FC = () => {
           variant="contained"
           color="success"
           onClick={() => {
-            tokenStorage.set('token', {
+            tokenStorage.set(tokenName, {
               token: 'token',
               expirationTime: 0,
               refreshToken: 'refresh token',

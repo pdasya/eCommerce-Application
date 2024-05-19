@@ -3,7 +3,7 @@ import { CustomerDraft } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
-import { tokenCache, tokenStorage } from '@/config/constants';
+import { client, tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { authorize } from '@/modules/auth/auth.slice';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 
@@ -78,8 +78,22 @@ export const SignUpForm: FC = () => {
       console.log('Response:', response);
       setFormValues(initialValues);
       toast.success('Customer Successfully Created');
+      const userDraft = {
+        email: values.email,
+        password: values.password,
+      };
 
-      tokenStorage.set('token', tokenCache.get());
+      client
+        .passwordSession(userDraft)
+        .me()
+        .login()
+        .post({
+          body: userDraft,
+        })
+        .execute()
+        .then(() => {
+          tokenStorage.set(tokenName, tokenCache.get());
+        });
 
       dispatch(
         authorize({

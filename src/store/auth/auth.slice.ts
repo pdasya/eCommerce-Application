@@ -18,13 +18,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     authorize(state, action) {
-      console.log('logged in');
       state.isAuthorized = true;
       state.id = action.payload.id;
       state.email = action.payload.email;
     },
     unauthorize(state, action) {
-      console.log('logged out');
       state.isAuthorized = false;
       state.id = initialState.id;
       state.email = initialState.email;

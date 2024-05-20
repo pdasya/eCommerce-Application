@@ -30,7 +30,7 @@ const LinkToLoginPage: FC = () => (
   </CustomRouterLink>
 );
 
-const getValidationSchema = (values: Record<string, string | boolean>) => {
+export const getValidationSchema = (values: Record<string, string | boolean>) => {
   const minPasswordLength = 8;
   const minStreetNameLength = 1;
   const minAge = 13;

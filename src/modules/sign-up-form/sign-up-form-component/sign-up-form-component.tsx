@@ -62,6 +62,17 @@ const getValidationSchema = (values: Record<string, string | boolean>) => {
         new Date(new Date().setFullYear(new Date().getFullYear() - minAge)),
         `You must be at least ${minAge} years old`,
       )
+      .min(
+        new Date(new Date().setFullYear(1900, 0, 1)),
+        'Date of birth cannot be before January 1, 1900',
+      )
+      .test('year-length-check', 'Year must be no more than four digits', value => {
+        if (value) {
+          const year = value.getFullYear().toString();
+          return year.length <= 4;
+        }
+        return false;
+      })
       .typeError('Date of birth is required')
       .required('Date of birth is required'),
     shippingStreet: Yup.string()

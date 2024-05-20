@@ -36,13 +36,20 @@ const getValidationSchema = (values: Record<string, string | boolean>) => {
   const minAge = 13;
 
   const baseSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email address').required('Email is required'),
+    email: Yup.string()
+      .test('Check email', 'Email should not contain spaces', value => !value?.includes(' '))
+      .matches(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)$/,
+        'Email must be at example user@example.com',
+      )
+      .required('Email is required'),
     password: Yup.string()
-      .min(minPasswordLength, `Password must be at least ${minPasswordLength} characters long`)
+      .min(minPasswordLength, 'Password must be at least 8 characters long')
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
         'Password must contain at least one uppercase letter, one lowercase letter, and one number',
       )
+      .test('Check password', 'Password should not contain spaces', value => !value?.includes(' '))
       .required('Password is required'),
     firstName: Yup.string()
       .matches(/^[A-Za-z]+$/, 'First name must contain only alphabetic characters')

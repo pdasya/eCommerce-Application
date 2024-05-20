@@ -1,10 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { tokenName, tokenStorage } from '@config/constants';
 import { authorize } from '@store/auth/auth.slice';
 import { GlobalLoading } from '@components/global-loading/global-loading.component';
+import { authEnd } from '@store/misc/misc.slice';
 import { Header } from '@/modules/header';
 import { Footer } from '@/modules/footer';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,21 +20,26 @@ const App = (): ReactElement => {
 
   const init = () => {
     if (isToken) {
-      client.refreshToken(isToken.refreshToken);
-      client
-        .getClient()
-        .me()
-        .get()
-        .execute()
-        .then(response =>
-          dispatch(
-            authorize({
-              id: response.body.id,
-              email: response.body.email,
-            }),
-          ),
-        )
-        .catch(error => toast.error(error));
+      useEffect(() => {
+        client.refreshToken(isToken.refreshToken);
+        client
+          .getClient()
+          .me()
+          .get()
+          .execute()
+          .then(response =>
+            dispatch(
+              authorize({
+                id: response.body.id,
+                email: response.body.email,
+              }),
+            ),
+          )
+          .then(() => dispatch(authEnd(false)))
+          .catch(error => toast.error(error));
+      }, []);
+    } else {
+      dispatch(authEnd(false));
     }
   };
 

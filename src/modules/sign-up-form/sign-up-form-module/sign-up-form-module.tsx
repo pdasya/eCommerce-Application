@@ -90,7 +90,6 @@ export const SignUpForm: FC = () => {
 
     try {
       const response = await createCustomerInStore(customerDraft);
-      console.log('Response:', response);
       toast.success('Customer Successfully Created');
       const userDraft = {
         email: values.email,
@@ -118,7 +117,6 @@ export const SignUpForm: FC = () => {
       );
     } catch (error) {
       toast.error(`${error.message}`);
-      console.error('Error creating customer:', error);
     } finally {
       setIsLoading(false);
     }

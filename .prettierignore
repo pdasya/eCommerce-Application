@@ -4,3 +4,4 @@ dist
 public
 *.test.tsx.snap
 .prettierignore
+.eslintignore

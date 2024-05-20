@@ -52,7 +52,6 @@ export default class BuildClient {
       .withProjectKey(this.projectKey)
       .withAnonymousSessionFlow(options)
       .withHttpMiddleware(this.httpMiddlewareOptions)
-      .withLoggerMiddleware()
       .build();
 
     this.client = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
@@ -81,7 +80,6 @@ export default class BuildClient {
       .withProjectKey(this.projectKey)
       .withPasswordFlow(options)
       .withHttpMiddleware(this.httpMiddlewareOptions)
-      .withLoggerMiddleware()
       .build();
 
     this.client = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
@@ -105,7 +103,6 @@ export default class BuildClient {
       .withProjectKey(this.projectKey)
       .withRefreshTokenFlow(options)
       .withHttpMiddleware(this.httpMiddlewareOptions)
-      .withLoggerMiddleware()
       .build();
     this.client = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
       projectKey: this.projectKey,

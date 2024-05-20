@@ -30,7 +30,7 @@
     ]
   },
   "validate-branch-name": {
-    "pattern": "^(master|main|develop|sprint-\\d{1,2}){1}$|^(RSS-ECOMM-\\d{1,2}_\\d{2,4}|CUSTOM-ECOMM-\\d{1,4})-([a-z]{2,}([A-Z]([a-z]+)){0,})$",
+    "pattern": "^(master|main|develop|sprint-\\d{1,2}(-deploy)?){1}$|^(RSS-ECOMM-\\d{1,2}_\\d{2,4}|CUSTOM-ECOMM-\\d{1,4})-([a-z]{2,}([A-Z]([a-z]+)){0,})$",
     "errorMsg": "Invalid branch name."
   },
   "author": "ViP",

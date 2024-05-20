@@ -138,9 +138,8 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
     <Formik
       initialValues={initialValues}
       validate={validate}
-      onSubmit={async (values, { resetForm }) => {
+      onSubmit={async values => {
         await onSubmit(values);
-        resetForm();
       }}>
       {({ errors, touched, values }) => (
         <Form noValidate>

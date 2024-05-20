@@ -99,7 +99,6 @@ export default class BuildClient {
         clientSecret: this.clientSecret,
       },
       refreshToken,
-      tokenCache,
     };
 
     const ctpClient = new ClientBuilder()

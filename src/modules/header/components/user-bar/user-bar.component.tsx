@@ -54,6 +54,7 @@ export const UserBar: FC = () => {
         </MenuItem>
         <MenuItem
           onClick={() => {
+            handleClose();
             tokenStorage.clear();
             navigate('/');
             client.anonymousSession();

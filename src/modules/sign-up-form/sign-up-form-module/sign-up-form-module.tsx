@@ -9,6 +9,7 @@ import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 
 export const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();
+
   const initialValues = {
     email: '',
     password: '',
@@ -76,7 +77,6 @@ export const SignUpForm: FC = () => {
     try {
       const response = await createCustomerInStore(customerDraft);
       console.log('Response:', response);
-      setFormValues(initialValues);
       toast.success('Customer Successfully Created');
       const userDraft = {
         email: values.email,
@@ -93,6 +93,7 @@ export const SignUpForm: FC = () => {
         .execute()
         .then(() => {
           tokenStorage.set(tokenName, tokenCache.get());
+          setFormValues(initialValues);
         });
 
       dispatch(

@@ -36,13 +36,20 @@ const getValidationSchema = (values: Record<string, string | boolean>) => {
   const minAge = 13;
 
   const baseSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email address').required('Email is required'),
+    email: Yup.string()
+      .test('Check email', 'Email should not contain spaces', value => !value?.includes(' '))
+      .matches(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)$/,
+        'Email must be at example user@example.com',
+      )
+      .required('Email is required'),
     password: Yup.string()
-      .min(minPasswordLength, `Password must be at least ${minPasswordLength} characters long`)
+      .min(minPasswordLength, 'Password must be at least 8 characters long')
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
         'Password must contain at least one uppercase letter, one lowercase letter, and one number',
       )
+      .test('Check password', 'Password should not contain spaces', value => !value?.includes(' '))
       .required('Password is required'),
     firstName: Yup.string()
       .matches(/^[A-Za-z]+$/, 'First name must contain only alphabetic characters')
@@ -55,6 +62,17 @@ const getValidationSchema = (values: Record<string, string | boolean>) => {
         new Date(new Date().setFullYear(new Date().getFullYear() - minAge)),
         `You must be at least ${minAge} years old`,
       )
+      .min(
+        new Date(new Date().setFullYear(1900, 0, 1)),
+        'Date of birth cannot be before January 1, 1900',
+      )
+      .test('year-length-check', 'Year must be no more than four digits', value => {
+        if (value) {
+          const year = value.getFullYear().toString();
+          return year.length <= 4;
+        }
+        return false;
+      })
       .typeError('Date of birth is required')
       .required('Date of birth is required'),
     shippingStreet: Yup.string()
@@ -120,9 +138,8 @@ export const SignUpFormComponent: FC<ISignUpFormComponentProperties> = ({
     <Formik
       initialValues={initialValues}
       validate={validate}
-      onSubmit={async (values, { resetForm }) => {
+      onSubmit={async values => {
         await onSubmit(values);
-        resetForm();
       }}>
       {({ errors, touched, values }) => (
         <Form noValidate>

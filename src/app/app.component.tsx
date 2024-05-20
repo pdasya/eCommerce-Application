@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { tokenName, tokenStorage } from '@config/constants';
 import { authorize } from '@store/auth/auth.slice';
+import { GlobalLoading } from '@components/global-loading/global-loading.component';
 import { Header } from '@/modules/header';
 import { Footer } from '@/modules/footer';
 import 'react-toastify/dist/ReactToastify.css';
@@ -41,7 +42,9 @@ const App = (): ReactElement => {
   return (
     <div className={styles.app}>
       <Header />
+
       <section className={styles.mainContent}>
+        <GlobalLoading />
         <ToastContainer
           position="top-right"
           autoClose={5000}

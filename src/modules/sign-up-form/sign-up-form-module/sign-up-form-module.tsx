@@ -1,7 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
 import { authorize } from '@store/auth/auth.slice';
+import { FullSizeLoading } from '@components/fullsize-loading/full-size-loading.component';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
 import { client, tokenCache, tokenName, tokenStorage } from '@/config/constants';
@@ -30,8 +31,21 @@ export const SignUpForm: FC = () => {
   };
 
   const [formValues, setFormValues] = useState(initialValues);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isLoading]);
 
   const handleSubmit = async (values: Record<string, string>): Promise<void> => {
+    setIsLoading(true);
     const shippingAddress = {
       country: values.shippingCountry,
       city: values.shippingCity,
@@ -105,6 +119,8 @@ export const SignUpForm: FC = () => {
     } catch (error) {
       toast.error(`${error.message}`);
       console.error('Error creating customer:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -223,12 +239,15 @@ export const SignUpForm: FC = () => {
   ];
 
   return (
-    <SignUpFormComponent
-      title="Sign Up"
-      buttonText="Register"
-      fields={fields}
-      initialValues={formValues}
-      onSubmit={handleSubmit}
-    />
+    <>
+      <FullSizeLoading isLoading={isLoading} />
+      <SignUpFormComponent
+        title="Sign Up"
+        buttonText="Register"
+        fields={fields}
+        initialValues={formValues}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };

@@ -63,7 +63,7 @@ describe('Validation Schema', () => {
   it('should fail with invalid values', async () => {
     const errors = await testValidation(invalidValues);
     expect(errors).toEqual({
-      email: 'Invalid email address',
+      email: 'Email must be at example user@example.com',
       password:
         'Password must contain at least one uppercase letter, one lowercase letter, and one number',
       firstName: 'First name must contain only alphabetic characters',

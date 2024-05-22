@@ -10,14 +10,8 @@ export const ProductList: FC = () => {
   return (
     <div className={styles.root}>
       {products.map(product => (
-        <ProductCard {...product} />
+        <ProductCard {...product} key={product.id} />
       ))}
-
-      {/* <ProductCard imageSrc="https://loremflickr.com/640/480" />
-      <ProductCard imageSrc="https://loremflickr.com/640/480" />
-      <ProductCard imageSrc="https://loremflickr.com/640/480" />
-      <ProductCard imageSrc="https://loremflickr.com/640/480" />
-      <ProductCard imageSrc="https://loremflickr.com/640/480" /> */}
     </div>
   );
 };

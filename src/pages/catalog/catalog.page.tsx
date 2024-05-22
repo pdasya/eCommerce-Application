@@ -8,6 +8,7 @@ import styles from './catalog.page.module.scss';
 
 const mockProducts: IProduct[] = [
   {
+    id: 1,
     imageSrc: 'https://dummyimage.com/600x400/e38526/fff&text=Product+image',
     title:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
@@ -18,6 +19,7 @@ const mockProducts: IProduct[] = [
     discountPrice: 0.9,
   },
   {
+    id: 2,
     imageSrc: 'https://dummyimage.com/600x800/e38526/fff&text=Product+image',
     title: 'Title',
     description:
@@ -26,6 +28,7 @@ const mockProducts: IProduct[] = [
     currency: '$',
   },
   {
+    id: 3,
     imageSrc: 'https://dummyimage.com/600x100/e38526/fff&text=Product+image',
     title: 'Title',
     description:
@@ -34,6 +37,7 @@ const mockProducts: IProduct[] = [
     currency: '$',
   },
   {
+    id: 4,
     imageSrc: 'https://dummyimage.com/600x400/e38526/fff&text=Product+image',
     title:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
@@ -43,6 +47,7 @@ const mockProducts: IProduct[] = [
     currency: '$',
   },
   {
+    id: 5,
     imageSrc: 'https://dummyimage.com/600x800/e38526/fff&text=Product+image',
     title: 'Title',
     description:
@@ -51,6 +56,7 @@ const mockProducts: IProduct[] = [
     currency: '$',
   },
   {
+    id: 6,
     imageSrc: 'https://dummyimage.com/600x100/e38526/fff&text=Product+image',
     title: 'Title',
     description:
@@ -59,6 +65,7 @@ const mockProducts: IProduct[] = [
     currency: '$',
   },
   {
+    id: 7,
     imageSrc: 'https://dummyimage.com/600x400/e38526/fff&text=Product+image',
     title:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',

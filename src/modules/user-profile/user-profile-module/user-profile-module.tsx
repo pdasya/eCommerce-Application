@@ -8,28 +8,41 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
   Paper,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
+// import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import styles from './user-profile-module.module.scss';
 
 export const UserProfileModule: FC = () => {
-  const [email, setEmail] = useState<string>('Loading...');
-  console.log(email);
+  // const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
-    const fetchEmail = async () => {
+    const fetchData = async () => {
       try {
         const response = await client.getClient().me().get().execute();
-        setEmail(response.body.email);
+        // setEmail(response.body.email);
+        setFirstName(response.body.firstName!);
+        setLastName(response.body.lastName!);
+        setDateOfBirth(response.body.dateOfBirth!);
       } catch (error) {
         console.log(error);
-        setEmail('Failed to load email');
+        // setEmail('Failed to load email');
+        setFirstName('Failed to load first name');
+        setLastName('Failed to load last name');
+        setDateOfBirth('Failed to load date of birth');
       }
     };
 
-    fetchEmail();
+    fetchData();
   }, []);
 
   return (
@@ -44,26 +57,76 @@ export const UserProfileModule: FC = () => {
         </Grid>
         <Grid item xs={12} sm={9}>
           <Typography gutterBottom variant="h4" component="div">
-            Name
+            {firstName} {lastName}
           </Typography>
-          <Typography color="text.secondary">Username</Typography>
         </Grid>
         <Grid item xs={12}>
           <Divider variant="middle" />
         </Grid>
         <Grid item xs={12}>
+          <Grid item xs={12}>
+            <Typography variant="subtitle1" className={styles.sectionHeader}>
+              Personal Information
+            </Typography>
+          </Grid>
           <List>
             <ListItem>
               <ListItemIcon>
                 <PersonIcon />
               </ListItemIcon>
-              <ListItemText primary="Username" secondary="{user.username}" />
+              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
+                <Grid item xs>
+                  <Typography variant="subtitle1" className={styles.fieldName}>
+                    First Name
+                  </Typography>
+                </Grid>
+                <Grid item xs>
+                  <Typography variant="subtitle1">{firstName}</Typography>
+                </Grid>
+              </Grid>
             </ListItem>
             <ListItem>
               <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
+                <Grid item xs>
+                  <Typography variant="subtitle1" className={styles.fieldName}>
+                    Last Name
+                  </Typography>
+                </Grid>
+                <Grid item xs>
+                  <Typography variant="subtitle1">{lastName}</Typography>
+                </Grid>
+              </Grid>
+            </ListItem>
+            {/* <ListItem>
+              <ListItemIcon>
                 <EmailIcon />
               </ListItemIcon>
-              <ListItemText primary="Email" secondary="{user.email}" />
+              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
+                <Grid item xs>
+                  <Typography variant="subtitle1" className={styles.fieldName}>Email</Typography>
+                </Grid>
+                <Grid item xs>
+                  <Typography variant="subtitle1">{email}</Typography>
+                </Grid>
+              </Grid>
+            </ListItem> */}
+            <ListItem>
+              <ListItemIcon>
+                <DateRangeIcon />
+              </ListItemIcon>
+              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
+                <Grid item xs>
+                  <Typography variant="subtitle1" className={styles.fieldName}>
+                    Date of Birth
+                  </Typography>
+                </Grid>
+                <Grid item xs>
+                  <Typography variant="subtitle1">{dateOfBirth}</Typography>
+                </Grid>
+              </Grid>
             </ListItem>
           </List>
         </Grid>

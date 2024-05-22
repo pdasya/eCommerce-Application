@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
-import styles from './profile.page.module.scss';
+import { UserProfileModule } from '@modules/user-profile';
+// import styles from './profile.page.module.scss';
 
-export const ProfilePage: FC = () => <div className={styles.page}>Profile page works!</div>;
+export const ProfilePage: FC = () => <UserProfileModule />;

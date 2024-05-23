@@ -22,17 +22,20 @@
   flex-direction: column;
   align-items: center;
   padding: var(--spacing-m-12px);
-  border: 2px solid black;
-  border-radius: 16px;
+  border-radius: 5px;
+  background-color: white;
   gap: var(--spacing-m-12px);
-  transition: background-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
 
   &:hover {
-    background-color: var(--bg-color-primary);
+    // background-color: var(--bg-color-primary);
     cursor: pointer;
+    transform: scale(1.01);
 
     .image {
-      transform: scale(1.2);
+      transform: scale(1.05);
     }
 
     .button {
@@ -49,6 +52,7 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 }
 
 .priceContainer {
@@ -104,5 +108,5 @@
   left: var(--spacing-m-12px);
   width: 50px !important;
   height: 50px !important;
-  color: white;
+  color: var(--txt-color-accent);
 }

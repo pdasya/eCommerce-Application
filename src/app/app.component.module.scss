@@ -12,7 +12,6 @@
   max-width: 1920px;
   flex-direction: column;
   flex-grow: 1;
-  padding: var(--spacing-m-12px) var(--spacing-xl-24px);
   background-color: var(--bg-color-secondary);
 }
 
@@ -20,4 +19,5 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  padding: var(--spacing-m-12px) var(--spacing-xl-24px);
 }

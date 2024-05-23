@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DiscountIcon from '@mui/icons-material/Discount';
 import classNames from 'classnames';
-import { IProduct } from '@modules/product-list/interfaces/product.interface';
+import { IProduct } from '@/interfaces/interfaces';
 import styles from './product-card.component.module.scss';
 
 type ProductCardProps = IProduct;
@@ -12,7 +12,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   imageSrc,
   title,
   description,
-  price,
+  currentPrice,
   currency,
   discountPrice,
 }) => (
@@ -25,7 +25,7 @@ export const ProductCard: FC<ProductCardProps> = ({
     <p className={styles.description}>{description}</p>
     <div className={styles.priceContainer}>
       <p className={classNames(styles.price, discountPrice ? styles.priceInactive : '')}>
-        {price}
+        {currentPrice}
         {currency}
       </p>
       {discountPrice ? (

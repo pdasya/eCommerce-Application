@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { client } from '@config/constants';
 import {
   Typography,
@@ -11,38 +11,101 @@ import {
   Paper,
   useTheme,
   useMediaQuery,
+  SvgIconProps,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
-// import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
+import PublicIcon from '@mui/icons-material/Public';
 import styles from './user-profile-module.module.scss';
 
+interface UserData {
+  firstName: string | undefined;
+  lastName: string | undefined;
+  dateOfBirth: string | undefined;
+  shippingStreet: string | undefined;
+  shippingCity: string | undefined;
+  shippingPostalCode: string | undefined;
+  shippingCountry: string;
+  isShippingAddressDefault: boolean;
+}
+
+interface InfoItemProps {
+  icon: React.ComponentType<SvgIconProps>;
+  label: string;
+  value: string;
+}
+
+const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserData>>) => {
+  try {
+    const response = await client.getClient().me().get().execute();
+    const { firstName, lastName, dateOfBirth, addresses, defaultShippingAddressId } = response.body;
+
+    const isShippingAddressDefault = defaultShippingAddressId === addresses[0]?.id;
+    setUserData({
+      firstName,
+      lastName,
+      dateOfBirth,
+      shippingStreet: addresses[0].streetName,
+      shippingCity: addresses[0].city,
+      shippingPostalCode: addresses[0].postalCode,
+      shippingCountry: addresses[0].country,
+      isShippingAddressDefault,
+    });
+  } catch (error) {
+    console.error('Error loading user data:', error);
+    setUserData({
+      firstName: 'Failed to load first name',
+      lastName: 'Failed to load last name',
+      dateOfBirth: 'Failed to load date of birth',
+      shippingStreet: 'Failed to load shipping street',
+      shippingCity: 'Failed to load shipping city',
+      shippingPostalCode: 'Failed to load shipping postal code',
+      shippingCountry: 'Failed to load shipping country',
+      isShippingAddressDefault: false,
+    });
+  }
+};
+
+const theme = useTheme();
+const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+const InfoItem: React.FC<InfoItemProps> = ({ icon: Icon, label, value }) => (
+  <ListItem>
+    <ListItemIcon>
+      <Icon />
+    </ListItemIcon>
+    <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
+      <Grid item xs>
+        <Typography variant="subtitle1" className={styles.fieldName}>
+          {label}
+        </Typography>
+      </Grid>
+      <Grid item xs>
+        <Typography variant="subtitle1">{value}</Typography>
+      </Grid>
+    </Grid>
+  </ListItem>
+);
+
 export const UserProfileModule: FC = () => {
-  // const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    shippingStreet: '',
+    shippingCity: '',
+    shippingPostalCode: '',
+    shippingCountry: '',
+    isShippingAddressDefault: false,
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await client.getClient().me().get().execute();
-        // setEmail(response.body.email);
-        setFirstName(response.body.firstName!);
-        setLastName(response.body.lastName!);
-        setDateOfBirth(response.body.dateOfBirth!);
-      } catch (error) {
-        console.log(error);
-        // setEmail('Failed to load email');
-        setFirstName('Failed to load first name');
-        setLastName('Failed to load last name');
-        setDateOfBirth('Failed to load date of birth');
-      }
-    };
-
-    fetchData();
+    fetchUserData(setUserData);
   }, []);
 
   return (
@@ -56,77 +119,40 @@ export const UserProfileModule: FC = () => {
           />
         </Grid>
         <Grid item xs={12} sm={9}>
-          <Typography gutterBottom variant="h4" component="div">
-            {firstName} {lastName}
+          <Typography gutterBottom variant="h4">
+            {userData.firstName} {userData.lastName}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Divider variant="middle" />
         </Grid>
         <Grid item xs={12}>
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" className={styles.sectionHeader}>
-              Personal Information
-            </Typography>
-          </Grid>
+          <Typography variant="subtitle1" className={styles.sectionHeader}>
+            Personal Information
+          </Typography>
           <List>
+            <InfoItem icon={PersonIcon} label="First Name" value={userData.firstName} />
+            <InfoItem icon={PersonIcon} label="Last Name" value={userData.lastName} />
+            <InfoItem icon={DateRangeIcon} label="Date of Birth" value={userData.dateOfBirth} />
+          </List>
+          <Typography variant="subtitle1" className={styles.sectionHeader}>
+            Shipping Address
+          </Typography>
+          <List>
+            <InfoItem icon={LocationOnIcon} label="Street" value={userData.shippingStreet} />
+            <InfoItem icon={LocationCityIcon} label="City" value={userData.shippingCity} />
+            <InfoItem
+              icon={MarkunreadMailboxIcon}
+              label="Postal Code"
+              value={userData.shippingPostalCode}
+            />
+            <InfoItem icon={PublicIcon} label="Country" value={userData.shippingCountry} />
             <ListItem>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
-                <Grid item xs>
-                  <Typography variant="subtitle1" className={styles.fieldName}>
-                    First Name
-                  </Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="subtitle1">{firstName}</Typography>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
-                <Grid item xs>
-                  <Typography variant="subtitle1" className={styles.fieldName}>
-                    Last Name
-                  </Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="subtitle1">{lastName}</Typography>
-                </Grid>
-              </Grid>
-            </ListItem>
-            {/* <ListItem>
-              <ListItemIcon>
-                <EmailIcon />
-              </ListItemIcon>
-              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
-                <Grid item xs>
-                  <Typography variant="subtitle1" className={styles.fieldName}>Email</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="subtitle1">{email}</Typography>
-                </Grid>
-              </Grid>
-            </ListItem> */}
-            <ListItem>
-              <ListItemIcon>
-                <DateRangeIcon />
-              </ListItemIcon>
-              <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
-                <Grid item xs>
-                  <Typography variant="subtitle1" className={styles.fieldName}>
-                    Date of Birth
-                  </Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="subtitle1">{dateOfBirth}</Typography>
-                </Grid>
-              </Grid>
+              <FormControlLabel
+                control={<Checkbox checked={userData.isShippingAddressDefault} />}
+                label="Default shipping address"
+                disabled
+              />
             </ListItem>
           </List>
         </Grid>

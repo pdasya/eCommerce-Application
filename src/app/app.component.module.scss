@@ -3,7 +3,7 @@
   min-height: 100vh;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(25 118 210);
+  background-color: var(--bg-color-primary);
 }
 
 .mainContent {
@@ -12,7 +12,8 @@
   max-width: 1920px;
   flex-direction: column;
   flex-grow: 1;
-  background-color: rgb(86 169 252);
+  padding: var(--spacing-m-12px) var(--spacing-xl-24px);
+  background-color: var(--bg-color-secondary);
 }
 
 .outlet {

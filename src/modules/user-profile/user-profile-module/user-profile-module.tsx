@@ -9,8 +9,6 @@ import {
   ListItem,
   ListItemIcon,
   Paper,
-  useTheme,
-  useMediaQuery,
   SvgIconProps,
   FormControlLabel,
   Checkbox,
@@ -32,6 +30,11 @@ interface UserData {
   shippingPostalCode: string | undefined;
   shippingCountry: string;
   isShippingAddressDefault: boolean;
+  billingStreet: string | undefined;
+  billingCity: string | undefined;
+  billingPostalCode: string | undefined;
+  billingCountry: string;
+  isBillingAddressDefault: boolean;
 }
 
 interface InfoItemProps {
@@ -43,9 +46,20 @@ interface InfoItemProps {
 const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserData>>) => {
   try {
     const response = await client.getClient().me().get().execute();
-    const { firstName, lastName, dateOfBirth, addresses, defaultShippingAddressId } = response.body;
+    const {
+      firstName,
+      lastName,
+      dateOfBirth,
+      addresses,
+      defaultShippingAddressId,
+      defaultBillingAddressId,
+    } = response.body;
 
     const isShippingAddressDefault = defaultShippingAddressId === addresses[0]?.id;
+    const isBillingAddressTheSameAsShipping = addresses.length === 1;
+    const isBillingAddressDefault = isBillingAddressTheSameAsShipping
+      ? defaultBillingAddressId === addresses[0]?.id
+      : defaultBillingAddressId === addresses[1]?.id;
     setUserData({
       firstName,
       lastName,
@@ -55,6 +69,17 @@ const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserData>>) =>
       shippingPostalCode: addresses[0].postalCode,
       shippingCountry: addresses[0].country,
       isShippingAddressDefault,
+      billingStreet: isBillingAddressTheSameAsShipping
+        ? addresses[0].streetName
+        : addresses[1].streetName,
+      billingCity: isBillingAddressTheSameAsShipping ? addresses[0].city : addresses[1].city,
+      billingPostalCode: isBillingAddressTheSameAsShipping
+        ? addresses[0].postalCode
+        : addresses[1].postalCode,
+      billingCountry: isBillingAddressTheSameAsShipping
+        ? addresses[0].country
+        : addresses[1].country,
+      isBillingAddressDefault,
     });
   } catch (error) {
     console.error('Error loading user data:', error);
@@ -67,19 +92,21 @@ const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserData>>) =>
       shippingPostalCode: 'Failed to load shipping postal code',
       shippingCountry: 'Failed to load shipping country',
       isShippingAddressDefault: false,
+      billingStreet: 'Failed to load shipping street',
+      billingCity: 'Failed to load shipping city',
+      billingPostalCode: 'Failed to load shipping postal code',
+      billingCountry: 'Failed to load shipping country',
+      isBillingAddressDefault: false,
     });
   }
 };
-
-const theme = useTheme();
-const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
 const InfoItem: React.FC<InfoItemProps> = ({ icon: Icon, label, value }) => (
   <ListItem>
     <ListItemIcon>
       <Icon />
     </ListItemIcon>
-    <Grid container alignItems="center" direction={isSmallScreen ? 'column' : 'row'}>
+    <Grid container alignItems="center">
       <Grid item xs>
         <Typography variant="subtitle1" className={styles.fieldName}>
           {label}
@@ -102,6 +129,11 @@ export const UserProfileModule: FC = () => {
     shippingPostalCode: '',
     shippingCountry: '',
     isShippingAddressDefault: false,
+    billingStreet: '',
+    billingCity: '',
+    billingPostalCode: '',
+    billingCountry: '',
+    isBillingAddressDefault: false,
   });
 
   useEffect(() => {
@@ -151,6 +183,26 @@ export const UserProfileModule: FC = () => {
               <FormControlLabel
                 control={<Checkbox checked={userData.isShippingAddressDefault} />}
                 label="Default shipping address"
+                disabled
+              />
+            </ListItem>
+          </List>
+          <Typography variant="subtitle1" className={styles.sectionHeader}>
+            Billing Address
+          </Typography>
+          <List>
+            <InfoItem icon={LocationOnIcon} label="Street" value={userData.billingStreet} />
+            <InfoItem icon={LocationCityIcon} label="City" value={userData.billingCity} />
+            <InfoItem
+              icon={MarkunreadMailboxIcon}
+              label="Postal Code"
+              value={userData.billingPostalCode}
+            />
+            <InfoItem icon={PublicIcon} label="Country" value={userData.billingCountry} />
+            <ListItem>
+              <FormControlLabel
+                control={<Checkbox checked={userData.isBillingAddressDefault} />}
+                label="Default billing address"
                 disabled
               />
             </ListItem>

@@ -18,31 +18,33 @@ export const ProductCard: FC<ProductCardProps> = ({
   discountPrice,
 }) => (
   <div className={styles.root}>
-    {discountPrice ? <DiscountIcon className={styles.iconDiscount} /> : ''}
-    <div className={styles.imageContainer}>
-      <img className={styles.image} src={imageSrc} alt={imageAlt} />
-    </div>
-    <h2 className={styles.title}>{title}</h2>
-    <p className={styles.description}>{description}</p>
-    <div className={styles.bottomContainer}>
-      <div className={styles.priceContainer}>
-        <p className={classNames(styles.price, discountPrice ? styles.priceInactive : '')}>
-          {currentPrice}
-          {currency}
-        </p>
-        {discountPrice ? (
-          <p className={styles.priceDiscount}>
-            {discountPrice}
+    <div className={styles.wrap}>
+      {discountPrice ? <DiscountIcon className={styles.iconDiscount} /> : ''}
+      <div className={styles.imageContainer}>
+        <img className={styles.image} src={imageSrc} alt={imageAlt} />
+      </div>
+      <h2 className={styles.title}>{title}</h2>
+      <p className={styles.description}>{description}</p>
+      <div className={styles.bottomContainer}>
+        <div className={styles.priceContainer}>
+          <p className={classNames(styles.price, discountPrice ? styles.priceInactive : '')}>
+            {currentPrice}
             {currency}
           </p>
-        ) : (
-          ''
-        )}
+          {discountPrice ? (
+            <p className={styles.priceDiscount}>
+              {discountPrice}
+              {currency}
+            </p>
+          ) : (
+            ''
+          )}
+        </div>
+        <Button className={styles.button} variant="contained">
+          Add to cart
+          <ShoppingCartIcon />
+        </Button>
       </div>
-      <Button className={styles.button} variant="contained">
-        Add to cart
-        <ShoppingCartIcon />
-      </Button>
     </div>
   </div>
 );

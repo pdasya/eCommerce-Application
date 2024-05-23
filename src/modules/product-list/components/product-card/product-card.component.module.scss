@@ -15,13 +15,13 @@
 
 .root::after {
   position: absolute;
-  z-index: -1;
-  top: 2px;
-  right: 2px;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
+  z-index: -2;
+  top: -3px;
+  right: -3px;
+  width: 0;
+  height: 0;
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--bg-color-primary);
   content: '';
   transition: all 0.3s ease;
 }
@@ -29,9 +29,9 @@
 .root::before {
   position: absolute;
   z-index: -2;
-  top: 0;
-  right: 0;
-  width: 100%;
+  bottom: -3px;
+  left: -3px;
+  width: 0;
   height: 0;
   border-radius: 5px;
   background-color: var(--bg-color-primary);
@@ -41,27 +41,16 @@
 
 .root {
   position: relative;
-  display: flex;
-  min-width: 0;
-  max-width: 350px;
-  height: 530px;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--spacing-m-12px);
+  z-index: 1;
   border-radius: 5px;
-  background-color: white;
-  gap: var(--spacing-m-12px);
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s ease;
 
   &:hover {
-    // background-color: var(--bg-color-primary);
     cursor: pointer;
-    transform: scale(1.01);
 
-    &::before {
-      height: 100%;
+    &::before,
+    &::after {
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
       transition: all 0.3s ease;
     }
 
@@ -73,6 +62,19 @@
       background-color: var(--bg-color-accent) !important;
     }
   }
+}
+
+.wrap {
+  display: flex;
+  min-width: 0;
+  max-width: 350px;
+  height: 530px;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-m-12px);
+  border-radius: 5px;
+  background-color: white;
+  gap: var(--spacing-m-12px);
 }
 
 .imageContainer {

@@ -15,7 +15,7 @@ const catalogSlice = createSlice({
   initialState,
   reducers: {
     update(state, action: PayloadAction<IProduct[]>) {
-      state.products.push(...action.payload);
+      state.products = action.payload;
     },
     clear(state) {
       state.products = [];

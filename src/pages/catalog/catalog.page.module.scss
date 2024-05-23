@@ -1,5 +1,6 @@
 .page {
   display: flex;
   flex-grow: 1;
-  background-color: rgb(86 169 252);
+  justify-content: center;
+  background-color: var(--bg-color-secondary);
 }

@@ -5,6 +5,11 @@ import { fetchAllProducts } from './products-service';
 function productsAdapter(product: Product): IProduct {
   const data = product.masterData.current;
   const imageSrc = data.masterVariant.images ? data.masterVariant.images[0].url : '';
+  const imageAlt = data.masterVariant.images
+    ? data.masterVariant.images[0].label
+      ? data.masterVariant.images[0].label
+      : ''
+    : '';
   const title = data.name.en;
   const description = data.description ? data.description.en : '';
   const price = data.masterVariant.prices ? data.masterVariant.prices : null;
@@ -16,7 +21,16 @@ function productsAdapter(product: Product): IProduct {
       : undefined
     : undefined;
 
-  return { id: product.id, title, description, imageSrc, currentPrice, currency, discountPrice };
+  return {
+    id: product.id,
+    title,
+    description,
+    imageSrc,
+    imageAlt,
+    currentPrice,
+    currency,
+    discountPrice,
+  };
 }
 
 export const getProductsList = async () => {

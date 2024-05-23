@@ -10,6 +10,7 @@ type ProductCardProps = IProduct;
 
 export const ProductCard: FC<ProductCardProps> = ({
   imageSrc,
+  imageAlt,
   title,
   description,
   currentPrice,
@@ -19,7 +20,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   <div className={styles.root}>
     {discountPrice ? <DiscountIcon className={styles.iconDiscount} /> : ''}
     <div className={styles.imageContainer}>
-      <img className={styles.image} src={imageSrc} alt="product" />
+      <img className={styles.image} src={imageSrc} alt={imageAlt} />
     </div>
     <h2 className={styles.title}>{title}</h2>
     <p className={styles.description}>{description}</p>

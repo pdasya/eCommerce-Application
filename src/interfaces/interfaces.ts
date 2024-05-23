@@ -3,6 +3,7 @@ export interface IProduct {
   title: string;
   description: string;
   imageSrc: string;
+  imageAlt: string;
   currentPrice: number;
   currency: string;
   discountPrice?: number;

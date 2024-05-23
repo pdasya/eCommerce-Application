@@ -1,5 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-import { client } from '@config/constants';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Typography,
   Grid,
@@ -20,86 +19,13 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import PublicIcon from '@mui/icons-material/Public';
 import styles from './user-profile-module.module.scss';
-
-interface UserData {
-  firstName: string | undefined;
-  lastName: string | undefined;
-  dateOfBirth: string | undefined;
-  shippingStreet: string | undefined;
-  shippingCity: string | undefined;
-  shippingPostalCode: string | undefined;
-  shippingCountry: string;
-  isShippingAddressDefault: boolean;
-  billingStreet: string | undefined;
-  billingCity: string | undefined;
-  billingPostalCode: string | undefined;
-  billingCountry: string;
-  isBillingAddressDefault: boolean;
-}
+import { fetchUserData } from '../user-profile-api/fetch-user-data';
 
 interface InfoItemProps {
   icon: React.ComponentType<SvgIconProps>;
   label: string;
   value: string;
 }
-
-const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserData>>) => {
-  try {
-    const response = await client.getClient().me().get().execute();
-    const {
-      firstName,
-      lastName,
-      dateOfBirth,
-      addresses,
-      defaultShippingAddressId,
-      defaultBillingAddressId,
-    } = response.body;
-
-    const isShippingAddressDefault = defaultShippingAddressId === addresses[0]?.id;
-    const isBillingAddressTheSameAsShipping = addresses.length === 1;
-    const isBillingAddressDefault = isBillingAddressTheSameAsShipping
-      ? defaultBillingAddressId === addresses[0]?.id
-      : defaultBillingAddressId === addresses[1]?.id;
-    setUserData({
-      firstName,
-      lastName,
-      dateOfBirth,
-      shippingStreet: addresses[0].streetName,
-      shippingCity: addresses[0].city,
-      shippingPostalCode: addresses[0].postalCode,
-      shippingCountry: addresses[0].country,
-      isShippingAddressDefault,
-      billingStreet: isBillingAddressTheSameAsShipping
-        ? addresses[0].streetName
-        : addresses[1].streetName,
-      billingCity: isBillingAddressTheSameAsShipping ? addresses[0].city : addresses[1].city,
-      billingPostalCode: isBillingAddressTheSameAsShipping
-        ? addresses[0].postalCode
-        : addresses[1].postalCode,
-      billingCountry: isBillingAddressTheSameAsShipping
-        ? addresses[0].country
-        : addresses[1].country,
-      isBillingAddressDefault,
-    });
-  } catch (error) {
-    console.error('Error loading user data:', error);
-    setUserData({
-      firstName: 'Failed to load first name',
-      lastName: 'Failed to load last name',
-      dateOfBirth: 'Failed to load date of birth',
-      shippingStreet: 'Failed to load shipping street',
-      shippingCity: 'Failed to load shipping city',
-      shippingPostalCode: 'Failed to load shipping postal code',
-      shippingCountry: 'Failed to load shipping country',
-      isShippingAddressDefault: false,
-      billingStreet: 'Failed to load shipping street',
-      billingCity: 'Failed to load shipping city',
-      billingPostalCode: 'Failed to load shipping postal code',
-      billingCountry: 'Failed to load shipping country',
-      isBillingAddressDefault: false,
-    });
-  }
-};
 
 const InfoItem: React.FC<InfoItemProps> = ({ icon: Icon, label, value }) => (
   <ListItem>
@@ -141,12 +67,12 @@ export const UserProfileModule: FC = () => {
   }, []);
 
   return (
-    <Paper elevation={3} sx={{ maxWidth: 600, mx: 'auto', mt: 5, p: 2 }}>
+    <Paper elevation={3} className={styles.paperContainer}>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs={12} sm={3}>
           <Avatar
             src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-3ngo-p-totoro-png-27.png"
-            sx={{ width: 80, height: 80 }}
+            className={styles.profileAvatar}
             alt="Profile Photo"
           />
         </Grid>

@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DiscountIcon from '@mui/icons-material/Discount';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import { IProduct } from '@/interfaces/interfaces';
 import styles from './product-card.component.module.scss';
 
@@ -16,8 +17,9 @@ export const ProductCard: FC<ProductCardProps> = ({
   currentPrice,
   currency,
   discountPrice,
+  slug,
 }) => (
-  <div className={styles.root}>
+  <Link className={styles.root} to={slug}>
     <div className={styles.wrap}>
       {discountPrice ? <DiscountIcon className={styles.iconDiscount} /> : ''}
       <div className={styles.imageContainer}>
@@ -46,5 +48,5 @@ export const ProductCard: FC<ProductCardProps> = ({
         </Button>
       </div>
     </div>
-  </div>
+  </Link>
 );

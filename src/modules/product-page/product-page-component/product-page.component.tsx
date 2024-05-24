@@ -6,9 +6,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
 import { ISingleProduct } from '@/interfaces/interfaces';
-import { AttributeList } from '../component/product-attribute-list';
-import { AttributeCollapse } from '../component/product-attribute-collapse';
-import { ProductImage } from '../component/product-images';
+import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
+import { AttributeCollapse } from '../component/product-attribute-collapse/product-attribute-collapse';
+import { ProductImage } from '../component/product-images/product-images';
 
 export const ProductItem: FC<ISingleProduct> = ({
   title,

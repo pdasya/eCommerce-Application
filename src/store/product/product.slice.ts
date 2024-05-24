@@ -31,10 +31,13 @@ const productSlice = createSlice({
     select(state, action: PayloadAction<ISingleProduct>) {
       state.selectedProduct = action.payload;
     },
+    clear(state) {
+      state.selectedProduct = initialState.selectedProduct;
+    },
   },
 });
 
-export const { selectedId, select } = productSlice.actions;
+export const { selectedId, select, clear } = productSlice.actions;
 export const selectProduct = (state: RootState) => state.product.selectedProduct;
 export const selectId = (state: RootState) => state.product.selectedId;
 export const productReducer = productSlice.reducer;

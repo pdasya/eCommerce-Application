@@ -11,6 +11,8 @@ import {
   SvgIconProps,
   FormControlLabel,
   Checkbox,
+  TextField,
+  Button,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -27,6 +29,11 @@ interface InfoItemProps {
   value: string;
 }
 
+interface EditableInfoItemProps extends InfoItemProps {
+  editMode: boolean;
+  onChange: (value: string) => void;
+}
+
 const InfoItem: React.FC<InfoItemProps> = ({ icon: Icon, label, value }) => (
   <ListItem>
     <ListItemIcon>
@@ -40,6 +47,39 @@ const InfoItem: React.FC<InfoItemProps> = ({ icon: Icon, label, value }) => (
       </Grid>
       <Grid item xs>
         <Typography variant="subtitle1">{value}</Typography>
+      </Grid>
+    </Grid>
+  </ListItem>
+);
+
+const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
+  icon: Icon,
+  label,
+  value,
+  editMode,
+  onChange,
+}) => (
+  <ListItem>
+    <ListItemIcon>
+      <Icon />
+    </ListItemIcon>
+    <Grid container alignItems="center">
+      <Grid item xs>
+        <Typography variant="subtitle1" className={styles.fieldName}>
+          {label}
+        </Typography>
+      </Grid>
+      <Grid item xs>
+        {editMode ? (
+          <TextField
+            fullWidth
+            variant="outlined"
+            value={value}
+            onChange={e => onChange(e.target.value)}
+          />
+        ) : (
+          <Typography variant="subtitle1">{value}</Typography>
+        )}
       </Grid>
     </Grid>
   </ListItem>
@@ -61,6 +101,12 @@ export const UserProfileModule: FC = () => {
     billingCountry: '',
     isBillingAddressDefault: false,
   });
+
+  const [editMode, setEditMode] = useState(false);
+
+  const handleDataChange = (field: keyof typeof userData) => (value: string) => {
+    setUserData({ ...userData, [field]: value });
+  };
 
   useEffect(() => {
     fetchUserData(setUserData);
@@ -89,7 +135,13 @@ export const UserProfileModule: FC = () => {
             Personal Information
           </Typography>
           <List>
-            <InfoItem icon={PersonIcon} label="First Name" value={userData.firstName} />
+            <EditableInfoItem
+              icon={PersonIcon}
+              label="First Name"
+              value={userData.firstName}
+              editMode={editMode}
+              onChange={handleDataChange('firstName')}
+            />
             <InfoItem icon={PersonIcon} label="Last Name" value={userData.lastName} />
             <InfoItem icon={DateRangeIcon} label="Date of Birth" value={userData.dateOfBirth} />
           </List>
@@ -134,6 +186,12 @@ export const UserProfileModule: FC = () => {
             </ListItem>
           </List>
         </Grid>
+      </Grid>
+
+      <Grid item>
+        <Button onClick={() => setEditMode(!editMode)} variant="outlined">
+          {editMode ? 'Save' : 'Edit'}
+        </Button>
       </Grid>
     </Paper>
   );

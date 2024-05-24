@@ -12,6 +12,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 1`] = `
     </h2>
     <form
       action="#"
+      novalidate=""
     >
       <div
         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
@@ -164,6 +165,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 2`] = `
     </h2>
     <form
       action="#"
+      novalidate=""
     >
       <div
         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"

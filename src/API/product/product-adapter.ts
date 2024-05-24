@@ -4,7 +4,7 @@ import { fetchProduct } from './product-service';
 
 function productAdapter(product: Product): ISingleProduct {
   const data = product.masterData.current;
-  const { images } = data.masterVariant;
+  const images = data.masterVariant.images ? data.masterVariant.images : [];
   const title = data.name.en;
   const description = data.description ? data.description.en : '';
   const price = data.masterVariant.prices ? data.masterVariant.prices : null;

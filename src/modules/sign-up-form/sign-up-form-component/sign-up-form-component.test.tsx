@@ -69,7 +69,7 @@ describe('Validation Schema', () => {
       firstName: 'First name must contain only alphabetic characters',
       lastName: 'Last name must contain only alphabetic characters',
       dateOfBirth: 'You must be at least 13 years old',
-      shippingStreet: 'Street is required',
+      shippingStreet: 'Shipping street is required',
       shippingCity: 'City must contain only alphabetic characters',
       shippingPostalCode: 'Postal code must be in the format 12345 or 12345-6789',
       shippingCountry: 'Invalid country selection',

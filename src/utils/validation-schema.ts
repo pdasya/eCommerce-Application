@@ -50,7 +50,7 @@ const dateOfBirthValidationSchema = Yup.date()
 
 const shippingStreetValidationSchema = Yup.string()
   .min(minStreetNameLength, 'Street must contain at least one character')
-  .required('Street is required');
+  .required('Shipping street is required');
 
 const shippingCityValidationSchema = Yup.string()
   .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
@@ -66,7 +66,7 @@ const shippingCountryValidationSchema = Yup.string()
 
 const billingStreetValidationSchema = Yup.string()
   .min(minStreetNameLength, 'Street must contain at least one character')
-  .required('Street is required');
+  .required('Billing street is required');
 
 const billingCityValidationSchema = Yup.string()
   .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')

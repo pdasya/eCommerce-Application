@@ -25,6 +25,8 @@ import PublicIcon from '@mui/icons-material/Public';
 import EmailIcon from '@mui/icons-material/Email';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
+import { baseSchema } from '@config/validation-schema';
+import * as Yup from 'yup';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 
@@ -39,6 +41,7 @@ interface EditableInfoItemProps extends InfoItemProps {
   onChange: (value: string) => void;
   type?: string;
   options?: string[];
+  error?: string;
 }
 
 interface MyCustomerSetFirstNameAction {
@@ -75,6 +78,7 @@ const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
   onChange,
   type = 'text',
   options = [],
+  error,
 }) => (
   <ListItem>
     <ListItemIcon>
@@ -107,6 +111,8 @@ const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
               value={value}
               onChange={e => onChange(e.target.value)}
               type={type}
+              error={!!error}
+              helperText={error}
             />
           )
         ) : (
@@ -136,6 +142,28 @@ export const UserProfileModule: FC = () => {
   });
 
   const [editMode, setEditMode] = useState(false);
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+  });
+
+  const validateData = async () => {
+    const newErrors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
+
+    try {
+      await Yup.object(baseSchema).validate(userData, { abortEarly: false });
+      setErrors({ firstName: '', lastName: '', dateOfBirth: '', email: '' });
+      return true;
+    } catch (err) {
+      err.inner.forEach((validationError: any) => {
+        newErrors[validationError.path as keyof typeof newErrors] = validationError.message;
+      });
+      setErrors(newErrors);
+      return false;
+    }
+  };
 
   const createUpdateActions = (data: typeof userData): MyCustomerUpdateAction[] => {
     const actions: MyCustomerUpdateAction[] = [];
@@ -166,9 +194,12 @@ export const UserProfileModule: FC = () => {
   }, []);
 
   const handleClick = async () => {
-    setEditMode(!editMode);
+    const newErrors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
+    setErrors(newErrors);
 
-    if (editMode) {
+    if (!editMode) {
+      setEditMode(true);
+    } else if (await validateData()) {
       const updateActions = createUpdateActions(userData);
       try {
         const response = await client.getClient().me().get().execute();
@@ -186,10 +217,13 @@ export const UserProfileModule: FC = () => {
           .execute();
 
         toast.success(`Form successfully updated!`);
+        setEditMode(false);
       } catch (error) {
         console.error(error);
         toast.error(`Failed to update form!`);
       }
+    } else {
+      toast.error(`Please correct the errors in the form`);
     }
   };
 
@@ -222,6 +256,7 @@ export const UserProfileModule: FC = () => {
               value={userData.firstName}
               editMode={editMode}
               onChange={handleDataChange('firstName')}
+              error={errors.firstName}
             />
             <EditableInfoItem
               icon={PersonIcon}
@@ -229,6 +264,7 @@ export const UserProfileModule: FC = () => {
               value={userData.lastName}
               editMode={editMode}
               onChange={handleDataChange('lastName')}
+              error={errors.lastName}
             />
             <EditableInfoItem
               icon={EmailIcon}
@@ -236,6 +272,7 @@ export const UserProfileModule: FC = () => {
               value={userData.email}
               editMode={editMode}
               onChange={handleDataChange('email')}
+              error={errors.email}
             />
             <EditableInfoItem
               icon={DateRangeIcon}
@@ -244,6 +281,7 @@ export const UserProfileModule: FC = () => {
               editMode={editMode}
               onChange={handleDataChange('dateOfBirth')}
               type="date"
+              error={errors.dateOfBirth}
             />
           </List>
           <Typography variant="subtitle1" className={styles.sectionHeader}>

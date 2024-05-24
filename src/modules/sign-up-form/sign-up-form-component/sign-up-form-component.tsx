@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Formik, Form } from 'formik';
 import { Button, Paper, Typography, Grid, Divider } from '@mui/material';
 import * as Yup from 'yup';
+import { baseSchema, billingSchema } from '@utils/validation-schema';
 import styles from './sign-up-form-component.module.scss';
 import FieldComponent from '../components/field-component/field-component';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
@@ -31,80 +32,13 @@ const LinkToLoginPage: FC = () => (
 );
 
 export const getValidationSchema = (values: Record<string, string | boolean>) => {
-  const minPasswordLength = 8;
-  const minStreetNameLength = 1;
-  const minAge = 13;
+  let schema = Yup.object().shape(baseSchema);
 
-  const baseSchema = Yup.object().shape({
-    email: Yup.string()
-      .test('Check email', 'Email should not contain spaces', value => !value?.includes(' '))
-      .matches(
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)$/,
-        'Email must be at example user@example.com',
-      )
-      .required('Email is required'),
-    password: Yup.string()
-      .min(minPasswordLength, 'Password must be at least 8 characters long')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
-      )
-      .test('Check password', 'Password should not contain spaces', value => !value?.includes(' '))
-      .required('Password is required'),
-    firstName: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'First name must contain only alphabetic characters')
-      .required('First name is required'),
-    lastName: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'Last name must contain only alphabetic characters')
-      .required('Last name is required'),
-    dateOfBirth: Yup.date()
-      .max(
-        new Date(new Date().setFullYear(new Date().getFullYear() - minAge)),
-        `You must be at least ${minAge} years old`,
-      )
-      .min(
-        new Date(new Date().setFullYear(1900, 0, 1)),
-        'Date of birth cannot be before January 1, 1900',
-      )
-      .test('year-length-check', 'Year must be no more than four digits', value => {
-        if (value) {
-          const year = value.getFullYear().toString();
-          return year.length <= 4;
-        }
-        return false;
-      })
-      .typeError('Date of birth is required')
-      .required('Date of birth is required'),
-    shippingStreet: Yup.string()
-      .min(minStreetNameLength, 'Street must contain at least one character')
-      .required('Street is required'),
-    shippingCity: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
-      .required('City is required'),
-    shippingPostalCode: Yup.string()
-      .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
-      .required('Postal code is required'),
-    shippingCountry: Yup.string()
-      .oneOf(['US'], 'Invalid country selection')
-      .required('Country is required'),
-  });
+  if (!values.setSameBillingAddress) {
+    schema = schema.concat(Yup.object().shape(billingSchema));
+  }
 
-  const billingSchema = Yup.object().shape({
-    billingStreet: Yup.string()
-      .min(minStreetNameLength, 'Street must contain at least one character')
-      .required('Billing street is required'),
-    billingCity: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
-      .required('Billing city is required'),
-    billingPostalCode: Yup.string()
-      .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
-      .required('Billing postal code is required'),
-    billingCountry: Yup.string()
-      .oneOf(['US'], 'Invalid country selection')
-      .required('Billing country is required'),
-  });
-
-  return values.setSameBillingAddress ? baseSchema : baseSchema.concat(billingSchema);
+  return schema;
 };
 
 const validate = (values: Record<string, string | boolean>) => {

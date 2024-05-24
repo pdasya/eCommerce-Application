@@ -22,6 +22,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import PublicIcon from '@mui/icons-material/Public';
+import { toast } from 'react-toastify';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 
@@ -109,6 +110,7 @@ export const UserProfileModule: FC = () => {
 
   const handleDataChange = (field: keyof typeof userData) => (value: string) => {
     setUserData({ ...userData, [field]: value });
+    toast.success(`${field} updated successfully!`);
   };
 
   useEffect(() => {

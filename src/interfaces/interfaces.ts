@@ -9,3 +9,11 @@ export interface IProduct {
   discountPrice?: number;
   slug: string;
 }
+
+export interface ISingleProduct extends IProduct {
+  weight: string;
+  ingredients?: string;
+  nutrition?: string;
+  further?: string;
+  maker: string;
+}

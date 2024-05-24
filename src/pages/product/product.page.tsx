@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
-import styles from './product.page.module.scss';
+import { Product } from '@modules/product-page/product-page-module/product-page.module';
+// import styles from './product.page.module.scss';
 
-export const ProductPage: FC = () => <div className={styles.page}>Product page works!</div>;
+export const ProductPage: FC = () => <Product />;

@@ -1,12 +1,13 @@
-import { ProductProjection } from '@commercetools/platform-sdk';
+import { Product } from '@commercetools/platform-sdk';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { fetchProduct } from './product-service';
 
-function productAdapter(product: ProductProjection): ISingleProduct {
-  const images = product.masterVariant.images ? product.masterVariant.images : [];
-  const title = product.name.en;
-  const description = product.description ? product.description.en : '';
-  const price = product.masterVariant.prices ? product.masterVariant.prices : null;
+function productAdapter(product: Product): ISingleProduct {
+  const data = product.masterData.current;
+  const images = data.masterVariant.images ? data.masterVariant.images : [];
+  const title = data.name.en;
+  const description = data.description ? data.description.en : '';
+  const price = data.masterVariant.prices ? data.masterVariant.prices : null;
   const currency = price ? '$' : '';
   const currentPrice = price ? price[0].value.centAmount / 10 : 0;
   const discountPrice = price
@@ -14,7 +15,7 @@ function productAdapter(product: ProductProjection): ISingleProduct {
       ? price[0].discounted.value.centAmount / 10
       : undefined
     : undefined;
-  const attributes = product.masterVariant.attributes ? product.masterVariant.attributes : [];
+  const attributes = data.masterVariant.attributes ? data.masterVariant.attributes : [];
 
   return {
     id: product.id,

@@ -7,4 +7,5 @@ export interface IProduct {
   currentPrice: number;
   currency: string;
   discountPrice?: number;
+  slug: string;
 }

@@ -26,6 +26,7 @@ function productsAdapter(product: Product): IProduct {
       ? price[0].discounted.value.centAmount / 10
       : undefined
     : undefined;
+  const slug = data.slug.en;
 
   return {
     id: product.id,
@@ -36,6 +37,7 @@ function productsAdapter(product: Product): IProduct {
     currentPrice,
     currency,
     discountPrice,
+    slug,
   };
 }
 

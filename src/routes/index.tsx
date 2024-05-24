@@ -20,7 +20,7 @@ export enum RoutePath {
   catalog = '/catalog',
   http404 = '/404',
   main = '/',
-  product = '/product',
+  product = `${catalog}/:id`,
   profile = '/profile',
   signIn = '/sign-in',
   signUp = '/sign-up',

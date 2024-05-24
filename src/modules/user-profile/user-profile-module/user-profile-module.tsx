@@ -34,24 +34,6 @@ interface EditableInfoItemProps extends InfoItemProps {
   onChange: (value: string) => void;
 }
 
-const InfoItem: React.FC<InfoItemProps> = ({ icon: Icon, label, value }) => (
-  <ListItem>
-    <ListItemIcon>
-      <Icon />
-    </ListItemIcon>
-    <Grid container alignItems="center">
-      <Grid item xs>
-        <Typography variant="subtitle1" className={styles.fieldName}>
-          {label}
-        </Typography>
-      </Grid>
-      <Grid item xs>
-        <Typography variant="subtitle1">{value}</Typography>
-      </Grid>
-    </Grid>
-  </ListItem>
-);
-
 const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
   icon: Icon,
   label,
@@ -142,21 +124,53 @@ export const UserProfileModule: FC = () => {
               editMode={editMode}
               onChange={handleDataChange('firstName')}
             />
-            <InfoItem icon={PersonIcon} label="Last Name" value={userData.lastName} />
-            <InfoItem icon={DateRangeIcon} label="Date of Birth" value={userData.dateOfBirth} />
+            <EditableInfoItem
+              icon={PersonIcon}
+              label="Last Name"
+              value={userData.lastName}
+              editMode={editMode}
+              onChange={handleDataChange('lastName')}
+            />
+            <EditableInfoItem
+              icon={DateRangeIcon}
+              label="Date Of Birth"
+              value={userData.dateOfBirth}
+              editMode={editMode}
+              onChange={handleDataChange('dateOfBirth')}
+            />
           </List>
           <Typography variant="subtitle1" className={styles.sectionHeader}>
             Shipping Address
           </Typography>
           <List>
-            <InfoItem icon={LocationOnIcon} label="Street" value={userData.shippingStreet} />
-            <InfoItem icon={LocationCityIcon} label="City" value={userData.shippingCity} />
-            <InfoItem
+            <EditableInfoItem
+              icon={LocationOnIcon}
+              label="Street"
+              value={userData.shippingStreet}
+              editMode={editMode}
+              onChange={handleDataChange('shippingStreet')}
+            />
+            <EditableInfoItem
+              icon={LocationCityIcon}
+              label="City"
+              value={userData.shippingCity}
+              editMode={editMode}
+              onChange={handleDataChange('shippingCity')}
+            />
+            <EditableInfoItem
               icon={MarkunreadMailboxIcon}
               label="Postal Code"
               value={userData.shippingPostalCode}
+              editMode={editMode}
+              onChange={handleDataChange('shippingPostalCode')}
             />
-            <InfoItem icon={PublicIcon} label="Country" value={userData.shippingCountry} />
+            <EditableInfoItem
+              icon={PublicIcon}
+              label="Country"
+              value={userData.shippingCountry}
+              editMode={editMode}
+              onChange={handleDataChange('shippingCountry')}
+            />
             <ListItem>
               <FormControlLabel
                 control={<Checkbox checked={userData.isShippingAddressDefault} />}
@@ -169,14 +183,34 @@ export const UserProfileModule: FC = () => {
             Billing Address
           </Typography>
           <List>
-            <InfoItem icon={LocationOnIcon} label="Street" value={userData.billingStreet} />
-            <InfoItem icon={LocationCityIcon} label="City" value={userData.billingCity} />
-            <InfoItem
+            <EditableInfoItem
+              icon={LocationOnIcon}
+              label="Street"
+              value={userData.billingStreet}
+              editMode={editMode}
+              onChange={handleDataChange('billingStreet')}
+            />
+            <EditableInfoItem
+              icon={LocationCityIcon}
+              label="City"
+              value={userData.billingCity}
+              editMode={editMode}
+              onChange={handleDataChange('billingCity')}
+            />
+            <EditableInfoItem
               icon={MarkunreadMailboxIcon}
               label="Postal Code"
               value={userData.billingPostalCode}
+              editMode={editMode}
+              onChange={handleDataChange('billingPostalCode')}
             />
-            <InfoItem icon={PublicIcon} label="Country" value={userData.billingCountry} />
+            <EditableInfoItem
+              icon={PublicIcon}
+              label="Country"
+              value={userData.billingCountry}
+              editMode={editMode}
+              onChange={handleDataChange('billingCountry')}
+            />
             <ListItem>
               <FormControlLabel
                 control={<Checkbox checked={userData.isBillingAddressDefault} />}

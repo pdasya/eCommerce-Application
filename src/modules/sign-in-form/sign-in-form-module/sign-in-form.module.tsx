@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { authorize } from '@store/auth/auth.slice';
-import { baseSchema } from '@utils/validation-schema';
+import { baseSchema } from '@config/validation-schema';
 import { tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import { signIn } from '../sign-in-form-api/sign-in-form.api';

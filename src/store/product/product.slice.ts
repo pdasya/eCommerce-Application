@@ -21,7 +21,6 @@ const initialState: IProductState = {
     nutrition: '',
     further: '',
     maker: '',
-    slug: '',
   },
 };
 

@@ -10,7 +10,7 @@ export interface IProduct {
   slug: string;
 }
 
-export interface ISingleProduct extends IProduct {
+export interface ISingleProduct extends Omit<IProduct, 'slug'> {
   weight: string;
   ingredients?: string;
   nutrition?: string;

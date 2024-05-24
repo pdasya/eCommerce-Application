@@ -13,6 +13,6 @@ export interface IProduct {
 }
 
 export interface ISingleProduct extends Omit<IProduct, 'slug' | 'imageSrc' | 'imageAlt'> {
-  images?: Image[];
+  images: Image[];
   attributes: Attribute[];
 }

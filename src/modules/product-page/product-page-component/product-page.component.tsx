@@ -8,6 +8,7 @@ import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list';
 import { AttributeCollapse } from '../component/product-attribute-collapse';
+import { ProductImage } from '../component/product-images';
 
 export const ProductItem: FC<ISingleProduct> = ({
   title,
@@ -26,15 +27,9 @@ export const ProductItem: FC<ISingleProduct> = ({
   return (
     <Grid container>
       <Grid xs={6} md={8}>
-        {images ? (
-          images.length > 0 ? (
-            <img src={images[0].url} alt={images[0].label ? images[0].label : 'product-image'} />
-          ) : (
-            <img src="./public/assets/images/no-image.jpg" alt="noImage" />
-          )
-        ) : (
-          <img src="./public/assets/images/no-image.jpg" alt="noImage" />
-        )}
+        {images.map(image => (
+          <ProductImage {...image} />
+        ))}
       </Grid>
       <Grid xs={6} md={8}>
         <Typography variant="h4">{title}</Typography>

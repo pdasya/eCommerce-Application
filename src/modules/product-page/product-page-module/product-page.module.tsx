@@ -5,9 +5,5 @@ import { ProductItem } from '../product-page-component/product-page.component';
 
 export const Product: FC = () => {
   const product = useAppSelector(selectProduct);
-  return (
-    <div>
-      <ProductItem {...product} key={product.id} />
-    </div>
-  );
+  return <ProductItem {...product} key={product.id} />;
 };

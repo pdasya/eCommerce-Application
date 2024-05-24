@@ -35,7 +35,9 @@ export const ProductItem: FC<ISingleProduct> = ({
       </Grid>
       <Grid xs={12} md={6}>
         <Grid className={styles.item} sx={{ p: 2 }}>
-          <Typography variant="h4">{title}</Typography>
+          <Typography variant="h4" className={styles.title}>
+            {title}
+          </Typography>
           <div>
             {attributes.map(attribute => (
               <AttributeList {...attribute} key={attribute.name} />

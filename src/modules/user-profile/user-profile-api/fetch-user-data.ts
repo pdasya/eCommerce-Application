@@ -5,6 +5,7 @@ interface UserData {
   firstName: string | undefined;
   lastName: string | undefined;
   dateOfBirth: string | undefined;
+  email: string;
   shippingStreet: string | undefined;
   shippingCity: string | undefined;
   shippingPostalCode: string | undefined;
@@ -24,6 +25,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       firstName,
       lastName,
       dateOfBirth,
+      email,
       addresses,
       defaultShippingAddressId,
       defaultBillingAddressId,
@@ -38,6 +40,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       firstName,
       lastName,
       dateOfBirth,
+      email,
       shippingStreet: addresses[0].streetName,
       shippingCity: addresses[0].city,
       shippingPostalCode: addresses[0].postalCode,
@@ -61,6 +64,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       firstName: 'Failed to load first name',
       lastName: 'Failed to load last name',
       dateOfBirth: 'Failed to load date of birth',
+      email: 'Failed to load email',
       shippingStreet: 'Failed to load shipping street',
       shippingCity: 'Failed to load shipping city',
       shippingPostalCode: 'Failed to load shipping postal code',

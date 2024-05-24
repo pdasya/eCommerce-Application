@@ -22,6 +22,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import PublicIcon from '@mui/icons-material/Public';
+import EmailIcon from '@mui/icons-material/Email';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
 import styles from './user-profile-module.module.scss';
@@ -107,6 +108,7 @@ export const UserProfileModule: FC = () => {
     firstName: '',
     lastName: '',
     dateOfBirth: '',
+    email: '',
     shippingStreet: '',
     shippingCity: '',
     shippingPostalCode: '',
@@ -210,6 +212,13 @@ export const UserProfileModule: FC = () => {
               value={userData.lastName}
               editMode={editMode}
               onChange={handleDataChange('lastName')}
+            />
+            <EditableInfoItem
+              icon={EmailIcon}
+              label="Email"
+              value={userData.email}
+              editMode={editMode}
+              onChange={handleDataChange('email')}
             />
             <EditableInfoItem
               icon={DateRangeIcon}

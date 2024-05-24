@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { ProductPageComponent } from '../product-page-component/product-page.component';
+import { ProductItem } from '../product-page-component/product-page.component';
 
 export const Product: FC = () => (
   <div>
-    <ProductPageComponent />
+    <ProductItem />
   </div>
 );

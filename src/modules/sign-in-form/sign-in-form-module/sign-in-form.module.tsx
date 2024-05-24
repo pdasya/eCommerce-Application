@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { authorize } from '@store/auth/auth.slice';
-import { minPasswordLength, tokenCache, tokenName, tokenStorage } from '@/config/constants';
+import { baseSchema } from '@config/validation-schema';
+import { tokenCache, tokenName, tokenStorage } from '@/config/constants';
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
@@ -16,21 +17,8 @@ export const SignInForm: FC = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .test('Check email', 'Email should not contain spaces', value => !value?.includes(' '))
-      .matches(
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)$/,
-        'Email must be at example user@example.com',
-      )
-      .required('Email is required'),
-    password: Yup.string()
-      .min(minPasswordLength, 'Password must be at least 8 characters long')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
-      )
-      .test('Check password', 'Password should not contain spaces', value => !value?.includes(' '))
-      .required('Password is required'),
+    email: baseSchema.email,
+    password: baseSchema.password,
   });
 
   const handleSubmit = async (values: IUserDraft): Promise<void> => {

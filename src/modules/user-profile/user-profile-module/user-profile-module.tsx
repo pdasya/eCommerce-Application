@@ -23,6 +23,7 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import PublicIcon from '@mui/icons-material/Public';
 import { toast } from 'react-toastify';
+import { client } from '@config/constants';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 
@@ -38,6 +39,18 @@ interface EditableInfoItemProps extends InfoItemProps {
   type?: string;
   options?: string[];
 }
+
+interface MyCustomerSetFirstNameAction {
+  action: 'setFirstName';
+  firstName: string;
+}
+
+interface MyCustomerSetLastNameAction {
+  action: 'setLastName';
+  lastName: string;
+}
+
+type MyCustomerUpdateAction = MyCustomerSetFirstNameAction | MyCustomerSetLastNameAction;
 
 const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
   icon: Icon,
@@ -107,6 +120,43 @@ export const UserProfileModule: FC = () => {
   });
 
   const [editMode, setEditMode] = useState(false);
+
+  const updateActions: MyCustomerUpdateAction[] = [
+    {
+      action: 'setFirstName',
+      firstName: 'NewFirstName',
+    },
+    {
+      action: 'setLastName',
+      lastName: 'NewLastName',
+    },
+  ];
+
+  client
+    .getClient()
+    .me()
+    .get()
+    .execute()
+    .then(response => {
+      const customerVersion = response.body.version;
+
+      return client
+        .getClient()
+        .me()
+        .post({
+          body: {
+            version: customerVersion,
+            actions: updateActions,
+          },
+        })
+        .execute();
+    })
+    .then(response => {
+      console.log('Updated customer data:', response.body);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 
   const handleDataChange = (field: keyof typeof userData) => (value: string) => {
     setUserData({ ...userData, [field]: value });

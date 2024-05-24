@@ -3,24 +3,21 @@ import { RootState } from '@/store';
 import { ISingleProduct } from '@/interfaces/interfaces';
 
 interface IProductState {
-  product: ISingleProduct;
+  selectedId: string;
+  selectedProduct: ISingleProduct;
 }
 
 const initialState: IProductState = {
-  product: {
+  selectedId: '',
+  selectedProduct: {
     id: '',
     title: '',
     description: '',
-    imageSrc: '',
-    imageAlt: '',
+    images: [],
     currentPrice: 0,
     currency: '',
     discountPrice: 0,
-    weight: '',
-    ingredients: '',
-    nutrition: '',
-    further: '',
-    maker: '',
+    attributes: [],
   },
 };
 
@@ -28,12 +25,16 @@ const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
+    selectedId(state, action: PayloadAction<string>) {
+      state.selectedId = action.payload;
+    },
     select(state, action: PayloadAction<ISingleProduct>) {
-      state.product = action.payload;
+      state.selectedProduct = action.payload;
     },
   },
 });
 
-export const { select } = productSlice.actions;
-export const selectProduct = (state: RootState) => state.product.product;
+export const { selectedId, select } = productSlice.actions;
+export const selectProduct = (state: RootState) => state.product.selectedProduct;
+export const selectId = (state: RootState) => state.product.selectedId;
 export const productReducer = productSlice.reducer;

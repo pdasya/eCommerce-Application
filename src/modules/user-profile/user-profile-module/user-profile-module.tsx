@@ -51,7 +51,21 @@ interface MyCustomerSetLastNameAction {
   lastName: string;
 }
 
-type MyCustomerUpdateAction = MyCustomerSetFirstNameAction | MyCustomerSetLastNameAction;
+interface MyCustomerSetEmailAction {
+  action: 'changeEmail';
+  email: string;
+}
+
+interface MyCustomerSetDateOfBirthAction {
+  action: 'setDateOfBirth';
+  dateOfBirth: string;
+}
+
+type MyCustomerUpdateAction =
+  | MyCustomerSetFirstNameAction
+  | MyCustomerSetLastNameAction
+  | MyCustomerSetEmailAction
+  | MyCustomerSetDateOfBirthAction;
 
 const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
   icon: Icon,
@@ -123,56 +137,59 @@ export const UserProfileModule: FC = () => {
 
   const [editMode, setEditMode] = useState(false);
 
-  const updateActions: MyCustomerUpdateAction[] = [
-    {
-      action: 'setFirstName',
-      firstName: 'NewFirstName',
-    },
-    {
-      action: 'setLastName',
-      lastName: 'NewLastName',
-    },
-  ];
-
-  client
-    .getClient()
-    .me()
-    .get()
-    .execute()
-    .then(response => {
-      const customerVersion = response.body.version;
-
-      return client
-        .getClient()
-        .me()
-        .post({
-          body: {
-            version: customerVersion,
-            actions: updateActions,
-          },
-        })
-        .execute();
-    })
-    .then(response => {
-      console.log('Updated customer data:', response.body);
-    })
-    .catch(error => {
-      console.error(error);
-    });
+  const createUpdateActions = (data: typeof userData): MyCustomerUpdateAction[] => {
+    const actions: MyCustomerUpdateAction[] = [];
+    if (data.firstName) {
+      actions.push({ action: 'setFirstName', firstName: data.firstName });
+    }
+    if (data.lastName) {
+      actions.push({ action: 'setLastName', lastName: data.lastName });
+    }
+    if (data.email) {
+      actions.push({ action: 'changeEmail', email: data.email });
+    }
+    if (data.dateOfBirth) {
+      actions.push({ action: 'setDateOfBirth', dateOfBirth: data.dateOfBirth });
+    }
+    return actions;
+  };
 
   const handleDataChange = (field: keyof typeof userData) => (value: string) => {
-    setUserData({ ...userData, [field]: value });
+    setUserData(prevData => ({
+      ...prevData,
+      [field]: value,
+    }));
   };
 
   useEffect(() => {
     fetchUserData(setUserData);
   }, []);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setEditMode(!editMode);
 
     if (editMode) {
-      toast.success(`Form successfully updated!`);
+      const updateActions = createUpdateActions(userData);
+      try {
+        const response = await client.getClient().me().get().execute();
+        const customerVersion = response.body.version;
+
+        await client
+          .getClient()
+          .me()
+          .post({
+            body: {
+              version: customerVersion,
+              actions: updateActions,
+            },
+          })
+          .execute();
+
+        toast.success(`Form successfully updated!`);
+      } catch (error) {
+        console.error(error);
+        toast.error(`Failed to update form!`);
+      }
     }
   };
 

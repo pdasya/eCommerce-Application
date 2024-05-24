@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { Attribute } from '@commercetools/platform-sdk';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import styles from './product-attribute-collapse.module.scss';
 
 export const AttributeCollapse: FC<Attribute> = (attribute: Attribute) => {
   const existAttribute = (item: string, name: string) => item.includes(name);
@@ -23,7 +24,7 @@ export const AttributeCollapse: FC<Attribute> = (attribute: Attribute) => {
         component="nav"
         aria-labelledby="nested-list-subheader">
         <ListItemButton onClick={handleClick}>
-          <ListItemText primary={name} />
+          <ListItemText className={styles.listItemText} primary={name} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>

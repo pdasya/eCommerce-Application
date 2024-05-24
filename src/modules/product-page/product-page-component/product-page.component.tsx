@@ -5,10 +5,12 @@ import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import classNames from 'classnames';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
 import { AttributeCollapse } from '../component/product-attribute-collapse/product-attribute-collapse';
 import { ProductImage } from '../component/product-images/product-images';
+import styles from './product-page.component.module.scss';
 
 export const ProductItem: FC<ISingleProduct> = ({
   title,
@@ -25,26 +27,26 @@ export const ProductItem: FC<ISingleProduct> = ({
   };
 
   return (
-    <Grid container>
-      <Grid xs={6} md={8}>
+    <Grid container spacing={2}>
+      <Grid xs={12} md={6}>
         {images.map(image => (
-          <ProductImage {...image} />
+          <ProductImage {...image} key={image.label} />
         ))}
       </Grid>
-      <Grid xs={6} md={8}>
+      <Grid xs={12} md={6}>
         <Typography variant="h4">{title}</Typography>
         <div>
           {attributes.map(attribute => (
-            <AttributeList {...attribute} />
+            <AttributeList {...attribute} key={attribute.name} />
           ))}
         </div>
-        <div>
-          <p>
+        <div className={styles.priceContainer}>
+          <p className={classNames(styles.price, discountPrice ? styles.priceInactive : '')}>
             {currentPrice}
             {currency}
           </p>
           {discountPrice ? (
-            <p>
+            <p className={styles.priceDiscount}>
               {discountPrice}
               {currency}
             </p>
@@ -52,11 +54,11 @@ export const ProductItem: FC<ISingleProduct> = ({
             ''
           )}
         </div>
-        <Button variant="contained">
+        <Button className={styles.button} variant="contained">
           Add to cart
           <ShoppingCartIcon />
         </Button>
-        <div>
+        <div className={styles.list}>
           {description ? (
             <List
               sx={{ minWidth: '360px', width: '100%', bgcolor: 'background.paper' }}
@@ -76,7 +78,7 @@ export const ProductItem: FC<ISingleProduct> = ({
             ''
           )}
           {attributes.map(attribute => (
-            <AttributeCollapse {...attribute} />
+            <AttributeCollapse {...attribute} key={attribute.name} />
           ))}
         </div>
       </Grid>

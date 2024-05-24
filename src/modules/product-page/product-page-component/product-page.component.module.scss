@@ -1,6 +1,13 @@
+.item {
+  border-radius: 5px;
+  background-color: white;
+}
+
 .list {
+  overflow: hidden;
   width: 100%;
   min-width: 360px;
+  border-radius: 5px !important;
   margin-top: 20px;
 }
 

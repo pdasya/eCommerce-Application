@@ -34,31 +34,33 @@ export const ProductItem: FC<ISingleProduct> = ({
         ))}
       </Grid>
       <Grid xs={12} md={6}>
-        <Typography variant="h4">{title}</Typography>
-        <div>
-          {attributes.map(attribute => (
-            <AttributeList {...attribute} key={attribute.name} />
-          ))}
-        </div>
-        <div className={styles.priceContainer}>
-          <p className={classNames(styles.price, discountPrice ? styles.priceInactive : '')}>
-            {currentPrice}
-            {currency}
-          </p>
-          {discountPrice ? (
-            <p className={styles.priceDiscount}>
-              {discountPrice}
+        <Grid className={styles.item} sx={{ p: 2 }}>
+          <Typography variant="h4">{title}</Typography>
+          <div>
+            {attributes.map(attribute => (
+              <AttributeList {...attribute} key={attribute.name} />
+            ))}
+          </div>
+          <div className={styles.priceContainer}>
+            <p className={classNames(styles.price, discountPrice ? styles.priceInactive : '')}>
+              {currentPrice}
               {currency}
             </p>
-          ) : (
-            ''
-          )}
-        </div>
-        <Button className={styles.button} variant="contained">
-          Add to cart
-          <ShoppingCartIcon />
-        </Button>
-        <div className={styles.list}>
+            {discountPrice ? (
+              <p className={styles.priceDiscount}>
+                {discountPrice}
+                {currency}
+              </p>
+            ) : (
+              ''
+            )}
+          </div>
+          <Button className={styles.button} variant="contained">
+            Add to cart
+            <ShoppingCartIcon />
+          </Button>
+        </Grid>
+        <Grid className={styles.list}>
           {description ? (
             <List
               sx={{ minWidth: '360px', width: '100%', bgcolor: 'background.paper' }}
@@ -80,7 +82,7 @@ export const ProductItem: FC<ISingleProduct> = ({
           {attributes.map(attribute => (
             <AttributeCollapse {...attribute} key={attribute.name} />
           ))}
-        </div>
+        </Grid>
       </Grid>
     </Grid>
   );

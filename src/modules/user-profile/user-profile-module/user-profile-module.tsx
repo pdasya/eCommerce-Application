@@ -13,6 +13,8 @@ import {
   Checkbox,
   TextField,
   Button,
+  MenuItem,
+  Select,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -32,6 +34,8 @@ interface InfoItemProps {
 interface EditableInfoItemProps extends InfoItemProps {
   editMode: boolean;
   onChange: (value: string) => void;
+  type?: string;
+  options?: string[];
 }
 
 const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
@@ -40,6 +44,8 @@ const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
   value,
   editMode,
   onChange,
+  type = 'text',
+  options = [],
 }) => (
   <ListItem>
     <ListItemIcon>
@@ -53,12 +59,27 @@ const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
       </Grid>
       <Grid item xs>
         {editMode ? (
-          <TextField
-            fullWidth
-            variant="outlined"
-            value={value}
-            onChange={e => onChange(e.target.value)}
-          />
+          type === 'select' ? (
+            <Select
+              value={value}
+              onChange={e => onChange(e.target.value)}
+              fullWidth
+              variant="outlined">
+              {options.map(option => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          ) : (
+            <TextField
+              fullWidth
+              variant="outlined"
+              value={value}
+              onChange={e => onChange(e.target.value)}
+              type={type}
+            />
+          )
         ) : (
           <Typography variant="subtitle1">{value}</Typography>
         )}
@@ -137,6 +158,7 @@ export const UserProfileModule: FC = () => {
               value={userData.dateOfBirth}
               editMode={editMode}
               onChange={handleDataChange('dateOfBirth')}
+              type="date"
             />
           </List>
           <Typography variant="subtitle1" className={styles.sectionHeader}>
@@ -170,6 +192,8 @@ export const UserProfileModule: FC = () => {
               value={userData.shippingCountry}
               editMode={editMode}
               onChange={handleDataChange('shippingCountry')}
+              type="select"
+              options={['US', 'Canada']}
             />
             <ListItem>
               <FormControlLabel
@@ -210,6 +234,8 @@ export const UserProfileModule: FC = () => {
               value={userData.billingCountry}
               editMode={editMode}
               onChange={handleDataChange('billingCountry')}
+              type="select"
+              options={['US', 'Canada']}
             />
             <ListItem>
               <FormControlLabel
@@ -224,7 +250,7 @@ export const UserProfileModule: FC = () => {
 
       <Grid item>
         <Button onClick={() => setEditMode(!editMode)} variant="outlined">
-          {editMode ? 'Save' : 'Edit'}
+          {editMode ? 'Save Changes' : 'Edit Your Information'}
         </Button>
       </Grid>
     </Paper>

@@ -13,8 +13,58 @@
   justify-self: end;
 }
 
+.root::after {
+  position: absolute;
+  z-index: -2;
+  top: -3px;
+  right: -3px;
+  width: 0;
+  height: 0;
+  border-radius: 5px;
+  background-color: var(--bg-color-primary);
+  content: '';
+  transition: all 0.3s ease;
+}
+
+.root::before {
+  position: absolute;
+  z-index: -2;
+  bottom: -3px;
+  left: -3px;
+  width: 0;
+  height: 0;
+  border-radius: 5px;
+  background-color: var(--bg-color-primary);
+  content: '';
+  transition: all 0.3s ease;
+}
+
 .root {
   position: relative;
+  z-index: 1;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      transition: all 0.3s ease;
+    }
+
+    .image {
+      transform: scale(1.05);
+    }
+
+    .button {
+      background-color: var(--bg-color-accent) !important;
+    }
+  }
+}
+
+.wrap {
   display: flex;
   min-width: 0;
   max-width: 350px;
@@ -22,23 +72,9 @@
   flex-direction: column;
   align-items: center;
   padding: var(--spacing-m-12px);
-  border: 2px solid black;
-  border-radius: 16px;
+  border-radius: 5px;
+  background-color: white;
   gap: var(--spacing-m-12px);
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: var(--bg-color-primary);
-    cursor: pointer;
-
-    .image {
-      transform: scale(1.2);
-    }
-
-    .button {
-      background-color: var(--bg-color-accent) !important;
-    }
-  }
 }
 
 .imageContainer {
@@ -49,6 +85,7 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 }
 
 .priceContainer {
@@ -57,9 +94,19 @@
   align-items: end;
   justify-content: center;
   justify-content: space-around;
-  margin-top: auto;
   line-height: 30px;
   text-align: center;
+}
+
+.bottomContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  justify-content: space-around;
+  margin-top: auto;
+  gap: 20px;
 }
 
 .title,
@@ -75,8 +122,9 @@
 }
 
 .title {
+  font-size: large;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
+  line-clamp: 3;
 }
 
 .price {
@@ -104,5 +152,5 @@
   left: var(--spacing-m-12px);
   width: 50px !important;
   height: 50px !important;
-  color: white;
+  color: var(--txt-color-accent);
 }

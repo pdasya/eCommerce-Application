@@ -8,8 +8,8 @@ const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const devTool = devMode ? 'inline-source-map' : undefined;
 const distFolder = 'dist';
-const srcImageFolder = path.resolve(__dirname, './src/images');
-const distImageFolder = path.resolve(__dirname, `./${distFolder}/images`);
+const srcImageFolder = path.resolve(__dirname, './public/assets/images');
+const distImageFolder = path.resolve(__dirname, `./${distFolder}/assets/images`);
 
 const devServer = { static: path.resolve(__dirname, './dist'), historyApiFallback: true };
 

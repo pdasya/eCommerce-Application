@@ -2,85 +2,25 @@ import React, { FC } from 'react';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { useMountEffect } from '@hooks/use-mount-effect.hook';
 import { ProductList } from '@modules/product-list';
-import { IProduct } from '@modules/product-list/interfaces/product.interface';
 import { update } from '@store/catalog/catalog.slice';
+import { toast } from 'react-toastify';
+import { loadEnd, loading } from '@store/misc/misc.slice';
+import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
-
-const mockProducts: IProduct[] = [
-  {
-    id: 1,
-    imageSrc: 'https://dummyimage.com/600x400/e38526/fff&text=Product+image',
-    title:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    price: 1.5,
-    currency: '$',
-    discountPrice: 0.9,
-  },
-  {
-    id: 2,
-    imageSrc: 'https://dummyimage.com/600x800/e38526/fff&text=Product+image',
-    title: 'Title',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    price: 1.5,
-    currency: '$',
-  },
-  {
-    id: 3,
-    imageSrc: 'https://dummyimage.com/600x100/e38526/fff&text=Product+image',
-    title: 'Title',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    price: 1.5,
-    currency: '$',
-  },
-  {
-    id: 4,
-    imageSrc: 'https://dummyimage.com/600x400/e38526/fff&text=Product+image',
-    title:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    price: 1.5,
-    currency: '$',
-  },
-  {
-    id: 5,
-    imageSrc: 'https://dummyimage.com/600x800/e38526/fff&text=Product+image',
-    title: 'Title',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    price: 1.5,
-    currency: '$',
-  },
-  {
-    id: 6,
-    imageSrc: 'https://dummyimage.com/600x100/e38526/fff&text=Product+image',
-    title: 'Title',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    price: 1.5,
-    currency: '$',
-  },
-  {
-    id: 7,
-    imageSrc: 'https://dummyimage.com/600x400/e38526/fff&text=Product+image',
-    title:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur voluptatum at, maxime similique, temporibus perferendis accusantium numquam vitae maiores molestiae amet dolores odit, illum eveniet quidem optio consectetur. Nulla!',
-    price: 1.5,
-    currency: '$',
-  },
-];
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
 
   useMountEffect(() => {
-    dispatch(update(mockProducts));
+    dispatch(loading({}));
+    getProductsList()
+      .then(productsList => {
+        dispatch(update(productsList));
+      })
+      .catch(error => toast.error(error))
+      .finally(() => {
+        dispatch(loadEnd({}));
+      });
   });
 
   return (

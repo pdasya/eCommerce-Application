@@ -25,8 +25,9 @@ import PublicIcon from '@mui/icons-material/Public';
 import EmailIcon from '@mui/icons-material/Email';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
-import { baseSchema } from '@config/validation-schema';
+import { baseSchemaUser } from '@config/validation-schema';
 import * as Yup from 'yup';
+import { ValidationError } from 'yup';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 
@@ -62,6 +63,13 @@ interface MyCustomerSetEmailAction {
 interface MyCustomerSetDateOfBirthAction {
   action: 'setDateOfBirth';
   dateOfBirth: string;
+}
+
+interface Errors {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  email: string;
 }
 
 type MyCustomerUpdateAction =
@@ -150,21 +158,24 @@ export const UserProfileModule: FC = () => {
   });
 
   const validateData = async () => {
-    const newErrors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
+    const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
 
     try {
-      await Yup.object(baseSchema).validate(userData, { abortEarly: false });
-      setErrors({ firstName: '', lastName: '', dateOfBirth: '', email: '' });
+      await Yup.object(baseSchemaUser).validate(userData, { abortEarly: false });
+      setErrors(newErrors);
       return true;
     } catch (err) {
-      err.inner.forEach((validationError: any) => {
-        newErrors[validationError.path as keyof typeof newErrors] = validationError.message;
-      });
+      if (err instanceof ValidationError) {
+        err.inner.forEach(validationError => {
+          if (validationError.path) {
+            newErrors[validationError.path as keyof Errors] = validationError.message;
+          }
+        });
+      }
       setErrors(newErrors);
       return false;
     }
   };
-
   const createUpdateActions = (data: typeof userData): MyCustomerUpdateAction[] => {
     const actions: MyCustomerUpdateAction[] = [];
     if (data.firstName) {

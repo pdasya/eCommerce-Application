@@ -110,12 +110,19 @@ export const UserProfileModule: FC = () => {
 
   const handleDataChange = (field: keyof typeof userData) => (value: string) => {
     setUserData({ ...userData, [field]: value });
-    toast.success(`${field} updated successfully!`);
   };
 
   useEffect(() => {
     fetchUserData(setUserData);
   }, []);
+
+  const handleClick = () => {
+    setEditMode(!editMode);
+
+    if (editMode) {
+      toast.success(`Form successfully updated!`);
+    }
+  };
 
   return (
     <Paper elevation={3} className={styles.paperContainer}>
@@ -251,7 +258,7 @@ export const UserProfileModule: FC = () => {
       </Grid>
 
       <Grid item>
-        <Button onClick={() => setEditMode(!editMode)} variant="outlined">
+        <Button onClick={handleClick} variant="outlined">
           {editMode ? 'Save Changes' : 'Edit Your Information'}
         </Button>
       </Grid>

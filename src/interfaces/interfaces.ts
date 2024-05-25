@@ -6,9 +6,9 @@ export interface IProduct {
   description: string;
   imageSrc: string;
   imageAlt: string;
-  currentPrice: number;
+  currentPrice: string;
   currency: string;
-  discountPrice?: number;
+  discountPrice?: string;
   slug: string;
 }
 

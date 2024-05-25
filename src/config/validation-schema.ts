@@ -92,6 +92,13 @@ export const baseSchema = {
   shippingCountry: shippingCountryValidationSchema,
 };
 
+export const baseSchemaUser = {
+  email: emailValidationSchema,
+  firstName: firstNameValidationSchema,
+  lastName: lastNameValidationSchema,
+  dateOfBirth: dateOfBirthValidationSchema,
+};
+
 export const billingSchema = {
   billingStreet: billingStreetValidationSchema,
   billingCity: billingCityValidationSchema,

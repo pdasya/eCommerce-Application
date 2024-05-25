@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
-import { tokenName, tokenStorage } from '@config/constants';
+import { tokenName, saveStorage } from '@config/constants';
 import { authorize } from '@store/auth/auth.slice';
 import { GlobalLoading } from '@components/global-loading/global-loading.component';
 import { authEnd } from '@store/misc/misc.slice';
@@ -15,7 +15,7 @@ import styles from './app.component.module.scss';
 const App = (): ReactElement => {
   const dispatch = useAppDispatch();
 
-  const getToken = () => tokenStorage.get(tokenName) || false;
+  const getToken = () => saveStorage.get(tokenName) || false;
   const isToken = getToken();
 
   const init = () => {

@@ -20,7 +20,7 @@ export const AttributeCollapse: FC<Attribute> = (attribute: Attribute) => {
   ) {
     return (
       <List
-        sx={{ minWidth: '360px', width: '100%', bgcolor: 'background.paper' }}
+        sx={{ bgcolor: 'background.paper' }}
         component="nav"
         aria-labelledby="nested-list-subheader">
         <ListItemButton onClick={handleClick}>

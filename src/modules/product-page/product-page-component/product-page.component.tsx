@@ -54,7 +54,7 @@ export const ProductItem: FC<ISingleProduct> = ({
         <Grid item className={styles.list}>
           {description ? (
             <List
-              sx={{ minWidth: '360px', width: '100%', bgcolor: 'background.paper' }}
+              sx={{ bgcolor: 'background.paper' }}
               component="nav"
               aria-labelledby="nested-list-subheader">
               <ListItemButton onClick={handleClickDescription}>

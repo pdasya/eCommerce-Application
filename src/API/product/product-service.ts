@@ -1,9 +1,19 @@
-import { Product } from '@commercetools/platform-sdk';
+import { ProductProjection } from '@commercetools/platform-sdk';
 import { client } from '@config/constants';
 
-export const fetchProduct = async (ID: string): Promise<Product> => {
-  const response = await client.getClient().products().withId({ ID }).get().execute();
-  const product = response.body;
-
-  return product;
+export const fetchProduct = async (slug: string): Promise<ProductProjection> => {
+  const locale = 'en';
+  const response = await client
+    .getClient()
+    .productProjections()
+    .search()
+    .get({
+      queryArgs: {
+        filter: `slug.${locale}:"${slug}"`,
+      },
+    })
+    .execute();
+  const product = response.body.results;
+  console.log(product);
+  return product[0];
 };

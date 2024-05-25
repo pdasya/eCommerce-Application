@@ -5,6 +5,7 @@ import { ProductList } from '@modules/product-list';
 import { update } from '@store/catalog/catalog.slice';
 import { toast } from 'react-toastify';
 import { loadEnd, loading } from '@store/misc/misc.slice';
+import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -25,6 +26,7 @@ export const CatalogPage: FC = () => {
 
   return (
     <div className={styles.page}>
+      <ProductSort />
       <ProductList />
     </div>
   );

@@ -17,10 +17,12 @@ export const PrivateRoute: FC<PrivateRouteProps> = ({ redirectTo, redirectIf, ch
   return (
     <>
       {(() => {
+        if (redirectIf === 'always') {
+          return <Navigate to={redirectTo} replace />;
+        }
+
         if (!isAuthInProgress) {
           switch (redirectIf) {
-            case 'always':
-              return <Navigate to={redirectTo} replace />;
             case 'authorized':
               return isAuthorized ? <Navigate to={redirectTo} replace /> : children;
             case 'unauthorized':

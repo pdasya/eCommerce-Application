@@ -1,20 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
-import { useMountEffect } from '@hooks/use-mount-effect.hook';
 import { ProductList } from '@modules/product-list';
-import { update } from '@store/catalog/catalog.slice';
+import { selectSort, update } from '@store/catalog/catalog.slice';
 import { toast } from 'react-toastify';
 import { loadEnd, loading } from '@store/misc/misc.slice';
+import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
+import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { clear } from '@store/product/product.slice';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
+  const sortBy = useAppSelector(selectSort);
 
-  useMountEffect(() => {
+  useEffect(() => {
     dispatch(loading({}));
-    getProductsList()
+    getProductsList(sortBy)
       .then(productsList => {
         dispatch(update(productsList));
         dispatch(clear());
@@ -23,10 +25,11 @@ export const CatalogPage: FC = () => {
       .finally(() => {
         dispatch(loadEnd({}));
       });
-  });
+  }, [sortBy]);
 
   return (
     <div className={styles.page}>
+      <ProductSort />
       <ProductList />
     </div>
   );

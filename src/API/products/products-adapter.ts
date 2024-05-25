@@ -1,9 +1,9 @@
-import { Product } from '@commercetools/platform-sdk';
+import { ProductProjection } from '@commercetools/platform-sdk';
 import { IProduct } from '@/interfaces/interfaces';
 import { fetchAllProducts } from './products-service';
 
-function productsAdapter(product: Product): IProduct {
-  const data = product.masterData.current;
+function productsAdapter(product: ProductProjection): IProduct {
+  const data = product;
   const imageSrc = data.masterVariant.images
     ? data.masterVariant.images[0]
       ? data.masterVariant.images[0].url
@@ -41,7 +41,7 @@ function productsAdapter(product: Product): IProduct {
   };
 }
 
-export const getProductsList = async () => {
-  const allProducts = await fetchAllProducts(20);
+export const getProductsList = async (sortBy: string) => {
+  const allProducts = await fetchAllProducts(sortBy, 20);
   return allProducts.map(product => productsAdapter(product));
 };

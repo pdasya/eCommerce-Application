@@ -1,0 +1,22 @@
+.header {
+  &Active {
+    background-color: orange !important;
+  }
+}
+
+.outlet {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-s-8px);
+}
+
+.resetButton {
+  align-self: flex-end;
+
+  // justify-self: center !important;
+  // margin-left: auto !important;
+}
+
+.hidden {
+  visibility: hidden;
+}

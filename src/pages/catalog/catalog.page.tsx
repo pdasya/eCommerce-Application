@@ -7,6 +7,7 @@ import { loadEnd, loading } from '@store/misc/misc.slice';
 import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { clear } from '@store/product/product.slice';
+import { FilterPanel } from '@modules/filter-panel';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -30,6 +31,7 @@ export const CatalogPage: FC = () => {
   return (
     <div className={styles.page}>
       <ProductSort />
+      <FilterPanel className={styles.filterPanel} />
       <ProductList />
     </div>
   );

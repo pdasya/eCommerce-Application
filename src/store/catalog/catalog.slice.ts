@@ -20,7 +20,7 @@ const catalogSlice = createSlice({
       state.sort = action.payload;
     },
     update(state, action: PayloadAction<IProduct[]>) {
-      state.products = action.payload;
+      state.products = [...action.payload];
     },
     clear(state) {
       state.products = [];

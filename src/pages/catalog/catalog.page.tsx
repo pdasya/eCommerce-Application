@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { loadEnd, loading } from '@store/misc/misc.slice';
 import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
+import { clear } from '@store/product/product.slice';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -18,6 +19,7 @@ export const CatalogPage: FC = () => {
     getProductsList(sortBy)
       .then(productsList => {
         dispatch(update(productsList));
+        dispatch(clear());
       })
       .catch(error => toast.error(error))
       .finally(() => {

@@ -1,21 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { client } from '@config/constants';
-
-interface UserData {
-  firstName: string | undefined;
-  lastName: string | undefined;
-  dateOfBirth: string | undefined;
-  shippingStreet: string | undefined;
-  shippingCity: string | undefined;
-  shippingPostalCode: string | undefined;
-  shippingCountry: string;
-  isShippingAddressDefault: boolean;
-  billingStreet: string | undefined;
-  billingCity: string | undefined;
-  billingPostalCode: string | undefined;
-  billingCountry: string;
-  isBillingAddressDefault: boolean;
-}
+import { UserData } from '../interfaces/user-profile.interfaces';
 
 export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserData>>) => {
   try {
@@ -24,6 +9,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       firstName,
       lastName,
       dateOfBirth,
+      email,
       addresses,
       defaultShippingAddressId,
       defaultBillingAddressId,
@@ -38,6 +24,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       firstName,
       lastName,
       dateOfBirth,
+      email,
       shippingStreet: addresses[0].streetName,
       shippingCity: addresses[0].city,
       shippingPostalCode: addresses[0].postalCode,
@@ -61,6 +48,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       firstName: 'Failed to load first name',
       lastName: 'Failed to load last name',
       dateOfBirth: 'Failed to load date of birth',
+      email: 'Failed to load email',
       shippingStreet: 'Failed to load shipping street',
       shippingCity: 'Failed to load shipping city',
       shippingPostalCode: 'Failed to load shipping postal code',

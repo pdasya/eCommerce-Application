@@ -28,7 +28,5 @@ function productAdapter(product: ProductProjection): ISingleProduct {
   };
 }
 
-export const getProduct = async (slug: string) => {
-  const product = await fetchProduct(slug);
-  return productAdapter(product);
-};
+export const getProduct = async (slug: string) =>
+  fetchProduct(slug).then(product => productAdapter(product));

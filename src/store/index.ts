@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { authReducer } from '@store/auth/auth.slice';
 import { miscReducer } from './misc/misc.slice';
 import { catalogReducer } from './catalog/catalog.slice';
+import { productReducer } from './product/product.slice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   misc: miscReducer,
+  product: productReducer,
   catalog: catalogReducer,
 });
 

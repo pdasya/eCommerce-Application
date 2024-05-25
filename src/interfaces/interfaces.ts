@@ -1,3 +1,5 @@
+import { Attribute, Image } from '@commercetools/platform-sdk';
+
 export interface IProduct {
   id: string;
   title: string;
@@ -8,4 +10,9 @@ export interface IProduct {
   currency: string;
   discountPrice?: number;
   slug: string;
+}
+
+export interface ISingleProduct extends Omit<IProduct, 'slug' | 'imageSrc' | 'imageAlt'> {
+  images: Image[];
+  attributes: Attribute[];
 }

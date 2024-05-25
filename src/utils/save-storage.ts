@@ -1,6 +1,6 @@
 import { TokenStore } from '@commercetools/sdk-client-v2';
 
-export default class TokenStorage {
+export default class SaveStorage {
   private storage: Storage;
 
   constructor(storage: Storage) {

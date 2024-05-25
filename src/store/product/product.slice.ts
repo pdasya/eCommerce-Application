@@ -12,9 +12,9 @@ const initialState: IProductState = {
     title: '',
     description: '',
     images: [],
-    currentPrice: 0,
+    currentPrice: '0',
     currency: '',
-    discountPrice: 0,
+    discountPrice: '0',
     attributes: [],
   },
 };

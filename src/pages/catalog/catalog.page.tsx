@@ -31,8 +31,10 @@ export const CatalogPage: FC = () => {
   return (
     <div className={styles.page}>
       <ProductSort />
-      <FilterPanel className={styles.filterPanel} />
-      <ProductList />
+      <div className={styles.main}>
+        <FilterPanel className={styles.filterPanel} />
+        <ProductList />
+      </div>
     </div>
   );
 };

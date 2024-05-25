@@ -9,3 +9,8 @@
 .filterPanel {
   width: 700px;
 }
+
+.main {
+  display: flex;
+  gap: var(--spacing-m-12px);
+}

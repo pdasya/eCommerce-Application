@@ -1,6 +1,9 @@
 .root {
   display: flex;
+  height: fit-content;
   flex-direction: column;
   padding: 24px;
+  border-radius: 4px;
+  background-color: white;
   gap: var(--spacing-s-8px);
 }

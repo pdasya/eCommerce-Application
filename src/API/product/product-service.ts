@@ -14,6 +14,5 @@ export const fetchProduct = async (slug: string): Promise<ProductProjection> => 
     })
     .execute();
   const product = response.body.results;
-  console.log(product);
   return product[0];
 };

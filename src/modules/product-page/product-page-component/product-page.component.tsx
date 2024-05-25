@@ -12,7 +12,7 @@ import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
 import { AttributeCollapse } from '../component/product-attribute-collapse/product-attribute-collapse';
 import { ProductImages } from '../component/product-images/product-images';
-import 'swiper/css/bundle';
+import 'swiper/swiper-bundle.css';
 import styles from './product-page.component.module.scss';
 
 export const ProductItem: FC<ISingleProduct> = ({

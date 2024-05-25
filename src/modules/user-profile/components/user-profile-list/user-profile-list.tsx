@@ -9,39 +9,9 @@ import {
   MarkunreadMailbox as MarkunreadMailboxIcon,
   Public as PublicIcon,
 } from '@mui/icons-material';
+import { UserProfileListProps } from '@modules/user-profile/interfaces/user-profile.interfaces';
 import EditableInfoItem from '../editable-info-item/editable-info-item';
 import styles from './user-profile-list.module.scss';
-
-interface UserData {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  email: string;
-  shippingStreet: string;
-  shippingCity: string;
-  shippingPostalCode: string;
-  shippingCountry: string;
-  isShippingAddressDefault: boolean;
-  billingStreet: string;
-  billingCity: string;
-  billingPostalCode: string;
-  billingCountry: string;
-  isBillingAddressDefault: boolean;
-}
-
-export interface Errors {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  email: string;
-}
-
-interface UserProfileListProps {
-  userData: UserData;
-  errors: Errors;
-  editMode: boolean;
-  handleDataChange: (field: string) => (value: string) => void;
-}
 
 const UserProfileList: React.FC<UserProfileListProps> = ({
   userData,

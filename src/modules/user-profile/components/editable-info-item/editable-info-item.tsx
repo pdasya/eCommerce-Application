@@ -7,19 +7,8 @@ import {
   TextField,
   Select,
   MenuItem,
-  SvgIconProps,
 } from '@mui/material';
-
-interface EditableInfoItemProps {
-  icon: React.ComponentType<SvgIconProps>;
-  label: string;
-  value: string;
-  editMode: boolean;
-  onChange: (value: string) => void;
-  type?: string;
-  options?: string[];
-  error?: string;
-}
+import { EditableInfoItemProps } from '@modules/user-profile/interfaces/user-profile.interfaces';
 
 const EditableInfoItem: React.FC<EditableInfoItemProps> = ({
   icon: Icon,

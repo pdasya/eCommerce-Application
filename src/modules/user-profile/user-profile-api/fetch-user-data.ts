@@ -1,22 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { client } from '@config/constants';
-
-interface UserData {
-  firstName: string | undefined;
-  lastName: string | undefined;
-  dateOfBirth: string | undefined;
-  email: string;
-  shippingStreet: string | undefined;
-  shippingCity: string | undefined;
-  shippingPostalCode: string | undefined;
-  shippingCountry: string;
-  isShippingAddressDefault: boolean;
-  billingStreet: string | undefined;
-  billingCity: string | undefined;
-  billingPostalCode: string | undefined;
-  billingCountry: string;
-  isBillingAddressDefault: boolean;
-}
+import { UserData } from '../interfaces/user-profile.interfaces';
 
 export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserData>>) => {
   try {

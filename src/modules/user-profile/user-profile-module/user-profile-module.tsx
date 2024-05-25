@@ -7,33 +7,8 @@ import * as Yup from 'yup';
 import { ValidationError } from 'yup';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
-import UserProfileList, { Errors } from '../components/user-profile-list/user-profile-list';
-
-interface MyCustomerSetFirstNameAction {
-  action: 'setFirstName';
-  firstName: string;
-}
-
-interface MyCustomerSetLastNameAction {
-  action: 'setLastName';
-  lastName: string;
-}
-
-interface MyCustomerSetEmailAction {
-  action: 'changeEmail';
-  email: string;
-}
-
-interface MyCustomerSetDateOfBirthAction {
-  action: 'setDateOfBirth';
-  dateOfBirth: string;
-}
-
-type MyCustomerUpdateAction =
-  | MyCustomerSetFirstNameAction
-  | MyCustomerSetLastNameAction
-  | MyCustomerSetEmailAction
-  | MyCustomerSetDateOfBirthAction;
+import UserProfileList from '../components/user-profile-list/user-profile-list';
+import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
 
 export const UserProfileModule: FC = () => {
   const [userData, setUserData] = useState({

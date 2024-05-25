@@ -3,16 +3,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import {
-  List,
-  ListItemButton,
-  ListItemText,
-  Collapse,
-  Grid,
-  CircularProgress,
-} from '@mui/material';
-import { useAppSelector } from '@hooks/use-app-selector.hook';
-import { selectLoading } from '@store/misc/misc.slice';
+import { List, ListItemButton, ListItemText, Collapse, Grid } from '@mui/material';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
 import { AttributeCollapse } from '../component/product-attribute-collapse/product-attribute-collapse';
@@ -31,11 +22,8 @@ export const ProductItem: FC<ISingleProduct> = ({
   const handleClickDescription = () => {
     setOpenDescription(!openDescription);
   };
-  const isLoading = useAppSelector(selectLoading);
 
-  return isLoading ? (
-    <CircularProgress color="warning" />
-  ) : (
+  return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
         {images.map(image => (

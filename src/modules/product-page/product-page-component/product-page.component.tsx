@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { List, ListItemButton, ListItemText, Collapse, Grid } from '@mui/material';
-import classNames from 'classnames';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
 import { AttributeCollapse } from '../component/product-attribute-collapse/product-attribute-collapse';
@@ -17,7 +16,6 @@ export const ProductItem: FC<ISingleProduct> = ({
   images,
   currentPrice,
   currency,
-  discountPrice,
   attributes,
 }) => {
   const [openDescription, setOpenDescription] = useState(false);
@@ -43,18 +41,10 @@ export const ProductItem: FC<ISingleProduct> = ({
             ))}
           </div>
           <div className={styles.priceContainer}>
-            <p className={classNames(styles.price, discountPrice ? styles.priceInactive : '')}>
+            <p className={styles.price}>
               {currentPrice}
               {currency}
             </p>
-            {discountPrice ? (
-              <p className={styles.priceDiscount}>
-                {discountPrice}
-                {currency}
-              </p>
-            ) : (
-              ''
-            )}
           </div>
           <Button className={styles.button} variant="contained">
             Add to cart

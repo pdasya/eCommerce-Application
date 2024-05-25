@@ -96,6 +96,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         control={<Checkbox checked={userData.isShippingAddressDefault} />}
         label="Default shipping address"
         disabled
+        className={styles.defaultCheckbox}
       />
     </List>
     <Typography variant="subtitle1" className={styles.sectionHeader}>
@@ -136,6 +137,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         control={<Checkbox checked={userData.isBillingAddressDefault} />}
         label="Default billing address"
         disabled
+        className={styles.defaultCheckbox}
       />
     </List>
   </>

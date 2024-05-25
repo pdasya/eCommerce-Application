@@ -5,7 +5,7 @@ import { authorize } from '@store/auth/auth.slice';
 import { FullSizeLoading } from '@components/fullsize-loading/full-size-loading.component';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
 import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
-import { client, tokenCache, tokenName, tokenStorage } from '@/config/constants';
+import { client, tokenCache, tokenName, saveStorage } from '@/config/constants';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 
 export const SignUpForm: FC = () => {
@@ -105,7 +105,7 @@ export const SignUpForm: FC = () => {
         })
         .execute()
         .then(() => {
-          tokenStorage.set(tokenName, tokenCache.get());
+          saveStorage.set(tokenName, tokenCache.get());
           setFormValues(initialValues);
         });
 

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { AccountCircle } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { unauthorize } from '@store/auth/auth.slice';
-import { client, tokenStorage } from '@config/constants';
+import { client, saveStorage } from '@config/constants';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
@@ -55,7 +55,7 @@ export const UserBar: FC = () => {
         <MenuItem
           onClick={() => {
             handleClose();
-            tokenStorage.clear();
+            saveStorage.clear();
             navigate('/');
             client.anonymousSession();
             dispatch(unauthorize({}));

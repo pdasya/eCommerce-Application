@@ -1,10 +1,9 @@
 import React, { FC, useState } from 'react';
-import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import { List, ListItemButton, ListItemText, Collapse, Grid } from '@mui/material';
 import classNames from 'classnames';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
@@ -28,12 +27,12 @@ export const ProductItem: FC<ISingleProduct> = ({
 
   return (
     <Grid container spacing={2}>
-      <Grid xs={12} md={6}>
+      <Grid item xs={12} md={6}>
         {images.map(image => (
           <ProductImage {...image} key={image.label} />
         ))}
       </Grid>
-      <Grid xs={12} md={6}>
+      <Grid item xs={12} md={6}>
         <Grid className={styles.item} sx={{ p: 2 }}>
           <Typography variant="h4" className={styles.title}>
             {title}
@@ -62,7 +61,7 @@ export const ProductItem: FC<ISingleProduct> = ({
             <ShoppingCartIcon />
           </Button>
         </Grid>
-        <Grid className={styles.list}>
+        <Grid item className={styles.list}>
           {description ? (
             <List
               sx={{ minWidth: '360px', width: '100%', bgcolor: 'background.paper' }}

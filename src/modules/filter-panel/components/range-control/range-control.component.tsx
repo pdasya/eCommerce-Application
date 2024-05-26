@@ -8,14 +8,16 @@ import styles from './range-control.component.module.scss';
 type Value = [number, number];
 
 interface IRangeControlProps extends IControlBaseProps<Value> {
-  from?: number;
-  to: number;
+  min?: number;
+  max: number;
+  left: number;
+  right: number;
   minRange?: number;
 }
 
 export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
-  ({ from = 0, to, minRange = 0, onChange, onDefaultChange }, ref) => {
-    const [[leftValue, rightValue], setRange] = useState<[number, number]>([from, to]);
+  ({ min = 0, max, left, right, minRange = 0, onChange, onDefaultChange }, ref) => {
+    const [[leftValue, rightValue], setRange] = useState<[number, number]>([left, right]);
     const [isDefault, setIsDefault] = useState<boolean>(true);
 
     const handleSliderChange = (event: Event, [newLeftValue, newRightValue]: number[]) => {
@@ -27,11 +29,11 @@ export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
     };
 
     useEffect(() => {
-      const isDefaultState = leftValue === from && rightValue === to;
+      const isDefaultState = leftValue === min && rightValue === max;
       setIsDefault(isDefaultState);
 
       if (onChange) {
-        onChange([leftValue, rightValue], isDefaultState);
+        onChange([leftValue, rightValue]);
       }
     }, [leftValue, rightValue]);
 
@@ -73,7 +75,7 @@ export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
 
     useImperativeHandle(ref, () => ({
       reset() {
-        setRange([from, to]);
+        setRange([min, max]);
       },
       getIsDefault() {
         return isDefault;
@@ -85,20 +87,22 @@ export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
         <div className={styles.inputs}>
           <NumberInput
             value={leftValue}
-            min={from}
-            max={to - minRange}
+            min={min}
+            max={max - minRange}
             onChange={handleLeftInputChange}
           />
           <NumberInput
             value={rightValue}
-            min={from}
-            max={to - minRange}
+            min={min}
+            max={max - minRange}
             onChange={handleRightInputChange}
           />
         </div>
         <Slider
           className={styles.slider}
           value={[leftValue, rightValue]}
+          min={min}
+          max={max}
           onChange={handleSliderChange}
           valueLabelDisplay="auto"
         />

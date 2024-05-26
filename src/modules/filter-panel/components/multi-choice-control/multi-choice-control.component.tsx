@@ -1,52 +1,34 @@
-import React, {
-  forwardRef,
-  Fragment,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { Checkbox, Divider, FormControlLabel, FormGroup } from '@mui/material';
 import { IControlHandle } from '@modules/filter-panel/interfaces/control-handle.interface';
 import { IControlBaseProps } from '@modules/filter-panel/interfaces/control-base-props.interface';
 import styles from './multi-choice-control.component.module.scss';
 
-interface IOption {
-  name: string;
-}
-
-interface IMultiChoiceControlProps extends IControlBaseProps<IOption[]> {
+interface IMultiChoiceControlProps extends IControlBaseProps<Record<string, boolean>> {
   selectAllOption?: boolean;
-  options: IOption[];
+  options: Record<string, boolean>;
+  initialState: Record<string, boolean>;
 }
-
-const initialState = false;
 
 export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControlProps>(
-  ({ options, selectAllOption = true, onChange, onDefaultChange }, ref) => {
-    const initialOptionsState = useMemo<Record<string, boolean>>(
-      () => options.reduce((dict, option) => ({ ...dict, [option.name]: initialState }), {}),
+  ({ options, selectAllOption = true, initialState, onChange, onDefaultChange }, ref) => {
+    const clearedState = useMemo<Record<string, boolean>>(
+      () => Object.keys(options).reduce((dict, option) => ({ ...dict, [option]: false }), {}),
       [options],
     );
-    const [commonSwitchState, setCommonSwitchState] = useState(initialState);
-    const [optionsState, setOptionsState] = useState(initialOptionsState);
+    const [commonSwitchState, setCommonSwitchState] = useState(false);
+    const [optionsState, setOptionsState] = useState(initialState);
     const [isDefault, setIsDefault] = useState<boolean>(true);
 
     useEffect(() => {
       const isAllChecked = Object.values(optionsState).every(state => state);
-      const isDefaultState = Object.keys(initialOptionsState).every(
-        key => initialOptionsState[key] === optionsState[key],
-      );
+      const isDefaultState = Object.values(optionsState).every(value => value === false);
 
       setIsDefault(isDefaultState);
-      setCommonSwitchState(!!isAllChecked);
+      setCommonSwitchState(isAllChecked);
+
       if (onChange) {
-        onChange(
-          Object.entries(optionsState)
-            .filter(state => state[1] === true)
-            .map(([name]) => ({ name })),
-          isDefaultState,
-        );
+        onChange(optionsState);
       }
     }, [optionsState]);
 
@@ -68,7 +50,7 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
 
     useImperativeHandle(ref, () => ({
       reset() {
-        setOptionsState(initialOptionsState);
+        setOptionsState(clearedState);
       },
       getIsDefault() {
         return isDefault;
@@ -90,7 +72,7 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
             </>
           )}
 
-          {options.map(({ name }) => (
+          {Object.keys(options).map(name => (
             <FormControlLabel
               control={
                 <Checkbox checked={optionsState[name]} onChange={() => handleOptionChange(name)} />

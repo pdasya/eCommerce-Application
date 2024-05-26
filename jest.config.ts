@@ -99,8 +99,15 @@ const config: JestConfigWithTsJest = {
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '^.+\\.svg$': 'jest-transformer-svg',
+    '^swiper/react': '<rootDir>/node_modules/swiper/swiper-react.d.ts',
+    '^swiper/modules': '<rootDir>/node_modules/swiper/types/modules/index.d.ts',
     ...pathsToModuleNameMapper(compilerOptions.paths),
   },
+
+  transformIgnorePatterns: [
+    '/node_modules/(?![swiper/react/swiper-slide.js])',
+    '/node_modules/(?![swiper/react/swiper.js])',
+  ],
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],

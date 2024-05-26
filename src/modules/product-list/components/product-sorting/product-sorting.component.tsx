@@ -7,6 +7,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { selectSort, sort } from '@store/catalog/catalog.slice';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
+import { SortBy } from '@config/sorting-options';
 import styles from './product-sorting.component.module.scss';
 
 export const ProductSort: FC = () => {
@@ -14,8 +15,8 @@ export const ProductSort: FC = () => {
   const sortBy = useAppSelector(selectSort);
   const [sortValue, setSortValue] = useState(sortBy);
   const handleChange = (event: SelectChangeEvent) => {
-    setSortValue(event.target.value);
-    dispatch(sort(event.target.value));
+    setSortValue(event.target.value as SortBy);
+    dispatch(sort(event.target.value as SortBy));
   };
 
   return (

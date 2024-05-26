@@ -1,7 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { ProductList } from '@modules/product-list';
-import { selectSort, update } from '@store/catalog/catalog.slice';
+import {
+  selectCustomFilters,
+  selectPriceFilter,
+  selectSort,
+  update,
+} from '@store/catalog/catalog.slice';
 import { toast } from 'react-toastify';
 import { loadEnd, loading } from '@store/misc/misc.slice';
 import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
@@ -14,10 +19,26 @@ import styles from './catalog.page.module.scss';
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
   const sortBy = useAppSelector(selectSort);
+  const priceFilter = useAppSelector(selectPriceFilter);
+  const customFilters = useAppSelector(selectCustomFilters);
 
   useEffect(() => {
     dispatch(loading({}));
-    getProductsList(sortBy)
+    getProductsList({
+      sort: sortBy,
+      filter: [
+        `variants.price.centAmount:range (${priceFilter.min * 10} to ${priceFilter.max * 10})`,
+        ...Object.entries(customFilters)
+          .filter(entries => Object.values(entries[1]).some(value => value === true))
+          .map(
+            ([attribute, values]) =>
+              `variants.attributes.${attribute}:${Object.entries(values)
+                .filter(entries => entries[1] === true)
+                .map(([key]) => `"${key}"`)
+                .join(', ')}`,
+          ),
+      ],
+    })
       .then(productsList => {
         dispatch(update(productsList));
         dispatch(clear());
@@ -26,7 +47,11 @@ export const CatalogPage: FC = () => {
       .finally(() => {
         dispatch(loadEnd({}));
       });
-  }, [sortBy]);
+  }, [
+    sortBy,
+    priceFilter,
+    customFilters,
+  ]);
 
   return (
     <div className={styles.page}>

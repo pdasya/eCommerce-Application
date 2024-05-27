@@ -5,6 +5,7 @@ import { IProduct } from '@/interfaces/interfaces';
 
 interface ICatalogState {
   sort: SortBy;
+  search: string;
   products: IProduct[];
   category: string | null;
   priceLimits: { min: number; max: number };
@@ -15,6 +16,7 @@ interface ICatalogState {
 
 const initialState: ICatalogState = {
   sort: SortBy.default,
+  search: '',
   products: [],
   category: null,
   priceLimits: { min: 0, max: 0 },
@@ -63,6 +65,9 @@ const catalogSlice = createSlice({
     sort(state, action: PayloadAction<ICatalogState['sort']>) {
       state.sort = action.payload;
     },
+    search(state, action: PayloadAction<ICatalogState['search']>) {
+      state.search = action.payload;
+    },
     update(state, action: PayloadAction<IProduct[]>) {
       state.products = [...action.payload];
     },
@@ -74,6 +79,7 @@ const catalogSlice = createSlice({
 
 export const {
   sort,
+  search,
   update,
   clear,
   setPriceFilter,
@@ -84,6 +90,7 @@ export const {
 } = catalogSlice.actions;
 export const selectProducts = (state: RootState) => state.catalog.products;
 export const selectSort = (state: RootState) => state.catalog.sort;
+export const searchValue = (state: RootState) => state.catalog.search;
 export const selectCategory = (state: RootState) => state.catalog.category;
 export const selectPriceLimits = (state: RootState) => state.catalog.priceLimits;
 export const selectPriceFilter = (state: RootState) => state.catalog.priceFilter;

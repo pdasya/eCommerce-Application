@@ -3,8 +3,11 @@ import Paper from '@mui/material/Paper';
 import { Divider, IconButton, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
+import { search } from '@store/catalog/catalog.slice';
 
 export const ProductSearch: FC = () => {
+  const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState('');
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,6 +16,12 @@ export const ProductSearch: FC = () => {
 
   const handleClear = () => {
     setSearchValue('');
+    dispatch(search(''));
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(search(searchValue));
   };
 
   return (
@@ -26,7 +35,8 @@ export const ProductSearch: FC = () => {
         alignSelf: 'center',
         width: '100%',
         gridArea: 'control',
-      }}>
+      }}
+      onSubmit={handleSearch}>
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search goods"
@@ -42,7 +52,7 @@ export const ProductSearch: FC = () => {
         ''
       )}
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
       </IconButton>
     </Paper>

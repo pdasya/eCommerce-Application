@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { ProductList } from '@modules/product-list';
 import {
+  searchValue,
   selectCustomFilters,
   selectPriceFilter,
   selectSort,
@@ -21,6 +22,7 @@ import styles from './catalog.page.module.scss';
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
   const sortBy = useAppSelector(selectSort);
+  const searchText = useAppSelector(searchValue);
   const priceFilter = useAppSelector(selectPriceFilter);
   const customFilters = useAppSelector(selectCustomFilters);
   const [isFilterPanelOpen, setFilterPanelOpen] = React.useState(false);
@@ -45,6 +47,7 @@ export const CatalogPage: FC = () => {
                 .join(', ')}`,
           ),
       ],
+      searchValue: searchText,
     })
       .then(productsList => {
         dispatch(update(productsList));
@@ -58,6 +61,7 @@ export const CatalogPage: FC = () => {
     sortBy,
     priceFilter,
     customFilters,
+    searchText,
   ]);
 
   return (
@@ -79,7 +83,7 @@ export const CatalogPage: FC = () => {
       <div className={styles.main}>
         <Box
           sx={{
-            display: { xs: 'none', md: 'flex', gridColumn: 'span 1' },
+            display: { xs: 'none', md: 'flex', gridColumn: 'span 1', gridRow: 'span 2' },
           }}>
           <FilterPanel className={styles.filterPanel} />
         </Box>

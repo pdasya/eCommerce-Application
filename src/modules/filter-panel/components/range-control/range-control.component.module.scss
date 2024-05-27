@@ -1,18 +1,18 @@
-.page {
+.root {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   align-items: center;
-  background-color: var(--bg-color-secondary);
+  background-color: inherit;
   gap: var(--spacing-s-8px);
 }
 
-.filterPanel {
-  min-width: 320px;
-}
-
-.main {
+.inputs {
   display: flex;
   width: 100%;
+  justify-content: center;
   gap: var(--spacing-m-12px);
+}
+
+.slider {
+  max-width: 90%;
 }

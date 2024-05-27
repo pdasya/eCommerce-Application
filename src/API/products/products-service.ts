@@ -1,23 +1,38 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { client } from '@config/constants';
+import { SortBy } from '@config/sorting-options';
+
+export type FetchProductsOptions = {
+  sort?: SortBy;
+  filter?: string[];
+  limit?: number;
+  offset?: number;
+  accumulator?: ProductProjection[];
+};
 
 export const fetchAllProducts = async (
-  sortBy: string,
-  limit: number,
-  offset: number = 0,
-  acc: ProductProjection[] = [],
+  options: FetchProductsOptions,
 ): Promise<ProductProjection[]> => {
+  const { sort = SortBy.default, filter = [], limit = 20, offset = 0, accumulator = [] } = options;
+
   const response = await client
     .getClient()
     .productProjections()
     .search()
-    .get({ queryArgs: { sort: sortBy, limit, offset } })
+    .get({ queryArgs: { sort, filter, limit, offset } })
     .execute();
   const { results } = response.body;
-  const accumulatedResults = acc.concat(results);
+  const accumulatedResults = accumulator.concat(results);
 
   if (accumulatedResults.length < response.body.total!) {
-    return fetchAllProducts(sortBy, limit, offset + limit, accumulatedResults);
+    return fetchAllProducts({
+      sort,
+      filter,
+      limit,
+      offset: offset + limit,
+      accumulator: accumulatedResults,
+    });
   }
+
   return accumulatedResults;
 };

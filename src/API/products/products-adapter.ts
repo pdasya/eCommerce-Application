@@ -1,6 +1,6 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { IProduct } from '@/interfaces/interfaces';
-import { fetchAllProducts } from './products-service';
+import { fetchAllProducts, FetchProductsOptions } from './products-service';
 
 function productsAdapter(product: ProductProjection): IProduct {
   const imageSrc = product.masterVariant.images
@@ -40,7 +40,7 @@ function productsAdapter(product: ProductProjection): IProduct {
   };
 }
 
-export const getProductsList = async (sortBy: string) => {
-  const allProducts = await fetchAllProducts(sortBy, 20);
+export const getProductsList = async (options: FetchProductsOptions) => {
+  const allProducts = await fetchAllProducts(options);
   return allProducts.map(product => productsAdapter(product));
 };

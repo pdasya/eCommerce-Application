@@ -15,7 +15,7 @@ export const Fancybox: FC<PropsWithChildren<Props>> = ({ options, delegate, chil
     const container = containerRef.current;
 
     const Delegate = delegate || '[data-fancybox]';
-    const Options = options || {};
+    const Options = { Hash: false, ...(options || {}) };
 
     NativeFancybox.bind(container, Delegate, Options);
 

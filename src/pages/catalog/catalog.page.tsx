@@ -13,7 +13,7 @@ import { ProductSort } from '@modules/product-list/components/product-sorting/pr
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { clear } from '@store/product/product.slice';
 import { FilterPanel } from '@modules/filter-panel';
-import { Button, Drawer } from '@mui/material';
+import { Button, Drawer, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
@@ -62,7 +62,9 @@ export const CatalogPage: FC = () => {
 
   return (
     <div className={styles.page}>
-      <ProductSort />
+      <Paper className={styles.topContainer} sx={{ mb: 1 }}>
+        <ProductSort />
+      </Paper>
       <Box
         sx={{
           display: { xs: 'flex', md: 'none' },

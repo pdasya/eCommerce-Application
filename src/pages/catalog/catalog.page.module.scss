@@ -11,6 +11,12 @@
   min-width: 320px;
 }
 
+.topContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
 .main {
   display: flex;
   width: 100%;

@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Typography, Grid, Avatar, Divider, Paper, Button, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
-import { baseSchemaUser } from '@config/validation-schema';
+import { baseSchema, baseSchemaUser } from '@config/validation-schema';
 import * as Yup from 'yup';
 import { ValidationError } from 'yup';
 import { Formik, Field, ErrorMessage } from 'formik';
@@ -13,6 +13,10 @@ import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
 // import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
+
+const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
+  <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
+);
 
 export const UserProfileModule: FC = () => {
   const [userData, setUserData] = useState({
@@ -33,7 +37,7 @@ export const UserProfileModule: FC = () => {
   });
 
   const [editMode, setEditMode] = useState(false);
-  const [errors, setErrors] = useState<Errors>({
+  const [userErrors, setUserErrors] = useState<Errors>({
     firstName: '',
     lastName: '',
     dateOfBirth: '',
@@ -50,7 +54,7 @@ export const UserProfileModule: FC = () => {
 
     try {
       await Yup.object(baseSchemaUser).validate(userData, { abortEarly: false });
-      setErrors(newErrors);
+      setUserErrors(newErrors);
       return true;
     } catch (err) {
       if (err instanceof ValidationError) {
@@ -60,7 +64,7 @@ export const UserProfileModule: FC = () => {
           }
         });
       }
-      setErrors(newErrors);
+      setUserErrors(newErrors);
       return false;
     }
   };
@@ -95,7 +99,7 @@ export const UserProfileModule: FC = () => {
 
   const handleEditClick = async () => {
     const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
-    setErrors(newErrors);
+    setUserErrors(newErrors);
 
     if (!editMode) {
       setEditMode(true);
@@ -135,46 +139,13 @@ export const UserProfileModule: FC = () => {
     setIsPasswordChangeMode(false);
   };
 
-  // const handlePasswordFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCurrentPassword(event.target.value);
-  // };
-
-  // const handleNewPasswordFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setNewPassword(event.target.value);
-  // };
-
-  // const handleConfirmNewPasswordFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setConfirmNewPassword(event.target.value);
-  // };
-
-  // const handleSavePassword = async () => {
-  //   // if (password.length === 0) {
-  //   //   toast.error('Password cannot be empty');
-  //   //   return;
-  //   // }
-
-  //   try {
-  //     const response = await client.getClient().me().get().execute();
-  //     const customerVersion = response.body.version;
-
-  //     // await client
-  //     //   .getClient()
-  //     //   .me()
-  //     //   .post({
-  //     //     body: {
-  //     //       version: customerVersion,
-  //     //       actions: [{ action: 'setPassword', password }],
-  //     //     },
-  //     //   })
-  //     //   .execute();
-
-  //     toast.success('Password successfully updated!');
-  //     setIsPasswordChangeMode(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error('Failed to update password!');
-  //   }
-  // };
+  const validationSchema = Yup.object({
+    currentPassword: baseSchema.password,
+    newPassword: baseSchema.password,
+    confirmNewPassword: Yup.string()
+      .oneOf([Yup.ref('newPassword')], 'Password must be similar to new password')
+      .required('Password is required'),
+  });
 
   return (
     <Paper elevation={3} className={styles.paperContainer}>
@@ -198,7 +169,7 @@ export const UserProfileModule: FC = () => {
           {!isPasswordChangeMode ? (
             <UserProfileList
               userData={userData}
-              errors={errors}
+              errors={userErrors}
               editMode={editMode}
               handleDataChange={handleDataChange}
             />
@@ -213,13 +184,7 @@ export const UserProfileModule: FC = () => {
                   newPassword: '',
                   confirmNewPassword: '',
                 }}
-                validationSchema={Yup.object({
-                  currentPassword: Yup.string().required('Current password is required'),
-                  newPassword: Yup.string().required('New password is required'),
-                  confirmNewPassword: Yup.string()
-                    // .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
-                    .required('Confirm new password is required'),
-                })}
+                validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting }) => {
                   try {
                     const response = await client.getClient().me().get().execute();
@@ -247,7 +212,7 @@ export const UserProfileModule: FC = () => {
                     setSubmitting(false);
                   }
                 }}>
-                {({ isSubmitting }) => (
+                {({ isSubmitting, errors, touched }) => (
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12} className={styles.passwordsContainer}>
@@ -258,11 +223,10 @@ export const UserProfileModule: FC = () => {
                           type="password"
                           fullWidth
                           component={PasswordInputComponent}
-                        />
-                        <ErrorMessage
-                          name="currentPassword"
-                          component="div"
-                          className={styles.errorMessage}
+                          error={touched.currentPassword && Boolean(errors.currentPassword)}
+                          helperText={
+                            touched.currentPassword && <BoldUppercaseError name="currentPassword" />
+                          }
                         />
                         <Field
                           as={TextField}
@@ -271,11 +235,10 @@ export const UserProfileModule: FC = () => {
                           type="password"
                           fullWidth
                           component={PasswordInputComponent}
-                        />
-                        <ErrorMessage
-                          name="newPassword"
-                          component="div"
-                          className={styles.errorMessage}
+                          error={touched.newPassword && Boolean(errors.newPassword)}
+                          helperText={
+                            touched.newPassword && <BoldUppercaseError name="newPassword" />
+                          }
                         />
                         <Field
                           as={TextField}
@@ -284,11 +247,12 @@ export const UserProfileModule: FC = () => {
                           type="password"
                           fullWidth
                           component={PasswordInputComponent}
-                        />
-                        <ErrorMessage
-                          name="confirmNewPassword"
-                          component="div"
-                          className={styles.errorMessage}
+                          error={touched.confirmNewPassword && Boolean(errors.confirmNewPassword)}
+                          helperText={
+                            touched.confirmNewPassword && (
+                              <BoldUppercaseError name="confirmNewPassword" />
+                            )
+                          }
                         />
                       </Grid>
                       <Grid item xs={12} className={styles.buttonContainer}>

@@ -84,7 +84,7 @@ export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
       },
     }));
 
-    // TODO
+    // TODO: Issue #189: Fix filter controls rerender issues
     const priceFilter = useAppSelector(selectPriceFilter);
     useEffect(() => {
       setRange([min, max]);

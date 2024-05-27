@@ -20,7 +20,7 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
     const [optionsState, setOptionsState] = useState(options);
     const [isDefault, setIsDefault] = useState<boolean>(true);
 
-    // TODO
+    // TODO: Issue #189: Fix filter controls rerender issues
     const customFilters = useAppSelector(selectCustomFilters);
     useEffect(() => {
       setOptionsState(options);

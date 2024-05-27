@@ -146,10 +146,11 @@ export const UserProfileModule: FC = () => {
         </Grid>
       </Grid>
 
-      <Grid item>
+      <Grid item className={styles.buttonContainer}>
         <Button onClick={handleClick} variant="outlined">
           {editMode ? 'Save Changes' : 'Edit Your Information'}
         </Button>
+        <Button variant="outlined">Change your password</Button>
       </Grid>
     </Paper>
   );

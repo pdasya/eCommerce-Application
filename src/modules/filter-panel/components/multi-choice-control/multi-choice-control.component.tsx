@@ -2,23 +2,29 @@ import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } 
 import { Checkbox, Divider, FormControlLabel, FormGroup } from '@mui/material';
 import { IControlHandle } from '@modules/filter-panel/interfaces/control-handle.interface';
 import { IControlBaseProps } from '@modules/filter-panel/interfaces/control-base-props.interface';
+import { useAppSelector } from '@hooks/use-app-selector.hook';
+import { selectCustomFilters } from '@store/catalog/catalog.slice';
 import styles from './multi-choice-control.component.module.scss';
 
 interface IMultiChoiceControlProps extends IControlBaseProps<Record<string, boolean>> {
-  selectAllOption?: boolean;
   options: Record<string, boolean>;
-  initialState: Record<string, boolean>;
 }
 
 export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControlProps>(
-  ({ options, selectAllOption = true, initialState, onChange, onDefaultChange }, ref) => {
+  ({ name, options, onChange, onDefaultChange }, ref) => {
     const clearedState = useMemo<Record<string, boolean>>(
       () => Object.keys(options).reduce((dict, option) => ({ ...dict, [option]: false }), {}),
       [options],
     );
     const [commonSwitchState, setCommonSwitchState] = useState(false);
-    const [optionsState, setOptionsState] = useState(initialState);
+    const [optionsState, setOptionsState] = useState(options);
     const [isDefault, setIsDefault] = useState<boolean>(true);
+
+    // TODO
+    const customFilters = useAppSelector(selectCustomFilters);
+    useEffect(() => {
+      setOptionsState(options);
+    }, [customFilters]);
 
     useEffect(() => {
       const isAllChecked = Object.values(optionsState).every(state => state);
@@ -28,7 +34,7 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
       setCommonSwitchState(isAllChecked);
 
       if (onChange) {
-        onChange(optionsState);
+        onChange([name, optionsState]);
       }
     }, [optionsState]);
 
@@ -44,8 +50,8 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
       setOptionsState(Object.fromEntries(Object.keys(optionsState).map(key => [key, newState])));
     };
 
-    const handleOptionChange = (name: string) => {
-      setOptionsState({ ...optionsState, [name]: !optionsState[name] });
+    const handleOptionChange = (optionName: string) => {
+      setOptionsState({ ...optionsState, [optionName]: !optionsState[optionName] });
     };
 
     useImperativeHandle(ref, () => ({
@@ -60,25 +66,22 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
     return (
       <div className={styles.root}>
         <FormGroup>
-          {selectAllOption && (
-            <>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={commonSwitchState} onChange={handleCommonSwitchChange} />
-                }
-                label="Select all"
-              />
-              <Divider />
-            </>
-          )}
+          <FormControlLabel
+            control={<Checkbox checked={commonSwitchState} onChange={handleCommonSwitchChange} />}
+            label="Select all"
+          />
+          <Divider />
 
-          {Object.keys(options).map(name => (
+          {Object.keys(options).map(optionName => (
             <FormControlLabel
               control={
-                <Checkbox checked={optionsState[name]} onChange={() => handleOptionChange(name)} />
+                <Checkbox
+                  checked={optionsState[optionName]}
+                  onChange={() => handleOptionChange(optionName)}
+                />
               }
-              label={name}
-              key={name}
+              label={optionName}
+              key={optionName}
             />
           ))}
         </FormGroup>

@@ -2,10 +2,12 @@ import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'rea
 import { Slider } from '@mui/material';
 import { IControlHandle } from '@modules/filter-panel/interfaces/control-handle.interface';
 import { IControlBaseProps } from '@modules/filter-panel/interfaces/control-base-props.interface';
+import { selectPriceFilter } from '@store/catalog/catalog.slice';
+import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { NumberInput } from '../number-input/number-input.component';
 import styles from './range-control.component.module.scss';
 
-type Value = [number, number];
+type Value = { min: number; max: number };
 
 interface IRangeControlProps extends IControlBaseProps<Value> {
   min?: number;
@@ -16,7 +18,7 @@ interface IRangeControlProps extends IControlBaseProps<Value> {
 }
 
 export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
-  ({ min = 0, max, left, right, minRange = 0, onChange, onDefaultChange }, ref) => {
+  ({ min = 0, max, left, right, minRange = 0, name, onChange, onDefaultChange }, ref) => {
     const [[leftValue, rightValue], setRange] = useState<[number, number]>([left, right]);
     const [isDefault, setIsDefault] = useState<boolean>(true);
 
@@ -33,7 +35,7 @@ export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
       setIsDefault(isDefaultState);
 
       if (onChange) {
-        onChange([leftValue, rightValue]);
+        onChange([name, { min: leftValue, max: rightValue }]);
       }
     }, [leftValue, rightValue]);
 
@@ -81,6 +83,12 @@ export const RangeControl = forwardRef<IControlHandle, IRangeControlProps>(
         return isDefault;
       },
     }));
+
+    // TODO
+    const priceFilter = useAppSelector(selectPriceFilter);
+    useEffect(() => {
+      setRange([min, max]);
+    }, [priceFilter]);
 
     return (
       <div className={styles.root}>

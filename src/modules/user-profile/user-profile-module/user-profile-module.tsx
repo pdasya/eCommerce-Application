@@ -5,6 +5,9 @@ import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
 import * as Yup from 'yup';
 import { ValidationError } from 'yup';
+import { Formik, Field, ErrorMessage } from 'formik';
+import { Form } from 'react-router-dom';
+import PasswordInputComponent from '@components/password-input-component/password-input-component';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
@@ -38,7 +41,9 @@ export const UserProfileModule: FC = () => {
   });
 
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
-  const [password, setPassword] = useState('');
+  // const [currentPassword, setCurrentPassword] = useState('');
+  // const [newPassword, setNewPassword] = useState('');
+  // const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   const validateData = async () => {
     const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
@@ -130,9 +135,46 @@ export const UserProfileModule: FC = () => {
     setIsPasswordChangeMode(false);
   };
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
+  // const handlePasswordFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setCurrentPassword(event.target.value);
+  // };
+
+  // const handleNewPasswordFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setNewPassword(event.target.value);
+  // };
+
+  // const handleConfirmNewPasswordFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setConfirmNewPassword(event.target.value);
+  // };
+
+  // const handleSavePassword = async () => {
+  //   // if (password.length === 0) {
+  //   //   toast.error('Password cannot be empty');
+  //   //   return;
+  //   // }
+
+  //   try {
+  //     const response = await client.getClient().me().get().execute();
+  //     const customerVersion = response.body.version;
+
+  //     // await client
+  //     //   .getClient()
+  //     //   .me()
+  //     //   .post({
+  //     //     body: {
+  //     //       version: customerVersion,
+  //     //       actions: [{ action: 'setPassword', password }],
+  //     //     },
+  //     //   })
+  //     //   .execute();
+
+  //     toast.success('Password successfully updated!');
+  //     setIsPasswordChangeMode(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error('Failed to update password!');
+  //   }
+  // };
 
   return (
     <Paper elevation={3} className={styles.paperContainer}>
@@ -162,28 +204,105 @@ export const UserProfileModule: FC = () => {
             />
           ) : (
             <div>
-              <Typography gutterBottom variant="h5">
+              <Typography gutterBottom variant="subtitle1" className={styles.sectionHeader}>
                 Change Password
               </Typography>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item xs={12}>
-                  <TextField
-                    label="Password"
-                    type="password"
-                    fullWidth
-                    value={password}
-                    onChange={handlePasswordChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button onClick={handleEditClick} variant="outlined">
-                    {editMode ? 'Save Changes' : 'Edit Your Information'}
-                  </Button>
-                  <Button onClick={handleBackToProfileClick} variant="outlined">
-                    Back to Profile
-                  </Button>
-                </Grid>
-              </Grid>
+              <Formik
+                initialValues={{
+                  currentPassword: '',
+                  newPassword: '',
+                  confirmNewPassword: '',
+                }}
+                validationSchema={Yup.object({
+                  currentPassword: Yup.string().required('Current password is required'),
+                  newPassword: Yup.string().required('New password is required'),
+                  confirmNewPassword: Yup.string()
+                    // .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
+                    .required('Confirm new password is required'),
+                })}
+                onSubmit={async (values, { setSubmitting }) => {
+                  try {
+                    const response = await client.getClient().me().get().execute();
+                    console.log(values);
+                    console.log(response);
+                    // const customerVersion = response.body.version;
+
+                    // await client
+                    //   .getClient()
+                    //   .me()
+                    //   .post({
+                    //     body: {
+                    //       version: customerVersion,
+                    //       actions: [{ action: 'setPassword', password: values.newPassword }],
+                    //     },
+                    //   })
+                    //   .execute();
+
+                    toast.success('Password successfully updated!');
+                    setIsPasswordChangeMode(false);
+                  } catch (error) {
+                    console.error(error);
+                    toast.error('Failed to update password!');
+                  } finally {
+                    setSubmitting(false);
+                  }
+                }}>
+                {({ isSubmitting }) => (
+                  <Form>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} className={styles.passwordsContainer}>
+                        <Field
+                          as={TextField}
+                          label="Current Password"
+                          name="currentPassword"
+                          type="password"
+                          fullWidth
+                          component={PasswordInputComponent}
+                        />
+                        <ErrorMessage
+                          name="currentPassword"
+                          component="div"
+                          className={styles.errorMessage}
+                        />
+                        <Field
+                          as={TextField}
+                          label="New Password"
+                          name="newPassword"
+                          type="password"
+                          fullWidth
+                          component={PasswordInputComponent}
+                        />
+                        <ErrorMessage
+                          name="newPassword"
+                          component="div"
+                          className={styles.errorMessage}
+                        />
+                        <Field
+                          as={TextField}
+                          label="Confirm New Password"
+                          name="confirmNewPassword"
+                          type="password"
+                          fullWidth
+                          component={PasswordInputComponent}
+                        />
+                        <ErrorMessage
+                          name="confirmNewPassword"
+                          component="div"
+                          className={styles.errorMessage}
+                        />
+                      </Grid>
+                      <Grid item xs={12} className={styles.buttonContainer}>
+                        <Button type="submit" variant="outlined" disabled={isSubmitting}>
+                          Save Changes
+                        </Button>
+                        <Button onClick={handleBackToProfileClick} variant="outlined">
+                          Back to Profile
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Form>
+                )}
+              </Formik>
             </div>
           )}
         </Grid>

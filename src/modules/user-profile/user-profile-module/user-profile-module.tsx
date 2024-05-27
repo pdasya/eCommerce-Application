@@ -1,22 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Typography, Grid, Avatar, Divider, Paper, Button, TextField } from '@mui/material';
+import { Typography, Grid, Avatar, Divider, Paper, Button } from '@mui/material';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
-import { baseSchema, baseSchemaUser } from '@config/validation-schema';
+import { baseSchemaUser } from '@config/validation-schema';
 import * as Yup from 'yup';
 import { ValidationError } from 'yup';
-import { Formik, Field, ErrorMessage } from 'formik';
-import { Form } from 'react-router-dom';
-import PasswordInputComponent from '@components/password-input-component/password-input-component';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
-// import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
-
-const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
-  <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
-);
+import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 
 export const UserProfileModule: FC = () => {
   const [userData, setUserData] = useState({
@@ -45,9 +38,6 @@ export const UserProfileModule: FC = () => {
   });
 
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
-  // const [currentPassword, setCurrentPassword] = useState('');
-  // const [newPassword, setNewPassword] = useState('');
-  // const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   const validateData = async () => {
     const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
@@ -139,14 +129,6 @@ export const UserProfileModule: FC = () => {
     setIsPasswordChangeMode(false);
   };
 
-  const validationSchema = Yup.object({
-    currentPassword: baseSchema.password,
-    newPassword: baseSchema.password,
-    confirmNewPassword: Yup.string()
-      .oneOf([Yup.ref('newPassword')], 'Password must be similar to new password')
-      .required('Password is required'),
-  });
-
   return (
     <Paper elevation={3} className={styles.paperContainer}>
       <Grid container spacing={2} alignItems="center">
@@ -174,100 +156,10 @@ export const UserProfileModule: FC = () => {
               handleDataChange={handleDataChange}
             />
           ) : (
-            <div>
-              <Typography gutterBottom variant="subtitle1" className={styles.sectionHeader}>
-                Change Password
-              </Typography>
-              <Formik
-                initialValues={{
-                  currentPassword: '',
-                  newPassword: '',
-                  confirmNewPassword: '',
-                }}
-                validationSchema={validationSchema}
-                onSubmit={async (values, { setSubmitting }) => {
-                  try {
-                    const response = await client.getClient().me().get().execute();
-                    console.log(values);
-                    console.log(response);
-                    // const customerVersion = response.body.version;
-
-                    // await client
-                    //   .getClient()
-                    //   .me()
-                    //   .post({
-                    //     body: {
-                    //       version: customerVersion,
-                    //       actions: [{ action: 'setPassword', password: values.newPassword }],
-                    //     },
-                    //   })
-                    //   .execute();
-
-                    toast.success('Password successfully updated!');
-                    setIsPasswordChangeMode(false);
-                  } catch (error) {
-                    console.error(error);
-                    toast.error('Failed to update password!');
-                  } finally {
-                    setSubmitting(false);
-                  }
-                }}>
-                {({ isSubmitting, errors, touched }) => (
-                  <Form>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} className={styles.passwordsContainer}>
-                        <Field
-                          as={TextField}
-                          label="Current Password"
-                          name="currentPassword"
-                          type="password"
-                          fullWidth
-                          component={PasswordInputComponent}
-                          error={touched.currentPassword && Boolean(errors.currentPassword)}
-                          helperText={
-                            touched.currentPassword && <BoldUppercaseError name="currentPassword" />
-                          }
-                        />
-                        <Field
-                          as={TextField}
-                          label="New Password"
-                          name="newPassword"
-                          type="password"
-                          fullWidth
-                          component={PasswordInputComponent}
-                          error={touched.newPassword && Boolean(errors.newPassword)}
-                          helperText={
-                            touched.newPassword && <BoldUppercaseError name="newPassword" />
-                          }
-                        />
-                        <Field
-                          as={TextField}
-                          label="Confirm New Password"
-                          name="confirmNewPassword"
-                          type="password"
-                          fullWidth
-                          component={PasswordInputComponent}
-                          error={touched.confirmNewPassword && Boolean(errors.confirmNewPassword)}
-                          helperText={
-                            touched.confirmNewPassword && (
-                              <BoldUppercaseError name="confirmNewPassword" />
-                            )
-                          }
-                        />
-                      </Grid>
-                      <Grid item xs={12} className={styles.buttonContainer}>
-                        <Button type="submit" variant="outlined" disabled={isSubmitting}>
-                          Save Changes
-                        </Button>
-                        <Button onClick={handleBackToProfileClick} variant="outlined">
-                          Back to Profile
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Form>
-                )}
-              </Formik>
-            </div>
+            <PasswordChangeForm
+              onCancel={handleBackToProfileClick}
+              onSuccess={handleBackToProfileClick}
+            />
           )}
         </Grid>
       </Grid>

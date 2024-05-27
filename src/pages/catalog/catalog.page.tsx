@@ -9,12 +9,12 @@ import {
 } from '@store/catalog/catalog.slice';
 import { toast } from 'react-toastify';
 import { loadEnd, loading } from '@store/misc/misc.slice';
-import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { clear } from '@store/product/product.slice';
 import { FilterPanel } from '@modules/filter-panel';
-import { Button, Drawer, Paper } from '@mui/material';
+import { Button, Drawer } from '@mui/material';
 import { Box } from '@mui/system';
+import { ProductSearch } from '@modules/product-list/components/product-search/product-search.component';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -62,9 +62,7 @@ export const CatalogPage: FC = () => {
 
   return (
     <div className={styles.page}>
-      <Paper className={styles.topContainer} sx={{ mb: 1 }}>
-        <ProductSort />
-      </Paper>
+      <ProductSearch />
       <Box
         sx={{
           display: { xs: 'flex', md: 'none' },
@@ -81,7 +79,7 @@ export const CatalogPage: FC = () => {
       <div className={styles.main}>
         <Box
           sx={{
-            display: { xs: 'none', md: 'flex' },
+            display: { xs: 'none', md: 'flex', gridColumn: 'span 1' },
           }}>
           <FilterPanel className={styles.filterPanel} />
         </Box>

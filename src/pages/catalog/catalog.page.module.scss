@@ -11,14 +11,18 @@
   min-width: 320px;
 }
 
-.topContainer {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-}
-
 .main {
-  display: flex;
+  display: grid;
   width: 100%;
   gap: var(--spacing-m-12px);
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 56px 1fr;
+
+  @media screen and (width < 900px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media screen and (width < 350px) {
+    grid-template-rows: auto 1fr;
+  }
 }

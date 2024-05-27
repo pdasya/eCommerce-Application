@@ -8,9 +8,8 @@ import classNames from 'classnames';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
 import { AttributeCollapse } from '../component/product-attribute-collapse/product-attribute-collapse';
-import 'swiper/swiper-bundle.css';
 import styles from './product-page.component.module.scss';
-import { SwiperGallery } from '../component/product-gallery/product-gallery.component';
+import { Gallery } from '../component/product-gallery/product-gallery.component';
 
 export const ProductItem: FC<ISingleProduct> = ({
   title,
@@ -29,7 +28,7 @@ export const ProductItem: FC<ISingleProduct> = ({
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
-        <SwiperGallery images={images} />
+        <Gallery images={images} />
       </Grid>
       <Grid item xs={12} md={6}>
         <Grid className={styles.item} sx={{ p: 2 }}>

@@ -1,3 +1,9 @@
+.root {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
 .header {
   &Active {
     background-color: orange !important;
@@ -12,9 +18,6 @@
 
 .resetButton {
   align-self: flex-end;
-
-  // justify-self: center !important;
-  // margin-left: auto !important;
 }
 
 .hidden {

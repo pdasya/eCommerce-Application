@@ -26,7 +26,7 @@ export const ControlWrapper: FC<IControlWrapperProps> = ({ caption, control }) =
   };
 
   return (
-    <div>
+    <div className={styles.root}>
       <ListItemButton onClick={handleClick} className={!isDefault ? styles.headerActive : ''}>
         <ListItemText>
           <h3>{caption}</h3>

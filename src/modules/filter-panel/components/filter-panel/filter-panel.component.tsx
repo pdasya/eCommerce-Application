@@ -33,47 +33,54 @@ export const FilterPanel: FC<FilterPanelProps> = ({ className = '' }) => {
     setFilters(customFilters);
   }, [customFilters]);
 
+  const applyClickHandler = () => {
+    dispatch(setPriceFilter(price));
+    dispatch(setCustomFilters(filters));
+  };
+
+  const resetClickHandler = () => {
+    dispatch(resetAllFilters());
+  };
+
+  const priceFilterChangeHandle = (payload: [string, { min: number; max: number }]) => {
+    setPrice(payload[1]);
+  };
+
+  const customFiltersChangeHandler = (payload: [string, Record<string, boolean>]) =>
+    setFilters({ ...filters, [payload[0]]: payload[1] });
+
   return (
     <div className={classNames(styles.root, className)}>
       <ControlWrapper
         caption="Price"
         control={
           <RangeControl
+            name="price"
             min={priceLimits.min}
             max={priceLimits.max}
             left={price.min}
             right={price.max}
-            onChange={([min, max]) => {
-              setPrice({ min, max });
-            }}
+            onChange={priceFilterChangeHandle}
           />
         }
       />
       {Object.entries(customFilters).map(([name, options]) => (
         <ControlWrapper
+          key={name}
           caption={capitalizeFirstLetter(name)}
           control={
             <MultiChoiceControl
-              initialState={customFilters[name]}
+              name={name}
               options={options}
-              onChange={value => {
-                setFilters({ ...filters, [name]: value });
-              }}
+              onChange={customFiltersChangeHandler}
             />
           }
-          key={name}
         />
       ))}
-      <Button
-        variant="contained"
-        color="warning"
-        onClick={() => {
-          dispatch(setPriceFilter(price));
-          dispatch(setCustomFilters(filters));
-        }}>
+      <Button variant="contained" color="warning" onClick={applyClickHandler}>
         apply
       </Button>
-      <Button variant="outlined" onClick={() => dispatch(resetAllFilters())}>
+      <Button variant="outlined" onClick={resetClickHandler}>
         reset all filters
       </Button>
     </div>

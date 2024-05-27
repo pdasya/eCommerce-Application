@@ -13,6 +13,8 @@ import { ProductSort } from '@modules/product-list/components/product-sorting/pr
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { clear } from '@store/product/product.slice';
 import { FilterPanel } from '@modules/filter-panel';
+import { Button, Drawer } from '@mui/material';
+import { Box } from '@mui/system';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -21,6 +23,11 @@ export const CatalogPage: FC = () => {
   const sortBy = useAppSelector(selectSort);
   const priceFilter = useAppSelector(selectPriceFilter);
   const customFilters = useAppSelector(selectCustomFilters);
+  const [isFilterPanelOpen, setFilterPanelOpen] = React.useState(false);
+
+  const toggleFilterPanel = (newOpen: boolean) => () => {
+    setFilterPanelOpen(newOpen);
+  };
 
   useEffect(() => {
     dispatch(loading({}));
@@ -56,10 +63,37 @@ export const CatalogPage: FC = () => {
   return (
     <div className={styles.page}>
       <ProductSort />
+      <Box
+        sx={{
+          display: { xs: 'flex', md: 'none' },
+          width: '100%',
+        }}>
+        <Button
+          variant="contained"
+          color="warning"
+          sx={{ display: 'flex', width: '100%' }}
+          onClick={toggleFilterPanel(true)}>
+          Show filters
+        </Button>
+      </Box>
       <div className={styles.main}>
-        <FilterPanel className={styles.filterPanel} />
+        <Box
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+          }}>
+          <FilterPanel className={styles.filterPanel} />
+        </Box>
+
         <ProductList />
       </div>
+      <Box
+        sx={{
+          display: { xs: 'flex', md: 'none' },
+        }}>
+        <Drawer open={isFilterPanelOpen} onClose={toggleFilterPanel(false)}>
+          <FilterPanel className={styles.filterPanel} />
+        </Drawer>
+      </Box>
     </div>
   );
 };

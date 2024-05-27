@@ -4,13 +4,15 @@
   flex-grow: 1;
   align-items: center;
   background-color: var(--bg-color-secondary);
+  gap: var(--spacing-s-8px);
 }
 
 .filterPanel {
-  width: 700px;
+  min-width: 320px;
 }
 
 .main {
   display: flex;
+  width: 100%;
   gap: var(--spacing-m-12px);
 }

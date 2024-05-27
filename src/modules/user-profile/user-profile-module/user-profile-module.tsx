@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Typography, Grid, Avatar, Divider, Paper, Button } from '@mui/material';
+import { Typography, Grid, Avatar, Divider, Paper, Button, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
@@ -8,6 +8,7 @@ import { ValidationError } from 'yup';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
+// import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
 
 export const UserProfileModule: FC = () => {
@@ -35,6 +36,9 @@ export const UserProfileModule: FC = () => {
     dateOfBirth: '',
     email: '',
   });
+
+  const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
+  const [password, setPassword] = useState('');
 
   const validateData = async () => {
     const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
@@ -84,7 +88,7 @@ export const UserProfileModule: FC = () => {
     fetchUserData(setUserData);
   }, []);
 
-  const handleClick = async () => {
+  const handleEditClick = async () => {
     const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
     setErrors(newErrors);
 
@@ -118,6 +122,18 @@ export const UserProfileModule: FC = () => {
     }
   };
 
+  const handlePasswordChangeClick = () => {
+    setIsPasswordChangeMode(true);
+  };
+
+  const handleBackToProfileClick = () => {
+    setIsPasswordChangeMode(false);
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
   return (
     <Paper elevation={3} className={styles.paperContainer}>
       <Grid container spacing={2} alignItems="center">
@@ -137,20 +153,53 @@ export const UserProfileModule: FC = () => {
           <Divider variant="middle" />
         </Grid>
         <Grid item xs={12}>
-          <UserProfileList
-            userData={userData}
-            errors={errors}
-            editMode={editMode}
-            handleDataChange={handleDataChange}
-          />
+          {!isPasswordChangeMode ? (
+            <UserProfileList
+              userData={userData}
+              errors={errors}
+              editMode={editMode}
+              handleDataChange={handleDataChange}
+            />
+          ) : (
+            <div>
+              <Typography gutterBottom variant="h5">
+                Change Password
+              </Typography>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12}>
+                  <TextField
+                    label="Password"
+                    type="password"
+                    fullWidth
+                    value={password}
+                    onChange={handlePasswordChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button onClick={handleEditClick} variant="outlined">
+                    {editMode ? 'Save Changes' : 'Edit Your Information'}
+                  </Button>
+                  <Button onClick={handleBackToProfileClick} variant="outlined">
+                    Back to Profile
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          )}
         </Grid>
       </Grid>
 
       <Grid item className={styles.buttonContainer}>
-        <Button onClick={handleClick} variant="outlined">
-          {editMode ? 'Save Changes' : 'Edit Your Information'}
-        </Button>
-        <Button variant="outlined">Change your password</Button>
+        {!isPasswordChangeMode && (
+          <>
+            <Button onClick={handleEditClick} variant="outlined">
+              {editMode ? 'Save Changes' : 'Edit Your Information'}
+            </Button>
+            <Button onClick={handlePasswordChangeClick} variant="outlined">
+              Change your password
+            </Button>
+          </>
+        )}
       </Grid>
     </Paper>
   );

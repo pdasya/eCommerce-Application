@@ -2,10 +2,22 @@ import React, { FC } from 'react';
 import { Image } from '@commercetools/platform-sdk';
 import styles from './product-images.module.scss';
 
-export const ProductImage: FC<Image> = (image: Image) => {
+export const ProductImages: FC<Image> = (image: Image) => {
   const { url, label } = image;
   if (image) {
-    return <img className={styles.image} src={url} alt={label || 'product-image'} />;
+    return (
+      <div
+        className="f-carousel__slide"
+        data-fancybox="gallery"
+        data-src={url}
+        data-thumb-src={url}>
+        <img className={styles.image} src={url} alt={label || 'product-image'} />
+      </div>
+    );
   }
-  return <img className={styles.image} src="./public/assets/images/no-image.jpg" alt="noImage" />;
+  return (
+    <a data-fancybox="gallery" href="./public/assets/images/no-image.jpg">
+      <img className={styles.image} src="./public/assets/images/no-image.jpg" alt="noImage" />
+    </a>
+  );
 };

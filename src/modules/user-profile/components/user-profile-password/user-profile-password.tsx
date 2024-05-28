@@ -43,40 +43,33 @@ export const PasswordChangeForm: FC<PasswordChangeFormProps> = ({ onCancel, onSu
       const customerId = response.body.id;
       const customerEmail = response.body.email;
 
-      const userDraft = {
+      const userDraft: IUserDraft = {
         email: customerEmail,
         password: values.newPassword,
       };
 
       await client
         .getClient()
-        .customers()
+        .me()
         .password()
         .post({
           body: {
-            id: customerId,
             version: customerVersion,
             currentPassword: values.currentPassword,
             newPassword: values.newPassword,
           },
         })
         .execute()
-        .then(() => {
-          saveStorage.removeItem(tokenName);
+        .then(() => tokenCache.delete());
+
+      await client
+        .passwordSession(userDraft)
+        .me()
+        .login()
+        .post({
+          body: userDraft,
         })
-        .then(() => {
-          const loginResponse = client
-            .passwordSession(userDraft)
-            .me()
-            .login()
-            .post({
-              body: {
-                email: customerEmail,
-                password: values.newPassword,
-              },
-            })
-            .execute();
-        })
+        .execute()
         .then(() => {
           dispatch(
             authorize({
@@ -84,36 +77,12 @@ export const PasswordChangeForm: FC<PasswordChangeFormProps> = ({ onCancel, onSu
               email: customerEmail,
             }),
           );
-        })
-        .then(() => {
           saveStorage.set(tokenName, tokenCache.get());
         });
-
-      // const loginResponse = await client
-      //   .passwordSession(userDraft)
-      //   .me()
-      //   .login()
-      //   .post({
-      //     body: {
-      //       email: customerEmail,
-      //       password: values.newPassword,
-      //     },
-      //   })
-      //   .execute();
-
-      // dispatch(
-      //   authorize({
-      //     id: loginResponse.body.customer.id,
-      //     email: loginResponse.body.customer.email,
-      //   })
-      // );
-
-      // saveStorage.set(tokenName, tokenCache.get());
 
       toast.success('Password successfully updated!');
       onSuccess();
     } catch (error) {
-      console.error(error);
       toast.error('Failed to update password!');
     } finally {
       setSubmitting(false);

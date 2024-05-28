@@ -3,9 +3,16 @@ import { Grid, Typography, Button, TextField } from '@mui/material';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { client } from '@config/constants';
+import { client, saveStorage, tokenCache, tokenName } from '@config/constants';
 import PasswordInputComponent from '@components/password-input-component/password-input-component';
+import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
+import { authorize } from '@store/auth/auth.slice';
 import styles from './user-profile-password.module.scss';
+
+interface IUserDraft {
+  email: string;
+  password: string;
+}
 
 const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />
@@ -15,7 +22,7 @@ const validationSchema = Yup.object({
   currentPassword: Yup.string().required('Current password is required'),
   newPassword: Yup.string().required('New password is required'),
   confirmNewPassword: Yup.string()
-    .oneOf([Yup.ref('newPassword')], 'Passwords must match')
+    .oneOf([Yup.ref('newPassword')], 'The password must be the same as the new password')
     .required('Confirm new password is required'),
 });
 
@@ -25,6 +32,7 @@ interface PasswordChangeFormProps {
 }
 
 export const PasswordChangeForm: FC<PasswordChangeFormProps> = ({ onCancel, onSuccess }) => {
+  const dispatch = useAppDispatch();
   const handlePasswordChangeSubmit = async (
     values: { currentPassword: string; newPassword: string; confirmNewPassword: string },
     setSubmitting: (isSubmitting: boolean) => void,
@@ -33,6 +41,12 @@ export const PasswordChangeForm: FC<PasswordChangeFormProps> = ({ onCancel, onSu
       const response = await client.getClient().me().get().execute();
       const customerVersion = response.body.version;
       const customerId = response.body.id;
+      const customerEmail = response.body.email;
+
+      const userDraft = {
+        email: customerEmail,
+        password: values.newPassword,
+      };
 
       await client
         .getClient()
@@ -46,7 +60,55 @@ export const PasswordChangeForm: FC<PasswordChangeFormProps> = ({ onCancel, onSu
             newPassword: values.newPassword,
           },
         })
-        .execute();
+        .execute()
+        .then(() => {
+          saveStorage.removeItem(tokenName);
+        })
+        .then(() => {
+          const loginResponse = client
+            .passwordSession(userDraft)
+            .me()
+            .login()
+            .post({
+              body: {
+                email: customerEmail,
+                password: values.newPassword,
+              },
+            })
+            .execute();
+        })
+        .then(() => {
+          dispatch(
+            authorize({
+              id: customerId,
+              email: customerEmail,
+            }),
+          );
+        })
+        .then(() => {
+          saveStorage.set(tokenName, tokenCache.get());
+        });
+
+      // const loginResponse = await client
+      //   .passwordSession(userDraft)
+      //   .me()
+      //   .login()
+      //   .post({
+      //     body: {
+      //       email: customerEmail,
+      //       password: values.newPassword,
+      //     },
+      //   })
+      //   .execute();
+
+      // dispatch(
+      //   authorize({
+      //     id: loginResponse.body.customer.id,
+      //     email: loginResponse.body.customer.email,
+      //   })
+      // );
+
+      // saveStorage.set(tokenName, tokenCache.get());
 
       toast.success('Password successfully updated!');
       onSuccess();

@@ -13,9 +13,10 @@ import { loadEnd, loading } from '@store/misc/misc.slice';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { clear } from '@store/product/product.slice';
 import { FilterPanel } from '@modules/filter-panel';
-import { Button, Drawer } from '@mui/material';
+import { Button, Drawer, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import { ProductSearch } from '@modules/product-list/components/product-search/product-search.component';
+import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -88,6 +89,9 @@ export const CatalogPage: FC = () => {
           <FilterPanel className={styles.filterPanel} />
         </Box>
 
+        <Paper className={styles.sortPanel}>
+          <ProductSort />
+        </Paper>
         <ProductList />
       </div>
       <Box

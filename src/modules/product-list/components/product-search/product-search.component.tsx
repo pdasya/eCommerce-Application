@@ -4,21 +4,23 @@ import { Divider, IconButton, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
-import { search, searchValue } from '@store/catalog/catalog.slice';
+import { search, tempSearch, tempSearchValue } from '@store/catalog/catalog.slice';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 
 export const ProductSearch: FC = () => {
   const dispatch = useAppDispatch();
-  const searchText = useAppSelector(searchValue);
+  const tempSearchText = useAppSelector(tempSearchValue);
   const [value, setValue] = useState('');
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+    dispatch(tempSearch(e.target.value));
   };
 
   const handleClear = () => {
     setValue('');
     dispatch(search(''));
+    dispatch(tempSearch(''));
   };
 
   const handleSearch = (e: React.FormEvent) => {
@@ -43,10 +45,10 @@ export const ProductSearch: FC = () => {
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search for products"
         inputProps={{ 'aria-label': 'search for products' }}
-        value={searchText || value}
+        value={tempSearchText || value}
         onChange={handleInput}
       />
-      {value.length > 0 || searchText.length > 0 ? (
+      {value.length > 0 || tempSearchText.length > 0 ? (
         <IconButton type="button" sx={{ p: '10px' }} aria-label="clear" onClick={handleClear}>
           <ClearIcon />
         </IconButton>

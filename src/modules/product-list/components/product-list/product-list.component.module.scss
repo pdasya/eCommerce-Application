@@ -4,8 +4,6 @@
   height: 100%;
   gap: 10px;
   grid-auto-rows: max-content;
-  grid-column: 2;
-  grid-row: 2;
   grid-template-columns: repeat(5, 1fr);
 
   @media screen and (width <=1500px) {

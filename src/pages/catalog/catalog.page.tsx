@@ -17,6 +17,7 @@ import { Button, Drawer, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import { ProductSearch } from '@modules/product-list/components/product-search/product-search.component';
 import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
+import { SearchBanner } from '@modules/product-list/components/search-banner/search-banner.component';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -84,7 +85,12 @@ export const CatalogPage: FC = () => {
       <div className={styles.main}>
         <Box
           sx={{
-            display: { xs: 'none', md: 'flex', gridColumn: 'span 1', gridRow: 'span 2' },
+            display: {
+              xs: 'none',
+              md: 'flex',
+              gridColumn: 'span 1',
+              gridRow: 'span 2',
+            },
           }}>
           <FilterPanel className={styles.filterPanel} />
         </Box>
@@ -92,7 +98,10 @@ export const CatalogPage: FC = () => {
         <Paper className={styles.sortPanel}>
           <ProductSort />
         </Paper>
-        <ProductList />
+        <div className={styles.productList}>
+          {searchText ? <SearchBanner /> : ''}
+          <ProductList />
+        </div>
       </div>
       <Box
         sx={{

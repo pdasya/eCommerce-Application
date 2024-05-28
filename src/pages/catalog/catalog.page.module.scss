@@ -7,8 +7,35 @@
   gap: var(--spacing-s-8px);
 }
 
+.main {
+  display: grid;
+  width: 100%;
+  gap: var(--spacing-m-12px);
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 56px 1fr;
+
+  @media screen and (width < 900px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media screen and (width < 350px) {
+    grid-template-rows: auto 1fr;
+  }
+}
+
 .filterPanel {
   min-width: 320px;
+}
+
+.productList {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: span 2;
+
+  @media screen and (width < 900px) {
+    grid-column: 1;
+  }
 }
 
 .sortPanel {
@@ -25,21 +52,5 @@
 
   @media screen and (width < 350px) {
     flex-direction: column;
-  }
-}
-
-.main {
-  display: grid;
-  width: 100%;
-  gap: var(--spacing-m-12px);
-  grid-template-columns: 320px 1fr;
-  grid-template-rows: 56px 1fr;
-
-  @media screen and (width < 900px) {
-    grid-template-columns: 1fr;
-  }
-
-  @media screen and (width < 350px) {
-    grid-template-rows: auto 1fr;
   }
 }

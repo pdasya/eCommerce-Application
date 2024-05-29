@@ -5,6 +5,7 @@ import { SortBy } from '@config/sorting-options';
 export type FetchProductsOptions = {
   sort?: SortBy;
   filter?: string[];
+  searchValue?: string;
   limit?: number;
   offset?: number;
   accumulator?: ProductProjection[];
@@ -13,13 +14,20 @@ export type FetchProductsOptions = {
 export const fetchAllProducts = async (
   options: FetchProductsOptions,
 ): Promise<ProductProjection[]> => {
-  const { sort = SortBy.default, filter = [], limit = 20, offset = 0, accumulator = [] } = options;
+  const {
+    sort = SortBy.default,
+    filter = [],
+    searchValue = '',
+    limit = 20,
+    offset = 0,
+    accumulator = [],
+  } = options;
 
   const response = await client
     .getClient()
     .productProjections()
     .search()
-    .get({ queryArgs: { sort, filter, limit, offset } })
+    .get({ queryArgs: { sort, filter, fuzzy: true, 'text.en': searchValue, limit, offset } })
     .execute();
   const { results } = response.body;
   const accumulatedResults = accumulator.concat(results);
@@ -28,6 +36,7 @@ export const fetchAllProducts = async (
     return fetchAllProducts({
       sort,
       filter,
+      searchValue,
       limit,
       offset: offset + limit,
       accumulator: accumulatedResults,

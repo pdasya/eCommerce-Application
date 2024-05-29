@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { ProductList } from '@modules/product-list';
 import {
+  searchValue,
   selectCustomFilters,
   selectPriceFilter,
   selectSort,
@@ -9,18 +10,21 @@ import {
 } from '@store/catalog/catalog.slice';
 import { toast } from 'react-toastify';
 import { loadEnd, loading } from '@store/misc/misc.slice';
-import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { clear } from '@store/product/product.slice';
 import { FilterPanel } from '@modules/filter-panel';
-import { Button, Drawer } from '@mui/material';
+import { Button, Drawer, Paper } from '@mui/material';
 import { Box } from '@mui/system';
+import { ProductSearch } from '@modules/product-list/components/product-search/product-search.component';
+import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
+import { SearchBanner } from '@modules/product-list/components/search-banner/search-banner.component';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
   const sortBy = useAppSelector(selectSort);
+  const searchText = useAppSelector(searchValue);
   const priceFilter = useAppSelector(selectPriceFilter);
   const customFilters = useAppSelector(selectCustomFilters);
   const [isFilterPanelOpen, setFilterPanelOpen] = React.useState(false);
@@ -45,6 +49,7 @@ export const CatalogPage: FC = () => {
                 .join(', ')}`,
           ),
       ],
+      searchValue: searchText,
     })
       .then(productsList => {
         dispatch(update(productsList));
@@ -58,11 +63,12 @@ export const CatalogPage: FC = () => {
     sortBy,
     priceFilter,
     customFilters,
+    searchText,
   ]);
 
   return (
     <div className={styles.page}>
-      <ProductSort />
+      <ProductSearch />
       <Box
         sx={{
           display: { xs: 'flex', md: 'none' },
@@ -79,12 +85,23 @@ export const CatalogPage: FC = () => {
       <div className={styles.main}>
         <Box
           sx={{
-            display: { xs: 'none', md: 'flex' },
+            display: {
+              xs: 'none',
+              md: 'flex',
+              gridColumn: 'span 1',
+              gridRow: 'span 2',
+            },
           }}>
           <FilterPanel className={styles.filterPanel} />
         </Box>
 
-        <ProductList />
+        <Paper className={styles.sortPanel}>
+          <ProductSort />
+        </Paper>
+        <div className={styles.productList}>
+          {searchText ? <SearchBanner /> : ''}
+          <ProductList />
+        </div>
       </div>
       <Box
         sx={{

@@ -11,6 +11,23 @@ import UserProfileList from '../components/user-profile-list/user-profile-list';
 import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
 import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 
+const initialValues = {
+  firstName: '',
+  lastName: '',
+  dateOfBirth: '',
+  email: '',
+  shippingStreet: '',
+  shippingCity: '',
+  shippingPostalCode: '',
+  shippingCountry: '',
+  shippingAddressId: '',
+  billingStreet: '',
+  billingCity: '',
+  billingPostalCode: '',
+  billingCountry: '',
+  billingAddressId: '',
+};
+
 export const UserProfileModule: FC = () => {
   const [userData, setUserData] = useState({
     firstName: '',
@@ -32,42 +49,12 @@ export const UserProfileModule: FC = () => {
   });
 
   const [editMode, setEditMode] = useState(false);
-  const [userErrors, setUserErrors] = useState<Errors>({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-    shippingStreet: '',
-    shippingCity: '',
-    shippingPostalCode: '',
-    shippingCountry: '',
-    shippingAddressId: '',
-    billingStreet: '',
-    billingCity: '',
-    billingPostalCode: '',
-    billingCountry: '',
-    billingAddressId: '',
-  });
+  const [userErrors, setUserErrors] = useState<Errors>(initialValues);
 
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
 
   const validateData = async () => {
-    const newErrors: Errors = {
-      firstName: '',
-      lastName: '',
-      dateOfBirth: '',
-      email: '',
-      shippingStreet: '',
-      shippingCity: '',
-      shippingPostalCode: '',
-      shippingCountry: '',
-      shippingAddressId: '',
-      billingStreet: '',
-      billingCity: '',
-      billingPostalCode: '',
-      billingCountry: '',
-      billingAddressId: '',
-    };
+    const newErrors: Errors = initialValues;
 
     try {
       await Yup.object(baseSchemaUser).validate(userData, { abortEarly: false });
@@ -146,22 +133,7 @@ export const UserProfileModule: FC = () => {
   }, []);
 
   const handleEditClick = async () => {
-    const newErrors: Errors = {
-      firstName: '',
-      lastName: '',
-      dateOfBirth: '',
-      email: '',
-      shippingStreet: '',
-      shippingCity: '',
-      shippingPostalCode: '',
-      shippingCountry: '',
-      shippingAddressId: '',
-      billingStreet: '',
-      billingCity: '',
-      billingPostalCode: '',
-      billingCountry: '',
-      billingAddressId: '',
-    };
+    const newErrors: Errors = initialValues;
     setUserErrors(newErrors);
 
     if (!editMode) {

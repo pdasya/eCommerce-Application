@@ -62,31 +62,18 @@ export const SignUpForm: FC = () => {
           postalCode: values.billingPostalCode,
         };
 
-    const customerDraft: CustomerDraft = values.setSameBillingAddress
-      ? {
-          email: values.email,
-          password: values.password,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          dateOfBirth: values.dateOfBirth,
-          addresses: [shippingAddress],
-          defaultShippingAddress: values.setDefaultShippingAddress ? 0 : undefined,
-          defaultBillingAddress: values.setDefaultShippingAddress ? 0 : undefined,
-          shippingAddresses: [0],
-          billingAddresses: [0],
-        }
-      : {
-          email: values.email,
-          password: values.password,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          dateOfBirth: values.dateOfBirth,
-          addresses: [shippingAddress, billingAddress],
-          defaultShippingAddress: values.setDefaultShippingAddress ? 0 : undefined,
-          defaultBillingAddress: values.setDefaultBillingAddress ? 1 : undefined,
-          shippingAddresses: [0],
-          billingAddresses: [1],
-        };
+    const customerDraft: CustomerDraft = {
+      email: values.email,
+      password: values.password,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      dateOfBirth: values.dateOfBirth,
+      addresses: [shippingAddress, billingAddress],
+      defaultShippingAddress: values.setDefaultShippingAddress ? 0 : undefined,
+      defaultBillingAddress: values.setDefaultBillingAddress ? 1 : undefined,
+      shippingAddresses: [0],
+      billingAddresses: [1],
+    };
 
     try {
       const response = await createCustomerInStore(customerDraft);

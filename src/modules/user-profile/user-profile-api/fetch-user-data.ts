@@ -11,37 +11,34 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       dateOfBirth,
       email,
       addresses,
+      shippingAddressIds,
+      billingAddressIds,
       defaultShippingAddressId,
       defaultBillingAddressId,
     } = response.body;
 
-    const isShippingAddressDefault = defaultShippingAddressId === addresses[0]?.id;
-    const isBillingAddressTheSameAsShipping = addresses.length === 1;
-    const isBillingAddressDefault = isBillingAddressTheSameAsShipping
-      ? defaultBillingAddressId === addresses[0]?.id
-      : defaultBillingAddressId === addresses[1]?.id;
+    const shippingAddress = addresses.find(address => shippingAddressIds?.includes(address.id!));
+    const billingAddress = addresses.find(address => billingAddressIds?.includes(address.id!));
+
+    const isShippingAddressDefault = defaultShippingAddressId === shippingAddress?.id;
+    const isBillingAddressDefault = defaultBillingAddressId === billingAddress?.id;
+
     setUserData({
       firstName,
       lastName,
       dateOfBirth,
       email,
-      shippingStreet: addresses[0].streetName,
-      shippingCity: addresses[0].city,
-      shippingPostalCode: addresses[0].postalCode,
-      shippingCountry: addresses[0].country,
-      shippingAddressId: addresses[0].id,
+      shippingStreet: shippingAddress?.streetName || 'Failed to load shipping street',
+      shippingCity: shippingAddress?.city || 'Failed to load shipping city',
+      shippingPostalCode: shippingAddress?.postalCode || 'Failed to load shipping postal code',
+      shippingCountry: shippingAddress?.country || 'Failed to load shipping country',
+      shippingAddressId: shippingAddress?.id || 'Failed to load shipping id',
       isShippingAddressDefault,
-      billingStreet: isBillingAddressTheSameAsShipping
-        ? addresses[0].streetName
-        : addresses[1].streetName,
-      billingCity: isBillingAddressTheSameAsShipping ? addresses[0].city : addresses[1].city,
-      billingPostalCode: isBillingAddressTheSameAsShipping
-        ? addresses[0].postalCode
-        : addresses[1].postalCode,
-      billingCountry: isBillingAddressTheSameAsShipping
-        ? addresses[0].country
-        : addresses[1].country,
-      billingAddressId: isBillingAddressTheSameAsShipping ? addresses[0].id : addresses[1].id,
+      billingStreet: billingAddress?.streetName || 'Failed to load billing street',
+      billingCity: billingAddress?.city || 'Failed to load billing city',
+      billingPostalCode: billingAddress?.postalCode || 'Failed to load billing postal code',
+      billingCountry: billingAddress?.country || 'Failed to load billing country',
+      billingAddressId: billingAddress?.id || 'Failed to load billing id',
       isBillingAddressDefault,
     });
   } catch (error) {
@@ -57,12 +54,12 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       shippingCountry: 'Failed to load shipping country',
       shippingAddressId: 'Failed to load shipping id',
       isShippingAddressDefault: false,
-      billingStreet: 'Failed to load shipping street',
-      billingCity: 'Failed to load shipping city',
-      billingPostalCode: 'Failed to load shipping postal code',
-      billingCountry: 'Failed to load shipping country',
-      isBillingAddressDefault: false,
+      billingStreet: 'Failed to load billing street',
+      billingCity: 'Failed to load billing city',
+      billingPostalCode: 'Failed to load billing postal code',
+      billingCountry: 'Failed to load billing country',
       billingAddressId: 'Failed to load billing id',
+      isBillingAddressDefault: false,
     });
   }
 };

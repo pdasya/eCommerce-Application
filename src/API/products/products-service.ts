@@ -27,7 +27,7 @@ export const fetchAllProducts = async (
     .getClient()
     .productProjections()
     .search()
-    .get({ queryArgs: { sort, filter, 'text.en': searchValue, limit, offset } })
+    .get({ queryArgs: { sort, filter, fuzzy: true, 'text.en': searchValue, limit, offset } })
     .execute();
   const { results } = response.body;
   const accumulatedResults = accumulator.concat(results);

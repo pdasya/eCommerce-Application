@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react';
 import { Attribute } from '@commercetools/platform-sdk';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
-import styles from './product-attribute-collapse.module.scss';
+import styles from './product-collapse.module.scss';
 
-export const AttributeCollapse: FC<Attribute> = (attribute: Attribute) => {
+export const ProductCollapse: FC<Attribute> = attribute => {
   const existAttribute = (item: string, name: string) => item.includes(name);
   const { name, value } = attribute;
   const [open, setOpen] = useState(false);

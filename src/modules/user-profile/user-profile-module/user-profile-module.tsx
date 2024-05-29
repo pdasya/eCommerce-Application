@@ -9,6 +9,7 @@ import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
 import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
+import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 
 export const UserProfileModule: FC = () => {
   const [userData, setUserData] = useState({
@@ -29,19 +30,21 @@ export const UserProfileModule: FC = () => {
   });
 
   const [editMode, setEditMode] = useState(false);
-  const [errors, setErrors] = useState<Errors>({
+  const [userErrors, setUserErrors] = useState<Errors>({
     firstName: '',
     lastName: '',
     dateOfBirth: '',
     email: '',
   });
 
+  const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
+
   const validateData = async () => {
     const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
 
     try {
       await Yup.object(baseSchemaUser).validate(userData, { abortEarly: false });
-      setErrors(newErrors);
+      setUserErrors(newErrors);
       return true;
     } catch (err) {
       if (err instanceof ValidationError) {
@@ -51,7 +54,7 @@ export const UserProfileModule: FC = () => {
           }
         });
       }
-      setErrors(newErrors);
+      setUserErrors(newErrors);
       return false;
     }
   };
@@ -84,9 +87,9 @@ export const UserProfileModule: FC = () => {
     fetchUserData(setUserData);
   }, []);
 
-  const handleClick = async () => {
+  const handleEditClick = async () => {
     const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
-    setErrors(newErrors);
+    setUserErrors(newErrors);
 
     if (!editMode) {
       setEditMode(true);
@@ -118,6 +121,14 @@ export const UserProfileModule: FC = () => {
     }
   };
 
+  const handlePasswordChangeClick = () => {
+    setIsPasswordChangeMode(true);
+  };
+
+  const handleBackToProfileClick = () => {
+    setIsPasswordChangeMode(false);
+  };
+
   return (
     <Paper elevation={3} className={styles.paperContainer}>
       <Grid container spacing={2} alignItems="center">
@@ -137,19 +148,33 @@ export const UserProfileModule: FC = () => {
           <Divider variant="middle" />
         </Grid>
         <Grid item xs={12}>
-          <UserProfileList
-            userData={userData}
-            errors={errors}
-            editMode={editMode}
-            handleDataChange={handleDataChange}
-          />
+          {!isPasswordChangeMode ? (
+            <UserProfileList
+              userData={userData}
+              errors={userErrors}
+              editMode={editMode}
+              handleDataChange={handleDataChange}
+            />
+          ) : (
+            <PasswordChangeForm
+              onCancel={handleBackToProfileClick}
+              onSuccess={handleBackToProfileClick}
+            />
+          )}
         </Grid>
       </Grid>
 
-      <Grid item>
-        <Button onClick={handleClick} variant="outlined">
-          {editMode ? 'Save Changes' : 'Edit Your Information'}
-        </Button>
+      <Grid item className={styles.buttonContainer}>
+        {!isPasswordChangeMode && (
+          <>
+            <Button onClick={handleEditClick} variant="outlined">
+              {editMode ? 'Save Changes' : 'Edit Your Information'}
+            </Button>
+            <Button onClick={handlePasswordChangeClick} variant="outlined">
+              Change your password
+            </Button>
+          </>
+        )}
       </Grid>
     </Paper>
   );

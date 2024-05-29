@@ -15,6 +15,8 @@ export interface UserData {
   billingPostalCode: string | undefined;
   billingCountry: string;
   isBillingAddressDefault: boolean;
+  shippingAddressId: string | undefined;
+  billingAddressId: string | undefined;
 }
 
 interface MyCustomerSetFirstNameAction {
@@ -37,11 +39,23 @@ interface MyCustomerSetDateOfBirthAction {
   dateOfBirth: string;
 }
 
+interface MyCustomerSetAddressAction {
+  action: 'changeAddress';
+  addressId: string;
+  address: {
+    streetName: string;
+    city: string;
+    postalCode: string;
+    country: string;
+  };
+}
+
 export type MyCustomerUpdateAction =
   | MyCustomerSetFirstNameAction
   | MyCustomerSetLastNameAction
   | MyCustomerSetEmailAction
-  | MyCustomerSetDateOfBirthAction;
+  | MyCustomerSetDateOfBirthAction
+  | MyCustomerSetAddressAction;
 
 export interface EditableInfoItemProps {
   icon: React.ComponentType<SvgIconProps>;

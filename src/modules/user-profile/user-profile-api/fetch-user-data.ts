@@ -29,6 +29,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       shippingCity: addresses[0].city,
       shippingPostalCode: addresses[0].postalCode,
       shippingCountry: addresses[0].country,
+      shippingAddressId: addresses[0].id,
       isShippingAddressDefault,
       billingStreet: isBillingAddressTheSameAsShipping
         ? addresses[0].streetName
@@ -40,6 +41,7 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       billingCountry: isBillingAddressTheSameAsShipping
         ? addresses[0].country
         : addresses[1].country,
+      billingAddressId: isBillingAddressTheSameAsShipping ? addresses[0].id : addresses[1].id,
       isBillingAddressDefault,
     });
   } catch (error) {
@@ -53,12 +55,14 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<UserDat
       shippingCity: 'Failed to load shipping city',
       shippingPostalCode: 'Failed to load shipping postal code',
       shippingCountry: 'Failed to load shipping country',
+      shippingAddressId: 'Failed to load shipping id',
       isShippingAddressDefault: false,
       billingStreet: 'Failed to load shipping street',
       billingCity: 'Failed to load shipping city',
       billingPostalCode: 'Failed to load shipping postal code',
       billingCountry: 'Failed to load shipping country',
       isBillingAddressDefault: false,
+      billingAddressId: 'Failed to load billing id',
     });
   }
 };

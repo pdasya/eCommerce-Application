@@ -21,11 +21,13 @@ export const UserProfileModule: FC = () => {
     shippingCity: '',
     shippingPostalCode: '',
     shippingCountry: '',
+    shippingAddressId: '',
     isShippingAddressDefault: false,
     billingStreet: '',
     billingCity: '',
     billingPostalCode: '',
     billingCountry: '',
+    billingAddressId: '',
     isBillingAddressDefault: false,
   });
 
@@ -72,6 +74,37 @@ export const UserProfileModule: FC = () => {
     }
     if (data.dateOfBirth) {
       actions.push({ action: 'setDateOfBirth', dateOfBirth: data.dateOfBirth });
+    }
+
+    if (
+      data.shippingStreet ||
+      data.shippingCity ||
+      data.shippingPostalCode ||
+      data.shippingCountry
+    ) {
+      actions.push({
+        action: 'changeAddress',
+        addressId: data.shippingAddressId,
+        address: {
+          streetName: data.shippingStreet,
+          city: data.shippingCity,
+          postalCode: data.shippingPostalCode,
+          country: data.shippingCountry,
+        },
+      });
+    }
+
+    if (data.billingStreet || data.billingCity || data.billingPostalCode || data.billingCountry) {
+      actions.push({
+        action: 'changeAddress',
+        addressId: data.billingAddressId,
+        address: {
+          streetName: data.billingStreet,
+          city: data.billingCity,
+          postalCode: data.billingPostalCode,
+          country: data.billingCountry,
+        },
+      });
     }
     return actions;
   };

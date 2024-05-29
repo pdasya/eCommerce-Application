@@ -97,6 +97,14 @@ export const baseSchemaUser = {
   firstName: firstNameValidationSchema,
   lastName: lastNameValidationSchema,
   dateOfBirth: dateOfBirthValidationSchema,
+  shippingStreet: shippingStreetValidationSchema,
+  shippingCity: shippingCityValidationSchema,
+  shippingPostalCode: shippingPostalCodeValidationSchema,
+  shippingCountry: shippingCountryValidationSchema,
+  billingStreet: billingStreetValidationSchema,
+  billingCity: billingCityValidationSchema,
+  billingPostalCode: billingPostalCodeValidationSchema,
+  billingCountry: billingCountryValidationSchema,
 };
 
 export const billingSchema = {

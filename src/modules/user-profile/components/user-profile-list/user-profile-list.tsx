@@ -68,6 +68,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         value={userData.shippingStreet}
         editMode={editMode}
         onChange={handleDataChange('shippingStreet')}
+        error={errors.shippingStreet}
       />
       <EditableInfoItem
         icon={LocationCityIcon}
@@ -75,6 +76,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         value={userData.shippingCity}
         editMode={editMode}
         onChange={handleDataChange('shippingCity')}
+        error={errors.shippingCity}
       />
       <EditableInfoItem
         icon={MarkunreadMailboxIcon}
@@ -82,6 +84,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         value={userData.shippingPostalCode}
         editMode={editMode}
         onChange={handleDataChange('shippingPostalCode')}
+        error={errors.shippingPostalCode}
       />
       <EditableInfoItem
         icon={PublicIcon}
@@ -91,6 +94,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         onChange={handleDataChange('shippingCountry')}
         type="select"
         options={['US', 'Canada']}
+        error={errors.shippingCountry}
       />
       <FormControlLabel
         control={<Checkbox checked={userData.isShippingAddressDefault} />}
@@ -109,6 +113,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         value={userData.billingStreet}
         editMode={editMode}
         onChange={handleDataChange('billingStreet')}
+        error={errors.billingStreet}
       />
       <EditableInfoItem
         icon={LocationCityIcon}
@@ -116,6 +121,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         value={userData.billingCity}
         editMode={editMode}
         onChange={handleDataChange('billingCity')}
+        error={errors.billingCity}
       />
       <EditableInfoItem
         icon={MarkunreadMailboxIcon}
@@ -123,6 +129,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         value={userData.billingPostalCode}
         editMode={editMode}
         onChange={handleDataChange('billingPostalCode')}
+        error={errors.billingPostalCode}
       />
       <EditableInfoItem
         icon={PublicIcon}
@@ -132,6 +139,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         onChange={handleDataChange('billingCountry')}
         type="select"
         options={['US', 'Canada']}
+        error={errors.billingCountry}
       />
       <FormControlLabel
         control={<Checkbox checked={userData.isBillingAddressDefault} />}

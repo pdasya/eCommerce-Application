@@ -37,12 +37,37 @@ export const UserProfileModule: FC = () => {
     lastName: '',
     dateOfBirth: '',
     email: '',
+    shippingStreet: '',
+    shippingCity: '',
+    shippingPostalCode: '',
+    shippingCountry: '',
+    shippingAddressId: '',
+    billingStreet: '',
+    billingCity: '',
+    billingPostalCode: '',
+    billingCountry: '',
+    billingAddressId: '',
   });
 
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
 
   const validateData = async () => {
-    const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
+    const newErrors: Errors = {
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      email: '',
+      shippingStreet: '',
+      shippingCity: '',
+      shippingPostalCode: '',
+      shippingCountry: '',
+      shippingAddressId: '',
+      billingStreet: '',
+      billingCity: '',
+      billingPostalCode: '',
+      billingCountry: '',
+      billingAddressId: '',
+    };
 
     try {
       await Yup.object(baseSchemaUser).validate(userData, { abortEarly: false });
@@ -121,7 +146,22 @@ export const UserProfileModule: FC = () => {
   }, []);
 
   const handleEditClick = async () => {
-    const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
+    const newErrors: Errors = {
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      email: '',
+      shippingStreet: '',
+      shippingCity: '',
+      shippingPostalCode: '',
+      shippingCountry: '',
+      shippingAddressId: '',
+      billingStreet: '',
+      billingCity: '',
+      billingPostalCode: '',
+      billingCountry: '',
+      billingAddressId: '',
+    };
     setUserErrors(newErrors);
 
     if (!editMode) {

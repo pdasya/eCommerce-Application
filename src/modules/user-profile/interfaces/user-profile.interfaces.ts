@@ -73,6 +73,16 @@ export interface Errors {
   lastName: string;
   dateOfBirth: string;
   email: string;
+  shippingStreet: string;
+  shippingCity: string;
+  shippingPostalCode: string;
+  shippingCountry: string;
+  shippingAddressId: string;
+  billingStreet: string;
+  billingCity: string;
+  billingPostalCode: string;
+  billingCountry: string;
+  billingAddressId: string;
 }
 
 export interface UserProfileListProps {

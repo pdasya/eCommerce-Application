@@ -191,7 +191,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
                 <Select
                   value={newAddress.country}
                   onChange={e =>
-                    handleNewBillingAddressChange('country')(e.target.value as string)
+                    handleNewShippingAddressChange('country')(e.target.value as string)
                   }>
                   <MenuItem value="US">United States</MenuItem>
                   <MenuItem value="Canada">Canada</MenuItem>
@@ -285,12 +285,17 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Country"
-                value={newAddress.country}
-                onChange={e => handleNewBillingAddressChange('country')(e.target.value)}
-              />
+              <FormControl fullWidth>
+                <InputLabel>Country</InputLabel>
+                <Select
+                  value={newAddress.country}
+                  onChange={e =>
+                    handleNewBillingAddressChange('country')(e.target.value as string)
+                  }>
+                  <MenuItem value="US">United States</MenuItem>
+                  <MenuItem value="Canada">Canada</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
           <Divider variant="fullWidth" className={styles.dividerNewAddress} />

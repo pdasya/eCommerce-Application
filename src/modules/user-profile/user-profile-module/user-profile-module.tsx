@@ -3,12 +3,17 @@ import { Typography, Grid, Avatar, Divider, Paper, Button } from '@mui/material'
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
-import * as Yup from 'yup';
 import { ValidationError } from 'yup';
+import { Address } from '@commercetools/platform-sdk';
 import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
-import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
+import {
+  MyCustomerUpdateAction,
+  Errors,
+  PersonalUserData,
+  AddressErrors,
+} from '../interfaces/user-profile.interfaces';
 import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 
 const initialValues = {
@@ -17,15 +22,8 @@ const initialValues = {
   dateOfBirth: '',
   email: '',
   shippingStreet: '',
-  shippingCity: '',
-  shippingPostalCode: '',
-  shippingCountry: '',
-  shippingAddressId: '',
-  billingStreet: '',
-  billingCity: '',
-  billingPostalCode: '',
-  billingCountry: '',
-  billingAddressId: '',
+  shippingAddresses: [],
+  billingAddresses: [],
 };
 
 export const UserProfileModule: FC = () => {
@@ -34,18 +32,10 @@ export const UserProfileModule: FC = () => {
     lastName: '',
     dateOfBirth: '',
     email: '',
-    shippingStreet: '',
-    shippingCity: '',
-    shippingPostalCode: '',
-    shippingCountry: '',
-    shippingAddressId: '',
-    isShippingAddressDefault: false,
-    billingStreet: '',
-    billingCity: '',
-    billingPostalCode: '',
-    billingCountry: '',
-    billingAddressId: '',
-    isBillingAddressDefault: false,
+    shippingAddresses: [],
+    defaultShippingAddressId: '',
+    billingAddresses: [],
+    defaultBillingAddressId: '',
   });
 
   const [editMode, setEditMode] = useState(false);
@@ -54,26 +44,56 @@ export const UserProfileModule: FC = () => {
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
 
   const validateData = async () => {
-    const newErrors: Errors = initialValues;
+    const newErrors: Errors = {
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      email: '',
+      shippingAddresses: userData.shippingAddresses.map(() => ({
+        streetName: '',
+        city: '',
+        postalCode: '',
+        country: '',
+      })),
+      billingAddresses: userData.billingAddresses.map(() => ({
+        streetName: '',
+        city: '',
+        postalCode: '',
+        country: '',
+      })),
+    };
 
     try {
-      await Yup.object(baseSchemaUser).validate(userData, { abortEarly: false });
+      await baseSchemaUser.validate(userData, { abortEarly: false });
       setUserErrors(newErrors);
       return true;
     } catch (err) {
       if (err instanceof ValidationError) {
+        const updatedErrors = { ...newErrors };
         err.inner.forEach(validationError => {
           if (validationError.path) {
-            newErrors[validationError.path as keyof Errors] = validationError.message;
+            const pathParts = validationError.path.split('.');
+            if (pathParts.length === 1) {
+              updatedErrors[pathParts[0] as keyof Omit<Errors, 'shippingAddresses' | 'billingAddresses'>] = validationError.message;
+            } else if (pathParts.length === 3 && (pathParts[0] === 'shippingAddresses' || pathParts[0] === 'billingAddresses')) {
+              const addressType = pathParts[0] as 'shippingAddresses' | 'billingAddresses';
+              const index = parseInt(pathParts[1], 10);
+              const field = pathParts[2] as keyof AddressErrors;
+              if (updatedErrors[addressType] && updatedErrors[addressType][index]) {
+                updatedErrors[addressType][index][field] = validationError.message;
+              }
+            }
           }
         });
+        setUserErrors(updatedErrors);
+        console.log(updatedErrors);
       }
-      setUserErrors(newErrors);
       return false;
     }
   };
 
-  const createUpdateActions = (data: typeof userData): MyCustomerUpdateAction[] => {
+
+  const createUpdateActions = (data: PersonalUserData): MyCustomerUpdateAction[] => {
     const actions: MyCustomerUpdateAction[] = [];
     if (data.firstName) {
       actions.push({ action: 'setFirstName', firstName: data.firstName });
@@ -88,44 +108,47 @@ export const UserProfileModule: FC = () => {
       actions.push({ action: 'setDateOfBirth', dateOfBirth: data.dateOfBirth });
     }
 
-    if (
-      data.shippingStreet ||
-      data.shippingCity ||
-      data.shippingPostalCode ||
-      data.shippingCountry
-    ) {
+    data.shippingAddresses.forEach((address: Address) => {
       actions.push({
         action: 'changeAddress',
-        addressId: data.shippingAddressId,
+        addressId: address.id!,
         address: {
-          streetName: data.shippingStreet,
-          city: data.shippingCity,
-          postalCode: data.shippingPostalCode,
-          country: data.shippingCountry,
+          streetName: address.streetName!,
+          city: address.city!,
+          postalCode: address.postalCode!,
+          country: address.country,
         },
       });
-    }
+    });
 
-    if (data.billingStreet || data.billingCity || data.billingPostalCode || data.billingCountry) {
+    data.billingAddresses.forEach((address: Address) => {
       actions.push({
         action: 'changeAddress',
-        addressId: data.billingAddressId,
+        addressId: address.id!,
         address: {
-          streetName: data.billingStreet,
-          city: data.billingCity,
-          postalCode: data.billingPostalCode,
-          country: data.billingCountry,
+          streetName: address.streetName!,
+          city: address.city!,
+          postalCode: address.postalCode!,
+          country: address.country,
         },
       });
-    }
+    });
     return actions;
   };
 
-  const handleDataChange = (field: keyof typeof userData) => (value: string) => {
-    setUserData(prevData => ({
-      ...prevData,
-      [field]: value,
-    }));
+  const handleDataChange = (path: string) => (value: string) => {
+    setUserData(prevData => {
+      const newData = { ...prevData };
+      const keys = path.split('.');
+
+      let current: any = newData;
+      for (let i = 0; i < keys.length - 1; i+=1) {
+        current = current[keys[i]];
+      }
+      current[keys[keys.length - 1]] = value;
+
+      return newData;
+    });
   };
 
   useEffect(() => {

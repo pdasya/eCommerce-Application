@@ -62,10 +62,6 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
       }));
     };
 
-  // const handleAddNewShippingAddressClick = () => {
-  //   setIsAddingNewShippingAddress(true);
-  // };
-
   const handleNewBillingAddressChange =
     (field: keyof typeof newBillingAddress) => (value: string) => {
       setNewBillingAddress(prevData => ({
@@ -73,10 +69,6 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         [field]: value,
       }));
     };
-
-  // const handleAddNewBillingAddressClick = () => {
-  //   setIsAddingNewBillingAddress(true);
-  // };
 
   const handleNewShippingAddressSubmit = async () => {
     const addressData = {
@@ -241,49 +233,53 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         />
       </List>
       <Typography variant="subtitle1" className={styles.sectionHeader}>
-        Shipping Address
+        Shipping Addresses
       </Typography>
       <List>
-        <EditableInfoItem
-          icon={LocationOnIcon}
-          label="Street"
-          value={userData.shippingStreet}
-          editMode={editMode}
-          onChange={handleDataChange('shippingStreet')}
-          error={errors.shippingStreet}
-        />
-        <EditableInfoItem
-          icon={LocationCityIcon}
-          label="City"
-          value={userData.shippingCity}
-          editMode={editMode}
-          onChange={handleDataChange('shippingCity')}
-          error={errors.shippingCity}
-        />
-        <EditableInfoItem
-          icon={MarkunreadMailboxIcon}
-          label="Postal Code"
-          value={userData.shippingPostalCode}
-          editMode={editMode}
-          onChange={handleDataChange('shippingPostalCode')}
-          error={errors.shippingPostalCode}
-        />
-        <EditableInfoItem
-          icon={PublicIcon}
-          label="Country"
-          value={userData.shippingCountry}
-          editMode={editMode}
-          onChange={handleDataChange('shippingCountry')}
-          type="select"
-          options={['US', 'Canada']}
-          error={errors.shippingCountry}
-        />
-        <FormControlLabel
-          control={<Checkbox checked={userData.isShippingAddressDefault} />}
-          label="Default shipping address"
-          disabled
-          className={styles.defaultCheckbox}
-        />
+        {userData.shippingAddresses.map((address, index) => (
+          <div key={index}>
+            <EditableInfoItem
+              icon={LocationOnIcon}
+              label="Street"
+              value={address.streetName}
+              editMode={editMode}
+              onChange={handleDataChange(`shippingAddresses.${index}.streetName`)}
+              error={errors.shippingAddresses?.[index]?.streetName}
+            />
+            <EditableInfoItem
+              icon={LocationCityIcon}
+              label="City"
+              value={address.city}
+              editMode={editMode}
+              onChange={handleDataChange(`shippingAddresses.${index}.city`)}
+              error={errors.shippingAddresses?.[index]?.city}
+            />
+            <EditableInfoItem
+              icon={MarkunreadMailboxIcon}
+              label="Postal Code"
+              value={address.postalCode}
+              editMode={editMode}
+              onChange={handleDataChange(`shippingAddresses.${index}.postalCode`)}
+              error={errors.shippingAddresses?.[index]?.postalCode}
+            />
+            <EditableInfoItem
+              icon={PublicIcon}
+              label="Country"
+              value={address.country}
+              editMode={editMode}
+              onChange={handleDataChange(`shippingAddresses.${index}.country`)}
+              type="select"
+              options={['US', 'Canada']}
+              error={errors.shippingAddresses?.[index]?.country}
+            />
+            <FormControlLabel
+              control={<Checkbox checked={address.id === userData.defaultShippingAddressId} />}
+              label="Default shipping address"
+              disabled
+              className={styles.defaultCheckbox}
+            />
+          </div>
+        ))}
       </List>
       <Button
         variant="outlined"
@@ -340,49 +336,53 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         </>
       )}
       <Typography variant="subtitle1" className={styles.sectionHeader}>
-        Billing Address
+        Billing Addresses
       </Typography>
       <List>
-        <EditableInfoItem
-          icon={LocationOnIcon}
-          label="Street"
-          value={userData.billingStreet}
-          editMode={editMode}
-          onChange={handleDataChange('billingStreet')}
-          error={errors.billingStreet}
-        />
-        <EditableInfoItem
-          icon={LocationCityIcon}
-          label="City"
-          value={userData.billingCity}
-          editMode={editMode}
-          onChange={handleDataChange('billingCity')}
-          error={errors.billingCity}
-        />
-        <EditableInfoItem
-          icon={MarkunreadMailboxIcon}
-          label="Postal Code"
-          value={userData.billingPostalCode}
-          editMode={editMode}
-          onChange={handleDataChange('billingPostalCode')}
-          error={errors.billingPostalCode}
-        />
-        <EditableInfoItem
-          icon={PublicIcon}
-          label="Country"
-          value={userData.billingCountry}
-          editMode={editMode}
-          onChange={handleDataChange('billingCountry')}
-          type="select"
-          options={['US', 'Canada']}
-          error={errors.billingCountry}
-        />
-        <FormControlLabel
-          control={<Checkbox checked={userData.isBillingAddressDefault} />}
-          label="Default billing address"
-          disabled
-          className={styles.defaultCheckbox}
-        />
+        {userData.billingAddresses.map((address, index) => (
+          <div key={index}>
+            <EditableInfoItem
+              icon={LocationOnIcon}
+              label="Street"
+              value={address.streetName}
+              editMode={editMode}
+              onChange={handleDataChange(`billingAddresses.${index}.streetName`)}
+              error={errors.billingAddresses?.[index]?.streetName}
+            />
+            <EditableInfoItem
+              icon={LocationCityIcon}
+              label="City"
+              value={address.city}
+              editMode={editMode}
+              onChange={handleDataChange(`billingAddresses.${index}.city`)}
+              error={errors.billingAddresses?.[index]?.city}
+            />
+            <EditableInfoItem
+              icon={MarkunreadMailboxIcon}
+              label="Postal Code"
+              value={address.postalCode}
+              editMode={editMode}
+              onChange={handleDataChange(`billingAddresses.${index}.postalCode`)}
+              error={errors.billingAddresses?.[index]?.postalCode}
+            />
+            <EditableInfoItem
+              icon={PublicIcon}
+              label="Country"
+              value={address.country}
+              editMode={editMode}
+              onChange={handleDataChange(`billingAddresses.${index}.country`)}
+              type="select"
+              options={['US', 'Canada']}
+              error={errors.billingAddresses?.[index]?.country}
+            />
+            <FormControlLabel
+              control={<Checkbox checked={address.id === userData.defaultBillingAddressId} />}
+              label="Default billing address"
+              disabled
+              className={styles.defaultCheckbox}
+            />
+          </div>
+        ))}
       </List>
       <Button
         variant="outlined"

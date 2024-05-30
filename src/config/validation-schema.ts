@@ -92,20 +92,21 @@ export const baseSchema = {
   shippingCountry: shippingCountryValidationSchema,
 };
 
-export const baseSchemaUser = {
+const addressValidationSchema = Yup.object().shape({
+  streetName: shippingStreetValidationSchema,
+  city: shippingCityValidationSchema,
+  postalCode: shippingPostalCodeValidationSchema,
+  country: shippingCountryValidationSchema,
+});
+
+export const baseSchemaUser = Yup.object().shape({
   email: emailValidationSchema,
   firstName: firstNameValidationSchema,
   lastName: lastNameValidationSchema,
   dateOfBirth: dateOfBirthValidationSchema,
-  shippingStreet: shippingStreetValidationSchema,
-  shippingCity: shippingCityValidationSchema,
-  shippingPostalCode: shippingPostalCodeValidationSchema,
-  shippingCountry: shippingCountryValidationSchema,
-  billingStreet: billingStreetValidationSchema,
-  billingCity: billingCityValidationSchema,
-  billingPostalCode: billingPostalCodeValidationSchema,
-  billingCountry: billingCountryValidationSchema,
-};
+  shippingAddresses: Yup.array().of(addressValidationSchema),
+  billingAddresses: Yup.array().of(addressValidationSchema),
+});
 
 export const billingSchema = {
   billingStreet: billingStreetValidationSchema,

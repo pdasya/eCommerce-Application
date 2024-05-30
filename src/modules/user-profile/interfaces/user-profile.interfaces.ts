@@ -1,3 +1,4 @@
+import { Address } from '@commercetools/platform-sdk';
 import { SvgIconProps } from '@mui/material';
 
 export interface UserData {
@@ -17,6 +18,17 @@ export interface UserData {
   isBillingAddressDefault: boolean;
   shippingAddressId: string | undefined;
   billingAddressId: string | undefined;
+}
+
+export interface PersonalUserData {
+  firstName: string | undefined;
+  lastName: string | undefined;
+  dateOfBirth: string | undefined;
+  email: string | undefined;
+  shippingAddresses: Address[];
+  defaultShippingAddressId: string | undefined;
+  billingAddresses: Address[];
+  defaultBillingAddressId: string | undefined;
 }
 
 interface MyCustomerSetFirstNameAction {
@@ -89,25 +101,24 @@ export interface EditableInfoItemProps {
   error?: string;
 }
 
+export interface AddressErrors {
+  streetName: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
 export interface Errors {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
   email: string;
-  shippingStreet: string;
-  shippingCity: string;
-  shippingPostalCode: string;
-  shippingCountry: string;
-  shippingAddressId: string;
-  billingStreet: string;
-  billingCity: string;
-  billingPostalCode: string;
-  billingCountry: string;
-  billingAddressId: string;
+  shippingAddresses: AddressErrors[];
+  billingAddresses: AddressErrors[];
 }
 
 export interface UserProfileListProps {
-  userData: UserData;
+  userData: PersonalUserData;
   errors: Errors;
   editMode: boolean;
   handleDataChange: (field: string) => (value: string) => void;

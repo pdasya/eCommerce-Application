@@ -23,8 +23,11 @@ import {
   Public as PublicIcon,
 } from '@mui/icons-material';
 import { UserProfileListProps } from '@modules/user-profile/interfaces/user-profile.interfaces';
-import EditableInfoItem from '../editable-info-item/editable-info-item';
+import { client } from '@config/constants';
+import { MyCustomerAddAddressAction } from '@commercetools/platform-sdk';
+import { toast } from 'react-toastify';
 import styles from './user-profile-list.module.scss';
+import EditableInfoItem from '../editable-info-item/editable-info-item';
 
 const UserProfileList: React.FC<UserProfileListProps> = ({
   userData,
@@ -34,33 +37,119 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
 }) => {
   const [isAddingNewShippingAddress, setIsAddingNewShippingAddress] = useState(false);
   const [isAddingNewBillingAddress, setIsAddingNewBillingAddress] = useState(false);
-  const [newAddress, setNewAddress] = useState({
+  const [newShippingAddress, setNewShippingAddress] = useState({
+    streetName: '',
+    city: '',
+    postalCode: '',
+    country: '',
+  });
+  const [newBillingAddress, setNewBillingAddress] = useState({
     streetName: '',
     city: '',
     postalCode: '',
     country: '',
   });
 
-  const handleNewShippingAddressChange = (field: keyof typeof newAddress) => (value: string) => {
-    setNewAddress(prevData => ({
-      ...prevData,
-      [field]: value,
-    }));
+  const handleNewShippingAddressChange =
+    (field: keyof typeof newShippingAddress) => (value: string) => {
+      setNewShippingAddress(prevData => ({
+        ...prevData,
+        [field]: value,
+      }));
+    };
+
+  // const handleAddNewShippingAddressClick = () => {
+  //   setIsAddingNewShippingAddress(true);
+  // };
+
+  const handleNewBillingAddressChange =
+    (field: keyof typeof newBillingAddress) => (value: string) => {
+      setNewBillingAddress(prevData => ({
+        ...prevData,
+        [field]: value,
+      }));
+    };
+
+  // const handleAddNewBillingAddressClick = () => {
+  //   setIsAddingNewBillingAddress(true);
+  // };
+
+  const handleNewShippingAddressSubmit = async () => {
+    const addressData = {
+      action: 'addAddress',
+      address: {
+        streetName: newShippingAddress.streetName,
+        city: newShippingAddress.city,
+        postalCode: newShippingAddress.postalCode,
+        country: newShippingAddress.country,
+      },
+    };
+
+    if (!isAddingNewShippingAddress) {
+      setIsAddingNewShippingAddress(true);
+    } else {
+      try {
+        const response = await client.getClient().me().get().execute();
+        const customerVersion = response.body.version;
+
+        await client
+          .getClient()
+          .me()
+          .post({
+            body: {
+              version: customerVersion,
+              actions: [addressData as MyCustomerAddAddressAction],
+            },
+          })
+          .execute();
+
+        toast.success('New Shipping Address Successfully Added!');
+        setIsAddingNewShippingAddress(false);
+        setNewShippingAddress({ streetName: '', city: '', postalCode: '', country: '' });
+      } catch (error) {
+        console.error('Error adding address:', error);
+        toast.error('Failed to Add Shipping Address!');
+      }
+    }
   };
 
-  const handleAddNewShippingAddressClick = () => {
-    setIsAddingNewShippingAddress(true);
-  };
+  const handleNewBillingAddressSubmit = async () => {
+    const addressData = {
+      action: 'addAddress',
+      address: {
+        streetName: newBillingAddress.streetName,
+        city: newBillingAddress.city,
+        postalCode: newBillingAddress.postalCode,
+        country: newBillingAddress.country,
+      },
+    };
 
-  const handleNewBillingAddressChange = (field: keyof typeof newAddress) => (value: string) => {
-    setNewAddress(prevData => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
+    if (!isAddingNewBillingAddress) {
+      setIsAddingNewBillingAddress(true);
+    } else {
+      try {
+        const response = await client.getClient().me().get().execute();
+        const customerVersion = response.body.version;
 
-  const handleAddNewBillingAddressClick = () => {
-    setIsAddingNewBillingAddress(true);
+        await client
+          .getClient()
+          .me()
+          .post({
+            body: {
+              version: customerVersion,
+              actions: [addressData as MyCustomerAddAddressAction],
+            },
+          })
+          .execute();
+
+        toast.success('New Billing Address Successfully Added!');
+        setIsAddingNewBillingAddress(false);
+        setNewBillingAddress({ streetName: '', city: '', postalCode: '', country: '' });
+      } catch (error) {
+        console.error('Error adding address:', error);
+        toast.error('Failed to Add Billing Address!');
+      }
+    }
   };
 
   return (
@@ -150,9 +239,9 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
       </List>
       <Button
         variant="outlined"
-        onClick={handleAddNewShippingAddressClick}
+        onClick={handleNewShippingAddressSubmit}
         className={styles.addNewAddressButton}>
-        {isAddingNewShippingAddress ? 'Save Changes' : 'Add New Shipping Address'}
+        {isAddingNewShippingAddress ? 'Save New Shipping Address' : 'Add New Shipping Address'}
       </Button>
       {isAddingNewShippingAddress && (
         <>
@@ -165,7 +254,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <TextField
                 fullWidth
                 label="Street Name"
-                value={newAddress.streetName}
+                value={newShippingAddress.streetName}
                 onChange={e => handleNewShippingAddressChange('streetName')(e.target.value)}
               />
             </Grid>
@@ -173,7 +262,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <TextField
                 fullWidth
                 label="City"
-                value={newAddress.city}
+                value={newShippingAddress.city}
                 onChange={e => handleNewShippingAddressChange('city')(e.target.value)}
               />
             </Grid>
@@ -181,7 +270,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <TextField
                 fullWidth
                 label="Postal Code"
-                value={newAddress.postalCode}
+                value={newShippingAddress.postalCode}
                 onChange={e => handleNewShippingAddressChange('postalCode')(e.target.value)}
               />
             </Grid>
@@ -189,7 +278,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <FormControl fullWidth>
                 <InputLabel>Country</InputLabel>
                 <Select
-                  value={newAddress.country}
+                  value={newShippingAddress.country}
                   onChange={e =>
                     handleNewShippingAddressChange('country')(e.target.value as string)
                   }>
@@ -249,9 +338,9 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
       </List>
       <Button
         variant="outlined"
-        onClick={handleAddNewBillingAddressClick}
+        onClick={handleNewBillingAddressSubmit}
         className={styles.addNewAddressButton}>
-        {isAddingNewBillingAddress ? 'Save Changes' : 'Add New Billing Address'}
+        {isAddingNewBillingAddress ? 'Save New Billing Address' : 'Add New Billing Address'}
       </Button>
       {isAddingNewBillingAddress && (
         <>
@@ -264,7 +353,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <TextField
                 fullWidth
                 label="Street Name"
-                value={newAddress.streetName}
+                value={newBillingAddress.streetName}
                 onChange={e => handleNewBillingAddressChange('streetName')(e.target.value)}
               />
             </Grid>
@@ -272,7 +361,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <TextField
                 fullWidth
                 label="City"
-                value={newAddress.city}
+                value={newBillingAddress.city}
                 onChange={e => handleNewBillingAddressChange('city')(e.target.value)}
               />
             </Grid>
@@ -280,7 +369,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <TextField
                 fullWidth
                 label="Postal Code"
-                value={newAddress.postalCode}
+                value={newBillingAddress.postalCode}
                 onChange={e => handleNewBillingAddressChange('postalCode')(e.target.value)}
               />
             </Grid>
@@ -288,7 +377,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               <FormControl fullWidth>
                 <InputLabel>Country</InputLabel>
                 <Select
-                  value={newAddress.country}
+                  value={newBillingAddress.country}
                   onChange={e =>
                     handleNewBillingAddressChange('country')(e.target.value as string)
                   }>

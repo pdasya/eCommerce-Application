@@ -50,12 +50,23 @@ interface MyCustomerSetAddressAction {
   };
 }
 
+interface MyCustomerAddAddressAction {
+  action: 'addAddress';
+  address: {
+    streetName: string;
+    city: string;
+    postalCode: string;
+    country: string;
+  };
+}
+
 export type MyCustomerUpdateAction =
   | MyCustomerSetFirstNameAction
   | MyCustomerSetLastNameAction
   | MyCustomerSetEmailAction
   | MyCustomerSetDateOfBirthAction
-  | MyCustomerSetAddressAction;
+  | MyCustomerSetAddressAction
+  | MyCustomerAddAddressAction;
 
 export interface EditableInfoItemProps {
   icon: React.ComponentType<SvgIconProps>;

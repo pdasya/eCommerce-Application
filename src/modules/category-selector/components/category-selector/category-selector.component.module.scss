@@ -47,7 +47,7 @@
 .button {
   width: auto;
 
-  @media screen and (width <= 900px) {
+  @media screen and (width <= 650px) {
     width: 100%;
   }
 }

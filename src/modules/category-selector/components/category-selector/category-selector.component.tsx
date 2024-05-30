@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { Button, List, ListItemButton, ListItemText } from '@mui/material';
@@ -114,6 +114,7 @@ export const CategorySelector: FC = () => {
             aria-describedby="category-selector"
             type="button"
             variant="contained"
+            color="warning"
             className={styles.button}
             onClick={handlePopupOpenClick}>
             Categories

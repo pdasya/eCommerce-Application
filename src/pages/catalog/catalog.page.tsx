@@ -18,6 +18,7 @@ import { Box } from '@mui/system';
 import { ProductSearch } from '@modules/product-list/components/product-search/product-search.component';
 import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { SearchBanner } from '@modules/product-list/components/search-banner/search-banner.component';
+import { Breadcrumb } from '@modules/category-selector/components/breadcrumb/breadcrumb.component';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './catalog.page.module.scss';
 
@@ -69,6 +70,8 @@ export const CatalogPage: FC = () => {
   return (
     <div className={styles.page}>
       <ProductSearch />
+      <ProductSort />
+      <Breadcrumb />
       <Box
         sx={{
           display: { xs: 'flex', md: 'none' },

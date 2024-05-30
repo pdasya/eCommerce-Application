@@ -19,6 +19,14 @@ const getAllCategoriesRequest = fetchAllDecorator(async options =>
     .execute(),
 );
 
+const getAllCategoryChildrenByIdRequest = fetchAllDecorator(async options =>
+  client
+    .getClient()
+    .categories()
+    .get({ queryArgs: { ...options, where: `parent(id="${0}")` } })
+    .execute(),
+);
+
 const getCategoriesResponseAdapter = (
   response: ClientResponse<CategoryPagedQueryResponse>,
   locale = 'en',
@@ -35,3 +43,6 @@ export const getAllCategories = async () =>
 
 export const getAllTopLevelCategories = async () =>
   getCategoriesResponseAdapter(await getAllTopLevelCategoriesRequest());
+
+export const getAllCategoryChildrenById = async () =>
+  getCategoriesResponseAdapter(await getAllCategoryChildrenByIdRequest({}));

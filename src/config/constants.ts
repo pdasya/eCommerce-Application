@@ -18,3 +18,6 @@ export const client = new BuildClient(projectKey, clientId, clientSecret, authUr
   scopes,
 ]);
 export const tokenName = 'authorize_token';
+
+export const defaultRequestPageSize = 20;
+export const catalogDefaultCategorySlug = 'all';

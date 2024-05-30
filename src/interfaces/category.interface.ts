@@ -3,4 +3,5 @@ export interface ICategory {
   caption: string;
   slug: string;
   description: string;
+  ancestors: { id: string }[];
 }

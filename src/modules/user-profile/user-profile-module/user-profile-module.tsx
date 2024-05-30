@@ -74,11 +74,16 @@ export const UserProfileModule: FC = () => {
           if (validationError.path) {
             const pathParts = validationError.path.split('.');
             if (pathParts.length === 1) {
-              updatedErrors[pathParts[0] as keyof Omit<Errors, 'shippingAddresses' | 'billingAddresses'>] = validationError.message;
-            } else if (pathParts.length === 3 && (pathParts[0] === 'shippingAddresses' || pathParts[0] === 'billingAddresses')) {
-              const addressType = pathParts[0] as 'shippingAddresses' | 'billingAddresses';
-              const index = parseInt(pathParts[1], 10);
-              const field = pathParts[2] as keyof AddressErrors;
+              updatedErrors[
+                pathParts[0] as keyof Omit<Errors, 'shippingAddresses' | 'billingAddresses'>
+              ] = validationError.message;
+            } else if (pathParts.length === 2) {
+              const addressType = pathParts[0].slice(0, pathParts[0].indexOf('[')) as
+                | 'shippingAddresses'
+                | 'billingAddresses';
+              const match = pathParts[0].match(/\d+/);
+              const index = match ? parseInt(match[0], 10) : 0;
+              const field = pathParts[1] as keyof AddressErrors;
               if (updatedErrors[addressType] && updatedErrors[addressType][index]) {
                 updatedErrors[addressType][index][field] = validationError.message;
               }
@@ -91,7 +96,6 @@ export const UserProfileModule: FC = () => {
       return false;
     }
   };
-
 
   const createUpdateActions = (data: PersonalUserData): MyCustomerUpdateAction[] => {
     const actions: MyCustomerUpdateAction[] = [];
@@ -142,7 +146,7 @@ export const UserProfileModule: FC = () => {
       const keys = path.split('.');
 
       let current: any = newData;
-      for (let i = 0; i < keys.length - 1; i+=1) {
+      for (let i = 0; i < keys.length - 1; i += 1) {
         current = current[keys[i]];
       }
       current[keys[keys.length - 1]] = value;

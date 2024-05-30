@@ -237,7 +237,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
       </Typography>
       <List>
         {userData.shippingAddresses.map((address, index) => (
-          <div key={index}>
+          <div key={address.id || index}>
             <EditableInfoItem
               icon={LocationOnIcon}
               label="Street"
@@ -340,7 +340,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
       </Typography>
       <List>
         {userData.billingAddresses.map((address, index) => (
-          <div key={index}>
+          <div key={address.id || index}>
             <EditableInfoItem
               icon={LocationOnIcon}
               label="Street"

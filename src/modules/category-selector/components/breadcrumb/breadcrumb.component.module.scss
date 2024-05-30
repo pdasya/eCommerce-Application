@@ -2,3 +2,25 @@
   display: flex;
   width: 100%;
 }
+
+.button {
+  border: none;
+  background-color: transparent;
+}
+
+.item {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: all 0.4s ease-in-out;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px black;
+  }
+}
+
+.tail {
+  cursor: unset;
+  font-weight: 700;
+}

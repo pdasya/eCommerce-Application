@@ -86,7 +86,6 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         city: newShippingAddress.city,
         postalCode: newShippingAddress.postalCode,
         country: newShippingAddress.country,
-        additionalAddressInfo: 'Shipping Address',
       },
     };
 
@@ -149,7 +148,6 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         city: newBillingAddress.city,
         postalCode: newBillingAddress.postalCode,
         country: newBillingAddress.country,
-        additionalAddressInfo: 'Billing Address',
       },
     };
 

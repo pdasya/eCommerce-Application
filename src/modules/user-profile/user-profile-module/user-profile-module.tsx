@@ -102,7 +102,6 @@ export const UserProfileModule: FC = () => {
           city: data.shippingCity,
           postalCode: data.shippingPostalCode,
           country: data.shippingCountry,
-          additionalAddressInfo: 'Shipping Address',
         },
       });
     }
@@ -116,7 +115,6 @@ export const UserProfileModule: FC = () => {
           city: data.billingCity,
           postalCode: data.billingPostalCode,
           country: data.billingCountry,
-          additionalAddressInfo: 'Billing Address',
         },
       });
     }

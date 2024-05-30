@@ -51,15 +51,17 @@ export const SignUpForm: FC = () => {
       city: values.shippingCity,
       streetName: values.shippingStreet,
       postalCode: values.shippingPostalCode,
+      additionalInfo: 'Shipping Address',
     };
 
     const billingAddress = values.setSameBillingAddress
-      ? shippingAddress
+      ? { ...shippingAddress, additionalInfo: 'Billing Address' }
       : {
           country: values.billingCountry,
           city: values.billingCity,
           streetName: values.billingStreet,
           postalCode: values.billingPostalCode,
+          additionalInfo: 'Billing Address',
         };
 
     const customerDraft: CustomerDraft = {

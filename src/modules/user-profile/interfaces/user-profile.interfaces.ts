@@ -47,6 +47,7 @@ interface MyCustomerSetAddressAction {
     city: string;
     postalCode: string;
     country: string;
+    additionalInfo: string;
   };
 }
 
@@ -57,6 +58,7 @@ interface MyCustomerAddAddressAction {
     city: string;
     postalCode: string;
     country: string;
+    additionalInfo: string;
   };
 }
 

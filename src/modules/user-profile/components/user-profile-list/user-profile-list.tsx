@@ -22,7 +22,11 @@ import {
   MarkunreadMailbox as MarkunreadMailboxIcon,
   Public as PublicIcon,
 } from '@mui/icons-material';
-import { UserProfileListProps } from '@modules/user-profile/interfaces/user-profile.interfaces';
+import {
+  MyCustomerAddBillingAddressAction,
+  MyCustomerAddShippingAddressAction,
+  UserProfileListProps,
+} from '@modules/user-profile/interfaces/user-profile.interfaces';
 import { client } from '@config/constants';
 import { MyCustomerAddAddressAction } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
@@ -102,7 +106,30 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               actions: [addressData as MyCustomerAddAddressAction],
             },
           })
-          .execute();
+          .execute()
+          .then(setShippingAddressResponse => {
+            const newAddressId = setShippingAddressResponse.body.addresses.find(
+              address =>
+                address.streetName === newShippingAddress.streetName &&
+                address.city === newShippingAddress.city &&
+                address.postalCode === newShippingAddress.postalCode &&
+                address.country === newShippingAddress.country,
+            )?.id;
+            const addShippingAddressAction = {
+              action: 'addShippingAddressId',
+              addressId: newAddressId,
+            };
+            client
+              .getClient()
+              .me()
+              .post({
+                body: {
+                  version: setShippingAddressResponse.body.version,
+                  actions: [addShippingAddressAction as MyCustomerAddShippingAddressAction],
+                },
+              })
+              .execute();
+          });
 
         toast.success('New Shipping Address Successfully Added!');
         setIsAddingNewShippingAddress(false);
@@ -132,7 +159,6 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
       try {
         const response = await client.getClient().me().get().execute();
         const customerVersion = response.body.version;
-
         await client
           .getClient()
           .me()
@@ -142,8 +168,30 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               actions: [addressData as MyCustomerAddAddressAction],
             },
           })
-          .execute();
-
+          .execute()
+          .then(setBillingAddressResponse => {
+            const newAddressId = setBillingAddressResponse.body.addresses.find(
+              address =>
+                address.streetName === newBillingAddress.streetName &&
+                address.city === newBillingAddress.city &&
+                address.postalCode === newBillingAddress.postalCode &&
+                address.country === newBillingAddress.country,
+            )?.id;
+            const addBillingAddressAction = {
+              action: 'addBillingAddressId',
+              addressId: newAddressId,
+            };
+            client
+              .getClient()
+              .me()
+              .post({
+                body: {
+                  version: setBillingAddressResponse.body.version,
+                  actions: [addBillingAddressAction as MyCustomerAddBillingAddressAction],
+                },
+              })
+              .execute();
+          });
         toast.success('New Billing Address Successfully Added!');
         setIsAddingNewBillingAddress(false);
         setNewBillingAddress({ streetName: '', city: '', postalCode: '', country: '' });

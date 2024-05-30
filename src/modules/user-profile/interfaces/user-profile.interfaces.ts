@@ -62,6 +62,16 @@ interface MyCustomerAddAddressAction {
   };
 }
 
+export interface MyCustomerAddBillingAddressAction {
+  action: 'addBillingAddressId';
+  addressId: string;
+}
+
+export interface MyCustomerAddShippingAddressAction {
+  action: 'addShippingAddressId';
+  addressId: string;
+}
+
 export type MyCustomerUpdateAction =
   | MyCustomerSetFirstNameAction
   | MyCustomerSetLastNameAction

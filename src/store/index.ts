@@ -3,12 +3,14 @@ import { authReducer } from '@store/auth/auth.slice';
 import { miscReducer } from './misc/misc.slice';
 import { catalogReducer } from './catalog/catalog.slice';
 import { productReducer } from './product/product.slice';
+import { categoryReducer } from './category/category.slice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   misc: miscReducer,
   product: productReducer,
   catalog: catalogReducer,
+  category: categoryReducer,
 });
 
 export function setupStore(preloadedState?: Partial<RootState>) {

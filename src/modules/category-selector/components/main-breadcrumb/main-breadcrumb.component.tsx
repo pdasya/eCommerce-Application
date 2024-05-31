@@ -1,25 +1,23 @@
 import React, { FC } from 'react';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
-import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
-import {
-  resetActiveCategory,
-  selectActiveCategoryAncestors,
-  setActiveCategory,
-} from '@store/category/category.slice';
+import { selectActiveCategoryAncestors } from '@store/category/category.slice';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { RoutePath } from '@routes/index';
+import { catalogDefaultCategorySlug } from '@config/constants';
 import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
 import { ICategory } from '@/interfaces/category.interface';
 import styles from './main-breadcrumb.component.module.scss';
 
 export const MainBreadcrumb: FC = () => {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const activeCategoryAncestors = useAppSelector(selectActiveCategoryAncestors);
 
   const handleCategoryChange = async (category?: ICategory) => {
-    if (category) {
-      dispatch(setActiveCategory(category));
-    } else {
-      dispatch(resetActiveCategory(category));
-    }
+    navigate(
+      generatePath(RoutePath.catalog, {
+        category: category ? category.slug : catalogDefaultCategorySlug,
+      }),
+    );
   };
 
   return (

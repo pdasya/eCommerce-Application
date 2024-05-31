@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import {
-  resetActiveCategory,
   selectActiveCategoryAncestors,
   setActiveCategoryAncestors,
 } from '@store/category/category.slice';
@@ -9,6 +8,7 @@ import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { selectIsProductSelected, selectProduct } from '@store/product/product.slice';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { RoutePath } from '@routes/index';
+import { catalogDefaultCategorySlug } from '@config/constants';
 import { getAllCategoryAncestorsByProductId } from '@/API/categories/get-categories';
 import { ICategory } from '@/interfaces/category.interface';
 import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
@@ -22,11 +22,11 @@ export const ProductBreadcrumb: FC = () => {
   const isProductSelected = useAppSelector(selectIsProductSelected);
 
   const handleCategoryChange = async (category?: ICategory) => {
-    if (!category) {
-      dispatch(resetActiveCategory());
-    }
-
-    navigate(generatePath(RoutePath.catalog, { category: category ? category.slug : '' }));
+    navigate(
+      generatePath(RoutePath.catalog, {
+        category: category ? category.slug : catalogDefaultCategorySlug,
+      }),
+    );
   };
 
   useEffect(() => {

@@ -54,7 +54,9 @@
 }
 
 .categoryDescription {
+  width: 100%;
   flex-direction: column;
+  flex-grow: 1;
 
   @media screen and (width <= 650px) {
     display: none;

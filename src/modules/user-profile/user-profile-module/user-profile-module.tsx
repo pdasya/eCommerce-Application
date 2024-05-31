@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
 import { ValidationError } from 'yup';
+import { Address } from '@commercetools/platform-sdk';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
 import {
@@ -14,7 +15,6 @@ import {
 } from '../interfaces/user-profile.interfaces';
 import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
 import styles from './user-profile-module.module.scss';
-import { Address } from '@commercetools/platform-sdk';
 
 const initialValues = {
   firstName: '',
@@ -141,45 +141,35 @@ export const UserProfileModule: FC = () => {
     return actions;
   };
 
-  const handleDataChange = <T extends keyof PersonalUserData>(
-    path: T
-  ) => (
-    value: PersonalUserData[T] | string | boolean
-  ) => {
-    setUserData(prevData => {
-      const newData: PersonalUserData = { ...prevData };
-      const keys = path.split('.') as Array<keyof PersonalUserData>;
+  const handleDataChange =
+    <T extends keyof PersonalUserData>(path: T) =>
+    (value: PersonalUserData[T] | string | boolean) => {
+      setUserData(prevData => {
+        const newData: PersonalUserData = { ...prevData };
+        const keys = path.split('.') as Array<keyof PersonalUserData>;
 
-      type CurrentType = PersonalUserData | Address | string | boolean | undefined;
+        type CurrentType = PersonalUserData | Address | string | boolean | undefined;
 
-      let current: CurrentType = newData;
+        let current: CurrentType = newData;
 
-      for (let i = 0; i < keys.length - 1; i++) {
-        const key = keys[i];
+        for (let i = 0; i < keys.length - 1; i += 1) {
+          const key = keys[i];
 
-        if (
-          typeof current === 'object' &&
-          current !== null &&
-          key in current
-        ) {
-          current = current[key as keyof CurrentType] as CurrentType;
-        } else {
-          throw new Error(`Invalid path: ${keys.slice(0, i + 1).join('.')}`);
+          if (typeof current === 'object' && current !== null && key in current) {
+            current = current[key as keyof CurrentType] as CurrentType;
+          } else {
+            throw new Error(`Invalid path: ${keys.slice(0, i + 1).join('.')}`);
+          }
         }
-      }
 
-      const lastKey = keys[keys.length - 1] as keyof CurrentType;
-      if (
-        typeof current === 'object' &&
-        current !== null &&
-        lastKey in current
-      ) {
-        (current as Record<string, any>)[lastKey as string] = value;
-      }
+        const lastKey = keys[keys.length - 1] as keyof CurrentType;
+        if (typeof current === 'object' && current !== null && lastKey in current) {
+          (current as Record<string, any>)[lastKey as string] = value;
+        }
 
-      return newData;
-    });
-  };
+        return newData;
+      });
+    };
 
   const handleEditClick = async () => {
     const newErrors: Errors = initialValues;

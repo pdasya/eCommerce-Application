@@ -92,7 +92,7 @@ export const baseSchema = {
   shippingCountry: shippingCountryValidationSchema,
 };
 
-const addressValidationSchema = Yup.object().shape({
+export const addressValidationSchema = Yup.object().shape({
   streetName: shippingStreetValidationSchema,
   city: shippingCityValidationSchema,
   postalCode: shippingPostalCodeValidationSchema,

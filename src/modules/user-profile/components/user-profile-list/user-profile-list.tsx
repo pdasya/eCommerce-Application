@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { List, Typography } from '@mui/material';
+import { Button, List, Typography } from '@mui/material';
 import { UserProfileListProps } from '@modules/user-profile/interfaces/user-profile.interfaces';
 import { client } from '@config/constants';
 import {
@@ -28,13 +28,13 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
 }) => {
   const [isAddingNewShippingAddress, setIsAddingNewShippingAddress] = useState(false);
   const [isAddingNewBillingAddress, setIsAddingNewBillingAddress] = useState(false);
-  const [newShippingAddress, setNewShippingAddress] = useState({
+  const [newShippingAddress, setNewShippingAddress] = useState<Address>({
     streetName: '',
     city: '',
     postalCode: '',
     country: '',
   });
-  const [newBillingAddress, setNewBillingAddress] = useState({
+  const [newBillingAddress, setNewBillingAddress] = useState<Address>({
     streetName: '',
     city: '',
     postalCode: '',
@@ -43,7 +43,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
 
   const handleAddressChange =
     (setAddress: React.Dispatch<React.SetStateAction<Address>>) =>
-    (field: string) =>
+    (field: keyof Address) =>
     (value: string) => {
       setAddress((prevData: Address) => ({
         ...prevData,
@@ -52,62 +52,61 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
     };
 
   const handleAddressSubmit = async (
-    isAdding: boolean,
     setIsAdding: React.Dispatch<React.SetStateAction<boolean>>,
     address: Address,
     addressType: 'shipping' | 'billing',
-    actionType: MyCustomerAddShippingAddressIdAction | MyCustomerAddBillingAddressIdAction,
-    addressData: MyCustomerAddAddressAction,
     setNewAddress: React.Dispatch<React.SetStateAction<Address>>,
     refreshUserDataCallback: () => void,
   ) => {
-    if (!isAdding) {
-      setIsAdding(true);
-    } else {
-      try {
-        const response = await client.getClient().me().get().execute();
-        const customerVersion = response.body.version;
+    try {
+      const response = await client.getClient().me().get().execute();
+      const customerVersion = response.body.version;
+      const setAddressResponse = await client
+        .getClient()
+        .me()
+        .post({
+          body: {
+            version: customerVersion,
+            actions: [
+              {
+                action: 'addAddress',
+                address,
+              } as MyCustomerAddAddressAction,
+            ],
+          },
+        })
+        .execute();
+
+      const newAddressId = setAddressResponse.body.addresses.find(
+        addr =>
+          addr.streetName === address.streetName &&
+          addr.city === address.city &&
+          addr.postalCode === address.postalCode &&
+          addr.country === address.country,
+      )?.id;
+
+      if (newAddressId) {
+        const addAddressAction =
+          addressType === 'shipping'
+            ? ({
+                action: 'addShippingAddressId',
+                addressId: newAddressId,
+              } as MyCustomerAddShippingAddressIdAction)
+            : ({
+                action: 'addBillingAddressId',
+                addressId: newAddressId,
+              } as MyCustomerAddBillingAddressIdAction);
+
         await client
           .getClient()
           .me()
           .post({
             body: {
-              version: customerVersion,
-              actions: [addressData],
+              version: setAddressResponse.body.version,
+              actions: [addAddressAction],
             },
           })
-          .execute()
-          .then(setAddressResponse => {
-            const newAddressId = setAddressResponse.body.addresses.find(
-              addr =>
-                addr.streetName === address.streetName &&
-                addr.city === address.city &&
-                addr.postalCode === address.postalCode &&
-                addr.country === address.country,
-            )?.id;
-
-            const addAddressAction =
-              addressType === 'shipping'
-                ? ({
-                    action: 'addShippingAddressId',
-                    addressId: newAddressId,
-                  } as MyCustomerAddShippingAddressIdAction)
-                : ({
-                    action: 'addBillingAddressId',
-                    addressId: newAddressId,
-                  } as MyCustomerAddBillingAddressIdAction);
-
-            client
-              .getClient()
-              .me()
-              .post({
-                body: {
-                  version: setAddressResponse.body.version,
-                  actions: [addAddressAction],
-                },
-              })
-              .execute();
-          });
+          .execute();
 
         toast.success(
           `New ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address Successfully Added!`,
@@ -116,12 +115,14 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         setNewAddress({ streetName: '', city: '', postalCode: '', country: '' });
 
         refreshUserDataCallback();
-      } catch (error) {
-        console.error(`Error adding ${addressType} address:`, error);
-        toast.error(
-          `Failed to Add ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address!`,
-        );
+      } else {
+        throw new Error('Failed to retrieve new address ID.');
       }
+    } catch (error) {
+      console.error(`Error adding ${addressType} address:`, error);
+      toast.error(
+        `Failed to Add ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address!`,
+      );
     }
   };
 
@@ -173,30 +174,29 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         handleDataChange={handleDataChange}
         type="shipping"
       />
-      <NewAddressForm
-        address={newShippingAddress}
-        isAdding={isAddingNewShippingAddress}
-        handleAddressChange={handleAddressChange(setNewShippingAddress)}
-        handleAddressSubmit={() =>
-          handleAddressSubmit(
-            isAddingNewShippingAddress,
-            setIsAddingNewShippingAddress,
-            newShippingAddress,
-            'shipping',
-            {
-              action: 'addShippingAddressId',
-              addressId: '',
-            } as MyCustomerAddShippingAddressIdAction,
-            {
-              action: 'addAddress',
-              address: newShippingAddress,
-            },
-            setNewShippingAddress,
-            refreshUserData,
-          )
-        }
-        type="shipping"
-      />
+      <Button
+        variant="outlined"
+        onClick={() => setIsAddingNewShippingAddress(!isAddingNewShippingAddress)}
+        className={styles.addNewAddressButton}>
+        {isAddingNewShippingAddress ? 'Cancel New Shipping Address' : 'Add New Shipping Address'}
+      </Button>
+      {isAddingNewShippingAddress && (
+        <NewAddressForm
+          address={newShippingAddress}
+          isAdding={isAddingNewShippingAddress}
+          handleAddressChange={handleAddressChange(setNewShippingAddress)}
+          handleAddressSubmit={() =>
+            handleAddressSubmit(
+              setIsAddingNewShippingAddress,
+              newShippingAddress,
+              'shipping',
+              setNewShippingAddress,
+              refreshUserData,
+            )
+          }
+          type="shipping"
+        />
+      )}
       <AddressList
         addresses={userData.billingAddresses}
         defaultAddressId={userData.defaultBillingAddressId}
@@ -205,27 +205,29 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         handleDataChange={handleDataChange}
         type="billing"
       />
-      <NewAddressForm
-        address={newBillingAddress}
-        isAdding={isAddingNewBillingAddress}
-        handleAddressChange={handleAddressChange(setNewBillingAddress)}
-        handleAddressSubmit={() =>
-          handleAddressSubmit(
-            isAddingNewBillingAddress,
-            setIsAddingNewBillingAddress,
-            newBillingAddress,
-            'billing',
-            { action: 'addBillingAddressId', addressId: '' } as MyCustomerAddBillingAddressIdAction,
-            {
-              action: 'addAddress',
-              address: newBillingAddress,
-            },
-            setNewShippingAddress,
-            refreshUserData,
-          )
-        }
-        type="billing"
-      />
+      <Button
+        variant="outlined"
+        onClick={() => setIsAddingNewBillingAddress(!isAddingNewBillingAddress)}
+        className={styles.addNewAddressButton}>
+        {isAddingNewBillingAddress ? 'Cancel New Billing Address' : 'Add New Billing Address'}
+      </Button>
+      {isAddingNewBillingAddress && (
+        <NewAddressForm
+          address={newBillingAddress}
+          isAdding={isAddingNewBillingAddress}
+          handleAddressChange={handleAddressChange(setNewBillingAddress)}
+          handleAddressSubmit={() =>
+            handleAddressSubmit(
+              setIsAddingNewBillingAddress,
+              newBillingAddress,
+              'billing',
+              setNewBillingAddress,
+              refreshUserData,
+            )
+          }
+          type="billing"
+        />
+      )}
     </>
   );
 };

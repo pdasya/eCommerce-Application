@@ -139,7 +139,7 @@ export const CategorySelector: FC = () => {
               <div className={styles.categoryWrapper}>
                 <div className={styles.categoryList}>
                   <List
-                    sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                    sx={{ width: '100%', bgcolor: 'background.paper' }}
                     component="nav"
                     aria-labelledby="nested-list-subheader">
                     {localSubCategories.map((category, index) => (

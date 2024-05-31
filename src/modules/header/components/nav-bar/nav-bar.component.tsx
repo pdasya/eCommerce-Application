@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
-import { useMatch, useResolvedPath } from 'react-router-dom';
+import { generatePath, useMatch, useResolvedPath } from 'react-router-dom';
 import { Box, Button, IconButton, MenuItem, Tooltip, Typography } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import Menu from '@mui/material/Menu';
+import { catalogDefaultCategorySlug } from '@config/constants';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@/routes';
 import styles from './nav-bar.component.module.scss';
@@ -20,7 +21,10 @@ export const NavBar: FC = () => {
 
   const navItems = [
     { caption: 'Home', path: RoutePath.main },
-    { caption: 'Catalog', path: RoutePath.catalog },
+    {
+      caption: 'Catalog',
+      path: generatePath(RoutePath.catalog, { category: catalogDefaultCategorySlug }),
+    },
     { caption: 'About', path: RoutePath.about },
   ];
 

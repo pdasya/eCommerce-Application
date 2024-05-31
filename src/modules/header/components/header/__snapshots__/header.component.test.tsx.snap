@@ -81,7 +81,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
           </a>
           <a
             class="link"
-            href="/catalog/:category"
+            href="/catalog/all"
             role="navigation"
           >
             <button

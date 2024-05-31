@@ -1,9 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { generatePath, useNavigate } from 'react-router-dom';
-import { Button, List, ListItemButton, ListItemText } from '@mui/material';
-import { Popup } from '@mui/base/Unstable_Popup/Popup';
-import { ClickAwayListener } from '@mui/base';
+import { Button, List, ListItemButton, ListItemText, Popover } from '@mui/material';
 import classNames from 'classnames';
 import { FullSizeLoading } from '@components/fullsize-loading/full-size-loading.component';
 import { RoutePath } from '@routes/index';
@@ -29,7 +27,7 @@ export const CategorySelector: FC = () => {
 
   const isOpen = Boolean(anchor);
 
-  const popupClose = () => {
+  const handleClose = () => {
     setAnchor(null);
     setLocalCategory(null);
     setLocalCategoryAncestors([]);
@@ -40,7 +38,7 @@ export const CategorySelector: FC = () => {
     navigate(
       generatePath(RoutePath.catalog, { category: localCategory ? localCategory.slug : '' }),
     );
-    popupClose();
+    handleClose();
   };
 
   useEffect(() => {
@@ -82,14 +80,10 @@ export const CategorySelector: FC = () => {
 
   const handlePopupOpenClick = (event: React.MouseEvent<HTMLElement>) => {
     if (anchor) {
-      popupClose();
+      handleClose();
     } else {
       setAnchor(event.currentTarget);
     }
-  };
-
-  const handlePopupClickAway = () => {
-    popupClose();
   };
 
   const handleCategoryChange = async (category?: ICategory) => {
@@ -108,71 +102,71 @@ export const CategorySelector: FC = () => {
 
   return (
     <div className={styles.root}>
-      <ClickAwayListener onClickAway={handlePopupClickAway}>
-        <div className={styles.clickAwayWrapper}>
-          <Button
-            aria-describedby="category-selector"
-            type="button"
-            variant="contained"
-            color="warning"
-            className={styles.button}
-            onClick={handlePopupOpenClick}>
-            Categories
-          </Button>
-          <Popup
-            strategy="absolute"
-            id="category-selector"
-            open={isOpen}
-            anchor={anchor}
-            placement="bottom-start"
-            className={styles.popup}>
-            <div className={styles.popupContent}>
-              {isLoading ? (
-                <FullSizeLoading isLoading />
-              ) : (
-                <>
-                  <Breadcrumb
-                    rootSegment={{ caption: 'All', id: '0' }}
-                    path={localCategoryAncestors}
-                    onClick={data =>
-                      handleCategoryChange(
-                        localCategoryAncestors.find(ancestor => ancestor.id === data.id),
-                      )
-                    }
-                  />
-                  <div className={styles.categoryWrapper}>
-                    <div className={styles.categoryList}>
-                      <List
-                        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-                        component="nav"
-                        aria-labelledby="nested-list-subheader">
-                        {localSubCategories.map((category, index) => (
-                          <ListItemButton
-                            key={category.id}
-                            onMouseOver={() => setActiveIndex(index)}
-                            onClick={() => handleCategoryChange(category)}
-                            className={classNames(
-                              styles.categoryListItem,
-                              index === activeIndex ? styles.categoryListItemActive : '',
-                            )}>
-                            <ListItemText primary={category.caption} />
-                          </ListItemButton>
-                        ))}
-                      </List>
-                    </div>
-                    <div className={styles.categoryDescription}>
-                      {localSubCategories[activeIndex]?.description}
-                    </div>
-                  </div>
-                  <Button variant="contained" color="primary" onClick={handleCategoryApply}>
-                    Apply
-                  </Button>
-                </>
-              )}
-            </div>
-          </Popup>
+      <Button
+        aria-describedby="category-selector"
+        type="button"
+        variant="contained"
+        color="warning"
+        className={styles.button}
+        onClick={handlePopupOpenClick}>
+        Categories
+      </Button>
+      <Popover
+        id="category-selector"
+        open={isOpen}
+        anchorEl={anchor}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        onClose={handleClose}
+        TransitionProps={{ timeout: 0 }}
+        className={styles.popup}>
+        <div className={styles.popupContent}>
+          {isLoading ? (
+            <FullSizeLoading isLoading />
+          ) : (
+            <>
+              <Breadcrumb
+                rootSegment={{ caption: 'All', id: '0' }}
+                path={localCategoryAncestors}
+                onClick={data =>
+                  handleCategoryChange(
+                    localCategoryAncestors.find(ancestor => ancestor.id === data.id),
+                  )
+                }
+              />
+              <div className={styles.categoryWrapper}>
+                <div className={styles.categoryList}>
+                  <List
+                    sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                    component="nav"
+                    aria-labelledby="nested-list-subheader">
+                    {localSubCategories.map((category, index) => (
+                      <ListItemButton
+                        key={category.id}
+                        onMouseOver={() => setActiveIndex(index)}
+                        onClick={() => handleCategoryChange(category)}
+                        className={classNames(
+                          styles.categoryListItem,
+                          index === activeIndex ? styles.categoryListItemActive : '',
+                        )}>
+                        <ListItemText primary={category.caption} />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </div>
+                <div className={styles.categoryDescription}>
+                  {localSubCategories[activeIndex]?.description}
+                </div>
+              </div>
+              <Button variant="contained" color="primary" onClick={handleCategoryApply}>
+                Apply
+              </Button>
+            </>
+          )}
         </div>
-      </ClickAwayListener>
+      </Popover>
     </div>
   );
 };

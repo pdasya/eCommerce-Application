@@ -5,16 +5,16 @@
 
 .popup {
   display: flex;
-  width: 700px;
-  max-width: 85vw;
-  height: fit-content;
-  min-height: 50vh;
-  max-height: 60vh;
   flex-direction: column;
 
   &Content {
     position: relative;
     display: flex;
+    width: 700px;
+    max-width: 80vw;
+    height: fit-content;
+    min-height: 50vh;
+    max-height: 60vh;
     flex-direction: column;
     flex-grow: 1;
     padding: var(--spacing-l-16px);
@@ -55,10 +55,4 @@
 .categoryDescription {
   width: 50%;
   flex-direction: column;
-}
-
-.clickAwayWrapper {
-  display: flex;
-  width: 100%;
-  gap: var(--spacing-m-12px);
 }

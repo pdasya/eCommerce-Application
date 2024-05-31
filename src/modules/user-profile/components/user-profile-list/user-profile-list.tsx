@@ -1,43 +1,30 @@
 import React, { useState } from 'react';
+import { List, Typography } from '@mui/material';
+import { UserProfileListProps } from '@modules/user-profile/interfaces/user-profile.interfaces';
+import { client } from '@config/constants';
 import {
-  List,
-  Typography,
-  FormControlLabel,
-  Checkbox,
-  Button,
-  Grid,
-  TextField,
-  Divider,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
+  MyCustomerAddAddressAction,
+  MyCustomerAddShippingAddressIdAction,
+  MyCustomerAddBillingAddressIdAction,
+  Address,
+} from '@commercetools/platform-sdk';
+import { toast } from 'react-toastify';
 import {
   Person as PersonIcon,
   DateRange as DateRangeIcon,
   Email as EmailIcon,
-  LocationOn as LocationOnIcon,
-  LocationCity as LocationCityIcon,
-  MarkunreadMailbox as MarkunreadMailboxIcon,
-  Public as PublicIcon,
 } from '@mui/icons-material';
-import {
-  MyCustomerAddBillingAddressAction,
-  MyCustomerAddShippingAddressAction,
-  UserProfileListProps,
-} from '@modules/user-profile/interfaces/user-profile.interfaces';
-import { client } from '@config/constants';
-import { MyCustomerAddAddressAction } from '@commercetools/platform-sdk';
-import { toast } from 'react-toastify';
 import styles from './user-profile-list.module.scss';
 import EditableInfoItem from '../editable-info-item/editable-info-item';
+import AddressList from '../user-profile-address-list/user-profile-address-list';
+import NewAddressForm from '../user-profile-new-address/user-profile-new-address';
 
 const UserProfileList: React.FC<UserProfileListProps> = ({
   userData,
   errors,
   editMode,
   handleDataChange,
+  refreshUserData,
 }) => {
   const [isAddingNewShippingAddress, setIsAddingNewShippingAddress] = useState(false);
   const [isAddingNewBillingAddress, setIsAddingNewBillingAddress] = useState(false);
@@ -54,97 +41,28 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
     country: '',
   });
 
-  const handleNewShippingAddressChange =
-    (field: keyof typeof newShippingAddress) => (value: string) => {
-      setNewShippingAddress(prevData => ({
+  const handleAddressChange =
+    (setAddress: React.Dispatch<React.SetStateAction<Address>>) =>
+    (field: string) =>
+    (value: string) => {
+      setAddress((prevData: Address) => ({
         ...prevData,
         [field]: value,
       }));
     };
 
-  const handleNewBillingAddressChange =
-    (field: keyof typeof newBillingAddress) => (value: string) => {
-      setNewBillingAddress(prevData => ({
-        ...prevData,
-        [field]: value,
-      }));
-    };
-
-  const handleNewShippingAddressSubmit = async () => {
-    const addressData = {
-      action: 'addAddress',
-      address: {
-        streetName: newShippingAddress.streetName,
-        city: newShippingAddress.city,
-        postalCode: newShippingAddress.postalCode,
-        country: newShippingAddress.country,
-      },
-    };
-
-    if (!isAddingNewShippingAddress) {
-      setIsAddingNewShippingAddress(true);
-    } else {
-      try {
-        const response = await client.getClient().me().get().execute();
-        const customerVersion = response.body.version;
-
-        await client
-          .getClient()
-          .me()
-          .post({
-            body: {
-              version: customerVersion,
-              actions: [addressData as MyCustomerAddAddressAction],
-            },
-          })
-          .execute()
-          .then(setShippingAddressResponse => {
-            const newAddressId = setShippingAddressResponse.body.addresses.find(
-              address =>
-                address.streetName === newShippingAddress.streetName &&
-                address.city === newShippingAddress.city &&
-                address.postalCode === newShippingAddress.postalCode &&
-                address.country === newShippingAddress.country,
-            )?.id;
-            const addShippingAddressAction = {
-              action: 'addShippingAddressId',
-              addressId: newAddressId,
-            };
-            client
-              .getClient()
-              .me()
-              .post({
-                body: {
-                  version: setShippingAddressResponse.body.version,
-                  actions: [addShippingAddressAction as MyCustomerAddShippingAddressAction],
-                },
-              })
-              .execute();
-          });
-
-        toast.success('New Shipping Address Successfully Added!');
-        setIsAddingNewShippingAddress(false);
-        setNewShippingAddress({ streetName: '', city: '', postalCode: '', country: '' });
-      } catch (error) {
-        console.error('Error adding address:', error);
-        toast.error('Failed to Add Shipping Address!');
-      }
-    }
-  };
-
-  const handleNewBillingAddressSubmit = async () => {
-    const addressData = {
-      action: 'addAddress',
-      address: {
-        streetName: newBillingAddress.streetName,
-        city: newBillingAddress.city,
-        postalCode: newBillingAddress.postalCode,
-        country: newBillingAddress.country,
-      },
-    };
-
-    if (!isAddingNewBillingAddress) {
-      setIsAddingNewBillingAddress(true);
+  const handleAddressSubmit = async (
+    isAdding: boolean,
+    setIsAdding: React.Dispatch<React.SetStateAction<boolean>>,
+    address: Address,
+    addressType: 'shipping' | 'billing',
+    actionType: MyCustomerAddShippingAddressIdAction | MyCustomerAddBillingAddressIdAction,
+    addressData: MyCustomerAddAddressAction,
+    setNewAddress: React.Dispatch<React.SetStateAction<Address>>,
+    refreshUserDataCallback: () => void,
+  ) => {
+    if (!isAdding) {
+      setIsAdding(true);
     } else {
       try {
         const response = await client.getClient().me().get().execute();
@@ -155,39 +73,54 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
           .post({
             body: {
               version: customerVersion,
-              actions: [addressData as MyCustomerAddAddressAction],
+              actions: [addressData],
             },
           })
           .execute()
-          .then(setBillingAddressResponse => {
-            const newAddressId = setBillingAddressResponse.body.addresses.find(
-              address =>
-                address.streetName === newBillingAddress.streetName &&
-                address.city === newBillingAddress.city &&
-                address.postalCode === newBillingAddress.postalCode &&
-                address.country === newBillingAddress.country,
+          .then(setAddressResponse => {
+            const newAddressId = setAddressResponse.body.addresses.find(
+              addr =>
+                addr.streetName === address.streetName &&
+                addr.city === address.city &&
+                addr.postalCode === address.postalCode &&
+                addr.country === address.country,
             )?.id;
-            const addBillingAddressAction = {
-              action: 'addBillingAddressId',
-              addressId: newAddressId,
-            };
+
+            const addAddressAction =
+              addressType === 'shipping'
+                ? ({
+                    action: 'addShippingAddressId',
+                    addressId: newAddressId,
+                  } as MyCustomerAddShippingAddressIdAction)
+                : ({
+                    action: 'addBillingAddressId',
+                    addressId: newAddressId,
+                  } as MyCustomerAddBillingAddressIdAction);
+
             client
               .getClient()
               .me()
               .post({
                 body: {
-                  version: setBillingAddressResponse.body.version,
-                  actions: [addBillingAddressAction as MyCustomerAddBillingAddressAction],
+                  version: setAddressResponse.body.version,
+                  actions: [addAddressAction],
                 },
               })
               .execute();
           });
-        toast.success('New Billing Address Successfully Added!');
-        setIsAddingNewBillingAddress(false);
-        setNewBillingAddress({ streetName: '', city: '', postalCode: '', country: '' });
+
+        toast.success(
+          `New ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address Successfully Added!`,
+        );
+        setIsAdding(false);
+        setNewAddress({ streetName: '', city: '', postalCode: '', country: '' });
+
+        refreshUserDataCallback();
       } catch (error) {
-        console.error('Error adding address:', error);
-        toast.error('Failed to Add Billing Address!');
+        console.error(`Error adding ${addressType} address:`, error);
+        toast.error(
+          `Failed to Add ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address!`,
+        );
       }
     }
   };
@@ -232,212 +165,67 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
           error={errors.dateOfBirth}
         />
       </List>
-      <Typography variant="subtitle1" className={styles.sectionHeader}>
-        Shipping Addresses
-      </Typography>
-      <List>
-        {userData.shippingAddresses.map((address, index) => (
-          <div key={address.id || index}>
-            <EditableInfoItem
-              icon={LocationOnIcon}
-              label="Street"
-              value={address.streetName}
-              editMode={editMode}
-              onChange={handleDataChange(`shippingAddresses.${index}.streetName`)}
-              error={errors.shippingAddresses?.[index]?.streetName}
-            />
-            <EditableInfoItem
-              icon={LocationCityIcon}
-              label="City"
-              value={address.city}
-              editMode={editMode}
-              onChange={handleDataChange(`shippingAddresses.${index}.city`)}
-              error={errors.shippingAddresses?.[index]?.city}
-            />
-            <EditableInfoItem
-              icon={MarkunreadMailboxIcon}
-              label="Postal Code"
-              value={address.postalCode}
-              editMode={editMode}
-              onChange={handleDataChange(`shippingAddresses.${index}.postalCode`)}
-              error={errors.shippingAddresses?.[index]?.postalCode}
-            />
-            <EditableInfoItem
-              icon={PublicIcon}
-              label="Country"
-              value={address.country}
-              editMode={editMode}
-              onChange={handleDataChange(`shippingAddresses.${index}.country`)}
-              type="select"
-              options={['US', 'Canada']}
-              error={errors.shippingAddresses?.[index]?.country}
-            />
-            <FormControlLabel
-              control={<Checkbox checked={address.id === userData.defaultShippingAddressId} />}
-              label="Default shipping address"
-              disabled
-              className={styles.defaultCheckbox}
-            />
-          </div>
-        ))}
-      </List>
-      <Button
-        variant="outlined"
-        onClick={handleNewShippingAddressSubmit}
-        className={styles.addNewAddressButton}>
-        {isAddingNewShippingAddress ? 'Save New Shipping Address' : 'Add New Shipping Address'}
-      </Button>
-      {isAddingNewShippingAddress && (
-        <>
-          <Divider variant="fullWidth" className={styles.dividerNewAddress} />
-          <Typography variant="h6" className={styles.sectionHeader}>
-            Add New Shipping Address
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Street Name"
-                value={newShippingAddress.streetName}
-                onChange={e => handleNewShippingAddressChange('streetName')(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="City"
-                value={newShippingAddress.city}
-                onChange={e => handleNewShippingAddressChange('city')(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Postal Code"
-                value={newShippingAddress.postalCode}
-                onChange={e => handleNewShippingAddressChange('postalCode')(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel>Country</InputLabel>
-                <Select
-                  value={newShippingAddress.country}
-                  onChange={e =>
-                    handleNewShippingAddressChange('country')(e.target.value as string)
-                  }>
-                  <MenuItem value="US">United States</MenuItem>
-                  <MenuItem value="Canada">Canada</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-          <Divider variant="fullWidth" className={styles.dividerNewAddress} />
-        </>
-      )}
-      <Typography variant="subtitle1" className={styles.sectionHeader}>
-        Billing Addresses
-      </Typography>
-      <List>
-        {userData.billingAddresses.map((address, index) => (
-          <div key={address.id || index}>
-            <EditableInfoItem
-              icon={LocationOnIcon}
-              label="Street"
-              value={address.streetName}
-              editMode={editMode}
-              onChange={handleDataChange(`billingAddresses.${index}.streetName`)}
-              error={errors.billingAddresses?.[index]?.streetName}
-            />
-            <EditableInfoItem
-              icon={LocationCityIcon}
-              label="City"
-              value={address.city}
-              editMode={editMode}
-              onChange={handleDataChange(`billingAddresses.${index}.city`)}
-              error={errors.billingAddresses?.[index]?.city}
-            />
-            <EditableInfoItem
-              icon={MarkunreadMailboxIcon}
-              label="Postal Code"
-              value={address.postalCode}
-              editMode={editMode}
-              onChange={handleDataChange(`billingAddresses.${index}.postalCode`)}
-              error={errors.billingAddresses?.[index]?.postalCode}
-            />
-            <EditableInfoItem
-              icon={PublicIcon}
-              label="Country"
-              value={address.country}
-              editMode={editMode}
-              onChange={handleDataChange(`billingAddresses.${index}.country`)}
-              type="select"
-              options={['US', 'Canada']}
-              error={errors.billingAddresses?.[index]?.country}
-            />
-            <FormControlLabel
-              control={<Checkbox checked={address.id === userData.defaultBillingAddressId} />}
-              label="Default billing address"
-              disabled
-              className={styles.defaultCheckbox}
-            />
-          </div>
-        ))}
-      </List>
-      <Button
-        variant="outlined"
-        onClick={handleNewBillingAddressSubmit}
-        className={styles.addNewAddressButton}>
-        {isAddingNewBillingAddress ? 'Save New Billing Address' : 'Add New Billing Address'}
-      </Button>
-      {isAddingNewBillingAddress && (
-        <>
-          <Divider variant="fullWidth" className={styles.dividerNewAddress} />
-          <Typography variant="h6" className={styles.sectionHeader}>
-            Add New Billing Address
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Street Name"
-                value={newBillingAddress.streetName}
-                onChange={e => handleNewBillingAddressChange('streetName')(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="City"
-                value={newBillingAddress.city}
-                onChange={e => handleNewBillingAddressChange('city')(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Postal Code"
-                value={newBillingAddress.postalCode}
-                onChange={e => handleNewBillingAddressChange('postalCode')(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel>Country</InputLabel>
-                <Select
-                  value={newBillingAddress.country}
-                  onChange={e =>
-                    handleNewBillingAddressChange('country')(e.target.value as string)
-                  }>
-                  <MenuItem value="US">United States</MenuItem>
-                  <MenuItem value="Canada">Canada</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-          <Divider variant="fullWidth" className={styles.dividerNewAddress} />
-        </>
-      )}
+      <AddressList
+        addresses={userData.shippingAddresses}
+        defaultAddressId={userData.defaultShippingAddressId}
+        errors={errors}
+        editMode={editMode}
+        handleDataChange={handleDataChange}
+        type="shipping"
+      />
+      <NewAddressForm
+        address={newShippingAddress}
+        isAdding={isAddingNewShippingAddress}
+        handleAddressChange={handleAddressChange(setNewShippingAddress)}
+        handleAddressSubmit={() =>
+          handleAddressSubmit(
+            isAddingNewShippingAddress,
+            setIsAddingNewShippingAddress,
+            newShippingAddress,
+            'shipping',
+            {
+              action: 'addShippingAddressId',
+              addressId: '',
+            } as MyCustomerAddShippingAddressIdAction,
+            {
+              action: 'addAddress',
+              address: newShippingAddress,
+            },
+            setNewShippingAddress,
+            refreshUserData,
+          )
+        }
+        type="shipping"
+      />
+      <AddressList
+        addresses={userData.billingAddresses}
+        defaultAddressId={userData.defaultBillingAddressId}
+        errors={errors}
+        editMode={editMode}
+        handleDataChange={handleDataChange}
+        type="billing"
+      />
+      <NewAddressForm
+        address={newBillingAddress}
+        isAdding={isAddingNewBillingAddress}
+        handleAddressChange={handleAddressChange(setNewBillingAddress)}
+        handleAddressSubmit={() =>
+          handleAddressSubmit(
+            isAddingNewBillingAddress,
+            setIsAddingNewBillingAddress,
+            newBillingAddress,
+            'billing',
+            { action: 'addBillingAddressId', addressId: '' } as MyCustomerAddBillingAddressIdAction,
+            {
+              action: 'addAddress',
+              address: newBillingAddress,
+            },
+            setNewShippingAddress,
+            refreshUserData,
+          )
+        }
+        type="billing"
+      />
     </>
   );
 };

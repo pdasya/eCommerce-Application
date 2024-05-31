@@ -1,11 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Typography, Grid, Avatar, Divider, Paper, Button } from '@mui/material';
+import { Typography, Grid, Paper, Button, Avatar, Divider } from '@mui/material';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
 import { ValidationError } from 'yup';
-import { Address } from '@commercetools/platform-sdk';
-import styles from './user-profile-module.module.scss';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
 import {
@@ -15,33 +13,37 @@ import {
   AddressErrors,
 } from '../interfaces/user-profile.interfaces';
 import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
+import styles from './user-profile-module.module.scss';
+import { Address } from '@commercetools/platform-sdk';
 
 const initialValues = {
   firstName: '',
   lastName: '',
   dateOfBirth: '',
   email: '',
-  shippingStreet: '',
   shippingAddresses: [],
   billingAddresses: [],
+  defaultShippingAddressId: '',
+  defaultBillingAddressId: '',
 };
 
 export const UserProfileModule: FC = () => {
-  const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-    shippingAddresses: [],
-    defaultShippingAddressId: '',
-    billingAddresses: [],
-    defaultBillingAddressId: '',
-  });
-
-  const [editMode, setEditMode] = useState(false);
+  const [userData, setUserData] = useState<PersonalUserData>(initialValues);
   const [userErrors, setUserErrors] = useState<Errors>(initialValues);
-
+  const [editMode, setEditMode] = useState(false);
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
+
+  const updateUserData = async () => {
+    try {
+      await fetchUserData(setUserData);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  useEffect(() => {
+    updateUserData();
+  }, []);
 
   const validateData = async () => {
     const newErrors: Errors = {
@@ -91,7 +93,6 @@ export const UserProfileModule: FC = () => {
           }
         });
         setUserErrors(updatedErrors);
-        console.log(updatedErrors);
       }
       return false;
     }
@@ -112,7 +113,7 @@ export const UserProfileModule: FC = () => {
       actions.push({ action: 'setDateOfBirth', dateOfBirth: data.dateOfBirth });
     }
 
-    data.shippingAddresses.forEach((address: Address) => {
+    data.shippingAddresses.forEach(address => {
       actions.push({
         action: 'changeAddress',
         addressId: address.id!,
@@ -125,7 +126,7 @@ export const UserProfileModule: FC = () => {
       });
     });
 
-    data.billingAddresses.forEach((address: Address) => {
+    data.billingAddresses.forEach(address => {
       actions.push({
         action: 'changeAddress',
         addressId: address.id!,
@@ -140,24 +141,45 @@ export const UserProfileModule: FC = () => {
     return actions;
   };
 
-  const handleDataChange = (path: string) => (value: string) => {
+  const handleDataChange = <T extends keyof PersonalUserData>(
+    path: T
+  ) => (
+    value: PersonalUserData[T] | string | boolean
+  ) => {
     setUserData(prevData => {
-      const newData = { ...prevData };
-      const keys = path.split('.');
+      const newData: PersonalUserData = { ...prevData };
+      const keys = path.split('.') as Array<keyof PersonalUserData>;
 
-      let current: any = newData;
-      for (let i = 0; i < keys.length - 1; i += 1) {
-        current = current[keys[i]];
+      type CurrentType = PersonalUserData | Address | string | boolean | undefined;
+
+      let current: CurrentType = newData;
+
+      for (let i = 0; i < keys.length - 1; i++) {
+        const key = keys[i];
+
+        if (
+          typeof current === 'object' &&
+          current !== null &&
+          key in current
+        ) {
+          current = current[key as keyof CurrentType] as CurrentType;
+        } else {
+          throw new Error(`Invalid path: ${keys.slice(0, i + 1).join('.')}`);
+        }
       }
-      current[keys[keys.length - 1]] = value;
+
+      const lastKey = keys[keys.length - 1] as keyof CurrentType;
+      if (
+        typeof current === 'object' &&
+        current !== null &&
+        lastKey in current
+      ) {
+        (current as Record<string, any>)[lastKey as string] = value;
+      }
 
       return newData;
     });
   };
-
-  useEffect(() => {
-    fetchUserData(setUserData);
-  }, []);
 
   const handleEditClick = async () => {
     const newErrors: Errors = initialValues;
@@ -226,6 +248,7 @@ export const UserProfileModule: FC = () => {
               errors={userErrors}
               editMode={editMode}
               handleDataChange={handleDataChange}
+              refreshUserData={updateUserData}
             />
           ) : (
             <PasswordChangeForm

@@ -102,10 +102,15 @@ export interface EditableInfoItemProps {
 }
 
 export interface AddressErrors {
-  streetName: string;
-  city: string;
-  postalCode: string;
-  country: string;
+  streetName?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
+}
+
+export interface AddressListErrors {
+  shippingAddresses?: AddressErrors[];
+  billingAddresses?: AddressErrors[];
 }
 
 export interface Errors {
@@ -122,4 +127,5 @@ export interface UserProfileListProps {
   errors: Errors;
   editMode: boolean;
   handleDataChange: (field: string) => (value: string) => void;
+  refreshUserData: () => void;
 }

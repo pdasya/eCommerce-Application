@@ -18,7 +18,8 @@ import { ErrorBoundary } from '@/modules/error-boundary';
 export enum RoutePath {
   about = '/about',
   cart = '/cart',
-  catalogBlank = '/catalog',
+  catalogDefault = `/catalog/${catalogDefaultCategorySlug}`,
+  catalogBlank = `/catalog`,
   catalog = '/catalog/:category',
   http404 = '/404',
   main = '/',
@@ -43,9 +44,7 @@ export const router = createHashRouter(
       <Route
         path={RoutePath.catalogBlank}
         element={
-          <PrivateRoute
-            redirectTo={`${RoutePath.catalogBlank}/${catalogDefaultCategorySlug}`}
-            redirectIf="always">
+          <PrivateRoute redirectTo={RoutePath.catalogDefault} redirectIf="always">
             <ProfilePage />
           </PrivateRoute>
         }

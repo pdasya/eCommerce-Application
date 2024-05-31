@@ -13,6 +13,7 @@ export const ProductPage: FC = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname.split('/');
   const slug = location[location.length - 1];
+
   useEffect(() => {
     dispatch(loading({}));
     getProduct(slug)
@@ -23,6 +24,7 @@ export const ProductPage: FC = () => {
       })
       .finally(() => dispatch(loadEnd({})));
   }, [slug]);
+
   return (
     <>
       <div className={styles.breadcrumbs}>

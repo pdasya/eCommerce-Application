@@ -27,9 +27,8 @@ import {
   setActiveCategoryAncestors,
   setActiveSubCategories,
 } from '@store/category/category.slice';
-import { generatePath, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { catalogDefaultCategorySlug } from '@config/constants';
-import { RoutePath } from '@routes/index';
 import { MainBreadcrumb } from '@modules/category-selector';
 import { getProductsList } from '@/API/products/products-adapter';
 import {
@@ -42,7 +41,6 @@ import styles from './catalog.page.module.scss';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const [isFilterPanelOpen, setFilterPanelOpen] = React.useState(false);
 
@@ -58,9 +56,6 @@ export const CatalogPage: FC = () => {
   useEffect(() => {
     if (categorySlug === catalogDefaultCategorySlug) {
       dispatch(resetActiveCategory());
-      navigate(generatePath(RoutePath.catalog, { category: catalogDefaultCategorySlug }), {
-        replace: true,
-      });
       return;
     }
 
@@ -72,20 +67,9 @@ export const CatalogPage: FC = () => {
       })
       .catch(() => {
         dispatch(resetActiveCategory());
-        navigate(generatePath(RoutePath.catalog, { category: catalogDefaultCategorySlug }), {
-          replace: true,
-        });
       })
       .finally(() => dispatch(loadEnd({})));
   }, [categorySlug]);
-
-  useEffect(() => {
-    navigate(
-      generatePath(RoutePath.catalog, {
-        category: activeCategory ? activeCategory.slug : catalogDefaultCategorySlug,
-      }),
-    );
-  }, [activeCategory]);
 
   useMountEffect(() => {
     (async () => {

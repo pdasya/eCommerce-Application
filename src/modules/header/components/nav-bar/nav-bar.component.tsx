@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { generatePath, useMatch, useResolvedPath } from 'react-router-dom';
+import { useMatch, useResolvedPath } from 'react-router-dom';
 import { Box, Button, IconButton, MenuItem, Tooltip, Typography } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import Menu from '@mui/material/Menu';
-import { catalogDefaultCategorySlug } from '@config/constants';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@/routes';
 import styles from './nav-bar.component.module.scss';
@@ -23,7 +22,7 @@ export const NavBar: FC = () => {
     { caption: 'Home', path: RoutePath.main },
     {
       caption: 'Catalog',
-      path: generatePath(RoutePath.catalog, { category: catalogDefaultCategorySlug }),
+      path: RoutePath.catalogDefault,
     },
     { caption: 'About', path: RoutePath.about },
   ];

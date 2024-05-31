@@ -5,6 +5,7 @@ import { Button, List, ListItemButton, ListItemText, Popover } from '@mui/materi
 import classNames from 'classnames';
 import { FullSizeLoading } from '@components/fullsize-loading/full-size-loading.component';
 import { RoutePath } from '@routes/index';
+import { catalogDefaultCategorySlug } from '@config/constants';
 import {
   getAllSubCategoriesByParentId,
   getAllTopLevelCategories,
@@ -36,7 +37,9 @@ export const CategorySelector: FC = () => {
 
   const handleCategoryApply = () => {
     navigate(
-      generatePath(RoutePath.catalog, { category: localCategory ? localCategory.slug : '' }),
+      generatePath(RoutePath.catalog, {
+        category: localCategory ? localCategory.slug : catalogDefaultCategorySlug,
+      }),
     );
     handleClose();
   };

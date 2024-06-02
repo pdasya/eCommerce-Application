@@ -8,11 +8,11 @@ interface ICatalogState {
   search: string;
   tempSearchValue: string;
   products: IProduct[];
-  category: string | null;
   priceLimits: { min: number; max: number };
   priceFilter: { min: number; max: number };
   customFilterOptions: Record<string, string[]>;
   customFilters: Record<string, Record<string, boolean>>;
+  isCatalogUpdating: boolean;
 }
 
 const initialState: ICatalogState = {
@@ -20,20 +20,17 @@ const initialState: ICatalogState = {
   search: '',
   tempSearchValue: '',
   products: [],
-  category: null,
   priceLimits: { min: 0, max: 0 },
   priceFilter: { min: 0, max: 0 },
   customFilterOptions: {},
   customFilters: {},
+  isCatalogUpdating: false,
 };
 
 const catalogSlice = createSlice({
   name: 'catalog',
   initialState,
   reducers: {
-    setCategory(state, action: PayloadAction<ICatalogState['category']>) {
-      state.category = action.payload;
-    },
     setPriceLimits(state, action: PayloadAction<ICatalogState['priceLimits']>) {
       state.priceLimits = action.payload;
     },
@@ -79,6 +76,12 @@ const catalogSlice = createSlice({
     clear(state) {
       state.products = [];
     },
+    catalogUpdating(state, action: PayloadAction<void>) {
+      state.isCatalogUpdating = true;
+    },
+    catalogUpdatingEnd(state, action: PayloadAction<void>) {
+      state.isCatalogUpdating = false;
+    },
   },
 });
 
@@ -93,14 +96,16 @@ export const {
   setCustomFilterOptions,
   setCustomFilters,
   resetAllFilters,
+  catalogUpdating,
+  catalogUpdatingEnd,
 } = catalogSlice.actions;
 export const selectProducts = (state: RootState) => state.catalog.products;
 export const selectSort = (state: RootState) => state.catalog.sort;
 export const searchValue = (state: RootState) => state.catalog.search;
 export const tempSearchValue = (state: RootState) => state.catalog.tempSearchValue;
-export const selectCategory = (state: RootState) => state.catalog.category;
 export const selectPriceLimits = (state: RootState) => state.catalog.priceLimits;
 export const selectPriceFilter = (state: RootState) => state.catalog.priceFilter;
 export const selectCustomFilterOptions = (state: RootState) => state.catalog.customFilterOptions;
 export const selectCustomFilters = (state: RootState) => state.catalog.customFilters;
+export const selectIsCatalogUpdating = (state: RootState) => state.catalog.isCatalogUpdating;
 export const catalogReducer = catalogSlice.reducer;

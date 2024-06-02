@@ -19,9 +19,10 @@ import styles from './filter-panel.component.module.scss';
 
 type FilterPanelProps = {
   className?: string;
+  onClose?: () => void;
 };
 
-export const FilterPanel: FC<FilterPanelProps> = ({ className = '' }) => {
+export const FilterPanel: FC<FilterPanelProps> = ({ className = '', onClose }) => {
   const dispatch = useAppDispatch();
   const priceLimits = useAppSelector(selectPriceLimits);
   const priceFilter = useAppSelector(selectPriceFilter);
@@ -36,10 +37,17 @@ export const FilterPanel: FC<FilterPanelProps> = ({ className = '' }) => {
   const applyClickHandler = () => {
     dispatch(setPriceFilter(price));
     dispatch(setCustomFilters(filters));
+
+    if (onClose) {
+      onClose();
+    }
   };
 
   const resetClickHandler = () => {
     dispatch(resetAllFilters());
+    if (onClose) {
+      onClose();
+    }
   };
 
   const priceFilterChangeHandle = (payload: [string, { min: number; max: number }]) => {

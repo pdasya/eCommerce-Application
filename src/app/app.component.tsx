@@ -2,12 +2,10 @@ import React, { ReactElement, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
 import {
-  selectCategory,
   setCustomFilterOptions,
   setPriceFilter,
   setPriceLimits,
 } from '@store/catalog/catalog.slice';
-import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { tokenName, saveStorage } from '@config/constants';
 import { authorize } from '@store/auth/auth.slice';
@@ -24,7 +22,6 @@ import { Footer } from '@/modules/footer';
 
 const App = (): ReactElement => {
   const dispatch = useAppDispatch();
-  const category = useAppSelector(selectCategory);
 
   const getToken = () => saveStorage.get(tokenName) || false;
   const isToken = getToken();
@@ -78,7 +75,7 @@ const App = (): ReactElement => {
         dispatch(setPriceFilter(roundedLimits));
       })
       .catch(error => toast.error(error));
-  }, [category]);
+  }, []);
 
   return (
     <div className={styles.app}>

@@ -11,16 +11,19 @@ import { SignInPage } from '@pages/sign-in/sign-in.page';
 import { SignUpPage } from '@pages/sign-up/sign-up.page';
 import { createHashRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import { ErrorPage } from '@pages/error/error.page';
+import { catalogDefaultCategorySlug } from '@config/constants';
 import { PrivateRoute } from '@/components/private-route/private-route.component';
 import { ErrorBoundary } from '@/modules/error-boundary';
 
 export enum RoutePath {
   about = '/about',
   cart = '/cart',
-  catalog = '/catalog',
+  catalogDefault = `/catalog/${catalogDefaultCategorySlug}`,
+  catalogBlank = `/catalog`,
+  catalog = '/catalog/:category',
   http404 = '/404',
   main = '/',
-  product = `${catalog}/:id`,
+  product = `/product/:id`,
   profile = '/profile',
   signIn = '/sign-in',
   signUp = '/sign-up',
@@ -38,6 +41,14 @@ export const router = createHashRouter(
       <Route path={RoutePath.http404} element={<Http404Page />} />
       <Route path={RoutePath.product} element={<ProductPage />} />
       <Route path={RoutePath.error} element={<ErrorPage />} />
+      <Route
+        path={RoutePath.catalogBlank}
+        element={
+          <PrivateRoute redirectTo={RoutePath.catalogDefault} redirectIf="always">
+            <ProfilePage />
+          </PrivateRoute>
+        }
+      />
       <Route
         path={RoutePath.profile}
         element={

@@ -3,7 +3,8 @@ import { Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DiscountIcon from '@mui/icons-material/Discount';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
+import { RoutePath } from '@routes/index';
 import { IProduct } from '@/interfaces/interfaces';
 import styles from './product-card.component.module.scss';
 
@@ -19,7 +20,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   discountPrice,
   slug,
 }) => (
-  <Link className={styles.root} to={slug}>
+  <Link className={styles.root} to={generatePath(RoutePath.product, { id: slug })}>
     <div className={styles.wrap}>
       {discountPrice ? <DiscountIcon className={styles.iconDiscount} /> : ''}
       <div className={styles.imageContainer}>

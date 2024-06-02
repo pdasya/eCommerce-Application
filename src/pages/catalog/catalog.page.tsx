@@ -8,6 +8,9 @@ import {
   selectCustomFilters,
   selectPriceFilter,
   selectSort,
+  setCustomFilterOptions,
+  setPriceFilter,
+  setPriceLimits,
   update,
 } from '@store/catalog/catalog.slice';
 import { toast } from 'react-toastify';
@@ -30,9 +33,12 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { catalogDefaultCategorySlug } from '@config/constants';
 import { MainBreadcrumb } from '@modules/category-selector';
+import { allowedAttributesNames } from '@config/allowed-filter-attributes';
 import { getProductsList } from '@/API/products/products-adapter';
 import { getCategoryById, getCategoryBySlug } from '@/API/categories/get-categories';
 import styles from './catalog.page.module.scss';
+import { getFilterOptions } from '@/API/filtering/get-filter-options';
+import { getPriceRange } from '@/API/filtering/get-price-range';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -129,6 +135,33 @@ export const CatalogPage: FC = () => {
     searchText,
     activeCategory,
   ]);
+
+  useEffect(() => {
+    getFilterOptions({
+      filter: filtersByCategories,
+      searchValue: searchText,
+    })
+      .then(attributes => {
+        Object.keys(attributes).forEach(name => {
+          if (!allowedAttributesNames.includes(name)) {
+            delete attributes[name];
+          }
+        });
+        dispatch(setCustomFilterOptions(attributes));
+      })
+      .catch(error => toast.error(error));
+
+    getPriceRange()
+      .then(({ min, max }) => {
+        const roundedLimits = {
+          min: Math.floor(min),
+          max: Math.ceil(max),
+        };
+        dispatch(setPriceLimits(roundedLimits));
+        dispatch(setPriceFilter(roundedLimits));
+      })
+      .catch(error => toast.error(error));
+  }, [searchText, activeCategory]);
 
   return (
     <div className={styles.page}>

@@ -22,10 +22,11 @@ export const NavBar: FC = () => {
     { caption: 'Home', path: RoutePath.main, isFullMatch: true },
     {
       caption: 'Catalog',
-      path: RoutePath.catalogBlank,
+      path: RoutePath.catalogDefault,
+      rootPath: RoutePath.catalogBlank,
       isFullMatch: false,
     },
-    { caption: 'About', path: RoutePath.about, isFullMatch: false },
+    { caption: 'About', path: RoutePath.about, isFullMatch: true },
   ];
 
   return (
@@ -76,14 +77,14 @@ export const NavBar: FC = () => {
           gap: '3px',
           display: { xs: 'none', md: 'flex' },
         }}>
-        {navItems.map(({ caption, path, isFullMatch }) => (
+        {navItems.map(({ caption, path, isFullMatch = true, rootPath = path }) => (
           <CustomRouterLink to={path} key={caption} role="navigation">
             <Button
               variant="contained"
               sx={{ color: '#fff' }}
               size="small"
               color={
-                useMatch({ path: useResolvedPath(path).pathname, end: isFullMatch })
+                useMatch({ path: useResolvedPath(rootPath).pathname, end: isFullMatch })
                   ? 'warning'
                   : 'primary'
               }>

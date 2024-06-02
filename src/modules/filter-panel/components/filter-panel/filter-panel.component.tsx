@@ -61,6 +61,7 @@ export const FilterPanel: FC<FilterPanelProps> = ({ className = '', onClose }) =
     <div className={classNames(styles.root, className)}>
       <ControlWrapper
         caption="Price"
+        isOpenDefault
         control={
           <RangeControl
             name="price"

@@ -36,12 +36,12 @@ export const CategorySelector: FC = () => {
   };
 
   const handleCategoryApply = () => {
+    handleClose();
     navigate(
       generatePath(RoutePath.catalog, {
         category: localCategory ? localCategory.slug : catalogDefaultCategorySlug,
       }),
     );
-    handleClose();
   };
 
   useEffect(() => {

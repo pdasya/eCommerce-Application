@@ -21,24 +21,17 @@ import { ProductSearch } from '@modules/product-list/components/product-search/p
 import { ProductSort } from '@modules/product-list/components/product-sorting/product-sorting.component';
 import { SearchBanner } from '@modules/product-list/components/search-banner/search-banner.component';
 import { CategorySelector } from '@modules/category-selector/components/category-selector/category-selector.component';
-import { useMountEffect } from '@hooks/use-mount-effect.hook';
 import {
   resetActiveCategory,
   selectActiveCategory,
   setActiveCategory,
   setActiveCategoryAncestors,
-  setActiveSubCategories,
 } from '@store/category/category.slice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { catalogDefaultCategorySlug } from '@config/constants';
 import { MainBreadcrumb } from '@modules/category-selector';
 import { getProductsList } from '@/API/products/products-adapter';
-import {
-  getAllSubCategoriesByParentId,
-  getAllTopLevelCategories,
-  getCategoryById,
-  getCategoryBySlug,
-} from '@/API/categories/get-categories';
+import { getCategoryById, getCategoryBySlug } from '@/API/categories/get-categories';
 import styles from './catalog.page.module.scss';
 
 export const CatalogPage: FC = () => {
@@ -57,6 +50,7 @@ export const CatalogPage: FC = () => {
   const categorySlug = location[location.length - 1];
 
   useEffect(() => {
+    console.log(categorySlug);
     if (categorySlug === catalogDefaultCategorySlug) {
       dispatch(resetActiveCategory());
       return;
@@ -67,30 +61,16 @@ export const CatalogPage: FC = () => {
     getCategoryBySlug(categorySlug)
       .then(category => {
         dispatch(setActiveCategory(category));
+
+        Promise.all(category.ancestors.map(({ id }) => getCategoryById(id))).then(ancestors =>
+          dispatch(setActiveCategoryAncestors(ancestors.concat(category))),
+        );
       })
       .catch(() => {
         navigate('/404', { replace: true });
       })
       .finally(() => dispatch(loadEnd({})));
   }, [categorySlug]);
-
-  useMountEffect(() => {
-    (async () => {
-      let categories;
-
-      try {
-        if (!activeCategory) {
-          categories = await getAllTopLevelCategories();
-        } else {
-          categories = await getAllSubCategoriesByParentId(activeCategory.id);
-        }
-
-        dispatch(setActiveSubCategories(categories));
-      } catch (error) {
-        toast.error(error);
-      }
-    })();
-  });
 
   const toggleFilterPanel = (newOpen: boolean) => () => {
     setFilterPanelOpen(newOpen);
@@ -119,17 +99,6 @@ export const CatalogPage: FC = () => {
     () => (activeCategory ? [`categories.id:subtree("${activeCategory.id}")`] : []),
     [activeCategory],
   );
-
-  useEffect(() => {
-    if (!activeCategory) {
-      dispatch(setActiveCategoryAncestors([]));
-      return;
-    }
-
-    Promise.all(activeCategory.ancestors.map(({ id }) => getCategoryById(id))).then(ancestors =>
-      dispatch(setActiveCategoryAncestors(ancestors.concat(activeCategory))),
-    );
-  }, [activeCategory]);
 
   useEffect(() => {
     dispatch(loading({}));

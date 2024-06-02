@@ -2,6 +2,8 @@ import React, { FC, useEffect, useMemo } from 'react';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { ProductList } from '@modules/product-list';
 import {
+  catalogUpdating,
+  catalogUpdatingEnd,
   searchValue,
   selectCustomFilters,
   selectPriceFilter,
@@ -27,7 +29,7 @@ import {
   setActiveCategoryAncestors,
   setActiveSubCategories,
 } from '@store/category/category.slice';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { catalogDefaultCategorySlug } from '@config/constants';
 import { MainBreadcrumb } from '@modules/category-selector';
 import { getProductsList } from '@/API/products/products-adapter';
@@ -41,6 +43,7 @@ import styles from './catalog.page.module.scss';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [isFilterPanelOpen, setFilterPanelOpen] = React.useState(false);
 
@@ -66,7 +69,7 @@ export const CatalogPage: FC = () => {
         dispatch(setActiveCategory(category));
       })
       .catch(() => {
-        dispatch(resetActiveCategory());
+        navigate('/404', { replace: true });
       })
       .finally(() => dispatch(loadEnd({})));
   }, [categorySlug]);
@@ -130,6 +133,7 @@ export const CatalogPage: FC = () => {
 
   useEffect(() => {
     dispatch(loading({}));
+    dispatch(catalogUpdating());
 
     getProductsList({
       sort: sortBy,
@@ -147,6 +151,7 @@ export const CatalogPage: FC = () => {
       .catch(error => toast.error(error))
       .finally(() => {
         dispatch(loadEnd({}));
+        dispatch(catalogUpdatingEnd());
       });
   }, [
     sortBy,

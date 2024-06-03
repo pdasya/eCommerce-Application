@@ -27,7 +27,6 @@ describe('NewAddressForm', () => {
     expect(screen.getByLabelText(/Street Name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/City/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Postal Code/i)).toBeInTheDocument();
-    // expect(screen.getByLabelText(/Country/i)).toBeInTheDocument();
   });
 
   test('does not render form fields when isAdding is false', () => {
@@ -60,9 +59,9 @@ describe('NewAddressForm', () => {
     render(<NewAddressForm {...defaultProps} />);
     fireEvent.click(screen.getByText(/Save New Shipping Address/i));
 
-    expect(await screen.findByText(/Shipping street is required/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Street is required/i)).toBeInTheDocument();
     expect(await screen.findByText(/city is required/i)).toBeInTheDocument();
-    expect(await screen.findByText(/Shipping postal code is required/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Postal code is required/i)).toBeInTheDocument();
     expect(await screen.findByText(/Invalid country selection/i)).toBeInTheDocument();
   });
 });

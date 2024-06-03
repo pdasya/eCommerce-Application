@@ -91,8 +91,9 @@ const NewAddressForm: React.FC<NewAddressFormProps> = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth error={!!errors.country}>
-                <InputLabel>Country</InputLabel>
+                <InputLabel variant="filled">Country</InputLabel>
                 <Select
+                  variant="outlined"
                   value={address.country}
                   onChange={e => handleAddressChange('country')(e.target.value as string)}>
                   <MenuItem value="US">United States</MenuItem>

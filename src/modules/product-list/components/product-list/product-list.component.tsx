@@ -12,10 +12,10 @@ export const ProductList: FC = () => {
 
   return (
     <div className={styles.root}>
-      {products.length ? (
-        products.map(product => <ProductCard {...product} key={product.id} />)
-      ) : isUpdating ? (
+      {isUpdating ? (
         <LoadingBanner />
+      ) : products.length ? (
+        products.map(product => <ProductCard {...product} key={product.id} />)
       ) : (
         <NotFoundBanner />
       )}

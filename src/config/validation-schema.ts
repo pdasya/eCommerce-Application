@@ -50,7 +50,7 @@ const dateOfBirthValidationSchema = Yup.date()
 
 const shippingStreetValidationSchema = Yup.string()
   .min(minStreetNameLength, 'Street must contain at least one character')
-  .required('Shipping street is required');
+  .required('Street is required');
 
 const shippingCityValidationSchema = Yup.string()
   .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
@@ -58,15 +58,15 @@ const shippingCityValidationSchema = Yup.string()
 
 const shippingPostalCodeValidationSchema = Yup.string()
   .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
-  .required('Billing postal code is required');
+  .required('Postal code is required');
 
 const shippingCountryValidationSchema = Yup.string()
-  .oneOf(['US'], 'Invalid country selection')
-  .required('Billing country is required');
+  .oneOf(['US', 'CA'], 'Invalid country selection')
+  .required('Country is required');
 
 const billingStreetValidationSchema = Yup.string()
   .min(minStreetNameLength, 'Street must contain at least one character')
-  .required('Billing street is required');
+  .required('Street is required');
 
 const billingCityValidationSchema = Yup.string()
   .matches(/^[A-Za-z]+$/, 'City must contain only alphabetic characters')
@@ -74,11 +74,11 @@ const billingCityValidationSchema = Yup.string()
 
 const billingPostalCodeValidationSchema = Yup.string()
   .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
-  .required('Billing postal code is required');
+  .required('Postal code is required');
 
 const billingCountryValidationSchema = Yup.string()
-  .oneOf(['US'], 'Invalid country selection')
-  .required('Billing country is required');
+  .oneOf(['US', 'CA'], 'Invalid country selection')
+  .required('Country is required');
 
 export const baseSchema = {
   email: emailValidationSchema,
@@ -92,12 +92,28 @@ export const baseSchema = {
   shippingCountry: shippingCountryValidationSchema,
 };
 
-export const baseSchemaUser = {
+export const addressValidationSchema = Yup.object().shape({
+  streetName: shippingStreetValidationSchema,
+  city: shippingCityValidationSchema,
+  postalCode: shippingPostalCodeValidationSchema,
+  country: shippingCountryValidationSchema,
+});
+
+export const baseSchemaUser = Yup.object().shape({
   email: emailValidationSchema,
   firstName: firstNameValidationSchema,
   lastName: lastNameValidationSchema,
   dateOfBirth: dateOfBirthValidationSchema,
-};
+  shippingAddresses: Yup.array().of(addressValidationSchema),
+  billingAddresses: Yup.array().of(addressValidationSchema),
+});
+
+export const billingSchemaUser = Yup.object().shape({
+  billingStreet: billingStreetValidationSchema,
+  billingCity: billingCityValidationSchema,
+  billingPostalCode: billingPostalCodeValidationSchema,
+  billingCountry: billingCountryValidationSchema,
+});
 
 export const billingSchema = {
   billingStreet: billingStreetValidationSchema,

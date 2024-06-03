@@ -1,65 +1,103 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Typography, Grid, Avatar, Divider, Paper, Button } from '@mui/material';
+import { Typography, Grid, Paper, Button, Avatar, Divider } from '@mui/material';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
-import * as Yup from 'yup';
 import { ValidationError } from 'yup';
-import styles from './user-profile-module.module.scss';
+import { Address } from '@commercetools/platform-sdk';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
-import { MyCustomerUpdateAction, Errors } from '../interfaces/user-profile.interfaces';
+import {
+  MyCustomerUpdateAction,
+  Errors,
+  PersonalUserData,
+  AddressErrors,
+} from '../interfaces/user-profile.interfaces';
 import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
+import styles from './user-profile-module.module.scss';
+
+const initialValues = {
+  firstName: '',
+  lastName: '',
+  dateOfBirth: '',
+  email: '',
+  shippingAddresses: [],
+  billingAddresses: [],
+  defaultShippingAddressId: '',
+  defaultBillingAddressId: '',
+};
 
 export const UserProfileModule: FC = () => {
-  const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-    shippingStreet: '',
-    shippingCity: '',
-    shippingPostalCode: '',
-    shippingCountry: '',
-    isShippingAddressDefault: false,
-    billingStreet: '',
-    billingCity: '',
-    billingPostalCode: '',
-    billingCountry: '',
-    isBillingAddressDefault: false,
-  });
-
+  const [userData, setUserData] = useState<PersonalUserData>(initialValues);
+  const [userErrors, setUserErrors] = useState<Errors>(initialValues);
   const [editMode, setEditMode] = useState(false);
-  const [userErrors, setUserErrors] = useState<Errors>({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-  });
-
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
 
-  const validateData = async () => {
-    const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
-
+  const updateUserData = async () => {
     try {
-      await Yup.object(baseSchemaUser).validate(userData, { abortEarly: false });
+      await fetchUserData(setUserData);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  useEffect(() => {
+    updateUserData();
+  }, []);
+
+  const validateData = async () => {
+    const newErrors: Errors = {
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      email: '',
+      shippingAddresses: userData.shippingAddresses.map(() => ({
+        streetName: '',
+        city: '',
+        postalCode: '',
+        country: '',
+      })),
+      billingAddresses: userData.billingAddresses.map(() => ({
+        streetName: '',
+        city: '',
+        postalCode: '',
+        country: '',
+      })),
+    };
+    try {
+      await baseSchemaUser.validate(userData, { abortEarly: false });
       setUserErrors(newErrors);
       return true;
     } catch (err) {
       if (err instanceof ValidationError) {
+        const updatedErrors = { ...newErrors };
         err.inner.forEach(validationError => {
           if (validationError.path) {
-            newErrors[validationError.path as keyof Errors] = validationError.message;
+            const pathParts = validationError.path.split('.');
+            if (pathParts.length === 1) {
+              updatedErrors[
+                pathParts[0] as keyof Omit<Errors, 'shippingAddresses' | 'billingAddresses'>
+              ] = validationError.message;
+            } else if (pathParts.length === 2) {
+              const addressType = pathParts[0].slice(0, pathParts[0].indexOf('[')) as
+                | 'shippingAddresses'
+                | 'billingAddresses';
+              const match = pathParts[0].match(/\d+/);
+              const index = match ? parseInt(match[0], 10) : 0;
+              const field = pathParts[1] as keyof AddressErrors;
+              if (updatedErrors[addressType] && updatedErrors[addressType][index]) {
+                updatedErrors[addressType][index][field] = validationError.message;
+              }
+            }
           }
         });
+        setUserErrors(updatedErrors);
       }
-      setUserErrors(newErrors);
       return false;
     }
   };
 
-  const createUpdateActions = (data: typeof userData): MyCustomerUpdateAction[] => {
+  const createUpdateActions = (data: PersonalUserData): MyCustomerUpdateAction[] => {
     const actions: MyCustomerUpdateAction[] = [];
     if (data.firstName) {
       actions.push({ action: 'setFirstName', firstName: data.firstName });
@@ -73,22 +111,68 @@ export const UserProfileModule: FC = () => {
     if (data.dateOfBirth) {
       actions.push({ action: 'setDateOfBirth', dateOfBirth: data.dateOfBirth });
     }
+
+    data.shippingAddresses.forEach(address => {
+      actions.push({
+        action: 'changeAddress',
+        addressId: address.id!,
+        address: {
+          streetName: address.streetName!,
+          city: address.city!,
+          postalCode: address.postalCode!,
+          country: address.country,
+        },
+      });
+    });
+
+    data.billingAddresses.forEach(address => {
+      actions.push({
+        action: 'changeAddress',
+        addressId: address.id!,
+        address: {
+          streetName: address.streetName!,
+          city: address.city!,
+          postalCode: address.postalCode!,
+          country: address.country,
+        },
+      });
+    });
     return actions;
   };
 
-  const handleDataChange = (field: keyof typeof userData) => (value: string) => {
-    setUserData(prevData => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
+  const handleDataChange =
+    <T extends keyof PersonalUserData>(path: T) =>
+    (value: PersonalUserData[T] | string | boolean) => {
+      setUserData(prevData => {
+        const newData: PersonalUserData = { ...prevData };
+        const keys = path.split('.') as Array<keyof PersonalUserData>;
 
-  useEffect(() => {
-    fetchUserData(setUserData);
-  }, []);
+        type CurrentType = PersonalUserData | Address | string | boolean | undefined;
+
+        let current: CurrentType = newData;
+
+        for (let i = 0; i < keys.length - 1; i += 1) {
+          const key = keys[i];
+
+          if (typeof current === 'object' && current !== null && key in current) {
+            current = current[key as keyof CurrentType] as CurrentType;
+          } else {
+            throw new Error(`Invalid path: ${keys.slice(0, i + 1).join('.')}`);
+          }
+        }
+
+        const lastKey = keys[keys.length - 1] as keyof CurrentType;
+        if (typeof current === 'object' && current !== null && lastKey in current) {
+          (current as unknown as Record<string, PersonalUserData[T] | string | boolean>)[lastKey] =
+            value;
+        }
+
+        return newData;
+      });
+    };
 
   const handleEditClick = async () => {
-    const newErrors: Errors = { firstName: '', lastName: '', dateOfBirth: '', email: '' };
+    const newErrors: Errors = initialValues;
     setUserErrors(newErrors);
 
     if (!editMode) {
@@ -113,7 +197,6 @@ export const UserProfileModule: FC = () => {
         toast.success(`Form successfully updated!`);
         setEditMode(false);
       } catch (error) {
-        console.error(error);
         toast.error(`Failed to update form!`);
       }
     } else {
@@ -154,6 +237,7 @@ export const UserProfileModule: FC = () => {
               errors={userErrors}
               editMode={editMode}
               handleDataChange={handleDataChange}
+              refreshUserData={updateUserData}
             />
           ) : (
             <PasswordChangeForm

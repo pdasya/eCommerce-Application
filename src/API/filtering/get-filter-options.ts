@@ -1,5 +1,5 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { fetchAllProducts } from '../products/products-service';
+import { fetchAllProducts, FetchProductsOptions } from '../products/products-service';
 
 function getFilterOptionsAdapter(products: ProductProjection[]): Record<string, string[]> {
   const attributesValuesDict: Record<string, Set<string>> = {};
@@ -33,8 +33,8 @@ function getFilterOptionsAdapter(products: ProductProjection[]): Record<string, 
   return result;
 }
 
-export const getFilterOptions = async () => {
-  const products = await fetchAllProducts({});
+export const getFilterOptions = async (options: FetchProductsOptions) => {
+  const products = await fetchAllProducts(options);
 
   return getFilterOptionsAdapter(products);
 };

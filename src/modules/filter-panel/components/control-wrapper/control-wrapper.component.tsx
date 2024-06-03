@@ -10,12 +10,19 @@ import styles from './control-wrapper.component.module.scss';
 interface IControlWrapperProps {
   control: React.ReactElement<IControlBaseProps<unknown>>;
   caption: string;
+  isOpenDefault?: boolean;
 }
 
-export const ControlWrapper: FC<IControlWrapperProps> = ({ caption, control }) => {
+export const ControlWrapper: FC<IControlWrapperProps> = ({
+  caption,
+  control,
+  isOpenDefault = false,
+}) => {
   const childRef = useRef<IControlHandle>(null);
-  const [isOpen, setOpen] = useState<boolean>(true);
+
+  const [isOpen, setOpen] = useState<boolean>(isOpenDefault);
   const [isDefault, setIsDefault] = useState<boolean>(true);
+
   const referencedControl = useMemo(
     () => cloneElement(control, { ref: childRef, onDefaultChange: setIsDefault }),
     [control],

@@ -17,13 +17,13 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
       [options],
     );
     const [commonSwitchState, setCommonSwitchState] = useState(false);
-    const [optionsState, setOptionsState] = useState(options);
+    const [optionsState, setOptionsState] = useState(clearedState);
     const [isDefault, setIsDefault] = useState<boolean>(true);
 
     // TODO: Issue #189: Fix filter controls rerender issues
     const customFilters = useAppSelector(selectCustomFilters);
     useEffect(() => {
-      setOptionsState(options);
+      setOptionsState(customFilters[name]);
     }, [customFilters]);
 
     useEffect(() => {
@@ -76,7 +76,7 @@ export const MultiChoiceControl = forwardRef<IControlHandle, IMultiChoiceControl
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={optionsState[optionName]}
+                  checked={optionsState[optionName] ?? false}
                   onChange={() => handleOptionChange(optionName)}
                 />
               }

@@ -7,6 +7,8 @@ import {
   MyCustomerAddShippingAddressIdAction,
   MyCustomerAddBillingAddressIdAction,
   Address,
+  MyCustomerSetDefaultShippingAddressAction,
+  MyCustomerSetDefaultBillingAddressAction,
 } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
 import {
@@ -126,6 +128,45 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
     }
   };
 
+  const handleDefaultChange = async (addressId: string, addressType: 'shipping' | 'billing') => {
+    try {
+      const response = await client.getClient().me().get().execute();
+      const customerVersion = response.body.version;
+
+      const setDefaultAction =
+        addressType === 'shipping'
+          ? ({
+              action: 'setDefaultShippingAddress',
+              addressId,
+            } as MyCustomerSetDefaultShippingAddressAction)
+          : ({
+              action: 'setDefaultBillingAddress',
+              addressId,
+            } as MyCustomerSetDefaultBillingAddressAction);
+
+      await client
+        .getClient()
+        .me()
+        .post({
+          body: {
+            version: customerVersion,
+            actions: [setDefaultAction],
+          },
+        })
+        .execute();
+
+      toast.success(
+        `Default ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address Successfully Updated!`,
+      );
+      refreshUserData();
+    } catch (error) {
+      console.error(`Error setting default ${addressType} address:`, error);
+      toast.error(
+        `Failed to Set Default ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address!`,
+      );
+    }
+  };
+
   return (
     <>
       <Typography variant="subtitle1" className={styles.sectionHeader}>
@@ -172,10 +213,11 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         errors={errors}
         editMode={editMode}
         handleDataChange={handleDataChange}
+        handleDefaultChange={id => handleDefaultChange(id, 'shipping')}
         type="shipping"
       />
       <Button
-        variant="outlined"
+        variant="contained"
         onClick={() => setIsAddingNewShippingAddress(!isAddingNewShippingAddress)}
         className={styles.addNewAddressButton}>
         {isAddingNewShippingAddress ? 'Cancel New Shipping Address' : 'Add New Shipping Address'}
@@ -203,10 +245,11 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         errors={errors}
         editMode={editMode}
         handleDataChange={handleDataChange}
+        handleDefaultChange={id => handleDefaultChange(id, 'billing')}
         type="billing"
       />
       <Button
-        variant="outlined"
+        variant="contained"
         onClick={() => setIsAddingNewBillingAddress(!isAddingNewBillingAddress)}
         className={styles.addNewAddressButton}>
         {isAddingNewBillingAddress ? 'Cancel New Billing Address' : 'Add New Billing Address'}

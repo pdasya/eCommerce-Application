@@ -17,6 +17,7 @@ interface AddressListProps {
   errors: AddressListErrors;
   editMode: boolean;
   handleDataChange: (path: string) => (value: string) => void;
+  handleDefaultChange: (id: string) => void;
   type: 'shipping' | 'billing';
 }
 
@@ -26,6 +27,7 @@ const AddressList: React.FC<AddressListProps> = ({
   errors,
   editMode,
   handleDataChange,
+  handleDefaultChange,
   type,
 }) => (
   <>
@@ -70,9 +72,14 @@ const AddressList: React.FC<AddressListProps> = ({
             error={errors[`${type}Addresses`]?.[index]?.country}
           />
           <FormControlLabel
-            control={<Checkbox checked={address.id === defaultAddressId} />}
+            control={
+              <Checkbox
+                checked={address.id === defaultAddressId}
+                onChange={() => handleDefaultChange(address.id!)}
+              />
+            }
             label={`Default ${type} address`}
-            disabled
+            // disabled
             className={styles.defaultCheckbox}
           />
         </div>

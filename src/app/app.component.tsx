@@ -1,22 +1,14 @@
 import React, { ReactElement, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
-import {
-  setCustomFilterOptions,
-  setPriceFilter,
-  setPriceLimits,
-} from '@store/catalog/catalog.slice';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { tokenName, saveStorage } from '@config/constants';
 import { authorize } from '@store/auth/auth.slice';
 import { GlobalLoading } from '@components/global-loading/global-loading.component';
 import { authEnd } from '@store/misc/misc.slice';
 import 'react-toastify/dist/ReactToastify.css';
-import { allowedAttributesNames } from '@config/allowed-filter-attributes';
 import { client } from '../config/constants';
 import styles from './app.component.module.scss';
-import { getFilterOptions } from '@/API/filtering/get-filter-options';
-import { getPriceRange } from '@/API/filtering/get-price-range';
 import { Header } from '@/modules/header';
 import { Footer } from '@/modules/footer';
 
@@ -52,30 +44,6 @@ const App = (): ReactElement => {
   };
 
   init();
-
-  useEffect(() => {
-    getFilterOptions()
-      .then(attributes => {
-        Object.keys(attributes).forEach(name => {
-          if (!allowedAttributesNames.includes(name)) {
-            delete attributes[name];
-          }
-        });
-        dispatch(setCustomFilterOptions(attributes));
-      })
-      .catch(error => toast.error(error));
-
-    getPriceRange()
-      .then(({ min, max }) => {
-        const roundedLimits = {
-          min: Math.floor(min),
-          max: Math.ceil(max),
-        };
-        dispatch(setPriceLimits(roundedLimits));
-        dispatch(setPriceFilter(roundedLimits));
-      })
-      .catch(error => toast.error(error));
-  }, []);
 
   return (
     <div className={styles.app}>

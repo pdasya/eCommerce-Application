@@ -10,8 +10,10 @@ interface ICatalogState {
   products: IProduct[];
   priceLimits: { min: number; max: number };
   priceFilter: { min: number; max: number };
+  isPriceFilterInitialized: boolean;
   customFilterOptions: Record<string, string[]>;
   customFilters: Record<string, Record<string, boolean>>;
+  isCustomFiltersInitialized: boolean;
   isCatalogUpdating: boolean;
 }
 
@@ -22,9 +24,11 @@ const initialState: ICatalogState = {
   products: [],
   priceLimits: { min: 0, max: 0 },
   priceFilter: { min: 0, max: 0 },
+  isPriceFilterInitialized: false,
   customFilterOptions: {},
   customFilters: {},
-  isCatalogUpdating: false,
+  isCustomFiltersInitialized: false,
+  isCatalogUpdating: true,
 };
 
 const catalogSlice = createSlice({
@@ -33,6 +37,10 @@ const catalogSlice = createSlice({
   reducers: {
     setPriceLimits(state, action: PayloadAction<ICatalogState['priceLimits']>) {
       state.priceLimits = action.payload;
+      if (!state.isPriceFilterInitialized) {
+        state.priceFilter = action.payload;
+      }
+      state.isPriceFilterInitialized = true;
     },
     setPriceFilter(state, action: PayloadAction<ICatalogState['priceFilter']>) {
       state.priceFilter = action.payload;
@@ -45,6 +53,7 @@ const catalogSlice = createSlice({
 
       state.customFilters = Object.fromEntries(initialEntries);
       state.customFilterOptions = { ...action.payload };
+      state.isCustomFiltersInitialized = true;
     },
     setCustomFilters(state, action: PayloadAction<ICatalogState['customFilters']>) {
       state.customFilters = { ...action.payload };
@@ -108,4 +117,7 @@ export const selectPriceFilter = (state: RootState) => state.catalog.priceFilter
 export const selectCustomFilterOptions = (state: RootState) => state.catalog.customFilterOptions;
 export const selectCustomFilters = (state: RootState) => state.catalog.customFilters;
 export const selectIsCatalogUpdating = (state: RootState) => state.catalog.isCatalogUpdating;
+export const selectIsFiltersInitialized = (state: RootState) =>
+  state.catalog.isPriceFilterInitialized && state.catalog.isCustomFiltersInitialized;
+
 export const catalogReducer = catalogSlice.reducer;

@@ -6,6 +6,7 @@ import {
   catalogUpdatingEnd,
   searchValue,
   selectCustomFilters,
+  selectIsFiltersInitialized,
   selectPriceFilter,
   selectSort,
   update,
@@ -24,6 +25,7 @@ import { CategorySelector } from '@modules/category-selector/components/category
 import {
   resetActiveCategory,
   selectActiveCategory,
+  selectIsActiveCategoryInitialized,
   setActiveCategory,
   setActiveCategoryAncestors,
 } from '@store/category/category.slice';
@@ -45,14 +47,18 @@ export const CatalogPage: FC = () => {
   const priceFilter = useAppSelector(selectPriceFilter);
   const activeCategory = useAppSelector(selectActiveCategory);
   const customFilters = useAppSelector(selectCustomFilters);
+  const isCategoryInitialized = useAppSelector(selectIsActiveCategoryInitialized);
+  const isFiltersInitialized = useAppSelector(selectIsFiltersInitialized);
 
   const location = useLocation().pathname.split('/');
   const categorySlug = location[location.length - 1];
 
   useEffect(() => {
-    console.log(categorySlug);
     if (categorySlug === catalogDefaultCategorySlug) {
-      dispatch(resetActiveCategory());
+      if (!isCategoryInitialized || categorySlug !== activeCategory?.slug) {
+        dispatch(resetActiveCategory());
+      }
+
       return;
     }
 
@@ -60,6 +66,10 @@ export const CatalogPage: FC = () => {
 
     getCategoryBySlug(categorySlug)
       .then(category => {
+        if (category.slug === activeCategory?.slug) {
+          return;
+        }
+
         dispatch(setActiveCategory(category));
 
         Promise.all(category.ancestors.map(({ id }) => getCategoryById(id))).then(ancestors =>
@@ -101,6 +111,10 @@ export const CatalogPage: FC = () => {
   );
 
   useEffect(() => {
+    if (!isCategoryInitialized || !isFiltersInitialized) {
+      return;
+    }
+
     dispatch(loading({}));
     dispatch(catalogUpdating());
 

@@ -1,0 +1,1076 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter panel snapshot match: filter-panel-snapshot-1 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <div
+      class="root"
+    >
+      <div
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          >
+            <h3>
+              Price
+            </h3>
+          </span>
+        </div>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ExpandLessIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+          />
+        </svg>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+          >
+            <div
+              class="outlet"
+            >
+              <div
+                class="root"
+              >
+                <div
+                  class="inputs"
+                >
+                  <div
+                    class="base-NumberInput-root css-15az5pb"
+                  >
+                    <button
+                      aria-controls=":r0:"
+                      aria-disabled="true"
+                      class="base-NumberInput-decrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▾
+                    </button>
+                    <button
+                      aria-controls=":r0:"
+                      aria-disabled="true"
+                      class="base-NumberInput-incrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▴
+                    </button>
+                    <input
+                      aria-disabled="false"
+                      aria-valuemax="0"
+                      aria-valuemin="0"
+                      aria-valuenow="0"
+                      aria-valuetext="0"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="base-NumberInput-input css-wfz5ot"
+                      id=":r0:"
+                      spellcheck="false"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+                  <div
+                    class="base-NumberInput-root css-15az5pb"
+                  >
+                    <button
+                      aria-controls=":r1:"
+                      aria-disabled="true"
+                      class="base-NumberInput-decrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▾
+                    </button>
+                    <button
+                      aria-controls=":r1:"
+                      aria-disabled="true"
+                      class="base-NumberInput-incrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▴
+                    </button>
+                    <input
+                      aria-disabled="false"
+                      aria-valuemax="0"
+                      aria-valuemin="0"
+                      aria-valuenow="0"
+                      aria-valuetext="0"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="base-NumberInput-input css-wfz5ot"
+                      id=":r1:"
+                      spellcheck="false"
+                      type="text"
+                      value="0"
+                    />
+                  </div>
+                </div>
+                <span
+                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium slider css-188mx6n-MuiSlider-root"
+                >
+                  <span
+                    class="MuiSlider-rail css-7o8aqz-MuiSlider-rail"
+                  />
+                  <span
+                    class="MuiSlider-track css-ttgsjq-MuiSlider-track"
+                  />
+                  <span
+                    class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
+                    data-index="0"
+                  >
+                    <input
+                      aria-orientation="horizontal"
+                      aria-valuemax="0"
+                      aria-valuemin="0"
+                      aria-valuenow="0"
+                      data-index="0"
+                      max="0"
+                      min="0"
+                      step="1"
+                      style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+                      type="range"
+                      value="0"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="MuiSlider-valueLabel css-14gyywz-MuiSlider-valueLabel"
+                    >
+                      <span
+                        class="MuiSlider-valueLabelCircle"
+                      >
+                        <span
+                          class="MuiSlider-valueLabelLabel"
+                        >
+                          0
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
+                    data-index="1"
+                  >
+                    <input
+                      aria-orientation="horizontal"
+                      aria-valuemax="0"
+                      aria-valuemin="0"
+                      aria-valuenow="0"
+                      data-index="1"
+                      max="0"
+                      min="0"
+                      step="1"
+                      style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+                      type="range"
+                      value="0"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="MuiSlider-valueLabel css-14gyywz-MuiSlider-valueLabel"
+                    >
+                      <span
+                        class="MuiSlider-valueLabelCircle"
+                      >
+                        <span
+                          class="MuiSlider-valueLabelLabel"
+                        >
+                          0
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                Reset
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning css-1qtu9q6-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      apply
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1rwt2y5-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      reset all filters
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <div
+      class="root"
+    >
+      <div
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          >
+            <h3>
+              Price
+            </h3>
+          </span>
+        </div>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ExpandLessIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+          />
+        </svg>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+          >
+            <div
+              class="outlet"
+            >
+              <div
+                class="root"
+              >
+                <div
+                  class="inputs"
+                >
+                  <div
+                    class="base-NumberInput-root css-15az5pb"
+                  >
+                    <button
+                      aria-controls=":r0:"
+                      aria-disabled="true"
+                      class="base-NumberInput-decrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▾
+                    </button>
+                    <button
+                      aria-controls=":r0:"
+                      aria-disabled="false"
+                      class="base-NumberInput-incrementButton css-p82faw"
+                      tabindex="-1"
+                    >
+                      ▴
+                    </button>
+                    <input
+                      aria-disabled="false"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="10"
+                      aria-valuetext="10"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="base-NumberInput-input css-wfz5ot"
+                      id=":r0:"
+                      spellcheck="false"
+                      type="text"
+                      value="10"
+                    />
+                  </div>
+                  <div
+                    class="base-NumberInput-root css-15az5pb"
+                  >
+                    <button
+                      aria-controls=":r1:"
+                      aria-disabled="false"
+                      class="base-NumberInput-decrementButton css-p82faw"
+                      tabindex="-1"
+                    >
+                      ▾
+                    </button>
+                    <button
+                      aria-controls=":r1:"
+                      aria-disabled="true"
+                      class="base-NumberInput-incrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▴
+                    </button>
+                    <input
+                      aria-disabled="false"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="100"
+                      aria-valuetext="100"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="base-NumberInput-input css-wfz5ot"
+                      id=":r1:"
+                      spellcheck="false"
+                      type="text"
+                      value="100"
+                    />
+                  </div>
+                </div>
+                <span
+                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium slider css-188mx6n-MuiSlider-root"
+                >
+                  <span
+                    class="MuiSlider-rail css-7o8aqz-MuiSlider-rail"
+                  />
+                  <span
+                    class="MuiSlider-track css-ttgsjq-MuiSlider-track"
+                    style="left: 0%; width: 100%;"
+                  />
+                  <span
+                    class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
+                    data-index="0"
+                    style="left: 0%;"
+                  >
+                    <input
+                      aria-orientation="horizontal"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="10"
+                      data-index="0"
+                      max="100"
+                      min="10"
+                      step="1"
+                      style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+                      type="range"
+                      value="10"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="MuiSlider-valueLabel css-14gyywz-MuiSlider-valueLabel"
+                    >
+                      <span
+                        class="MuiSlider-valueLabelCircle"
+                      >
+                        <span
+                          class="MuiSlider-valueLabelLabel"
+                        >
+                          10
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
+                    data-index="1"
+                    style="left: 100%;"
+                  >
+                    <input
+                      aria-orientation="horizontal"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="100"
+                      data-index="1"
+                      max="100"
+                      min="10"
+                      step="1"
+                      style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+                      type="range"
+                      value="100"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="MuiSlider-valueLabel css-14gyywz-MuiSlider-valueLabel"
+                    >
+                      <span
+                        class="MuiSlider-valueLabelCircle"
+                      >
+                        <span
+                          class="MuiSlider-valueLabelLabel"
+                        >
+                          100
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                Reset
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning css-1qtu9q6-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      apply
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1rwt2y5-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      reset all filters
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <div
+      class="root"
+    >
+      <div
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          >
+            <h3>
+              Price
+            </h3>
+          </span>
+        </div>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ExpandLessIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+          />
+        </svg>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+          >
+            <div
+              class="outlet"
+            >
+              <div
+                class="root"
+              >
+                <div
+                  class="inputs"
+                >
+                  <div
+                    class="base-NumberInput-root css-15az5pb"
+                  >
+                    <button
+                      aria-controls=":r0:"
+                      aria-disabled="true"
+                      class="base-NumberInput-decrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▾
+                    </button>
+                    <button
+                      aria-controls=":r0:"
+                      aria-disabled="false"
+                      class="base-NumberInput-incrementButton css-p82faw"
+                      tabindex="-1"
+                    >
+                      ▴
+                    </button>
+                    <input
+                      aria-disabled="false"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="10"
+                      aria-valuetext="10"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="base-NumberInput-input css-wfz5ot"
+                      id=":r0:"
+                      spellcheck="false"
+                      type="text"
+                      value="10"
+                    />
+                  </div>
+                  <div
+                    class="base-NumberInput-root css-15az5pb"
+                  >
+                    <button
+                      aria-controls=":r1:"
+                      aria-disabled="false"
+                      class="base-NumberInput-decrementButton css-p82faw"
+                      tabindex="-1"
+                    >
+                      ▾
+                    </button>
+                    <button
+                      aria-controls=":r1:"
+                      aria-disabled="true"
+                      class="base-NumberInput-incrementButton base--disabled css-p82faw"
+                      disabled=""
+                      tabindex="-1"
+                    >
+                      ▴
+                    </button>
+                    <input
+                      aria-disabled="false"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="100"
+                      aria-valuetext="100"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="base-NumberInput-input css-wfz5ot"
+                      id=":r1:"
+                      spellcheck="false"
+                      type="text"
+                      value="100"
+                    />
+                  </div>
+                </div>
+                <span
+                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium slider css-188mx6n-MuiSlider-root"
+                >
+                  <span
+                    class="MuiSlider-rail css-7o8aqz-MuiSlider-rail"
+                  />
+                  <span
+                    class="MuiSlider-track css-ttgsjq-MuiSlider-track"
+                    style="left: 0%; width: 100%;"
+                  />
+                  <span
+                    class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
+                    data-index="0"
+                    style="left: 0%;"
+                  >
+                    <input
+                      aria-orientation="horizontal"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="10"
+                      data-index="0"
+                      max="100"
+                      min="10"
+                      step="1"
+                      style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+                      type="range"
+                      value="10"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="MuiSlider-valueLabel css-14gyywz-MuiSlider-valueLabel"
+                    >
+                      <span
+                        class="MuiSlider-valueLabelCircle"
+                      >
+                        <span
+                          class="MuiSlider-valueLabelLabel"
+                        >
+                          10
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
+                    data-index="1"
+                    style="left: 100%;"
+                  >
+                    <input
+                      aria-orientation="horizontal"
+                      aria-valuemax="100"
+                      aria-valuemin="10"
+                      aria-valuenow="100"
+                      data-index="1"
+                      max="100"
+                      min="10"
+                      step="1"
+                      style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
+                      type="range"
+                      value="100"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="MuiSlider-valueLabel css-14gyywz-MuiSlider-valueLabel"
+                    >
+                      <span
+                        class="MuiSlider-valueLabelCircle"
+                      >
+                        <span
+                          class="MuiSlider-valueLabelLabel"
+                        >
+                          100
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                Reset
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="root"
+    >
+      <div
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          >
+            <h3>
+              Filter1
+            </h3>
+          </span>
+        </div>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ExpandLessIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+          />
+        </svg>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+          >
+            <div
+              class="outlet"
+            >
+              <div
+                class="root"
+              >
+                <div
+                  class="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
+                >
+                  <label
+                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                  >
+                    <span
+                      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                    >
+                      <input
+                        class="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate="false"
+                        type="checkbox"
+                      />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                    <span
+                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+                    >
+                      Select all
+                    </span>
+                  </label>
+                  <hr
+                    class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+                  />
+                  <label
+                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                  >
+                    <span
+                      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                    >
+                      <input
+                        class="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate="false"
+                        type="checkbox"
+                      />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                    <span
+                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+                    >
+                      option11
+                    </span>
+                  </label>
+                  <label
+                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                  >
+                    <span
+                      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                    >
+                      <input
+                        class="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate="false"
+                        type="checkbox"
+                      />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                    <span
+                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+                    >
+                      option12
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                Reset
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="root"
+    >
+      <div
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiListItemText-root css-tlelie-MuiListItemText-root"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          >
+            <h3>
+              Filter2
+            </h3>
+          </span>
+        </div>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ExpandLessIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+          />
+        </svg>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+          >
+            <div
+              class="outlet"
+            >
+              <div
+                class="root"
+              >
+                <div
+                  class="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
+                >
+                  <label
+                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                  >
+                    <span
+                      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                    >
+                      <input
+                        class="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate="false"
+                        type="checkbox"
+                      />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                    <span
+                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+                    >
+                      Select all
+                    </span>
+                  </label>
+                  <hr
+                    class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+                  />
+                  <label
+                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                  >
+                    <span
+                      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                    >
+                      <input
+                        class="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate="false"
+                        type="checkbox"
+                      />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                    <span
+                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+                    >
+                      option21
+                    </span>
+                  </label>
+                  <label
+                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                  >
+                    <span
+                      class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                    >
+                      <input
+                        class="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate="false"
+                        type="checkbox"
+                      />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                    <span
+                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+                    >
+                      option22
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                Reset
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning MuiButton-root MuiButton-contained MuiButton-containedWarning MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorWarning css-1qtu9q6-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      apply
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorPrimary css-1rwt2y5-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      reset all filters
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;

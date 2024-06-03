@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Typography, Grid, Paper, Button, Avatar, Divider } from '@mui/material';
 import { toast } from 'react-toastify';
 import { client } from '@config/constants';
-import { baseSchemaUser, billingSchemaUser } from '@config/validation-schema';
+import { baseSchemaUser } from '@config/validation-schema';
 import { ValidationError } from 'yup';
 import { Address } from '@commercetools/platform-sdk';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
@@ -65,7 +65,7 @@ export const UserProfileModule: FC = () => {
       })),
     };
     try {
-      await baseSchemaUser.concat(billingSchemaUser).validate(userData, { abortEarly: false });
+      await baseSchemaUser.validate(userData, { abortEarly: false });
       setUserErrors(newErrors);
       return true;
     } catch (err) {

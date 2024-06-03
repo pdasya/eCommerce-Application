@@ -58,7 +58,7 @@ const shippingCityValidationSchema = Yup.string()
 
 const shippingPostalCodeValidationSchema = Yup.string()
   .matches(/^\d{5}(-\d{4})?$/, 'Postal code must be in the format 12345 or 12345-6789')
-  .required('Billing postal code is required');
+  .required('Shipping postal code is required');
 
 const shippingCountryValidationSchema = Yup.string()
   .oneOf(['US', 'CA'], 'Invalid country selection')
@@ -106,6 +106,13 @@ export const baseSchemaUser = Yup.object().shape({
   dateOfBirth: dateOfBirthValidationSchema,
   shippingAddresses: Yup.array().of(addressValidationSchema),
   billingAddresses: Yup.array().of(addressValidationSchema),
+});
+
+export const billingSchemaUser = Yup.object().shape({
+  billingStreet: billingStreetValidationSchema,
+  billingCity: billingCityValidationSchema,
+  billingPostalCode: billingPostalCodeValidationSchema,
+  billingCountry: billingCountryValidationSchema,
 });
 
 export const billingSchema = {

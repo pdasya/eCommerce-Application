@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Address } from '@commercetools/platform-sdk';
-import { addressValidationSchema } from '@config/validation-schema';
+import { addressValidationSchema, billingSchemaUser } from '@config/validation-schema';
 import * as Yup from 'yup';
 import styles from './user-profile-new-address.module.scss';
 
@@ -34,7 +34,9 @@ const NewAddressForm: React.FC<NewAddressFormProps> = ({
 
   const validateAndSubmit = async () => {
     try {
-      await addressValidationSchema.validate(address, { abortEarly: false });
+      await addressValidationSchema
+        .concat(billingSchemaUser)
+        .validate(address, { abortEarly: false });
       setErrors({});
       handleAddressSubmit();
     } catch (validationErrors) {

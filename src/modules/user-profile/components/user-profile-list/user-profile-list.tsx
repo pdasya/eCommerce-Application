@@ -121,7 +121,6 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         throw new Error('Failed to retrieve new address ID.');
       }
     } catch (error) {
-      console.error(`Error adding ${addressType} address:`, error);
       toast.error(
         `Failed to Add ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address!`,
       );
@@ -160,7 +159,6 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
       );
       refreshUserData();
     } catch (error) {
-      console.error(`Error setting default ${addressType} address:`, error);
       toast.error(
         `Failed to Set Default ${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address!`,
       );

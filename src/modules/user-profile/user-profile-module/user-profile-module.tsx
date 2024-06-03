@@ -164,7 +164,8 @@ export const UserProfileModule: FC = () => {
 
         const lastKey = keys[keys.length - 1] as keyof CurrentType;
         if (typeof current === 'object' && current !== null && lastKey in current) {
-          (current as Record<string, any>)[lastKey as string] = value;
+          (current as unknown as Record<string, PersonalUserData[T] | string | boolean>)[lastKey] =
+            value;
         }
 
         return newData;
@@ -197,7 +198,6 @@ export const UserProfileModule: FC = () => {
         toast.success(`Form successfully updated!`);
         setEditMode(false);
       } catch (error) {
-        console.error(error);
         toast.error(`Failed to update form!`);
       }
     } else {

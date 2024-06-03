@@ -33,7 +33,6 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<Persona
       defaultBillingAddressId,
     });
   } catch (error) {
-    console.error('Error loading user data:', error);
     setUserData({
       firstName: 'Failed to load first name',
       lastName: 'Failed to load last name',

@@ -61,7 +61,7 @@ const shippingPostalCodeValidationSchema = Yup.string()
   .required('Billing postal code is required');
 
 const shippingCountryValidationSchema = Yup.string()
-  .oneOf(['US'], 'Invalid country selection')
+  .oneOf(['US', 'CA'], 'Invalid country selection')
   .required('Billing country is required');
 
 const billingStreetValidationSchema = Yup.string()
@@ -77,7 +77,7 @@ const billingPostalCodeValidationSchema = Yup.string()
   .required('Billing postal code is required');
 
 const billingCountryValidationSchema = Yup.string()
-  .oneOf(['US'], 'Invalid country selection')
+  .oneOf(['US', 'CA'], 'Invalid country selection')
   .required('Billing country is required');
 
 export const baseSchema = {

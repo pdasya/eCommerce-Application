@@ -68,7 +68,7 @@ const AddressList: React.FC<AddressListProps> = ({
             editMode={editMode}
             onChange={handleDataChange(`${type}Addresses.${index}.country`)}
             type="select"
-            options={['US', 'Canada']}
+            options={['US', 'CA']}
             error={errors[`${type}Addresses`]?.[index]?.country}
           />
           <FormControlLabel

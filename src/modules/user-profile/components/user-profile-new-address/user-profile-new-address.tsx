@@ -96,7 +96,7 @@ const NewAddressForm: React.FC<NewAddressFormProps> = ({
                   value={address.country}
                   onChange={e => handleAddressChange('country')(e.target.value as string)}>
                   <MenuItem value="US">United States</MenuItem>
-                  <MenuItem value="Canada">Canada</MenuItem>
+                  <MenuItem value="CA">Canada</MenuItem>
                 </Select>
                 {errors.country && <Typography color="error">{errors.country}</Typography>}
               </FormControl>

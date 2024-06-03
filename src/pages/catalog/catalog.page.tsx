@@ -8,9 +8,6 @@ import {
   selectCustomFilters,
   selectPriceFilter,
   selectSort,
-  setCustomFilterOptions,
-  setPriceFilter,
-  setPriceLimits,
   update,
 } from '@store/catalog/catalog.slice';
 import { toast } from 'react-toastify';
@@ -27,18 +24,16 @@ import { CategorySelector } from '@modules/category-selector/components/category
 import {
   resetActiveCategory,
   selectActiveCategory,
+  selectIsActiveCategoryInitialized,
   setActiveCategory,
   setActiveCategoryAncestors,
 } from '@store/category/category.slice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { catalogDefaultCategorySlug } from '@config/constants';
 import { MainBreadcrumb } from '@modules/category-selector';
-import { allowedAttributesNames } from '@config/allowed-filter-attributes';
 import { getProductsList } from '@/API/products/products-adapter';
 import { getCategoryById, getCategoryBySlug } from '@/API/categories/get-categories';
 import styles from './catalog.page.module.scss';
-import { getFilterOptions } from '@/API/filtering/get-filter-options';
-import { getPriceRange } from '@/API/filtering/get-price-range';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -51,14 +46,17 @@ export const CatalogPage: FC = () => {
   const priceFilter = useAppSelector(selectPriceFilter);
   const activeCategory = useAppSelector(selectActiveCategory);
   const customFilters = useAppSelector(selectCustomFilters);
+  const isCategoryInitialized = useAppSelector(selectIsActiveCategoryInitialized);
 
   const location = useLocation().pathname.split('/');
   const categorySlug = location[location.length - 1];
 
   useEffect(() => {
-    console.log(categorySlug);
     if (categorySlug === catalogDefaultCategorySlug) {
-      dispatch(resetActiveCategory());
+      if (!isCategoryInitialized || categorySlug !== activeCategory?.slug) {
+        dispatch(resetActiveCategory());
+      }
+
       return;
     }
 
@@ -66,6 +64,10 @@ export const CatalogPage: FC = () => {
 
     getCategoryBySlug(categorySlug)
       .then(category => {
+        if (category.slug === activeCategory?.slug) {
+          return;
+        }
+
         dispatch(setActiveCategory(category));
 
         Promise.all(category.ancestors.map(({ id }) => getCategoryById(id))).then(ancestors =>
@@ -135,33 +137,6 @@ export const CatalogPage: FC = () => {
     searchText,
     activeCategory,
   ]);
-
-  useEffect(() => {
-    getFilterOptions({
-      filter: filtersByCategories,
-      searchValue: searchText,
-    })
-      .then(attributes => {
-        Object.keys(attributes).forEach(name => {
-          if (!allowedAttributesNames.includes(name)) {
-            delete attributes[name];
-          }
-        });
-        dispatch(setCustomFilterOptions(attributes));
-      })
-      .catch(error => toast.error(error));
-
-    getPriceRange()
-      .then(({ min, max }) => {
-        const roundedLimits = {
-          min: Math.floor(min),
-          max: Math.ceil(max),
-        };
-        dispatch(setPriceLimits(roundedLimits));
-        dispatch(setPriceFilter(roundedLimits));
-      })
-      .catch(error => toast.error(error));
-  }, [searchText, activeCategory]);
 
   return (
     <div className={styles.page}>

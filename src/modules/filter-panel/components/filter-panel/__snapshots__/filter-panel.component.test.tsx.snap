@@ -254,7 +254,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
       class="root"
     >
       <div
-        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters headerActive css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
         role="button"
         tabindex="0"
       >
@@ -308,9 +308,8 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                   >
                     <button
                       aria-controls=":r0:"
-                      aria-disabled="true"
-                      class="base-NumberInput-decrementButton base--disabled css-p82faw"
-                      disabled=""
+                      aria-disabled="false"
+                      class="base-NumberInput-decrementButton css-p82faw"
                       tabindex="-1"
                     >
                       ▾
@@ -327,15 +326,15 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                       aria-disabled="false"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="10"
-                      aria-valuetext="10"
+                      aria-valuenow="20"
+                      aria-valuetext="20"
                       autocomplete="off"
                       autocorrect="off"
                       class="base-NumberInput-input css-wfz5ot"
                       id=":r0:"
                       spellcheck="false"
                       type="text"
-                      value="10"
+                      value="20"
                     />
                   </div>
                   <div
@@ -351,9 +350,8 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                     </button>
                     <button
                       aria-controls=":r1:"
-                      aria-disabled="true"
-                      class="base-NumberInput-incrementButton base--disabled css-p82faw"
-                      disabled=""
+                      aria-disabled="false"
+                      class="base-NumberInput-incrementButton css-p82faw"
                       tabindex="-1"
                     >
                       ▴
@@ -362,15 +360,15 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                       aria-disabled="false"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="100"
-                      aria-valuetext="100"
+                      aria-valuenow="30"
+                      aria-valuetext="30"
                       autocomplete="off"
                       autocorrect="off"
                       class="base-NumberInput-input css-wfz5ot"
                       id=":r1:"
                       spellcheck="false"
                       type="text"
-                      value="100"
+                      value="30"
                     />
                   </div>
                 </div>
@@ -382,25 +380,25 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                   />
                   <span
                     class="MuiSlider-track css-ttgsjq-MuiSlider-track"
-                    style="left: 0%; width: 100%;"
+                    style="left: 11.11111111111111%; width: 11.11111111111111%;"
                   />
                   <span
                     class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
                     data-index="0"
-                    style="left: 0%;"
+                    style="left: 11.11111111111111%;"
                   >
                     <input
                       aria-orientation="horizontal"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="10"
+                      aria-valuenow="20"
                       data-index="0"
                       max="100"
                       min="10"
                       step="1"
                       style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
                       type="range"
-                      value="10"
+                      value="20"
                     />
                     <span
                       aria-hidden="true"
@@ -412,7 +410,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                         <span
                           class="MuiSlider-valueLabelLabel"
                         >
-                          10
+                          20
                         </span>
                       </span>
                     </span>
@@ -420,20 +418,20 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                   <span
                     class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
                     data-index="1"
-                    style="left: 100%;"
+                    style="left: 22.22222222222222%;"
                   >
                     <input
                       aria-orientation="horizontal"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="100"
+                      aria-valuenow="30"
                       data-index="1"
                       max="100"
                       min="10"
                       step="1"
                       style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
                       type="range"
-                      value="100"
+                      value="30"
                     />
                     <span
                       aria-hidden="true"
@@ -445,7 +443,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                         <span
                           class="MuiSlider-valueLabelLabel"
                         >
-                          100
+                          30
                         </span>
                       </span>
                     </span>
@@ -453,7 +451,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                 </span>
               </div>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton css-1e6y48t-MuiButtonBase-root-MuiButton-root"
                 tabindex="0"
                 type="button"
               >
@@ -500,7 +498,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
       class="root"
     >
       <div
-        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters headerActive css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
         role="button"
         tabindex="0"
       >
@@ -554,9 +552,8 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                   >
                     <button
                       aria-controls=":r0:"
-                      aria-disabled="true"
-                      class="base-NumberInput-decrementButton base--disabled css-p82faw"
-                      disabled=""
+                      aria-disabled="false"
+                      class="base-NumberInput-decrementButton css-p82faw"
                       tabindex="-1"
                     >
                       ▾
@@ -573,15 +570,15 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                       aria-disabled="false"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="10"
-                      aria-valuetext="10"
+                      aria-valuenow="20"
+                      aria-valuetext="20"
                       autocomplete="off"
                       autocorrect="off"
                       class="base-NumberInput-input css-wfz5ot"
                       id=":r0:"
                       spellcheck="false"
                       type="text"
-                      value="10"
+                      value="20"
                     />
                   </div>
                   <div
@@ -597,9 +594,8 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                     </button>
                     <button
                       aria-controls=":r1:"
-                      aria-disabled="true"
-                      class="base-NumberInput-incrementButton base--disabled css-p82faw"
-                      disabled=""
+                      aria-disabled="false"
+                      class="base-NumberInput-incrementButton css-p82faw"
                       tabindex="-1"
                     >
                       ▴
@@ -608,15 +604,15 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                       aria-disabled="false"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="100"
-                      aria-valuetext="100"
+                      aria-valuenow="30"
+                      aria-valuetext="30"
                       autocomplete="off"
                       autocorrect="off"
                       class="base-NumberInput-input css-wfz5ot"
                       id=":r1:"
                       spellcheck="false"
                       type="text"
-                      value="100"
+                      value="30"
                     />
                   </div>
                 </div>
@@ -628,25 +624,25 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                   />
                   <span
                     class="MuiSlider-track css-ttgsjq-MuiSlider-track"
-                    style="left: 0%; width: 100%;"
+                    style="left: 11.11111111111111%; width: 11.11111111111111%;"
                   />
                   <span
                     class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
                     data-index="0"
-                    style="left: 0%;"
+                    style="left: 11.11111111111111%;"
                   >
                     <input
                       aria-orientation="horizontal"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="10"
+                      aria-valuenow="20"
                       data-index="0"
                       max="100"
                       min="10"
                       step="1"
                       style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
                       type="range"
-                      value="10"
+                      value="20"
                     />
                     <span
                       aria-hidden="true"
@@ -658,7 +654,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                         <span
                           class="MuiSlider-valueLabelLabel"
                         >
-                          10
+                          20
                         </span>
                       </span>
                     </span>
@@ -666,20 +662,20 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                   <span
                     class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-cp2j25-MuiSlider-thumb"
                     data-index="1"
-                    style="left: 100%;"
+                    style="left: 22.22222222222222%;"
                   >
                     <input
                       aria-orientation="horizontal"
                       aria-valuemax="100"
                       aria-valuemin="10"
-                      aria-valuenow="100"
+                      aria-valuenow="30"
                       data-index="1"
                       max="100"
                       min="10"
                       step="1"
                       style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
                       type="range"
-                      value="100"
+                      value="30"
                     />
                     <span
                       aria-hidden="true"
@@ -691,7 +687,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                         <span
                           class="MuiSlider-valueLabelLabel"
                         >
-                          100
+                          30
                         </span>
                       </span>
                     </span>
@@ -699,7 +695,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                 </span>
               </div>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton css-1e6y48t-MuiButtonBase-root-MuiButton-root"
                 tabindex="0"
                 type="button"
               >
@@ -735,12 +731,12 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
         <svg
           aria-hidden="true"
           class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-          data-testid="ExpandLessIcon"
+          data-testid="ExpandMoreIcon"
           focusable="false"
           viewBox="0 0 24 24"
         >
           <path
-            d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+            d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
           />
         </svg>
         <span
@@ -748,7 +744,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
         />
       </div>
       <div
-        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
         style="min-height: 0px;"
       >
         <div
@@ -904,12 +900,12 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
         <svg
           aria-hidden="true"
           class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-          data-testid="ExpandLessIcon"
+          data-testid="ExpandMoreIcon"
           focusable="false"
           viewBox="0 0 24 24"
         >
           <path
-            d="m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+            d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
           />
         </svg>
         <span
@@ -917,7 +913,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
         />
       </div>
       <div
-        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
         style="min-height: 0px;"
       >
         <div

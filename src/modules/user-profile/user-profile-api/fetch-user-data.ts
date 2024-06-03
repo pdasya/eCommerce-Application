@@ -22,12 +22,6 @@ export const fetchUserData = async (setUserData: Dispatch<SetStateAction<Persona
     );
     const billingAddresses = addresses.filter(address => billingAddressIds?.includes(address.id!));
 
-    // const shippingAddress = addresses.find(address => shippingAddressIds?.includes(address.id!));
-    // const billingAddress = addresses.find(address => billingAddressIds?.includes(address.id!));
-
-    // const isShippingAddressDefault = defaultShippingAddressId === shippingAddress?.id;
-    // const isBillingAddressDefault = defaultBillingAddressId === billingAddress?.id;
-
     setUserData({
       firstName,
       lastName,

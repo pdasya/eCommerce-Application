@@ -62,6 +62,10 @@ export const SignUpForm: FC = () => {
           postalCode: values.billingPostalCode,
         };
 
+    values.setDefaultBillingAddress = values.setSameBillingAddress
+      ? values.setDefaultShippingAddress
+      : '';
+
     const customerDraft: CustomerDraft = {
       email: values.email,
       password: values.password,

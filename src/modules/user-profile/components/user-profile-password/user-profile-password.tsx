@@ -7,8 +7,8 @@ import { client, saveStorage, tokenCache, tokenName } from '@config/constants';
 import PasswordInputComponent from '@components/password-input-component/password-input-component';
 import { useAppDispatch } from '@hooks/use-app-dispatch.hook';
 import { authorize } from '@store/auth/auth.slice';
-import styles from './user-profile-password.module.scss';
 import { baseSchema } from '@config/validation-schema';
+import styles from './user-profile-password.module.scss';
 
 interface IUserDraft {
   email: string;

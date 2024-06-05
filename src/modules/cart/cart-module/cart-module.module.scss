@@ -1,0 +1,15 @@
+.cartModuleWrapper {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartModuleContent {
+  width: 90vw;
+  height: auto;
+  padding: 10px;
+  border: 1px gray solid !important;
+  text-align: center;
+}

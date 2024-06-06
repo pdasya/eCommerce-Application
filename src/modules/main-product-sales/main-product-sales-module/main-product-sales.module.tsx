@@ -22,7 +22,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import classNames from 'classnames';
 import { getProductsList } from '@/API/products/products-adapter';
 import styles from './main-product-sales.module.scss';
-import 'swiper/css/bundle';
+import 'swiper/swiper-bundle.css';
 
 export const MainGoodsSale: FC = () => {
   const products = useAppSelector(productsSale);

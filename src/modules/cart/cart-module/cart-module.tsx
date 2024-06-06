@@ -1,5 +1,4 @@
-import { Button } from '@mui/base';
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { FC, useState, useEffect } from 'react';
 import styles from './cart-module.module.scss';
@@ -8,7 +7,7 @@ import CartItemComponent from '../components/cart-item';
 
 interface CartItem {
   id: string;
-  name: string; // Update type to string
+  name: string;
   imageUrl: string;
   price: number;
   quantity: number;
@@ -16,29 +15,26 @@ interface CartItem {
 
 export const CartModule: FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const cart = await getUserCart();
-        const items = cart.lineItems.map(item => ({
-          id: item.id,
-          name: item.name.en,
-          imageUrl: 'https://via.placeholder.com/150',
-          price: item.price.value.centAmount / 100,
-          quantity: item.quantity,
-        }));
-        setCartItems(items);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching cart:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchCart();
-  }, []);
+  const fetchCart = async () => {
+    setLoading(true);
+    try {
+      const cart = await getUserCart();
+      const items = cart.lineItems.map(item => ({
+        id: item.id,
+        name: item.name.en,
+        imageUrl: 'https://via.placeholder.com/150',
+        price: item.price.value.centAmount / 100,
+        quantity: item.quantity,
+      }));
+      setCartItems(items);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching cart:', error);
+      setLoading(false);
+    }
+  };
 
   const handleAdd = (id: string) => {
     setCartItems(prevItems =>
@@ -57,6 +53,10 @@ export const CartModule: FC = () => {
   const handleDelete = (id: string) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== id));
   };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   return (
     <Grid container spacing={2} className={styles.cartModuleWrapper}>
@@ -95,7 +95,9 @@ export const CartModule: FC = () => {
               />
             ))
           )}
-          <Button onClick={() => {}}>Refresh Cart Items</Button>
+          <Button variant="contained" color="info" onClick={fetchCart}>
+            Refresh Cart Items
+          </Button>
         </Box>
       </Grid>
     </Grid>

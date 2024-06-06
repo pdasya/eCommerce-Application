@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, IconButton, Grid } from '@mui/material';
+import { CardMedia, Typography, IconButton, Box } from '@mui/material';
 import { AddCircleOutline, RemoveCircleOutline, Delete } from '@mui/icons-material';
+import styles from './cart-item.module.scss';
 
 interface CartItemProps {
   id: string;
@@ -26,40 +27,35 @@ const CartItem: React.FC<CartItemProps> = ({
   const totalPrice = price * quantity;
 
   return (
-    <Card sx={{ display: 'flex', marginBottom: 2 }}>
-      <CardMedia component="img" sx={{ width: 150 }} image={imageUrl} alt={name} />
-      <CardContent sx={{ flex: '1 0 auto' }}>
+    <Box className={styles.cartItem}>
+      <CardMedia component="img" image={imageUrl} alt={name} />
+      <Box className={styles.cartItemDetails}>
         <Typography component="h5" variant="h5">
           {name}
         </Typography>
         <Typography variant="subtitle1" color="text.secondary">
-          ${price.toFixed(2)}
+          Price: ${price.toFixed(2)}
         </Typography>
-        <Grid container spacing={1} alignItems="center">
-          <Grid item>
-            <IconButton color="primary" onClick={() => onRemove(id)}>
-              <RemoveCircleOutline />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <Typography>{quantity}</Typography>
-          </Grid>
-          <Grid item>
-            <IconButton color="primary" onClick={() => onAdd(id)}>
-              <AddCircleOutline />
-            </IconButton>
-          </Grid>
-        </Grid>
-        <Typography variant="subtitle1" color="text.secondary">
-          Total: ${totalPrice.toFixed(2)}
-        </Typography>
-      </CardContent>
-      <CardContent>
-        <IconButton color="secondary" onClick={() => onDelete(id)}>
-          <Delete />
-        </IconButton>
-      </CardContent>
-    </Card>
+        <Box className={styles.cartItemActions}>
+          <Typography variant="body2" component="span">
+            Quantity
+          </Typography>
+          <IconButton color="primary" onClick={() => onRemove(id)}>
+            <RemoveCircleOutline />
+          </IconButton>
+          <Typography>{quantity}</Typography>
+          <IconButton color="primary" onClick={() => onAdd(id)}>
+            <AddCircleOutline />
+          </IconButton>
+          <Typography variant="h6" component="span">
+            ${totalPrice.toFixed(2)}
+          </Typography>
+          <IconButton color="primary" onClick={() => onDelete(id)}>
+            <Delete />
+          </IconButton>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

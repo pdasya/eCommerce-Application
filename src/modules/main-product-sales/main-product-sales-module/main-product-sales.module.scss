@@ -3,6 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-radius: 5px;
+    background-color: #fff;
   }
 
   &Title {
@@ -15,6 +17,11 @@
 }
 
 .slider {
+  &Container {
+    padding: 16px 10px !important;
+    margin: 0 -10px !important;
+  }
+
   &Nav {
     display: flex;
     flex-wrap: nowrap;

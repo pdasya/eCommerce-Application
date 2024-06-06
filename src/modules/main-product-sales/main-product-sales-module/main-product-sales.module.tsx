@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Grid, IconButton, Paper, Typography } from '@mui/material';
+import { Grid, IconButton, Typography } from '@mui/material';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { LoadingBanner } from '@modules/product-list/components/loading-banner/loading-banner.component';
 import { ProductCard } from '@modules/product-list/components/product-card/product-card.component';
@@ -64,7 +64,7 @@ export const MainGoodsSale: FC = () => {
   return (
     <Grid container flexDirection="column" flexWrap="nowrap" spacing={2} sx={{ mt: 2 }}>
       <Grid item className={styles.saleItem}>
-        <Paper className={styles.saleContainer}>
+        <div className={styles.saleContainer}>
           <Typography
             variant="h5"
             component="h5"
@@ -88,14 +88,15 @@ export const MainGoodsSale: FC = () => {
               </IconButton>
             </div>
           )}
-        </Paper>
+        </div>
       </Grid>
       {isUpdating ? (
         <LoadingBanner />
       ) : (
-        <Grid item>
+        <Grid item className={styles.saleItem}>
           {products.length ? (
             <Swiper
+              className={styles.sliderContainer}
               navigation={{ nextEl: '.slide-next', prevEl: '.slide-prev' }}
               modules={[Navigation]}
               spaceBetween={20}

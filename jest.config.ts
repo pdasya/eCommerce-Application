@@ -107,9 +107,7 @@ const config: JestConfigWithTsJest = {
   },
 
   transformIgnorePatterns: [
-    '/node_modules/(?![@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js])',
-    '/node_modules/(?![swiper/react/swiper-react.js])',
-    '/node_modules/(?![swiper/react/swiper.js])',
+    '/node_modules/(?!@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js)',
   ],
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

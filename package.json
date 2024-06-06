@@ -16,7 +16,7 @@
     "prepare": "husky",
     "pre-push": "validate-branch-name && npm run test",
     "pre-commit": "lint-staged",
-    "test": "jest"
+    "test": "jest --transformIgnorePatterns 'node_modules/(?!swiper)/'"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [

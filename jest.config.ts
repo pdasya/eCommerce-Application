@@ -99,10 +99,10 @@ const config: JestConfigWithTsJest = {
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '^.+\\.svg$': 'jest-transformer-svg',
-    '^@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js':
-      '<rootDir>/node_modules/@fancyapps/ui/dist/carousel/carousel.thumbs.esm.d.ts',
     '^swiper/react': '<rootDir>/node_modules/swiper/swiper-react.d.ts',
     '^swiper/modules': '<rootDir>/node_modules/swiper/types/modules/index.d.ts',
+    '^@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js':
+      '<rootDir>/node_modules/@fancyapps/ui/dist/carousel/carousel.thumbs.esm.d.ts',
     ...pathsToModuleNameMapper(compilerOptions.paths),
   },
 

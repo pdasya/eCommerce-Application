@@ -75,7 +75,7 @@ export const CartModule: FC = () => {
           <Typography variant="h4" component="h2" gutterBottom>
             Your cart
           </Typography>
-          <ShoppingCartIcon fontSize="large" />
+          <ShoppingCartIcon fontSize="large" className={styles.cartImage} />
         </Box>
         <Box textAlign="center" className={styles.cartContinueHeader}>
           <LinkToCatalogPage />

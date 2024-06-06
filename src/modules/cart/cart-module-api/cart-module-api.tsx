@@ -92,15 +92,12 @@ export const getUserCart = async (): Promise<Cart> => {
     cart = await createCart();
     cartId = cart.id;
     cartVersion = cart.version;
-    console.log('Cart created:', cartId, cartVersion);
 
     // Добавляю товар после создания корзины
     cart = await addLineItemToCart(cartId, cartVersion);
-    console.log('Cart updated:', cart);
 
     // Получаю активную корзину текущего пользователя
     cart = await getActiveCart();
-    console.log('Active cart retrieved:', cart);
 
     return cart; // Возвращаем активную корзину
   } catch (error) {

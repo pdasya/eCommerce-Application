@@ -1,10 +1,13 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { CustomRouterLink } from '@components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@routes/index';
+import { client } from '@config/constants';
+import { CartUpdateAction } from '@commercetools/platform-sdk';
+import { toast } from 'react-toastify';
 import CartItemComponent from '../components/cart-item';
 import { getUserCart } from '../cart-module-api/cart-module-api';
 import styles from './cart-module.module.scss';
@@ -60,13 +63,48 @@ export const CartModule: FC = () => {
     );
   };
 
-  const handleDelete = (id: string) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+  const handleDelete = async (id: string) => {
+    const updateActionDelete = [
+      {
+        action: 'removeLineItem',
+        lineItemId: id,
+      },
+    ];
+
+    try {
+      const response = await client.getClient().me().activeCart().get().execute();
+      const cartVersion = response.body.version;
+      const currentCartId = response.body.id;
+
+      const itemName =
+        response.body.lineItems.find((item: { id: string }) => item.id === id)?.name?.en || 'Item';
+
+      await client
+        .getClient()
+        .carts()
+        .withId({ ID: currentCartId })
+        .post({
+          body: {
+            version: cartVersion,
+            actions: updateActionDelete as CartUpdateAction[],
+          },
+        })
+        .execute();
+
+      setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+
+      const cartResponse = await client.getClient().me().carts().get().execute();
+      console.log(cartResponse.body.results);
+      toast.success(`Item ${itemName} is successfully deleted from the cart`);
+    } catch (error) {
+      console.error('Error updating cart:', error);
+      toast.error(`Error deleting item`);
+    }
   };
 
-  useEffect(() => {
-    fetchCart();
-  }, []);
+  // useEffect(() => {
+  //   fetchCart();
+  // }, []);
 
   return (
     <Grid container spacing={2} className={styles.cartModuleWrapper}>
@@ -108,7 +146,7 @@ export const CartModule: FC = () => {
             ))
           )}
           <Button variant="contained" color="info" onClick={fetchCart}>
-            Refresh Cart Items
+            Add Cart Items
           </Button>
         </Box>
       </Grid>

@@ -30,17 +30,21 @@ import {
   setActiveCategoryAncestors,
 } from '@store/category/category.slice';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { catalogDefaultCategorySlug } from '@config/constants';
+import { catalogDefaultCategorySlug, defaultRequestPageSize } from '@config/constants';
 import { MainBreadcrumb } from '@modules/category-selector';
-import { getProductsList } from '@/API/products/products-adapter';
+import { CustomPagination } from '@modules/pagination';
 import { getCategoryById, getCategoryBySlug } from '@/API/categories/get-categories';
 import styles from './catalog.page.module.scss';
+import { getProductsList } from '@/API/products/products-service';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isFilterPanelOpen, setFilterPanelOpen] = React.useState(false);
+  const [productsTotalCount, setProductsTotalCount] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const sortBy = useAppSelector(selectSort);
   const searchText = useAppSelector(searchValue);
@@ -50,8 +54,7 @@ export const CatalogPage: FC = () => {
   const isCategoryInitialized = useAppSelector(selectIsActiveCategoryInitialized);
   const isFiltersInitialized = useAppSelector(selectIsFiltersInitialized);
 
-  const location = useLocation().pathname.split('/');
-  const categorySlug = location[location.length - 1];
+  const categorySlug = location.pathname.split('/').pop() || '';
 
   useEffect(() => {
     if (categorySlug === catalogDefaultCategorySlug) {
@@ -111,6 +114,23 @@ export const CatalogPage: FC = () => {
   );
 
   useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const page = parseInt(query.get('page') || '1', 10);
+
+    setCurrentPage(page);
+  }, [location]);
+
+  useEffect(() => {
+    navigate(`${location.pathname}`);
+  }, [
+    sortBy,
+    priceFilter,
+    customFilters,
+    searchText,
+    activeCategory,
+  ]);
+
+  useEffect(() => {
     if (!isCategoryInitialized || !isFiltersInitialized) {
       return;
     }
@@ -126,9 +146,12 @@ export const CatalogPage: FC = () => {
         ...filtersByCategories,
       ],
       searchValue: searchText,
+      limit: defaultRequestPageSize,
+      offset: (currentPage - 1) * defaultRequestPageSize,
     })
       .then(productsList => {
-        dispatch(update(productsList));
+        dispatch(update(productsList.products));
+        setProductsTotalCount(productsList.totalCount);
         dispatch(clear());
       })
       .catch(error => toast.error(error))
@@ -142,6 +165,7 @@ export const CatalogPage: FC = () => {
     customFilters,
     searchText,
     activeCategory,
+    currentPage,
   ]);
 
   return (
@@ -194,6 +218,7 @@ export const CatalogPage: FC = () => {
           <FilterPanel className={styles.filterPanel} onClose={toggleFilterPanel(false)} />
         </Drawer>
       </Box>
+      <CustomPagination pageCount={Math.ceil(productsTotalCount / defaultRequestPageSize)} />
     </div>
   );
 };

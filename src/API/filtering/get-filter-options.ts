@@ -1,8 +1,11 @@
-import { ProductProjection } from '@commercetools/platform-sdk';
+import { ClientResponse, ProductProjectionPagedSearchResponse } from '@commercetools/platform-sdk';
 import { fetchAllProducts, FetchProductsOptions } from '../products/products-service';
 
-function getFilterOptionsAdapter(products: ProductProjection[]): Record<string, string[]> {
+function getFilterOptionsRequestAdapter(
+  response: ClientResponse<ProductProjectionPagedSearchResponse>,
+): Record<string, string[]> {
   const attributesValuesDict: Record<string, Set<string>> = {};
+  const products = response.body.results;
 
   products.forEach(product => {
     product.masterVariant.attributes?.forEach(({ name, value }) => {
@@ -36,5 +39,5 @@ function getFilterOptionsAdapter(products: ProductProjection[]): Record<string, 
 export const getFilterOptions = async (options: FetchProductsOptions) => {
   const products = await fetchAllProducts(options);
 
-  return getFilterOptionsAdapter(products);
+  return getFilterOptionsRequestAdapter(products);
 };

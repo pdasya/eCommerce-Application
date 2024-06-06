@@ -32,7 +32,7 @@ const getAllSubCategoriesByParentIdRequest = fetchAllDecorator(
       .execute(),
 );
 
-const getAllCategoriesByProductIdRequest = async ({
+const getCategoriesByProductIdRequest = async ({
   id,
   ...options
 }: WrapableOptions<{ id: string }>) =>
@@ -81,7 +81,7 @@ export const getCategoryBySlug = async (categorySlug: string): Promise<ICategory
 
 export const getAllCategoryAncestorsByProductId = async (id: string): Promise<ICategory[]> => {
   const ancestorsIds = getProductCategoryAncestorsIdsResponseAdapter(
-    await getAllCategoriesByProductIdRequest({ id }),
+    await getCategoriesByProductIdRequest({ id }),
   );
   const ancestors = await Promise.all(ancestorsIds.map(item => getCategoryByIdRequest(item)));
   return ancestors.map(item => getCategoryResponseAdapter(item));

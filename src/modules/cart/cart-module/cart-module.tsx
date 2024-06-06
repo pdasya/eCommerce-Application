@@ -49,20 +49,6 @@ export const CartModule: FC = () => {
     }
   };
 
-  const handleAdd = (id: string) => {
-    setCartItems(prevItems =>
-      prevItems.map(item => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)),
-    );
-  };
-
-  const handleRemove = (id: string) => {
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item,
-      ),
-    );
-  };
-
   const handleDelete = async (id: string) => {
     const updateActionDelete = [
       {
@@ -94,12 +80,81 @@ export const CartModule: FC = () => {
       setCartItems(prevItems => prevItems.filter(item => item.id !== id));
 
       const cartResponse = await client.getClient().me().carts().get().execute();
+
+      // Для проверки работы функционала добавления
       console.log(cartResponse.body.results);
       toast.success(`Item ${itemName} is successfully deleted from the cart`);
     } catch (error) {
       console.error('Error updating cart:', error);
       toast.error(`Error deleting item`);
     }
+  };
+
+  const handleQuantityChange = async (id: string, newQuantity: number) => {
+    const updateQuantityAction = [
+      {
+        action: 'changeLineItemQuantity',
+        lineItemId: id,
+        quantity: newQuantity,
+      },
+    ];
+
+    try {
+      const response = await client.getClient().me().activeCart().get().execute();
+      const cartVersion = response.body.version;
+      const currentCartId = response.body.id;
+
+      const itemName =
+        response.body.lineItems.find((item: { id: string }) => item.id === id)?.name?.en || 'Item';
+
+      await client
+        .getClient()
+        .carts()
+        .withId({ ID: currentCartId })
+        .post({
+          body: {
+            version: cartVersion,
+            actions: updateQuantityAction as CartUpdateAction[],
+          },
+        })
+        .execute();
+      toast.success(`Item ${itemName} quantity successfully changed`);
+
+      // Для проверки работы функционала изменения количества
+      const responseCheck = await client.getClient().me().activeCart().get().execute();
+      console.log(responseCheck.body);
+    } catch (error) {
+      console.error(`Error updating quantity: ${error}`);
+    }
+  };
+
+  const handleAdd = async (id: string) => {
+    setCartItems(prevItems =>
+      prevItems.map(item => {
+        if (item.id === id) {
+          const newQuantity = item.quantity + 1;
+          handleQuantityChange(id, newQuantity);
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      }),
+    );
+  };
+
+  const handleRemove = async (id: string) => {
+    setCartItems(prevItems =>
+      prevItems.map(item => {
+        if (item.id === id && item.quantity > 1) {
+          const newQuantity = item.quantity - 1;
+          handleQuantityChange(id, newQuantity);
+          return { ...item, quantity: newQuantity };
+        }
+        if (item.quantity === 1 && item.id === id) {
+          handleDelete(id);
+        }
+        return item;
+      }),
+    );
   };
 
   // useEffect(() => {

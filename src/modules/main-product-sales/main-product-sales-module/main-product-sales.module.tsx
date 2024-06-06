@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Grid, Typography } from '@mui/material';
+import { Grid, IconButton, Paper, Typography } from '@mui/material';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { LoadingBanner } from '@modules/product-list/components/loading-banner/loading-banner.component';
 import { ProductCard } from '@modules/product-list/components/product-card/product-card.component';
@@ -16,7 +16,12 @@ import {
 } from '@store/sale/sale.slice';
 import { client } from '@config/constants';
 import { NotFoundBanner } from '@modules/product-list/components/not-found-banner/not-found-banner.component';
+import { Navigation } from 'swiper/modules';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import classNames from 'classnames';
 import { getProductsList } from '@/API/products/products-adapter';
+import styles from './main-product-sales.module.scss';
 import 'swiper/css/bundle';
 
 export const MainGoodsSale: FC = () => {
@@ -57,11 +62,33 @@ export const MainGoodsSale: FC = () => {
   }, []);
 
   return (
-    <Grid container flexDirection="column" flexWrap="nowrap">
-      <Grid item>
-        <Typography variant="h5" component="h5" sx={{ mt: 3, mb: 3 }}>
-          Products on sale
-        </Typography>
+    <Grid container flexDirection="column" flexWrap="nowrap" spacing={2} sx={{ mt: 2 }}>
+      <Grid item className={styles.saleItem}>
+        <Paper className={styles.saleContainer}>
+          <Typography
+            variant="h5"
+            component="h5"
+            sx={{ mt: 3, mb: 3, ml: 2 }}
+            className={styles.saleTitle}>
+            Products on sale
+          </Typography>
+          {isUpdating || (
+            <div className={styles.sliderNav}>
+              <IconButton
+                className={classNames('slide-prev', styles.sliderNavButton)}
+                color="primary"
+                aria-label="slide-prev">
+                <ArrowBackIosNewIcon />
+              </IconButton>
+              <IconButton
+                className={classNames('slide-next', styles.sliderNavButton)}
+                color="primary"
+                aria-label="slide-next">
+                <ArrowForwardIosIcon />
+              </IconButton>
+            </div>
+          )}
+        </Paper>
       </Grid>
       {isUpdating ? (
         <LoadingBanner />
@@ -69,9 +96,15 @@ export const MainGoodsSale: FC = () => {
         <Grid item>
           {products.length ? (
             <Swiper
+              navigation={{ nextEl: '.slide-next', prevEl: '.slide-prev' }}
+              modules={[Navigation]}
               spaceBetween={20}
               slidesPerView={4}
+              slidesPerGroup={1}
               breakpoints={{
+                0: {
+                  slidesPerView: 1,
+                },
                 360: {
                   slidesPerView: 1,
                 },

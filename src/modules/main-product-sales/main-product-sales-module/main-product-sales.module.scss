@@ -1,0 +1,27 @@
+.sale {
+  &Container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &Title {
+    display: inline-block;
+  }
+
+  &Item {
+    padding-top: 0 !important;
+  }
+}
+
+.slider {
+  &Nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-right: 8px !important;
+
+    &Button:disabled svg {
+      fill: grey;
+    }
+  }
+}

@@ -1,9 +1,13 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { FC, useState, useEffect } from 'react';
-import styles from './cart-module.module.scss';
-import { getUserCart } from '../cart-module-api/cart-module-api';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { CustomRouterLink } from '@components/custom-router-link/custom-router-link.component';
+import { RoutePath } from '@routes/index';
 import CartItemComponent from '../components/cart-item';
+import { getUserCart } from '../cart-module-api/cart-module-api';
+import styles from './cart-module.module.scss';
 
 interface CartItem {
   id: string;
@@ -12,6 +16,12 @@ interface CartItem {
   price: number;
   quantity: number;
 }
+
+const LinkToCatalogPage: FC = () => (
+  <CustomRouterLink to={RoutePath.catalog} className={styles.continueShoppingLink}>
+    Continue Shopping
+  </CustomRouterLink>
+);
 
 export const CartModule: FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -60,14 +70,16 @@ export const CartModule: FC = () => {
 
   return (
     <Grid container spacing={2} className={styles.cartModuleWrapper}>
-      <Grid item xs={12}>
-        <Box textAlign="center">
+      <Grid item xs={12} className={styles.cartModuleHeaderWrapper}>
+        <Box textAlign="center" className={styles.cartHeader}>
           <Typography variant="h4" component="h2" gutterBottom>
             Your cart
           </Typography>
-          <Typography variant="body2" component="p" color="primary" gutterBottom>
-            Continue Shopping
-          </Typography>
+          <ShoppingCartIcon fontSize="large" />
+        </Box>
+        <Box textAlign="center" className={styles.cartContinueHeader}>
+          <LinkToCatalogPage />
+          <ArrowForwardIosIcon fontSize="small" />
         </Box>
       </Grid>
       <Grid item xs={12}>

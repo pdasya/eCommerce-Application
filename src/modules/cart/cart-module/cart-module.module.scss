@@ -6,6 +6,15 @@
   padding: 20px;
 }
 
+.cartModuleHeaderWrapper {
+  display: flex;
+  width: 90%;
+  max-width: 1200px !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .cartModuleContent {
   display: flex;
   width: 90%;
@@ -16,53 +25,25 @@
   text-align: center;
 }
 
-.cartItem {
+.cartHeader {
   display: flex;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
+  justify-content: flex-start;
 }
 
-.cartItem img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-}
-
-.cartItemDetails {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-left: 20px;
-}
-
-.cartItemActions {
+.cartContinueHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
 }
 
-@media (width <= 768px) {
-  .cartItem {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.continueShoppingLink {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
 
-  .cartItemDetails {
-    padding-top: 10px;
-    padding-left: 0;
-  }
-
-  .cartItemActions {
-    width: 100%;
-    justify-content: space-between;
-    padding-top: 10px;
+  &:hover {
+    cursor: pointer;
+    transform: translateX(-10px);
   }
 }

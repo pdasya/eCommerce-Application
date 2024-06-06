@@ -10,6 +10,7 @@
 .main {
   display: grid;
   width: 100%;
+  flex-grow: 1;
   gap: var(--spacing-m-12px);
   grid-template-columns: 320px 1fr;
   grid-template-rows: 56px 1fr;

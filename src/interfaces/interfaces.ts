@@ -16,3 +16,8 @@ export interface ISingleProduct extends Omit<IProduct, 'slug' | 'imageSrc' | 'im
   images: Image[];
   attributes: Attribute[];
 }
+
+export interface IProductList {
+  products: IProduct[];
+  totalCount: number;
+}

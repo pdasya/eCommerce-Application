@@ -19,5 +19,5 @@ export const client = new BuildClient(projectKey, clientId, clientSecret, authUr
 ]);
 export const tokenName = 'authorize_token';
 
-export const defaultRequestPageSize = 20;
+export const defaultRequestPageSize = 10;
 export const catalogDefaultCategorySlug = 'all';

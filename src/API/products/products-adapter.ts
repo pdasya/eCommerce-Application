@@ -3,7 +3,7 @@ import {
   ProductProjection,
   ProductProjectionPagedSearchResponse,
 } from '@commercetools/platform-sdk';
-import { IProduct } from '@/interfaces/interfaces';
+import { IProduct, IProductList } from '@/interfaces/interfaces';
 
 export const productParser = (product: ProductProjection): IProduct => {
   const imageSrc = product.masterVariant.images
@@ -45,4 +45,7 @@ export const productParser = (product: ProductProjection): IProduct => {
 
 export const getProductsResponseAdapter = (
   response: ClientResponse<ProductProjectionPagedSearchResponse>,
-): IProduct[] => response.body.results.map(productParser);
+): IProductList => ({
+  products: response.body.results.map(productParser),
+  totalCount: response.body.total || 0,
+});

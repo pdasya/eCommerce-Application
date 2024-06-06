@@ -54,7 +54,7 @@ const CartItem: React.FC<CartItemProps> = ({
       <CardContent className={styles.cartItemTotalPrice}>
         <Typography variant="h6">${totalPrice.toFixed(2)}</Typography>
         <IconButton onClick={() => onDelete(id)} color="error">
-          <Delete />
+          <Delete className={styles.deleteButton} />
         </IconButton>
       </CardContent>
     </Card>

@@ -24,7 +24,10 @@
 
   &Nav {
     display: flex;
+    min-width: 88px;
     flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
     padding-right: 8px !important;
 
     &Button:disabled svg {

@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Grid, IconButton, Typography } from '@mui/material';
+import { CircularProgress, Grid, IconButton, Typography } from '@mui/material';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { LoadingBanner } from '@modules/product-list/components/loading-banner/loading-banner.component';
 import { ProductCard } from '@modules/product-list/components/product-card/product-card.component';
@@ -72,64 +72,68 @@ export const MainGoodsSale: FC = () => {
             className={styles.saleTitle}>
             Products on sale
           </Typography>
-          {isUpdating || (
-            <div className={styles.sliderNav}>
-              <IconButton
-                className={classNames('slide-prev', styles.sliderNavButton)}
-                color="primary"
-                aria-label="slide-prev">
-                <ArrowBackIosNewIcon />
-              </IconButton>
-              <IconButton
-                className={classNames('slide-next', styles.sliderNavButton)}
-                color="primary"
-                aria-label="slide-next">
-                <ArrowForwardIosIcon />
-              </IconButton>
-            </div>
-          )}
+          <div className={styles.sliderNav}>
+            {isUpdating ? (
+              <CircularProgress color="primary" />
+            ) : products.length ? (
+              <>
+                <IconButton
+                  className={classNames('slide-prev', styles.sliderNavButton)}
+                  color="primary"
+                  aria-label="slide-prev">
+                  <ArrowBackIosNewIcon />
+                </IconButton>
+                <IconButton
+                  className={classNames('slide-next', styles.sliderNavButton)}
+                  color="primary"
+                  aria-label="slide-next">
+                  <ArrowForwardIosIcon />
+                </IconButton>
+              </>
+            ) : (
+              ''
+            )}
+          </div>
         </div>
       </Grid>
-      {isUpdating ? (
-        <LoadingBanner />
-      ) : (
-        <Grid item className={styles.saleItem}>
-          {products.length ? (
-            <Swiper
-              className={styles.sliderContainer}
-              navigation={{ nextEl: '.slide-next', prevEl: '.slide-prev' }}
-              modules={[Navigation]}
-              spaceBetween={20}
-              slidesPerView={4}
-              slidesPerGroup={1}
-              breakpoints={{
-                0: {
-                  slidesPerView: 1,
-                },
-                360: {
-                  slidesPerView: 1,
-                },
-                500: {
-                  slidesPerView: 2,
-                },
-                768: {
-                  slidesPerView: 3,
-                },
-                1200: {
-                  slidesPerView: 5,
-                },
-              }}>
-              {products.map(product => (
-                <SwiperSlide key={product.id}>
-                  <ProductCard {...product} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <NotFoundBanner />
-          )}
-        </Grid>
-      )}
+      <Grid item className={styles.saleItem}>
+        {isUpdating ? (
+          <LoadingBanner />
+        ) : products.length ? (
+          <Swiper
+            className={styles.sliderContainer}
+            navigation={{ nextEl: '.slide-next', prevEl: '.slide-prev' }}
+            modules={[Navigation]}
+            spaceBetween={20}
+            slidesPerView={4}
+            slidesPerGroup={1}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              360: {
+                slidesPerView: 1,
+              },
+              500: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1200: {
+                slidesPerView: 5,
+              },
+            }}>
+            {products.map(product => (
+              <SwiperSlide key={product.id}>
+                <ProductCard {...product} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <NotFoundBanner />
+        )}
+      </Grid>
     </Grid>
   );
 };

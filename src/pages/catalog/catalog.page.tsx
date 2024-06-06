@@ -32,9 +32,9 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { catalogDefaultCategorySlug } from '@config/constants';
 import { MainBreadcrumb } from '@modules/category-selector';
-import { getProductsList } from '@/API/products/products-adapter';
 import { getCategoryById, getCategoryBySlug } from '@/API/categories/get-categories';
 import styles from './catalog.page.module.scss';
+import { getProductsList } from '@/API/products/products-service';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { LoadingBanner } from '@modules/product-list/components/loading-banner/loading-banner.component';
 import { ProductCard } from '@modules/product-list/components/product-card/product-card.component';
@@ -15,6 +15,7 @@ import {
   update,
 } from '@store/sale/sale.slice';
 import { client } from '@config/constants';
+import { NotFoundBanner } from '@modules/product-list/components/not-found-banner/not-found-banner.component';
 import { getProductsList } from '@/API/products/products-adapter';
 import 'swiper/css/bundle';
 
@@ -56,20 +57,29 @@ export const MainGoodsSale: FC = () => {
   }, []);
 
   return (
-    <Grid>
-      <Swiper spaceBetween={20} slidesPerView={4}>
-        {isUpdating ? (
-          <LoadingBanner />
-        ) : products.length ? (
-          products.map(product => (
-            <SwiperSlide key={product.id}>
-              <ProductCard {...product} />
-            </SwiperSlide>
-          ))
-        ) : (
-          ''
-        )}
-      </Swiper>
+    <Grid container flexDirection="column" flexWrap="nowrap">
+      <Grid item>
+        <Typography variant="h5" component="h5" sx={{ mt: 3, mb: 3 }}>
+          Products on sale
+        </Typography>
+      </Grid>
+      {isUpdating ? (
+        <LoadingBanner />
+      ) : (
+        <Grid item>
+          {products.length ? (
+            <Swiper spaceBetween={20} slidesPerView={4}>
+              {products.map(product => (
+                <SwiperSlide key={product.id}>
+                  <ProductCard {...product} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <NotFoundBanner />
+          )}
+        </Grid>
+      )}
     </Grid>
   );
 };

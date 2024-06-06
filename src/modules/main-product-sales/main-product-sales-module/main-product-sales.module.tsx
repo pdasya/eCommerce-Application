@@ -68,7 +68,23 @@ export const MainGoodsSale: FC = () => {
       ) : (
         <Grid item>
           {products.length ? (
-            <Swiper spaceBetween={20} slidesPerView={4}>
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={4}
+              breakpoints={{
+                360: {
+                  slidesPerView: 1,
+                },
+                500: {
+                  slidesPerView: 2,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+                1200: {
+                  slidesPerView: 5,
+                },
+              }}>
               {products.map(product => (
                 <SwiperSlide key={product.id}>
                   <ProductCard {...product} />

@@ -52,7 +52,7 @@ export const router = createHashRouter(
       <Route
         path={RoutePath.profile}
         element={
-          <PrivateRoute redirectTo={RoutePath.main} redirectIf="unauthorized">
+          <PrivateRoute redirectTo={RoutePath.signIn} redirectIf="unauthorized">
             <ProfilePage />
           </PrivateRoute>
         }

@@ -58,7 +58,7 @@ export const Footer: FC = () => {
           <NavFooter {...navItemsContacts} />
         </div>
       </div>
-      <Grid container className={styles.footerCredential}>
+      <Grid container className={styles.footerCopyright}>
         <Grid item>© 2024 &laquo;Vikings in Pajamas&raquo;</Grid>
       </Grid>
     </footer>

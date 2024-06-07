@@ -13,7 +13,18 @@ exports[`Product page module snapshot match: product-page-module-snapshot-1 1`] 
       >
         <div
           class="f-carousel"
-        />
+        >
+          <a
+            data-fancybox="gallery"
+            href="./assets/images/no-image.jpg"
+          >
+            <img
+              alt="noImage"
+              class="image"
+              src="./assets/images/no-image.jpg"
+            />
+          </a>
+        </div>
       </div>
     </div>
     <div

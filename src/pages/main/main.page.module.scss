@@ -1,6 +1,10 @@
 .page {
   display: flex;
+  width: 100%;
+  max-width: 1920px;
+  flex-direction: column;
   flex-grow: 1;
+  margin: 0 auto;
   background-color: rgb(86 169 252);
 }
 

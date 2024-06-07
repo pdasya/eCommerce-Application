@@ -1,0 +1,59 @@
+.banner {
+  overflow: hidden;
+
+  &Text {
+    padding: 20px;
+  }
+
+  &Title {
+    margin-bottom: 20px !important;
+    font-weight: 700 !important;
+  }
+
+  &Promo {
+    font-weight: 700;
+  }
+
+  &Image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+
+    &Container {
+      width: 600px;
+      height: 500px;
+    }
+  }
+
+  @media (width <= 900px) {
+    &Title {
+      font-size: 22px !important;
+    }
+
+    &Subtitle {
+      font-size: 18px !important;
+    }
+
+    &Text {
+      font-size: 12px;
+    }
+  }
+
+  @media (width <= 600px) {
+    flex-direction: column !important;
+
+    &Title {
+      font-size: 22px !important;
+    }
+
+    &Subtitle {
+      font-size: 18px !important;
+    }
+
+    &Text {
+      order: 2;
+      font-size: 12px;
+    }
+  }
+}

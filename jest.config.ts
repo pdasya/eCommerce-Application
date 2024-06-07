@@ -99,13 +99,15 @@ const config: JestConfigWithTsJest = {
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '^.+\\.svg$': 'jest-transformer-svg',
+    '^swiper/react': '<rootDir>/node_modules/swiper/swiper-react.d.ts',
+    '^swiper/modules': '<rootDir>/node_modules/swiper/types/modules/index.d.ts',
     '^@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js':
       '<rootDir>/node_modules/@fancyapps/ui/dist/carousel/carousel.thumbs.esm.d.ts',
     ...pathsToModuleNameMapper(compilerOptions.paths),
   },
 
   transformIgnorePatterns: [
-    '/node_modules/(?![@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js])',
+    '/node_modules/(?!@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js)',
   ],
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

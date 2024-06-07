@@ -20,9 +20,9 @@ import { Navigation } from 'swiper/modules';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import classNames from 'classnames';
-import { getProductsList } from '@/API/products/products-adapter';
 import styles from './main-product-sales.module.scss';
 import 'swiper/swiper-bundle.css';
+import { getProductsList } from '@/API/products/products-service';
 
 export const MainGoodsSale: FC = () => {
   const products = useAppSelector(productsSale);
@@ -50,7 +50,7 @@ export const MainGoodsSale: FC = () => {
           filter: [`variants.sku:${discountProducts}`],
         })
           .then(productsList => {
-            dispatch(update(productsList));
+            dispatch(update(productsList.products));
           })
           .catch(error => toast.error(error))
           .finally(() => {

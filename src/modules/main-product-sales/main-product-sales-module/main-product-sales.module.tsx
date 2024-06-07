@@ -20,9 +20,9 @@ import { Navigation } from 'swiper/modules';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import classNames from 'classnames';
-import styles from './main-product-sales.module.scss';
-import 'swiper/swiper-bundle.css';
 import { getProductsList } from '@/API/products/products-service';
+import 'swiper/swiper-bundle.css';
+import styles from './main-product-sales.module.scss';
 
 export const MainGoodsSale: FC = () => {
   const products = useAppSelector(productsSale);

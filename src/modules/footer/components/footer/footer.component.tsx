@@ -4,13 +4,10 @@ import { RoutePath } from '@routes/index';
 import { Logo } from '@components/logo-component/logo.component';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
-import { useAppSelector } from '@hooks/use-app-selector.hook';
-import { selectAuthorization } from '@store/auth/auth.slice';
 import { NavFooter } from '../nav-footer/nav-footer.component';
 import styles from './footer.component.module.scss';
 
 export const Footer: FC = () => {
-  const isAuthorized = useAppSelector(selectAuthorization);
   const navItemsCustomers = {
     title: 'Company information',
     links: [
@@ -22,7 +19,7 @@ export const Footer: FC = () => {
   const navItemsUser = {
     title: 'Customer services',
     links: [
-      { id: 1, caption: 'Profile', href: isAuthorized ? RoutePath.profile : RoutePath.signIn },
+      { id: 1, caption: 'Profile', href: RoutePath.profile },
     ],
   };
 

@@ -235,12 +235,24 @@ export const CartModule: FC = () => {
               />
             ))
           )}
-          <Button variant="contained" color="info" onClick={fetchCart}>
-            Add Cart Items
-          </Button>
           {cartItems.length > 0 && (
-            <Button variant="contained" color="error" onClick={handleCartClear}>
-              Clear Cart
+            <>
+              <Box textAlign="right" marginTop={2}>
+                <Typography variant="h6">
+                  Total Price: $
+                  {cartItems
+                    .reduce((total, item) => total + item.price * item.quantity, 0)
+                    .toFixed(2)}
+                </Typography>
+              </Box>
+              <Button variant="contained" color="error" onClick={handleCartClear}>
+                Clear Cart
+              </Button>
+            </>
+          )}
+          {cartItems.length === 0 && (
+            <Button variant="contained" color="info" onClick={fetchCart}>
+              Add Cart Items
             </Button>
           )}
         </Box>
@@ -248,5 +260,3 @@ export const CartModule: FC = () => {
     </Grid>
   );
 };
-
-export default CartModule;

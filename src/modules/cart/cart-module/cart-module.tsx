@@ -1,16 +1,15 @@
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { FC, useState } from 'react';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { CustomRouterLink } from '@components/custom-router-link/custom-router-link.component';
-import { RoutePath } from '@routes/index';
 import { client } from '@config/constants';
 import { CartUpdateAction } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
-import CartItemComponent from '../components/cart-item';
 import { getUserCart } from '../cart-module-api/cart-module-api';
 import styles from './cart-module.module.scss';
+import { CartHeader } from '../components/cart-header/cart-header';
+import { CartItemList } from '../components/cart-item-list/cart-item-list';
+import { PromoCodeForm } from '../components/cart-promocode-form/cart-promocode-form';
+import { CartActions } from '../components/cart-actions/cart-actions';
 
 interface CartItem {
   id: string;
@@ -20,12 +19,6 @@ interface CartItem {
   oldPrice?: number;
   quantity: number;
 }
-
-const LinkToCatalogPage: FC = () => (
-  <CustomRouterLink to={RoutePath.catalog} className={styles.continueShoppingLink}>
-    Continue Shopping
-  </CustomRouterLink>
-);
 
 const VALID_PROMO_CODES = ['promo20'];
 
@@ -271,18 +264,7 @@ export const CartModule: FC = () => {
 
   return (
     <Grid container spacing={2} className={styles.cartModuleWrapper}>
-      <Grid item xs={12} className={styles.cartModuleHeaderWrapper}>
-        <Box textAlign="center" className={styles.cartHeader}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Your cart
-          </Typography>
-          <ShoppingCartIcon fontSize="large" className={styles.cartImage} />
-        </Box>
-        <Box textAlign="center" className={styles.cartContinueHeader}>
-          <LinkToCatalogPage />
-          <ArrowForwardIosIcon fontSize="small" />
-        </Box>
-      </Grid>
+      <CartHeader />
       <Grid item xs={12}>
         <Box className={styles.cartModuleContent}>
           {loading ? (
@@ -294,23 +276,13 @@ export const CartModule: FC = () => {
               Your cart is empty
             </Typography>
           ) : (
-            cartItems.map(item => (
-              <CartItemComponent
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                imageUrl={item.imageUrl}
-                price={item.price}
-                oldPrice={item.oldPrice}
-                quantity={item.quantity}
-                onAdd={handleAdd}
-                onRemove={handleRemove}
-                onDelete={handleDelete}
-              />
-            ))
-          )}
-          {cartItems.length > 0 && (
             <>
+              <CartItemList
+                cartItems={cartItems}
+                handleAdd={handleAdd}
+                handleRemove={handleRemove}
+                handleDelete={handleDelete}
+              />
               <Box textAlign="right" marginTop={2}>
                 <Typography variant="h6">
                   Total Price: $
@@ -319,41 +291,13 @@ export const CartModule: FC = () => {
                     .toFixed(2)}
                 </Typography>
               </Box>
-              <Box display="flex" justifyContent="flex-end" alignItems="center" marginTop={2}>
-                <TextField
-                  label="Promo Code"
-                  variant="outlined"
-                  size="small"
-                  value={promoCode}
-                  onChange={handlePromoCodeChange}
-                  error={!!promoError}
-                  helperText={promoError}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handlePromoCodeApply}
-                  style={{ marginLeft: 8 }}>
-                  Apply
-                </Button>
-              </Box>
-              <Box style={{ display: 'flex', justifyContent: 'spaceBetween', gap: '15px' }}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleCartClear}
-                  className={styles.buttonSize}
-                  style={{ marginTop: 16 }}>
-                  Clear Cart
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.buttonSize}
-                  style={{ marginTop: 16 }}>
-                  Place your order
-                </Button>
-              </Box>
+              <PromoCodeForm
+                promoCode={promoCode}
+                promoError={promoError}
+                handlePromoCodeChange={handlePromoCodeChange}
+                handlePromoCodeApply={handlePromoCodeApply}
+              />
+              <CartActions handleCartClear={handleCartClear} />
             </>
           )}
           {cartItems.length === 0 && (

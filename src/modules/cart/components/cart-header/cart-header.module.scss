@@ -1,0 +1,50 @@
+.cartModuleHeaderWrapper {
+  display: flex;
+  width: 90%;
+  max-width: 1200px !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto !important;
+}
+
+.cartHeader {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@keyframes cart-move {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(200px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.cartImage {
+  animation: cart-move 15s ease-in-out infinite;
+}
+
+.cartContinueHeader {
+  display: flex;
+  align-items: center;
+}
+
+.continueShoppingLink {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    transform: translateX(-10px);
+  }
+}

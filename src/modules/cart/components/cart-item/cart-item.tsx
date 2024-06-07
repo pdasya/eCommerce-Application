@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardMedia, Typography, IconButton, Box, CardContent, Card } from '@mui/material';
-import { Delete, AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import { Delete, Add, Remove } from '@mui/icons-material';
 import styles from './cart-item.module.scss';
 
 interface CartItemProps {
@@ -53,17 +53,17 @@ const CartItem: React.FC<CartItemProps> = ({
         </Typography>
         <Box className={styles.cartItemBoxQuantity}>
           <IconButton onClick={() => onRemove(id)}>
-            <RemoveCircleOutline />
+            <Remove />
           </IconButton>
           <Typography className={styles.cartItemBoxQuantityText}>{quantity}</Typography>
           <IconButton onClick={() => onAdd(id)}>
-            <AddCircleOutline />
+            <Add />
           </IconButton>
         </Box>
       </Box>
       <CardContent className={styles.cartItemTotalPrice}>
         <Typography variant="h6">${totalPrice.toFixed(2)}</Typography>
-        <IconButton onClick={() => onDelete(id)} color="error">
+        <IconButton onClick={() => onDelete(id)} color="error" className={styles.deleteButton}>
           <Delete />
         </IconButton>
       </CardContent>

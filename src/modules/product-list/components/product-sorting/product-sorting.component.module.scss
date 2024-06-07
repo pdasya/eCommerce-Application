@@ -1,0 +1,12 @@
+.sortingInput {
+  width: 100%;
+}
+
+.sortingLabel {
+  margin: 8px !important;
+  font-weight: 700 !important;
+
+  @media screen and (width < 350px) {
+    margin-bottom: 0 !important;
+  }
+}

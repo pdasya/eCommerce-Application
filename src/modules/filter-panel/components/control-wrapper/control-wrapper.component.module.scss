@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.header {
+  &Active {
+    background-color: orange !important;
+  }
+}
+
+.outlet {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-s-8px);
+}
+
+.resetButton {
+  align-self: flex-end;
+}
+
+.hidden {
+  visibility: hidden;
+}

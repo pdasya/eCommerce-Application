@@ -1,0 +1,12 @@
+.page {
+  display: flex;
+  flex-grow: 1;
+  background-color: rgb(86 169 252);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style: none;
+}

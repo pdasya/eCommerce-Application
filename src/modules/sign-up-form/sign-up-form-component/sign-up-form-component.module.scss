@@ -1,0 +1,41 @@
+.signUpForm {
+  position: relative;
+  max-width: 600px;
+  padding: 20px;
+  border: 2px solid black;
+  margin: 20px auto;
+}
+
+.submitButton {
+  margin-top: 20px !important;
+}
+
+.dateOfBirthInput {
+  color: red;
+}
+
+.shippingAddressHeader,
+.generalInfoHeader,
+.billingAddressHeader {
+  margin-top: 20px;
+  font-weight: 600 !important;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.shippingAddressDivider,
+.generalInfoDivider,
+.billingAddressDivider {
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.loginLink {
+  display: block;
+  width: 100%;
+  margin-top: 10px !important;
+  color: black !important;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: black !important;
+}

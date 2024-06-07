@@ -1,0 +1,9 @@
+.page {
+  display: flex;
+  flex-grow: 1;
+  background-color: rgb(86 169 252);
+}
+
+.breadcrumbs {
+  padding: var(--spacing-m-12px) 0;
+}

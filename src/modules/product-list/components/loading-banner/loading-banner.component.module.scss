@@ -1,0 +1,9 @@
+.root {
+  display: flex;
+  grid-column: span 2;
+}
+
+.header {
+  display: flex;
+  gap: var(--spacing-s-8px);
+}

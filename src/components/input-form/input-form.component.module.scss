@@ -1,0 +1,20 @@
+.dummy {
+  color: green;
+}
+
+.password {
+  &Input {
+    position: relative;
+  }
+
+  &Icon {
+    position: absolute;
+    top: 20px;
+    right: 0;
+  }
+}
+
+.errorMessage {
+  font-weight: 700 !important;
+  text-transform: uppercase;
+}

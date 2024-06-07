@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardMedia, Typography, IconButton, Box, CardContent, Card } from '@mui/material';
-import { Delete, Add, Remove } from '@mui/icons-material';
+import { Delete, AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import styles from './cart-item.module.scss';
 
 interface CartItemProps {
@@ -8,6 +8,7 @@ interface CartItemProps {
   name: string;
   imageUrl: string;
   price: number;
+  oldPrice?: number;
   quantity: number;
   onAdd: (id: string) => void;
   onRemove: (id: string) => void;
@@ -19,6 +20,7 @@ const CartItem: React.FC<CartItemProps> = ({
   name,
   imageUrl,
   price,
+  oldPrice,
   quantity,
   onAdd,
   onRemove,
@@ -33,8 +35,16 @@ const CartItem: React.FC<CartItemProps> = ({
         <Typography component="h5" variant="h6" className={styles.cartItemName}>
           {name}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Price: ${price.toFixed(2)}
+        {oldPrice ? (
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            style={{ textDecoration: 'line-through' }}>
+            ${oldPrice.toFixed(2)}
+          </Typography>
+        ) : null}
+        <Typography variant="body1" color="text" className={styles.discountedPrice}>
+          ${price.toFixed(2)}
         </Typography>
       </CardContent>
       <Box className={styles.cartItemBox}>
@@ -43,18 +53,18 @@ const CartItem: React.FC<CartItemProps> = ({
         </Typography>
         <Box className={styles.cartItemBoxQuantity}>
           <IconButton onClick={() => onRemove(id)}>
-            <Remove />
+            <RemoveCircleOutline />
           </IconButton>
           <Typography className={styles.cartItemBoxQuantityText}>{quantity}</Typography>
           <IconButton onClick={() => onAdd(id)}>
-            <Add />
+            <AddCircleOutline />
           </IconButton>
         </Box>
       </Box>
       <CardContent className={styles.cartItemTotalPrice}>
         <Typography variant="h6">${totalPrice.toFixed(2)}</Typography>
         <IconButton onClick={() => onDelete(id)} color="error">
-          <Delete className={styles.deleteButton} />
+          <Delete />
         </IconButton>
       </CardContent>
     </Card>

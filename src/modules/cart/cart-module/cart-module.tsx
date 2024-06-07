@@ -17,6 +17,7 @@ interface CartItem {
   name: string;
   imageUrl: string;
   price: number;
+  oldPrice?: number;
   quantity: number;
 }
 
@@ -239,6 +240,21 @@ export const CartModule: FC = () => {
 
       const cartResponse = await client.getClient().me().carts().get().execute();
 
+      const items = cartResponse.body.results[0].lineItems.map(item => {
+        const discountedPrice = item.price.discounted?.value.centAmount;
+        const regularPrice = item.price.value.centAmount;
+
+        return {
+          id: item.id,
+          name: item.name.en,
+          imageUrl: 'https://via.placeholder.com/150',
+          price: discountedPrice ? discountedPrice / 100 : regularPrice / 100,
+          oldPrice: discountedPrice ? regularPrice / 100 : undefined,
+          quantity: item.quantity,
+        };
+      });
+
+      setCartItems(items);
       // Для проверки работы функционала работы промокода
       console.log(cartResponse.body.results);
       toast.success(`Promocode ${promoCode} is successfully applied`);
@@ -285,6 +301,7 @@ export const CartModule: FC = () => {
                 name={item.name}
                 imageUrl={item.imageUrl}
                 price={item.price}
+                oldPrice={item.oldPrice}
                 quantity={item.quantity}
                 onAdd={handleAdd}
                 onRemove={handleRemove}

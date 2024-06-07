@@ -119,3 +119,9 @@
 .deleteButton:hover {
   animation: shake 0.5s ease-in-out;
 }
+
+.discountedPrice {
+  color: orange;
+  font-size: large;
+  font-weight: 700 !important;
+}

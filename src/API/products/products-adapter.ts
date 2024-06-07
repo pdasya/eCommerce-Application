@@ -9,8 +9,8 @@ export const productParser = (product: ProductProjection): IProduct => {
   const imageSrc = product.masterVariant.images
     ? product.masterVariant.images[0]
       ? product.masterVariant.images[0].url
-      : '../public/assets/images/no-image.jpg'
-    : '../public/assets/images/no-image.jpg';
+      : './assets/images/no-image.jpg'
+    : './assets/images/no-image.jpg';
   const imageAlt = product.masterVariant.images
     ? product.masterVariant.images.length > 0
       ? product.masterVariant.images[0].label

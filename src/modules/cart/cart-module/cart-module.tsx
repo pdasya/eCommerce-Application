@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { FC, useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -26,9 +26,13 @@ const LinkToCatalogPage: FC = () => (
   </CustomRouterLink>
 );
 
+const VALID_PROMO_CODES = ['promo20'];
+
 export const CartModule: FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [promoError, setPromoError] = useState('');
 
   const fetchCart = async () => {
     setLoading(true);
@@ -192,6 +196,59 @@ export const CartModule: FC = () => {
     }
   };
 
+  const handlePromoCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPromoCode(value);
+
+    if (!VALID_PROMO_CODES.includes(value)) {
+      setPromoError('Invalid promo code');
+    } else {
+      setPromoError('');
+    }
+  };
+
+  const handlePromoCodeApply = async () => {
+    if (!VALID_PROMO_CODES.includes(promoCode)) {
+      setPromoError('Invalid promo code');
+      return;
+    }
+
+    const updatePromoCodeActions = [
+      {
+        action: 'addDiscountCode',
+        code: promoCode,
+      },
+    ];
+
+    try {
+      const response = await client.getClient().me().activeCart().get().execute();
+      const cartVersion = response.body.version;
+      const currentCartId = response.body.id;
+
+      await client
+        .getClient()
+        .carts()
+        .withId({ ID: currentCartId })
+        .post({
+          body: {
+            version: cartVersion,
+            actions: updatePromoCodeActions as CartUpdateAction[],
+          },
+        })
+        .execute();
+
+      const cartResponse = await client.getClient().me().carts().get().execute();
+
+      // Для проверки работы функционала работы промокода
+      console.log(cartResponse.body.results);
+      toast.success(`Promocode ${promoCode} is successfully applied`);
+      setPromoCode('');
+    } catch (error) {
+      console.error('Error applying promocode:', error);
+      toast.error(`Error applying promocode:`);
+    }
+  };
+
   // useEffect(() => {
   //   fetchCart();
   // }, []);
@@ -245,9 +302,41 @@ export const CartModule: FC = () => {
                     .toFixed(2)}
                 </Typography>
               </Box>
-              <Button variant="contained" color="error" onClick={handleCartClear}>
-                Clear Cart
-              </Button>
+              <Box display="flex" justifyContent="flex-end" alignItems="center" marginTop={2}>
+                <TextField
+                  label="Promo Code"
+                  variant="outlined"
+                  size="small"
+                  value={promoCode}
+                  onChange={handlePromoCodeChange}
+                  error={!!promoError}
+                  helperText={promoError}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handlePromoCodeApply}
+                  style={{ marginLeft: 8 }}>
+                  Apply
+                </Button>
+              </Box>
+              <Box style={{ display: 'flex', justifyContent: 'spaceBetween', gap: '15px' }}>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={handleCartClear}
+                  className={styles.buttonSize}
+                  style={{ marginTop: 16 }}>
+                  Clear Cart
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.buttonSize}
+                  style={{ marginTop: 16 }}>
+                  Place your order
+                </Button>
+              </Box>
             </>
           )}
           {cartItems.length === 0 && (

@@ -68,3 +68,12 @@
 .cartImage {
   animation: cart-move 15s ease-in-out infinite;
 }
+
+.buttonSize {
+  width: 600px !important;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}

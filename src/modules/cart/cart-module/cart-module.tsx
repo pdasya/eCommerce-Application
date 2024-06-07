@@ -157,6 +157,41 @@ export const CartModule: FC = () => {
     );
   };
 
+  const handleCartClear = async () => {
+    const clearCartActions = cartItems.map(item => ({
+      action: 'removeLineItem',
+      lineItemId: item.id,
+    }));
+
+    try {
+      const response = await client.getClient().me().activeCart().get().execute();
+      const cartVersion = response.body.version;
+      const currentCartId = response.body.id;
+
+      await client
+        .getClient()
+        .carts()
+        .withId({ ID: currentCartId })
+        .post({
+          body: {
+            version: cartVersion,
+            actions: clearCartActions as CartUpdateAction[],
+          },
+        })
+        .execute();
+
+      setCartItems([]);
+      toast.success('Cart has been cleared');
+
+      // Для проверки работы функционала удаления товаров из корзины
+      const responseCheck = await client.getClient().me().activeCart().get().execute();
+      console.log(responseCheck.body);
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      toast.error('Error clearing cart');
+    }
+  };
+
   // useEffect(() => {
   //   fetchCart();
   // }, []);
@@ -203,6 +238,11 @@ export const CartModule: FC = () => {
           <Button variant="contained" color="info" onClick={fetchCart}>
             Add Cart Items
           </Button>
+          {cartItems.length > 0 && (
+            <Button variant="contained" color="error" onClick={handleCartClear}>
+              Clear Cart
+            </Button>
+          )}
         </Box>
       </Grid>
     </Grid>

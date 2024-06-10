@@ -42,12 +42,12 @@ const addLineItemToCart = async (
   const updateActions: CartUpdateAction[] = [
     {
       action: 'addLineItem',
-      sku: 'itoen-tea-1_1',
+      sku: 'yamato-sauces-3_1',
       quantity: 1,
     },
     {
       action: 'addLineItem',
-      sku: 'itoen-tea-5_1',
+      sku: 'itoen-tea-1_1',
       quantity: 1,
     },
     {
@@ -236,9 +236,11 @@ export const handlePromoCodeApply = async (promoCode: string, VALID_PROMO_CODES:
       })
       .execute();
 
-    const cartResponse = await client.getClient().me().carts().get().execute();
+    const cartResponse = await client.getClient().me().activeCart().get().execute();
 
-    const items = cartResponse.body.results[0].lineItems.map(item => {
+    console.log(cartResponse.body.lineItems);
+
+    const items = cartResponse.body.lineItems.map(item => {
       const discountedPrice = item.price.discounted?.value.centAmount;
       const regularPrice = item.price.value.centAmount;
 
@@ -251,6 +253,10 @@ export const handlePromoCodeApply = async (promoCode: string, VALID_PROMO_CODES:
         quantity: item.quantity,
       };
     });
+
+    const cartResponseCheck = await client.getClient().me().carts().get().execute();
+
+    console.log(cartResponseCheck.body.results[0].lineItems);
     return items;
   } catch (error) {
     console.error('Error applying promo code:', error);
@@ -286,5 +292,15 @@ export const handleCartClear = async (cartItems: CartItem[]) => {
   } catch (error) {
     console.error('Error clearing cart:', error);
     throw error;
+  }
+};
+
+export const getTotalPrice = async () => {
+  try {
+    const response = await client.getClient().me().activeCart().get().execute();
+    return response.body.totalPrice;
+  } catch (error) {
+    console.error(`Error getting total cost: ${error}`);
+    return error;
   }
 };

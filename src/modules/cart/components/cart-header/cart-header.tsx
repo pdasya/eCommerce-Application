@@ -7,7 +7,7 @@ import { RoutePath } from '@routes/index';
 import styles from './cart-header.module.scss';
 
 const LinkToCatalogPage: FC = () => (
-  <CustomRouterLink to={RoutePath.catalog} className={styles.continueShoppingLink}>
+  <CustomRouterLink to={RoutePath.catalogDefault} className={styles.continueShoppingLink}>
     Continue Shopping
   </CustomRouterLink>
 );

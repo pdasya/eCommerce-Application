@@ -1,11 +1,12 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 // import { client } from '@config/constants';
 // import { CartUpdateAction } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
 import {
   fetchCart,
+  getTotalPrice,
   handleCartClear,
   handleDelete,
   handlePromoCodeApply,
@@ -26,13 +27,14 @@ interface CartItem {
   quantity: number;
 }
 
-const VALID_PROMO_CODES = ['promo20'];
+const VALID_PROMO_CODES = ['promo20', 'test'];
 
 export const CartModule: FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState('');
   const [promoError, setPromoError] = useState('');
+  const [totalPrice, setTotalPrice] = useState<number | null>(null);
 
   const fetchCartItems = async () => {
     setLoading(true);
@@ -127,6 +129,20 @@ export const CartModule: FC = () => {
     }
   };
 
+  const fetchTotalPrice = async () => {
+    try {
+      const response = await getTotalPrice();
+      const price = response ? response.centAmount : 0;
+      setTotalPrice(price);
+    } catch (error) {
+      console.error(`Failed to get total price: ${error.message}`);
+    }
+  };
+
+  useEffect(() => {
+    fetchTotalPrice();
+  }, [cartItems]);
+
   return (
     <Grid container spacing={2} className={styles.cartModuleWrapper}>
       <CartHeader />
@@ -150,10 +166,7 @@ export const CartModule: FC = () => {
               />
               <Box textAlign="right" marginTop={2}>
                 <Typography variant="h6">
-                  Total Price: $
-                  {cartItems
-                    .reduce((total, item) => total + item.price * item.quantity, 0)
-                    .toFixed(2)}
+                  Total Price: ${totalPrice ? (totalPrice / 100).toFixed(2) : '0.00'}
                 </Typography>
               </Box>
               <PromoCodeForm

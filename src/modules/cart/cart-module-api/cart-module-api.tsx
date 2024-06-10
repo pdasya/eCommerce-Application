@@ -298,7 +298,11 @@ export const handleCartClear = async (cartItems: CartItem[]) => {
 export const getTotalPrice = async () => {
   try {
     const response = await client.getClient().me().activeCart().get().execute();
-    return response.body.totalPrice;
+    const discount = response.body.discountOnTotalPrice?.discountedAmount.centAmount || 0;
+    const totalPrice = response.body.totalPrice.centAmount;
+    const oldTotalPrice = totalPrice + discount;
+
+    return { totalPrice, oldTotalPrice };
   } catch (error) {
     console.error(`Error getting total cost: ${error}`);
     return error;

@@ -35,6 +35,7 @@ export const CartModule: FC = () => {
   const [promoCode, setPromoCode] = useState('');
   const [promoError, setPromoError] = useState('');
   const [totalPrice, setTotalPrice] = useState<number | null>(null);
+  const [totalOldPrice, setTotalOldPrice] = useState<number | null>(null);
 
   const fetchCartItems = async () => {
     setLoading(true);
@@ -131,9 +132,9 @@ export const CartModule: FC = () => {
 
   const fetchTotalPrice = async () => {
     try {
-      const response = await getTotalPrice();
-      const price = response ? response.centAmount : 0;
-      setTotalPrice(price);
+      const { totalPriceData, oldTotalPriceData } = await getTotalPrice();
+      setTotalPrice(totalPriceData);
+      setTotalOldPrice(oldTotalPriceData);
     } catch (error) {
       console.error(`Failed to get total price: ${error.message}`);
     }
@@ -165,6 +166,11 @@ export const CartModule: FC = () => {
                 handleDelete={handleDeleteItem}
               />
               <Box textAlign="right" marginTop={2}>
+                {totalOldPrice && totalOldPrice > totalPrice! && (
+                  <Typography variant="body2" style={{ textDecoration: 'line-through' }}>
+                    ${(totalOldPrice / 100).toFixed(2)}
+                  </Typography>
+                )}
                 <Typography variant="h6">
                   Total Price: ${totalPrice ? (totalPrice / 100).toFixed(2) : '0.00'}
                 </Typography>

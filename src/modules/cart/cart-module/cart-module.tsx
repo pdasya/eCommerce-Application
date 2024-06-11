@@ -36,6 +36,7 @@ export const CartModule: FC = () => {
   const [promoError, setPromoError] = useState('');
   const [totalPrice, setTotalPrice] = useState<number | null>(null);
   const [totalOldPrice, setTotalOldPrice] = useState<number | null>(null);
+  const [promoApplied, setPromoApplied] = useState(false);
 
   const fetchCartItems = async () => {
     setLoading(true);
@@ -124,15 +125,18 @@ export const CartModule: FC = () => {
       setCartItems(items);
       toast.success(`Promocode ${promoCode} is successfully applied`);
       setPromoCode('');
+      setPromoApplied(true);
     } catch (error) {
       setPromoError('Invalid promo code');
       toast.error(`Error applying promo code: ${error.message}`);
+      console.log(`${error.message}`);
     }
   };
 
   const fetchTotalPrice = async () => {
     try {
-      const { totalPriceData, oldTotalPriceData } = await getTotalPrice();
+      const { totalPrice: totalPriceData, oldTotalPrice: oldTotalPriceData } =
+        await getTotalPrice();
       setTotalPrice(totalPriceData);
       setTotalOldPrice(oldTotalPriceData);
     } catch (error) {
@@ -141,8 +145,11 @@ export const CartModule: FC = () => {
   };
 
   useEffect(() => {
-    fetchTotalPrice();
-  }, [cartItems]);
+    if (promoApplied) {
+      fetchTotalPrice();
+      setPromoApplied(false);
+    }
+  }, [promoApplied]);
 
   return (
     <Grid container spacing={2} className={styles.cartModuleWrapper}>
@@ -172,7 +179,12 @@ export const CartModule: FC = () => {
                   </Typography>
                 )}
                 <Typography variant="h6">
-                  Total Price: ${totalPrice ? (totalPrice / 100).toFixed(2) : '0.00'}
+                  Total Price: $
+                  {totalPrice
+                    ? (totalPrice / 100).toFixed(2)
+                    : cartItems
+                        .reduce((total, item) => total + item.price * item.quantity, 0)
+                        .toFixed(2)}
                 </Typography>
               </Box>
               <PromoCodeForm

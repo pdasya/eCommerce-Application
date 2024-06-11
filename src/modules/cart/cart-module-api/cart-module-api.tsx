@@ -238,8 +238,6 @@ export const handlePromoCodeApply = async (promoCode: string, VALID_PROMO_CODES:
 
     const cartResponse = await client.getClient().me().activeCart().get().execute();
 
-    console.log(cartResponse.body.lineItems);
-
     const items = cartResponse.body.lineItems.map(item => {
       const discountedPrice = item.price.discounted?.value.centAmount;
       const regularPrice = item.price.value.centAmount;
@@ -253,10 +251,6 @@ export const handlePromoCodeApply = async (promoCode: string, VALID_PROMO_CODES:
         quantity: item.quantity,
       };
     });
-
-    const cartResponseCheck = await client.getClient().me().carts().get().execute();
-
-    console.log(cartResponseCheck.body.results[0].lineItems);
     return items;
   } catch (error) {
     console.error('Error applying promo code:', error);

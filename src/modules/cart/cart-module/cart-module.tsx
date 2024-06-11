@@ -99,12 +99,14 @@ export const CartModule: FC = () => {
   };
 
   const handleCartClearItems = async () => {
-    try {
-      await handleCartClear(cartItems);
-      setCartItems([]);
-      toast.success('Cart has been cleared');
-    } catch (error) {
-      toast.error('Error clearing cart');
+    if (window.confirm('Are you sure you want to clear the cart?')) {
+      try {
+        await handleCartClear(cartItems);
+        setCartItems([]);
+        toast.success('Cart has been cleared');
+      } catch (error) {
+        toast.error('Error clearing cart');
+      }
     }
   };
 

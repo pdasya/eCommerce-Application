@@ -4,6 +4,7 @@ import { ClientResponse, Customer, CustomerDraft } from '@commercetools/platform
 import { authEnd, authPending } from '@store/misc/misc.slice';
 import { apiFlowManager } from '@config/constants';
 import { ApiFlowManager } from './api-flow-manager.class';
+import { IUserDraft } from '@/interfaces/user-draft.interface';
 
 class AuthService {
   constructor(private _apiFlowManager: ApiFlowManager) {

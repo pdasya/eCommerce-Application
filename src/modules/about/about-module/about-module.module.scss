@@ -1,9 +1,21 @@
-.title {
-  font-size: 34px !important;
-  font-weight: 700 !important;
+.text {
   text-align: center;
 }
 
-.text {
+.about {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+
+  &Title {
+    font-size: 34px !important;
+    font-weight: 700 !important;
+    text-align: center;
+  }
+}
+
+.title {
+  max-width: 800px;
+  margin: 40px auto 20px;
   text-align: center;
 }

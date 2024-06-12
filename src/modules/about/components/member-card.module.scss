@@ -1,0 +1,37 @@
+.card {
+  display: flex;
+  max-width: 345px;
+  height: 100%;
+  flex-direction: column;
+
+  &Photo {
+    height: 300px;
+  }
+
+  &Name {
+    text-align: center;
+  }
+
+  &Role {
+    margin-bottom: 20px !important;
+    text-align: center;
+  }
+
+  &Bio {
+    margin-bottom: 20px !important;
+  }
+
+  &Text {
+    padding-top: 0 !important;
+    margin-top: auto !important;
+  }
+}
+
+.link {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

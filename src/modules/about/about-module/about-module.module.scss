@@ -3,7 +3,6 @@
 }
 
 .about {
-  max-width: 800px;
   margin: 0 auto;
   text-align: center;
 
@@ -15,7 +14,10 @@
 }
 
 .title {
-  max-width: 800px;
-  margin: 40px auto 20px;
+  margin: 0 auto 20px;
   text-align: center;
+}
+
+.content {
+  padding: 40px;
 }

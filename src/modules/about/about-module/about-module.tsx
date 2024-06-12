@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Paper, Typography } from '@mui/material';
 import styles from './about-module.module.scss';
 import { IMember } from '../interface/about-interface';
 import { MemberCard } from '../components/member-card';
@@ -29,58 +29,71 @@ export const AboutContent: FC = () => {
     },
   ];
   return (
-    <Grid>
-      <Typography variant="h1" component="h1" className={styles.aboutTitle}>
-        About Us
-      </Typography>
-      <Box className={styles.about}>
-        <Typography variant="body1" sx={{ marginTop: 1 }}>
-          We&apos;re a team of web developers, united by a common goal: to create an e-Commerce
-          application. This project is not only our first experience of collaboration but also our
-          first try into React development.
-        </Typography>
-        <Typography variant="body1" sx={{ marginTop: 1 }}>
-          Our journey into React development has been both challenging and rewarding. As we dove
-          into the intricacies of React components and hooks, we found ourselves continuously
-          learning and adapting to new methodologies. Also, this project has allowed us to
-          experiment with state management techniques, pushing our development skills to new
-          heights.
-        </Typography>
-      </Box>
-      <Box className={styles.title}>
-        <Typography variant="h5" component="h5">
-          Team Members
-        </Typography>
-      </Box>
-      <Grid container spacing={2} justifyContent="center" alignItems="stretch">
-        {members.map(member => (
-          <Grid item key={member.name} alignSelf="stretch">
-            <MemberCard {...member} />
-          </Grid>
-        ))}
+    <Grid container spacing={2} direction="column">
+      <Grid item>
+        <Paper className={styles.content}>
+          <Typography variant="h1" component="h1" className={styles.aboutTitle}>
+            About Us
+          </Typography>
+          <Box className={styles.about}>
+            <Typography variant="body1" sx={{ marginTop: 1 }}>
+              We&apos;re a team of web developers, united by a common goal: to create an e-Commerce
+              application. This project is not only our first experience of collaboration but also
+              our first try into React development.
+            </Typography>
+            <Typography variant="body1" sx={{ marginTop: 1 }}>
+              Our journey into React development has been both challenging and rewarding. As we dove
+              into the intricacies of React components and hooks, we found ourselves continuously
+              learning and adapting to new methodologies. Also, this project has allowed us to
+              experiment with state management techniques, pushing our development skills to new
+              heights.
+            </Typography>
+          </Box>
+        </Paper>
       </Grid>
-      <Grid>
-        <Box className={styles.title}>
-          <Typography variant="h5" component="h5">
-            Impact of collaboration
-          </Typography>
-        </Box>
-        <Box className={styles.about}>
-          <Typography variant="body1" sx={{ marginTop: 1 }}>
-            Although we three were strangers at the start of the project, this did not prevent us
-            from quickly establishing a collaborative rapport. We quickly recognized each
-            other&apos;s strengths and weaknesses, which helped us navigate through all the
-            challenges of team development. The toughest part of the project involved grappling with
-            the Commercetools platform and its SDK, often joking about the complexity and
-            unpredictability of its documentation. However, over each iteration we developed more
-            suitable and reusable solutions. This experience boosted our confidence in using Git and
-            code review. You can check out the code for our application at the provided link.
-          </Typography>
-          <Typography variant="body1" sx={{ marginTop: 1 }}>
-            We welcome and appreciate different viewpoints, so if you have any feedback or comments,
-            please share them with us.
-          </Typography>
-        </Box>
+      <Grid item>
+        <Paper className={styles.content}>
+          <Box className={styles.title}>
+            <Typography variant="h5" component="h5">
+              Team Members
+            </Typography>
+          </Box>
+          <Grid container spacing={2} justifyContent="center" alignItems="stretch">
+            {members.map(member => (
+              <Grid item key={member.name} alignSelf="stretch">
+                <MemberCard {...member} />
+              </Grid>
+            ))}
+          </Grid>
+        </Paper>
+      </Grid>
+      <Grid item>
+        <Paper className={styles.content}>
+          <Grid>
+            <Box className={styles.title}>
+              <Typography variant="h5" component="h5">
+                Impact of collaboration
+              </Typography>
+            </Box>
+            <Box className={styles.about}>
+              <Typography variant="body1" sx={{ marginTop: 1 }}>
+                Although we three were strangers at the start of the project, this did not prevent
+                us from quickly establishing a collaborative rapport. We quickly recognized each
+                other&apos;s strengths and weaknesses, which helped us navigate through all the
+                challenges of team development. The toughest part of the project involved grappling
+                with the Commercetools platform and its SDK, often joking about the complexity and
+                unpredictability of its documentation. However, over each iteration we developed
+                more suitable and reusable solutions. This experience boosted our confidence in
+                using Git and code review. You can check out the code for our application at the
+                provided link.
+              </Typography>
+              <Typography variant="body1" sx={{ marginTop: 1 }}>
+                We welcome and appreciate different viewpoints, so if you have any feedback or
+                comments, please share them with us.
+              </Typography>
+            </Box>
+          </Grid>
+        </Paper>
       </Grid>
     </Grid>
   );

@@ -10,7 +10,7 @@ export const AboutContent: FC = () => {
       name: 'Daria',
       role: 'TeamLead & Frontend Developer',
       bio: 'I am a novice front-end developer passionate about crafting digital experiences. My journey into the world of web development started about a year ago with a fascination for coding and a thirst for creativity and visualization. I find endless joy in being part of projects, collaborating with team members, and continuous investigating of new technologies.',
-      photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg',
+      photoUrl: './assets/images/photo/daria.jpg',
       githubLink: 'https://github.com/pdasya/',
     },
     {

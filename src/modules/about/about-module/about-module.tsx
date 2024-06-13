@@ -38,7 +38,7 @@ export const AboutContent: FC = () => {
     <Grid container spacing={2} direction="column">
       <Grid item>
         <Paper className={styles.content}>
-          <Typography variant="h1" component="h1" className={styles.aboutTitle}>
+          <Typography variant="h1" component="h1" className={styles.title}>
             About Us
           </Typography>
           <Box className={styles.about}>
@@ -59,12 +59,10 @@ export const AboutContent: FC = () => {
       </Grid>
       <Grid item>
         <Paper className={styles.content}>
-          <Box className={styles.title}>
-            <Typography variant="h5" component="h5">
-              Team Members
-            </Typography>
-          </Box>
-          <Grid container spacing={2} justifyContent="center" alignItems="stretch">
+          <Typography variant="h5" component="h5" className={styles.title}>
+            Team Members
+          </Typography>
+          <Grid container spacing={2} className={styles.members}>
             {members.map(member => (
               <Grid item key={member.name} alignSelf="stretch">
                 <MemberCard {...member} />
@@ -76,11 +74,9 @@ export const AboutContent: FC = () => {
       <Grid item>
         <Paper className={styles.content}>
           <Grid>
-            <Box className={styles.title}>
-              <Typography variant="h5" component="h5">
-                Impact of collaboration
-              </Typography>
-            </Box>
+            <Typography variant="h5" component="h5" className={styles.title}>
+              Impact of collaboration
+            </Typography>
             <Box className={styles.about}>
               <Typography variant="body1" sx={{ marginTop: 1 }}>
                 Although we three were strangers at the start of the project, this did not prevent

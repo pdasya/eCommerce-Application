@@ -5,19 +5,20 @@
 .about {
   margin: 0 auto;
   text-align: center;
-
-  &Title {
-    font-size: 34px !important;
-    font-weight: 700 !important;
-    text-align: center;
-  }
 }
 
 .title {
   margin: 0 auto 20px;
+  font-size: 34px !important;
+  font-weight: 700 !important;
   text-align: center;
 }
 
 .content {
   padding: 40px;
+}
+
+.members {
+  justify-content: center;
+  margin-top: -8px !important;
 }

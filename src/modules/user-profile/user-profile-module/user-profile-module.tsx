@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Typography, Grid, Paper, Button, Avatar, Divider } from '@mui/material';
 import { toast } from 'react-toastify';
-import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
 import { ValidationError } from 'yup';
 import { Address } from '@commercetools/platform-sdk';
+import { apiFlowManager } from '@config/constants';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
 import {
@@ -180,10 +180,10 @@ export const UserProfileModule: FC = () => {
     } else if (await validateData()) {
       const updateActions = createUpdateActions(userData);
       try {
-        const response = await client.getClient().me().get().execute();
+        const response = await apiFlowManager.getClient().me().get().execute();
         const customerVersion = response.body.version;
 
-        await client
+        await apiFlowManager
           .getClient()
           .me()
           .post({

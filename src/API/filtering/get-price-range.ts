@@ -4,7 +4,7 @@ import {
   ProductProjectionPagedSearchResponse,
   RangeFacetResult,
 } from '@commercetools/platform-sdk';
-import { client } from '@config/constants';
+import { apiFlowManager } from '@config/constants';
 
 interface IPriceRange {
   min: number;
@@ -30,7 +30,7 @@ function priceRangeResponseAdapter(
 }
 
 export const getPriceRange = async (): Promise<IPriceRange> => {
-  const response = await client
+  const response = await apiFlowManager
     .getClient()
     .productProjections()
     .search()

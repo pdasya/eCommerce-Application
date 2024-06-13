@@ -1,16 +1,12 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { authorize } from '@store/auth/auth.slice';
 import { baseSchema } from '@config/validation-schema';
-import { tokenCache, tokenName, saveStorage } from '@/config/constants';
 import { IFormField, IUserDraft } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
-import { signIn } from '../sign-in-form-api/sign-in-form.api';
 import SignInFormComponent from '../sign-in-form-component/sign-in-form.component';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
+import { authService } from '@/services/auth.service';
 
 export const SignInForm: FC = () => {
-  const dispatch = useAppDispatch();
   const initialValues: IUserDraft = {
     email: '',
     password: '',
@@ -26,18 +22,10 @@ export const SignInForm: FC = () => {
       email: values.email,
       password: values.password,
     };
-    await signIn(userDraft)
-      .then(response => {
-        toast.success('Login successful!');
-        dispatch(
-          authorize({
-            id: response.body.customer.id,
-            email: response.body.customer.email,
-          }),
-        );
-      })
+    authService
+      .signIn(userDraft)
       .then(() => {
-        saveStorage.set(tokenName, tokenCache.get());
+        toast.success('Login successful!');
       })
       .catch(error => {
         if (error.statusCode === 400) {

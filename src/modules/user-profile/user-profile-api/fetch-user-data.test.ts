@@ -1,8 +1,8 @@
-import { client } from '@config/constants';
+import { apiFlowManager } from '@config/constants';
 import { fetchUserData } from './fetch-user-data';
 
 jest.mock('@config/constants', () => ({
-  client: {
+  apiFlowManager: {
     getClient: jest.fn().mockReturnThis(),
     me: jest.fn().mockReturnThis(),
     get: jest.fn().mockReturnThis(),
@@ -47,7 +47,7 @@ describe('fetchUserData', () => {
       },
     };
 
-    (client.getClient().me().get().execute as jest.Mock).mockResolvedValue(mockResponse);
+    (apiFlowManager.getClient().me().get().execute as jest.Mock).mockResolvedValue(mockResponse);
 
     await fetchUserData(mockSetUserData);
 
@@ -80,7 +80,9 @@ describe('fetchUserData', () => {
   });
 
   test('handles errors and sets fallback user data', async () => {
-    (client.getClient().me().get().execute as jest.Mock).mockRejectedValue(new Error('API Error'));
+    (apiFlowManager.getClient().me().get().execute as jest.Mock).mockRejectedValue(
+      new Error('API Error'),
+    );
 
     await fetchUserData(mockSetUserData);
 

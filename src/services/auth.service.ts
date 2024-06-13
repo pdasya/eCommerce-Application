@@ -1,17 +1,20 @@
 import { store } from '@store/index';
 import { authorize, unauthorize } from '@store/auth/auth.slice';
-import { ClientResponse, Customer, CustomerDraft } from '@commercetools/platform-sdk';
+import { CustomerDraft } from '@commercetools/platform-sdk';
 import { authEnd, authPending } from '@store/misc/misc.slice';
 import { apiFlowManager } from '@config/constants';
 import { ApiFlowManager } from './api-flow-manager.class';
 import { IUserDraft } from '@/interfaces/user-draft.interface';
+import { ICustomer } from '@/interfaces/customer.interface';
+import { getAuthorizedCustomer } from '@/API/customer/get-authorized-customer.request';
 
 class AuthService {
-  constructor(private _apiFlowManager: ApiFlowManager) {
-    this._init();
-  }
+  constructor(private _apiFlowManager: ApiFlowManager) {}
 
-  private async _init() {
+  /**
+   * Initial service configuration.
+   */
+  public async init() {
     if (!this._apiFlowManager.isAuthorizedFlow) {
       store.dispatch(unauthorize({}));
       store.dispatch(authEnd({}));
@@ -20,22 +23,22 @@ class AuthService {
 
     store.dispatch(authPending({}));
 
-    const response = await this.getUserInfo();
+    const customer = await this.getCustomer();
 
-    store.dispatch(
-      authorize({
-        id: response.body.id,
-        email: response.body.email,
-      }),
-    );
-
+    store.dispatch(authorize({ customer }));
     store.dispatch(authEnd({}));
   }
 
-  public async getUserInfo(): Promise<ClientResponse<Customer>> {
-    return this._apiFlowManager.getClient().me().get().execute();
+  /**
+   * Returns current authorized customer parameters.
+   */
+  public async getCustomer(): Promise<ICustomer> {
+    return getAuthorizedCustomer();
   }
 
+  /**
+   * Authorize customer via password flow.
+   */
   public async signIn(data: IUserDraft): Promise<void> {
     const response = await this._apiFlowManager
       .switchPasswordFlow(data)
@@ -55,6 +58,9 @@ class AuthService {
     );
   }
 
+  /**
+   * Register customer and sign-in.
+   */
   public async signUp(data: CustomerDraft): Promise<void> {
     await this._apiFlowManager
       .switchAnonymousFlow()
@@ -70,6 +76,32 @@ class AuthService {
     await this.signIn(data as IUserDraft);
   }
 
+  /**
+   * Updates current customer password.
+   */
+  public async changePassword(data: { currentPassword: string; newPassword: string }) {
+    const customer = await this.getCustomer();
+
+    await this._apiFlowManager
+      .getClient()
+      .me()
+      .password()
+      .post({
+        body: {
+          version: customer.version,
+          ...data,
+        },
+      })
+      .execute();
+
+    this.logout();
+
+    await this.signIn({ email: customer.email, password: data.newPassword });
+  }
+
+  /**
+   * Logs-out locally (clear token storage), without network requests.
+   */
   public logout() {
     this._apiFlowManager.switchAnonymousFlow();
     store.dispatch(unauthorize({}));

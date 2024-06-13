@@ -31,7 +31,7 @@ export const AboutContent: FC = () => {
       photo: './assets/images/photo/aleksei.jpg',
       githubLink: 'https://github.com/nicealx',
       impact:
-        "Alexey really spiced up our project! First, he set up the SDK and built the part of the application that users interact with, making a great foundation for everything else. Then, he made a simple and secure login form so everyone could access their accounts easily. But he didn't stop there! Alexey added a huge number—over 100500 products—to our catalog. He arranged them to show up as beautiful and fun-to-use cards, making our app look better and easier to use. On top of all that, Alexey implemented advanced search features, ensuring that users can quickly find exactly what they're looking for.",
+        "Aleksei really spiced up our project! First, he set up the SDK and built the part of the application that users interact with, making a great foundation for everything else. Then, he made a simple and secure login form so everyone could access their accounts easily. But he didn't stop there! Aleksei added a huge number—over 100500 products—to our catalog. He arranged them to show up as beautiful and fun-to-use cards, making our app look better and easier to use. On top of all that, Aleksei implemented advanced search features, ensuring that users can quickly find exactly what they're looking for.",
     },
   ];
   return (

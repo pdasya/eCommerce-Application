@@ -4,4 +4,5 @@ export interface IMember {
   bio: string;
   photo: string;
   githubLink: string;
+  impact: string;
 }

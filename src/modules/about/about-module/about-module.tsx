@@ -12,6 +12,8 @@ export const AboutContent: FC = () => {
       bio: 'I am a novice front-end developer passionate about crafting digital experiences. My journey into the world of web development started about a year ago with a fascination for coding and a thirst for creativity and visualization. I find endless joy in being part of projects, collaborating with team members, and continuous investigating of new technologies.',
       photo: './assets/images/photo/daria.jpg',
       githubLink: 'https://github.com/pdasya/',
+      impact:
+        "Daria made a substantial impact on our project, not just by her organizational skills but also by adding a touch of magic to our GitHub Project board—it's so well-managed it almost updates itself! On the development front, Daria crafted a user registration page, making it so easy for new users to join our platform that even your grandma will signed up! Furthermore, she developed a user profile page, enabling users to manage their personal information and customize their experience. Her contributions have significantly enhanced both the functionality and charm of our application.",
     },
     {
       name: 'Timur',
@@ -19,6 +21,8 @@ export const AboutContent: FC = () => {
       bio: 'In love with gardening, cats and mechanical keyboards. Crafting code and turning coffee into creativity ✨',
       photo: './assets/images/photo/timur.jpeg',
       githubLink: 'https://github.com/jasper7466',
+      impact:
+        "Timur again demonstrated his technical prowess by significantly boosting our project's functionality. He refined our code quality through precise linter configurations and integrated a state manager for better data control. Timur also crafted a seamlessly functional routing system, ensuring smooth and logical page transitions. Impressively, he introduced filtering, categories, and breadcrumb navigation, greatly enhancing user navigation and product discovery within our application. Now, thanks to Timur, even our application knows where it's going—no GPS needed!",
     },
     {
       name: 'Aleksei',
@@ -26,6 +30,8 @@ export const AboutContent: FC = () => {
       bio: "I'm a front-end developer. My journey in web development began with self-study in 2017. To this day, I continue my journey as a web developer, and every day is an opportunity for me to learn something new and improve my skills.",
       photo: './assets/images/photo/aleksei.jpg',
       githubLink: 'https://github.com/nicealx',
+      impact:
+        "Alexey really spiced up our project! First, he set up the SDK and built the part of the application that users interact with, making a great foundation for everything else. Then, he made a simple and secure login form so everyone could access their accounts easily. But he didn't stop there! Alexey added a huge number—over 100500 products—to our catalog. He arranged them to show up as beautiful and fun-to-use cards, making our app look better and easier to use. On top of all that, Alexey implemented advanced search features, ensuring that users can quickly find exactly what they're looking for.",
     },
   ];
   return (

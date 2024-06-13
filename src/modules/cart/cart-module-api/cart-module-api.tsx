@@ -1,5 +1,5 @@
 import { Cart, CartUpdateAction } from '@commercetools/platform-sdk';
-import { client } from '@config/constants';
+import { apiFlowManager } from '@config/constants';
 
 let cart: Cart;
 let cartId: string;
@@ -15,9 +15,9 @@ interface CartItem {
 }
 
 const createCart = async (): Promise<Cart> => {
-  const customerId = (await client.getClient().me().get().execute()).body.id;
+  const customerId = (await apiFlowManager.getClient().me().get().execute()).body.id;
   try {
-    const response = await client
+    const response = await apiFlowManager
       .getClient()
       .carts()
       .post({
@@ -63,7 +63,7 @@ const addLineItemToCart = async (
   ];
 
   try {
-    const response = await client
+    const response = await apiFlowManager
       .getClient()
       .carts()
       .withId({ ID: currentCartId })
@@ -83,7 +83,7 @@ const addLineItemToCart = async (
 
 export const getActiveCart = async (): Promise<Cart> => {
   try {
-    const response = await client.getClient().me().carts().get().execute();
+    const response = await apiFlowManager.getClient().me().carts().get().execute();
     console.log(response.body.results);
     const activeCart = response.body.results.sort(
       (a, b) => new Date(b.lastModifiedAt).getTime() - new Date(a.lastModifiedAt).getTime(),
@@ -141,14 +141,14 @@ export const handleDelete = async (id: string) => {
   ];
 
   try {
-    const response = await client.getClient().me().activeCart().get().execute();
+    const response = await apiFlowManager.getClient().me().activeCart().get().execute();
     const currentCartVersion = response.body.version;
     const currentCartId = response.body.id;
 
     const itemName =
       response.body.lineItems.find((item: { id: string }) => item.id === id)?.name?.en || 'Item';
 
-    await client
+    await apiFlowManager
       .getClient()
       .carts()
       .withId({ ID: currentCartId })
@@ -160,7 +160,7 @@ export const handleDelete = async (id: string) => {
       })
       .execute();
 
-    const cartResponse = await client.getClient().me().carts().get().execute();
+    const cartResponse = await apiFlowManager.getClient().me().carts().get().execute();
     console.log(cartResponse.body.results);
     return itemName;
   } catch (error) {
@@ -179,14 +179,14 @@ export const handleQuantityChange = async (id: string, newQuantity: number) => {
   ];
 
   try {
-    const response = await client.getClient().me().activeCart().get().execute();
+    const response = await apiFlowManager.getClient().me().activeCart().get().execute();
     const currentCartVersion = response.body.version;
     const currentCartId = response.body.id;
 
     const itemName =
       response.body.lineItems.find((item: { id: string }) => item.id === id)?.name?.en || 'Item';
 
-    await client
+    await apiFlowManager
       .getClient()
       .carts()
       .withId({ ID: currentCartId })
@@ -198,7 +198,7 @@ export const handleQuantityChange = async (id: string, newQuantity: number) => {
       })
       .execute();
 
-    const responseCheck = await client.getClient().me().activeCart().get().execute();
+    const responseCheck = await apiFlowManager.getClient().me().activeCart().get().execute();
     console.log(responseCheck.body);
     return itemName;
   } catch (error) {
@@ -220,11 +220,11 @@ export const handlePromoCodeApply = async (promoCode: string, VALID_PROMO_CODES:
   ];
 
   try {
-    const response = await client.getClient().me().activeCart().get().execute();
+    const response = await apiFlowManager.getClient().me().activeCart().get().execute();
     const currentCartVersion = response.body.version;
     const currentCartId = response.body.id;
 
-    await client
+    await apiFlowManager
       .getClient()
       .carts()
       .withId({ ID: currentCartId })
@@ -236,7 +236,7 @@ export const handlePromoCodeApply = async (promoCode: string, VALID_PROMO_CODES:
       })
       .execute();
 
-    const cartResponse = await client.getClient().me().activeCart().get().execute();
+    const cartResponse = await apiFlowManager.getClient().me().activeCart().get().execute();
 
     const items = cartResponse.body.lineItems.map(item => {
       const discountedPrice = item.price.discounted?.value.centAmount;
@@ -265,11 +265,11 @@ export const handleCartClear = async (cartItems: CartItem[]) => {
   }));
 
   try {
-    const response = await client.getClient().me().activeCart().get().execute();
+    const response = await apiFlowManager.getClient().me().activeCart().get().execute();
     const currentCartVersion = response.body.version;
     const currentCartId = response.body.id;
 
-    await client
+    await apiFlowManager
       .getClient()
       .carts()
       .withId({ ID: currentCartId })
@@ -281,7 +281,7 @@ export const handleCartClear = async (cartItems: CartItem[]) => {
       })
       .execute();
 
-    const responseCheck = await client.getClient().me().activeCart().get().execute();
+    const responseCheck = await apiFlowManager.getClient().me().activeCart().get().execute();
     console.log(responseCheck.body);
   } catch (error) {
     console.error('Error clearing cart:', error);
@@ -291,7 +291,7 @@ export const handleCartClear = async (cartItems: CartItem[]) => {
 
 export const getTotalPrice = async () => {
   try {
-    const response = await client.getClient().me().activeCart().get().execute();
+    const response = await apiFlowManager.getClient().me().activeCart().get().execute();
     const discount = response.body.discountOnTotalPrice?.discountedAmount.centAmount || 0;
     const totalPrice = response.body.totalPrice.centAmount;
     const oldTotalPrice = totalPrice + discount;

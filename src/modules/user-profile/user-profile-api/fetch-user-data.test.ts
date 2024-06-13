@@ -2,7 +2,7 @@ import { apiFlowManager } from '@config/constants';
 import { fetchUserData } from './fetch-user-data';
 
 jest.mock('@config/constants', () => ({
-  client: {
+  apiFlowManager: {
     getClient: jest.fn().mockReturnThis(),
     me: jest.fn().mockReturnThis(),
     get: jest.fn().mockReturnThis(),

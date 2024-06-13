@@ -4,9 +4,9 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { IMember } from '../interface/about-interface';
 import styles from './member-card.module.scss';
 
-export const MemberCard: FC<IMember> = ({ name, role, bio, photoUrl, githubLink }) => (
+export const MemberCard: FC<IMember> = ({ name, role, bio, photo, githubLink }) => (
   <Card className={styles.card}>
-    <CardMedia component="img" alt={name} image={photoUrl} className={styles.cardPhoto} />
+    <CardMedia component="img" alt={name} image={photo} className={styles.cardPhoto} />
     <CardContent>
       <Typography gutterBottom variant="h6" component="h6" className={styles.cardName}>
         {name}

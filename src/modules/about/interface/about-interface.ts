@@ -2,6 +2,6 @@ export interface IMember {
   name: string;
   role: string;
   bio: string;
-  photoUrl: string;
+  photo: string;
   githubLink: string;
 }

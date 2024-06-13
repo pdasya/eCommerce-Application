@@ -45,13 +45,21 @@
       justify-content: space-between;
       padding-top: 0 !important;
 
+      svg {
+        fill: rgb(0 0 0 / 54%);
+        transition:
+          fill 0.3s ease,
+          transform 0.3s ease;
+      }
+
       &Link {
         display: flex;
-        opacity: 1;
-        transition: opacity 0.3s ease;
+        transition: color 0.3s ease;
 
         &:hover {
-          opacity: 0.8;
+          svg {
+            fill: var(--bg-color-primary);
+          }
         }
       }
 
@@ -63,16 +71,11 @@
         font-weight: 700;
         gap: 1px;
 
-        svg {
-          transition:
-            transform 0.3s ease,
-            color 0.3s ease;
-        }
-
         &:hover {
           color: var(--bg-color-primary);
 
           svg {
+            fill: var(--bg-color-primary);
             transform: translateX(5px);
           }
         }

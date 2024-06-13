@@ -26,7 +26,7 @@ export const NavBar: FC = () => {
       rootPath: RoutePath.catalogBlank,
       isFullMatch: false,
     },
-    { caption: 'About', path: RoutePath.about, isFullMatch: true },
+    { caption: 'About Us', path: RoutePath.about, isFullMatch: true },
   ];
 
   return (

@@ -1,9 +1,9 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { client } from '@config/constants';
+import { apiFlowManager } from '@config/constants';
 
 export const fetchProduct = async (slug: string): Promise<ProductProjection> => {
   const locale = 'en';
-  const response = await client
+  const response = await apiFlowManager
     .getClient()
     .productProjections()
     .search()

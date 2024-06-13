@@ -14,12 +14,12 @@ import {
   productsSale,
   update,
 } from '@store/sale/sale.slice';
-import { client } from '@config/constants';
 import { NotFoundBanner } from '@modules/product-list/components/not-found-banner/not-found-banner.component';
 import { Navigation } from 'swiper/modules';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import classNames from 'classnames';
+import { apiFlowManager } from '@config/constants';
 import { getProductsList } from '@/API/products/products-service';
 import 'swiper/swiper-bundle.css';
 import styles from './main-product-sales.module.scss';
@@ -32,7 +32,7 @@ export const MainGoodsSale: FC = () => {
   useEffect(() => {
     dispatch(loading({}));
     dispatch(productsSaleUpdating());
-    client
+    apiFlowManager
       .getClient()
       .productDiscounts()
       .get({ queryArgs: { where: 'isActive=true' } })

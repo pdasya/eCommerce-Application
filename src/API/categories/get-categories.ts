@@ -1,4 +1,4 @@
-import { client } from '@config/constants';
+import { apiFlowManager } from '@config/constants';
 import { fetchAllDecorator, WrapableOptions } from '../utils/fetch-all.decorator';
 import { ICategory } from '@/interfaces/category.interface';
 import {
@@ -8,7 +8,7 @@ import {
 } from './get-categories-response.adapter';
 
 const getAllTopLevelCategoriesRequest = fetchAllDecorator(async options =>
-  client
+  apiFlowManager
     .getClient()
     .categories()
     .get({ queryArgs: { ...options, where: 'parent is not defined' } })
@@ -16,7 +16,7 @@ const getAllTopLevelCategoriesRequest = fetchAllDecorator(async options =>
 );
 
 const getAllCategoriesRequest = fetchAllDecorator(async options =>
-  client
+  apiFlowManager
     .getClient()
     .categories()
     .get({ queryArgs: { ...options } })
@@ -25,7 +25,7 @@ const getAllCategoriesRequest = fetchAllDecorator(async options =>
 
 const getAllSubCategoriesByParentIdRequest = fetchAllDecorator(
   async ({ id, ...options }: WrapableOptions<{ id: string }>) =>
-    client
+    apiFlowManager
       .getClient()
       .categories()
       .get({ queryArgs: { ...options, where: `parent(id="${id}")` } })
@@ -36,7 +36,7 @@ const getCategoriesByProductIdRequest = async ({
   id,
   ...options
 }: WrapableOptions<{ id: string }>) =>
-  client
+  apiFlowManager
     .getClient()
     .products()
     .withId({ ID: id })
@@ -44,10 +44,10 @@ const getCategoriesByProductIdRequest = async ({
     .execute();
 
 const getCategoryByIdRequest = async (id: string) =>
-  client.getClient().categories().withId({ ID: id }).get().execute();
+  apiFlowManager.getClient().categories().withId({ ID: id }).get().execute();
 
 const getCategoryBySlugRequest = async (categorySlug: string, locale = 'en') =>
-  client
+  apiFlowManager
     .getClient()
     .categories()
     .get({

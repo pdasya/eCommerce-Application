@@ -1,5 +1,5 @@
-import { client } from '@config/constants';
 import { SortBy } from '@config/sorting-options';
+import { apiFlowManager } from '@config/constants';
 import { fetchAllDecorator, WrapableOptions } from '../utils/fetch-all.decorator';
 import { getProductsResponseAdapter } from './products-adapter';
 import { IProductList } from '@/interfaces/interfaces';
@@ -17,7 +17,7 @@ const fetchProducts = async ({
   limit,
   offset,
 }: WrapableOptions<FetchProductsOptions>) =>
-  client
+  apiFlowManager
     .getClient()
     .productProjections()
     .search()

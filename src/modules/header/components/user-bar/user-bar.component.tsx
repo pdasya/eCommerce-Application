@@ -1,16 +1,13 @@
 import React, { FC } from 'react';
 import { AccountCircle } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
-import { unauthorize } from '@store/auth/auth.slice';
-import { client, saveStorage } from '@config/constants';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
 import styles from './user-bar.component.module.scss';
+import { authService } from '@/services/auth.service';
 
 export const UserBar: FC = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -55,10 +52,8 @@ export const UserBar: FC = () => {
         <MenuItem
           onClick={() => {
             handleClose();
-            saveStorage.clear();
+            authService.logout();
             navigate('/');
-            client.anonymousSession();
-            dispatch(unauthorize({}));
           }}>
           Logout
         </MenuItem>

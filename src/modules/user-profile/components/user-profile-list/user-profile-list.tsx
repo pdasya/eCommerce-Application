@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, List, Typography } from '@mui/material';
 import { UserProfileListProps } from '@modules/user-profile/interfaces/user-profile.interfaces';
-import { client } from '@config/constants';
 import {
   MyCustomerAddAddressAction,
   MyCustomerAddShippingAddressIdAction,
@@ -16,6 +15,7 @@ import {
   DateRange as DateRangeIcon,
   Email as EmailIcon,
 } from '@mui/icons-material';
+import { apiFlowManager } from '@config/constants';
 import styles from './user-profile-list.module.scss';
 import EditableInfoItem from '../editable-info-item/editable-info-item';
 import AddressList from '../user-profile-address-list/user-profile-address-list';
@@ -61,9 +61,9 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
     refreshUserDataCallback: () => void,
   ) => {
     try {
-      const response = await client.getClient().me().get().execute();
+      const response = await apiFlowManager.getClient().me().get().execute();
       const customerVersion = response.body.version;
-      const setAddressResponse = await client
+      const setAddressResponse = await apiFlowManager
         .getClient()
         .me()
         .post({
@@ -99,7 +99,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
                 addressId: newAddressId,
               } as MyCustomerAddBillingAddressIdAction);
 
-        await client
+        await apiFlowManager
           .getClient()
           .me()
           .post({
@@ -129,7 +129,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
 
   const handleDefaultChange = async (addressId: string, addressType: 'shipping' | 'billing') => {
     try {
-      const response = await client.getClient().me().get().execute();
+      const response = await apiFlowManager.getClient().me().get().execute();
       const customerVersion = response.body.version;
 
       const setDefaultAction =
@@ -143,7 +143,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
               addressId,
             } as MyCustomerSetDefaultBillingAddressAction);
 
-      await client
+      await apiFlowManager
         .getClient()
         .me()
         .post({

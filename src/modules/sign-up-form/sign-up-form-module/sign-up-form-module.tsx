@@ -1,16 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { CustomerDraft } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
-import { authorize } from '@store/auth/auth.slice';
 import { FullSizeLoading } from '@components/fullsize-loading/full-size-loading.component';
 import { SignUpFormComponent } from '../sign-up-form-component/sign-up-form-component';
-import { createCustomerInStore } from '../sign-up-form-api/sign-up-form-api';
-import { client, tokenCache, tokenName, saveStorage } from '@/config/constants';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.hook';
+import { authService } from '@/services/auth.service';
 
 export const SignUpForm: FC = () => {
-  const dispatch = useAppDispatch();
-
   const initialValues = {
     email: '',
     password: '',
@@ -80,32 +75,9 @@ export const SignUpForm: FC = () => {
     };
 
     try {
-      const response = await createCustomerInStore(customerDraft);
+      await authService.signUp(customerDraft);
+      setFormValues(initialValues);
       toast.success('Customer Successfully Created');
-      const userDraft = {
-        email: values.email,
-        password: values.password,
-      };
-
-      client
-        .passwordSession(userDraft)
-        .me()
-        .login()
-        .post({
-          body: userDraft,
-        })
-        .execute()
-        .then(() => {
-          saveStorage.set(tokenName, tokenCache.get());
-          setFormValues(initialValues);
-        });
-
-      dispatch(
-        authorize({
-          id: response.body.customer.id,
-          email: response.body.customer.email,
-        }),
-      );
     } catch (error) {
       toast.error(`${error.message}`);
     } finally {

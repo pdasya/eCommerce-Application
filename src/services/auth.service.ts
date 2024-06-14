@@ -1,6 +1,6 @@
 import { store } from '@store/index';
 import { authorize, unauthorize } from '@store/auth/auth.slice';
-import { CustomerDraft } from '@commercetools/platform-sdk';
+import { CartResourceIdentifier, CustomerDraft } from '@commercetools/platform-sdk';
 import { authEnd, authPending } from '@store/misc/misc.slice';
 import { apiFlowManager } from '@config/constants';
 import { ApiFlowManager } from './api-flow-manager.class';
@@ -40,13 +40,21 @@ class AuthService {
    * Authorize customer via password flow.
    */
   public async signIn(data: IUserDraft): Promise<void> {
+    const activeCart = store.getState().cart.cart;
+    let anonymousCart: CartResourceIdentifier | undefined;
+
+    if (activeCart.id) {
+      anonymousCart = { id: activeCart.id, typeId: 'cart' };
+    }
+
+    // TODO: Issue #240: Refactor cart merging approach
     const response = await this._apiFlowManager
       .switchPasswordFlow(data)
       .getClient()
-      .me()
+      // .me()
       .login()
       .post({
-        body: data,
+        body: { ...data, anonymousCart },
       })
       .execute();
 

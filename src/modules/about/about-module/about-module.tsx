@@ -106,7 +106,13 @@ export const AboutContent: FC = () => {
             <Box className={styles.about}>
               <Typography paragraph sx={{ marginTop: 1 }}>
                 Our team expresses our deep gratitude to the RS School for the opportunity to study
-                for free.
+                for free. The dedication and hard work of the organizers have created an exceptional
+                learning environment and a welcoming community. This experience has significantly
+                contributed to our development as frontend developers, providing us with invaluable
+                skills and knowledge. The open and friendly atmosphere at RS School has not only
+                enhanced our learning experience but has also inspired us to continue improving and
+                striving for excellence. Thank we you for your commitment to providing a top-notch
+                educational experience and for fostering a spirit of collaboration and growth.
               </Typography>
             </Box>
             <Box className={styles.about}>

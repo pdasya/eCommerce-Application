@@ -7,8 +7,8 @@ import classNames from 'classnames';
 import { ISingleProduct } from '@/interfaces/interfaces';
 import { AttributeList } from '../component/product-attribute-list/product-attribute-list';
 import { ProductCollapse } from '../component/product-collapse/product-collapse';
-import * as styles from './product-page.component.module.scss';
 import { Gallery } from '../component/product-gallery/product-gallery.component';
+import * as styles from './product-page.component.module.scss';
 
 export const ProductItem: FC<ISingleProduct> = ({
   title,

@@ -33,7 +33,7 @@ const AddressActions: React.FC<AddressActionsProps> = ({
       aria-label="delete"
       onClick={() => handleDeleteAddress(addressId, type)}
       className={styles.deleteButton}>
-      <DeleteIcon />
+      <DeleteIcon color="error" />
     </IconButton>
   </div>
 );

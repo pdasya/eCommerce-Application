@@ -2,12 +2,8 @@
 
 exports[`Product list snapshot match: product-list-snapshot-1 1`] = `
 <DocumentFragment>
-  <div
-    class="root"
-  >
-    <div
-      class="root"
-    >
+  <div>
+    <div>
       <h1>
         Loading 
         <svg
@@ -29,12 +25,8 @@ exports[`Product list snapshot match: product-list-snapshot-1 1`] = `
 
 exports[`Product list snapshot match: product-list-snapshot-2 1`] = `
 <DocumentFragment>
-  <div
-    class="root"
-  >
-    <div
-      class="root"
-    >
+  <div>
+    <div>
       <h1>
         Loading 
         <svg
@@ -56,12 +48,8 @@ exports[`Product list snapshot match: product-list-snapshot-2 1`] = `
 
 exports[`Product list snapshot match: product-list-snapshot-3 1`] = `
 <DocumentFragment>
-  <div
-    class="root"
-  >
-    <div
-      class="root"
-    >
+  <div>
+    <div>
       <h1>
         Loading 
         <svg

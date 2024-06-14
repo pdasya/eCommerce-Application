@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import classNames from 'classnames';
 import { Box } from '@mui/system';
-import { IMember } from '../interface/about-interface';
+import { IMember } from '@modules/about/interface/about-interface';
 import styles from './member-card.module.scss';
 
 export const MemberCard: FC<IMember> = ({ name, role, bio, photo, githubLink, impact }) => {

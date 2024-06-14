@@ -12,7 +12,6 @@ import { AddressListErrors } from '@modules/user-profile/interfaces/user-profile
 import { ListItemButton, ListItemText, Collapse, List } from '@mui/material';
 import EditableInfoItem from '../editable-info-item/editable-info-item';
 import AddressActions from '../user-profile-address-actions/user-profile-address-actions';
-// import styles from './address-item.module.scss';
 
 interface AddressItemProps {
   address: Address;

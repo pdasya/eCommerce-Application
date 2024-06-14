@@ -6,37 +6,36 @@ interface ICartItem {
   id: string;
   name: string;
   imageUrl: string;
-  price: number;
-  oldPrice?: number;
+  initialPrice: number;
+  finalPrice: number;
   quantity: number;
 }
 
 interface CartItemListProps {
   cartItems: ICartItem[];
-  handleAdd: (id: string) => void;
-  handleRemove: (id: string) => void;
-  handleDelete: (id: string) => void;
+  onIncrement: (item: ICartItem) => void;
+  onDecrement: (item: ICartItem) => void;
+  onRemove: (item: ICartItem) => void;
 }
 
 export const CartItemList: FC<CartItemListProps> = ({
   cartItems,
-  handleAdd,
-  handleRemove,
-  handleDelete,
+  onIncrement,
+  onDecrement,
+  onRemove,
 }) => (
   <Box>
     {cartItems.map(item => (
       <CartItem
         key={item.id}
-        id={item.id}
         name={item.name}
         imageUrl={item.imageUrl}
-        price={item.price}
-        oldPrice={item.oldPrice}
+        initialPrice={item.initialPrice}
+        finalPrice={item.finalPrice}
         quantity={item.quantity}
-        onAdd={handleAdd}
-        onRemove={handleRemove}
-        onDelete={handleDelete}
+        onIncrement={() => onIncrement(item)}
+        onDecrement={() => onDecrement(item)}
+        onRemove={() => onRemove(item)}
       />
     ))}
   </Box>

@@ -28,6 +28,7 @@ export const PromoCodeForm: FC<PromoCodeFormProps> = ({
       variant="contained"
       color="primary"
       onClick={handlePromoCodeApply}
+      disabled={!promoCode.length}
       style={{ marginLeft: 8 }}>
       Apply
     </Button>

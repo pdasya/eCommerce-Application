@@ -30,22 +30,28 @@ const AddressList: React.FC<AddressListProps> = ({
     <Typography variant="subtitle1" className={styles.sectionHeader}>
       {type === 'shipping' ? 'Shipping Addresses' : 'Billing Addresses'}
     </Typography>
-    <List>
-      {addresses.map((address, index) => (
-        <AddressItem
-          key={address.id || index}
-          address={address}
-          defaultAddressId={defaultAddressId}
-          errors={errors}
-          editMode={editMode}
-          handleDataChange={handleDataChange}
-          handleDefaultChange={handleDefaultChange}
-          handleDeleteAddress={handleDeleteAddress}
-          type={type}
-          index={index}
-        />
-      ))}
-    </List>
+    {addresses.length === 0 ? (
+      <Typography variant="body1" className={styles.noAddressesMessage}>
+        No {type === 'shipping' ? 'shipping' : 'billing'} addresses available.
+      </Typography>
+    ) : (
+      <List>
+        {addresses.map((address, index) => (
+          <AddressItem
+            key={address.id || index}
+            address={address}
+            defaultAddressId={defaultAddressId}
+            errors={errors}
+            editMode={editMode}
+            handleDataChange={handleDataChange}
+            handleDefaultChange={handleDefaultChange}
+            handleDeleteAddress={handleDeleteAddress}
+            type={type}
+            index={index}
+          />
+        ))}
+      </List>
+    )}
   </>
 );
 

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid, Link, Paper, Typography } from '@mui/material';
 import styles from './about-module.module.scss';
 import { IMember } from '../interface/about-interface';
 import { MemberCard } from '../components/member-card';
@@ -42,12 +42,12 @@ export const AboutContent: FC = () => {
             About Us
           </Typography>
           <Box className={styles.about}>
-            <Typography variant="body1" sx={{ marginTop: 1 }}>
+            <Typography paragraph sx={{ marginTop: 1 }}>
               We&apos;re a team of web developers, united by a common goal: to create an e-Commerce
               application. This project is not only our first experience of collaboration but also
               our first try into React development.
             </Typography>
-            <Typography variant="body1" sx={{ marginTop: 1 }}>
+            <Typography paragraph sx={{ marginTop: 1 }}>
               Our journey into React development has been both challenging and rewarding. As we dove
               into the intricacies of React components and hooks, we found ourselves continuously
               learning and adapting to new methodologies. Also, this project has allowed us to
@@ -78,7 +78,7 @@ export const AboutContent: FC = () => {
               Impact of collaboration
             </Typography>
             <Box className={styles.about}>
-              <Typography variant="body1" sx={{ marginTop: 1 }}>
+              <Typography paragraph sx={{ marginTop: 1 }}>
                 Although we three were strangers at the start of the project, this did not prevent
                 us from quickly establishing a collaborative rapport. We quickly recognized each
                 other&apos;s strengths and weaknesses, which helped us navigate through all the
@@ -89,10 +89,33 @@ export const AboutContent: FC = () => {
                 using Git and code review. You can check out the code for our application at the
                 provided link.
               </Typography>
-              <Typography variant="body1" sx={{ marginTop: 1 }}>
+              <Typography paragraph sx={{ marginTop: 1 }}>
                 We welcome and appreciate different viewpoints, so if you have any feedback or
                 comments, please share them with us.
               </Typography>
+            </Box>
+          </Grid>
+        </Paper>
+      </Grid>
+      <Grid item>
+        <Paper className={styles.content}>
+          <Grid>
+            <Typography variant="h5" component="h5" className={styles.title}>
+              Gratitude
+            </Typography>
+            <Box className={styles.about}>
+              <Typography paragraph sx={{ marginTop: 1 }}>
+                Our team expresses our deep gratitude to the RS School for the opportunity to study
+                for free.
+              </Typography>
+            </Box>
+            <Box className={styles.about}>
+              <Link href="https://rs.school/" target="_blank" className={styles.link}>
+                <img src="./assets/images/rs_logo.svg" alt="rs_logo" />
+                <Typography component="span" className={styles.linkText}>
+                  RS School
+                </Typography>
+              </Link>
             </Box>
           </Grid>
         </Paper>

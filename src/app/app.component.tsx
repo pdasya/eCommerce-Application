@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Outlet } from 'react-router-dom';
 import { GlobalLoading } from '@components/global-loading/global-loading.component';
 import 'react-toastify/dist/ReactToastify.css';
+import { cartService } from '@modules/cart';
 import styles from './app.component.module.scss';
 import { Header } from '@/modules/header';
 import { Footer } from '@/modules/footer';
@@ -10,7 +11,14 @@ import { authService } from '@/services/auth.service';
 
 const App = (): ReactElement => {
   useEffect(() => {
-    authService.init().catch(error => toast.error(error));
+    (async () => {
+      try {
+        await authService.init();
+        await cartService.synchronize();
+      } catch (error) {
+        toast.error(error);
+      }
+    })();
   }, []);
 
   return (

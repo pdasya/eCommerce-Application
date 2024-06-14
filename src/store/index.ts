@@ -5,6 +5,7 @@ import { catalogReducer } from './catalog/catalog.slice';
 import { productReducer } from './product/product.slice';
 import { categoryReducer } from './category/category.slice';
 import { saleReducer } from './sale/sale.slice';
+import { cartReducer } from './cart/cart.slice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   product: productReducer,
   catalog: catalogReducer,
   category: categoryReducer,
+  cart: cartReducer,
 });
 
 export function setupStore(preloadedState?: Partial<RootState>) {

@@ -4,29 +4,27 @@ import { Delete, Add, Remove } from '@mui/icons-material';
 import * as styles from './cart-item.module.scss';
 
 interface CartItemProps {
-  id: string;
   name: string;
   imageUrl: string;
-  price: number;
-  oldPrice?: number;
+  initialPrice: number;
+  finalPrice: number;
   quantity: number;
-  onAdd: (id: string) => void;
-  onRemove: (id: string) => void;
-  onDelete: (id: string) => void;
+  onIncrement: () => void;
+  onDecrement: () => void;
+  onRemove: () => void;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
-  id,
   name,
   imageUrl,
-  price,
-  oldPrice,
+  initialPrice,
+  finalPrice,
   quantity,
-  onAdd,
+  onIncrement,
+  onDecrement,
   onRemove,
-  onDelete,
 }) => {
-  const totalPrice = price * quantity;
+  const totalPrice = finalPrice * quantity;
 
   return (
     <Card className={styles.cartItem}>
@@ -35,16 +33,16 @@ const CartItem: React.FC<CartItemProps> = ({
         <Typography component="h5" variant="h6" className={styles.cartItemName}>
           {name}
         </Typography>
-        {oldPrice ? (
+        {initialPrice !== finalPrice ? (
           <Typography
             variant="body2"
             color="textSecondary"
             style={{ textDecoration: 'line-through' }}>
-            ${oldPrice.toFixed(2)}
+            ${initialPrice.toFixed(2)}
           </Typography>
         ) : null}
         <Typography variant="body1" color="text" className={styles.discountedPrice}>
-          ${price.toFixed(2)}
+          ${finalPrice.toFixed(2)}
         </Typography>
       </CardContent>
       <Box className={styles.cartItemBox}>
@@ -52,18 +50,18 @@ const CartItem: React.FC<CartItemProps> = ({
           Quantity
         </Typography>
         <Box className={styles.cartItemBoxQuantity}>
-          <IconButton onClick={() => onRemove(id)}>
+          <IconButton onClick={() => onDecrement()}>
             <Remove />
           </IconButton>
           <Typography className={styles.cartItemBoxQuantityText}>{quantity}</Typography>
-          <IconButton onClick={() => onAdd(id)}>
+          <IconButton onClick={() => onIncrement()}>
             <Add />
           </IconButton>
         </Box>
       </Box>
       <CardContent className={styles.cartItemTotalPrice}>
         <Typography variant="h6">${totalPrice.toFixed(2)}</Typography>
-        <IconButton onClick={() => onDelete(id)} color="error" className={styles.deleteButton}>
+        <IconButton onClick={() => onRemove()} color="error" className={styles.deleteButton}>
           <Delete />
         </IconButton>
       </CardContent>

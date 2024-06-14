@@ -8,6 +8,9 @@ import {
   Address,
   MyCustomerSetDefaultShippingAddressAction,
   MyCustomerSetDefaultBillingAddressAction,
+  MyCustomerRemoveAddressAction,
+  MyCustomerRemoveShippingAddressIdAction,
+  MyCustomerRemoveBillingAddressIdAction,
 } from '@commercetools/platform-sdk';
 import { toast } from 'react-toastify';
 import {
@@ -165,6 +168,72 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
     }
   };
 
+  const handleDeleteAddress = async (addressId: string, addressType: 'shipping' | 'billing') => {
+    try {
+      const response = await apiFlowManager.getClient().me().get().execute();
+      const customerVersion = response.body.version;
+
+      // Удаление адреса из массива shipping или billing адресов
+      if (addressType === 'shipping') {
+        const removeShippingAddressAction: MyCustomerRemoveShippingAddressIdAction = {
+          action: 'removeShippingAddressId',
+          addressId,
+        };
+
+        await apiFlowManager
+          .getClient()
+          .me()
+          .post({
+            body: {
+              version: customerVersion,
+              actions: [removeShippingAddressAction],
+            },
+          })
+          .execute();
+      } else {
+        const removeBillingAddressAction: MyCustomerRemoveBillingAddressIdAction = {
+          action: 'removeBillingAddressId',
+          addressId,
+        };
+
+        await apiFlowManager
+          .getClient()
+          .me()
+          .post({
+            body: {
+              version: customerVersion,
+              actions: [removeBillingAddressAction],
+            },
+          })
+          .execute();
+      }
+
+      const updatedResponse = await apiFlowManager.getClient().me().get().execute();
+      const updatedCustomerVersion = updatedResponse.body.version;
+
+      const deleteAddressAction: MyCustomerRemoveAddressAction = {
+        action: 'removeAddress',
+        addressId,
+      };
+
+      await apiFlowManager
+        .getClient()
+        .me()
+        .post({
+          body: {
+            version: updatedCustomerVersion,
+            actions: [deleteAddressAction],
+          },
+        })
+        .execute();
+
+      toast.success('Address successfully deleted!');
+      refreshUserData();
+    } catch (error) {
+      toast.error('Failed to delete address!');
+    }
+  };
+
   return (
     <>
       <Typography variant="subtitle1" className={styles.sectionHeader}>
@@ -212,6 +281,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         editMode={editMode}
         handleDataChange={handleDataChange}
         handleDefaultChange={id => handleDefaultChange(id, 'shipping')}
+        handleDeleteAddress={id => handleDeleteAddress(id, 'shipping')} // Add this line
         type="shipping"
       />
       <Button
@@ -244,6 +314,7 @@ const UserProfileList: React.FC<UserProfileListProps> = ({
         editMode={editMode}
         handleDataChange={handleDataChange}
         handleDefaultChange={id => handleDefaultChange(id, 'billing')}
+        handleDeleteAddress={id => handleDeleteAddress(id, 'billing')}
         type="billing"
       />
       <Button

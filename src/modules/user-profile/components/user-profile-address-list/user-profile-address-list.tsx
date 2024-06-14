@@ -9,7 +9,7 @@ import {
 import { Address } from '@commercetools/platform-sdk';
 import { AddressListErrors } from '@modules/user-profile/interfaces/user-profile.interfaces';
 import EditableInfoItem from '../editable-info-item/editable-info-item';
-import styles from './user-profile-address-list.module.scss';
+import * as styles from './user-profile-address-list.module.scss';
 
 interface AddressListProps {
   addresses: Address[];

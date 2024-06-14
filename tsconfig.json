@@ -3,7 +3,10 @@
     "outDir": "./dist",
     "module": "ES6",
     "target": "es5",
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -18,10 +21,15 @@
     "esModuleInterop": true,
     "plugins": [
       {
-        "name": "typescript-plugin-css-modules"
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "customTemplate": "./customTemplate.js"
+        }
       }
     ],
-    "types": ["@types/jest"],
+    "types": [
+      "@types/jest"
+    ],
     "baseUrl": "."
   },
   "exclude": [

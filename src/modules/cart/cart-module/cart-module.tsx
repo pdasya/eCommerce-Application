@@ -12,11 +12,11 @@ import {
   handlePromoCodeApply,
   handleQuantityChange,
 } from '../cart-module-api/cart-module-api';
-import styles from './cart-module.module.scss';
 import { CartHeader } from '../components/cart-header/cart-header';
 import { CartItemList } from '../components/cart-item-list/cart-item-list';
 import { PromoCodeForm } from '../components/cart-promocode-form/cart-promocode-form';
 import { CartActions } from '../components/cart-actions/cart-actions';
+import * as styles from './cart-module.module.scss';
 
 interface CartItem {
   id: string;

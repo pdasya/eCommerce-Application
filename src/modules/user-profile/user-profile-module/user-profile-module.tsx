@@ -14,7 +14,7 @@ import {
   AddressErrors,
 } from '../interfaces/user-profile.interfaces';
 import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
-import styles from './user-profile-module.module.scss';
+import * as styles from './user-profile-module.module.scss';
 
 const initialValues = {
   firstName: '',

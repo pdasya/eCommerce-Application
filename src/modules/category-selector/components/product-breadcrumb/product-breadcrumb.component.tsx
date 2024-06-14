@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { getAllCategoryAncestorsByProductId } from '@/API/categories/get-categories';
 import { ICategory } from '@/interfaces/category.interface';
 import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
-import styles from './product-breadcrumb.component.module.scss';
+import * as styles from './product-breadcrumb.component.module.scss';
 
 export const ProductBreadcrumb: FC = () => {
   const navigate = useNavigate();

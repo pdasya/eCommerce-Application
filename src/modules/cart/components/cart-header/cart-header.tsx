@@ -4,7 +4,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { CustomRouterLink } from '@components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@routes/index';
-import styles from './cart-header.module.scss';
+import * as styles from './cart-header.module.scss';
 
 const LinkToCatalogPage: FC = () => (
   <CustomRouterLink to={RoutePath.catalogDefault} className={styles.continueShoppingLink}>

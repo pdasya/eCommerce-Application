@@ -22,7 +22,7 @@ import classNames from 'classnames';
 import { apiFlowManager } from '@config/constants';
 import { getProductsList } from '@/API/products/products-service';
 import 'swiper/swiper-bundle.css';
-import styles from './main-product-sales.module.scss';
+import * as styles from './main-product-sales.module.scss';
 
 export const MainGoodsSale: FC = () => {
   const products = useAppSelector(productsSale);

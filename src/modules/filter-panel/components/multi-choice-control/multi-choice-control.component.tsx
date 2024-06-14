@@ -4,7 +4,7 @@ import { IControlHandle } from '@modules/filter-panel/interfaces/control-handle.
 import { IControlBaseProps } from '@modules/filter-panel/interfaces/control-base-props.interface';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { selectCustomFilters } from '@store/catalog/catalog.slice';
-import styles from './multi-choice-control.component.module.scss';
+import * as styles from './multi-choice-control.component.module.scss';
 
 interface IMultiChoiceControlProps extends IControlBaseProps<Record<string, boolean>> {
   options: Record<string, boolean>;

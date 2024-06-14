@@ -16,10 +16,10 @@ import {
   Email as EmailIcon,
 } from '@mui/icons-material';
 import { apiFlowManager } from '@config/constants';
-import styles from './user-profile-list.module.scss';
 import EditableInfoItem from '../editable-info-item/editable-info-item';
 import AddressList from '../user-profile-address-list/user-profile-address-list';
 import NewAddressForm from '../user-profile-new-address/user-profile-new-address';
+import * as styles from './user-profile-list.module.scss';
 
 const UserProfileList: React.FC<UserProfileListProps> = ({
   userData,

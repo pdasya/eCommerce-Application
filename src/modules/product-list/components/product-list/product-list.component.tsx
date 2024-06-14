@@ -4,7 +4,7 @@ import { selectIsCatalogUpdating, selectProducts } from '@store/catalog/catalog.
 import { ProductCard } from '../product-card/product-card.component';
 import { NotFoundBanner } from '../not-found-banner/not-found-banner.component';
 import { LoadingBanner } from '../loading-banner/loading-banner.component';
-import styles from './product-list.component.module.scss';
+import * as styles from './product-list.component.module.scss';
 
 export const ProductList: FC = () => {
   const products = useAppSelector(selectProducts);

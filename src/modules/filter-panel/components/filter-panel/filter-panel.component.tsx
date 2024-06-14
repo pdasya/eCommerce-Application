@@ -25,7 +25,7 @@ import { useUpdateEffect } from '@hooks/use-update-effect.hook';
 import { ControlWrapper } from '../control-wrapper/control-wrapper.component';
 import { RangeControl } from '../range-control/range-control.component';
 import { MultiChoiceControl } from '../multi-choice-control/multi-choice-control.component';
-import styles from './filter-panel.component.module.scss';
+import * as styles from './filter-panel.component.module.scss';
 import { getFilterOptions } from '@/API/filtering/get-filter-options';
 import { getPriceRange } from '@/API/filtering/get-price-range';
 

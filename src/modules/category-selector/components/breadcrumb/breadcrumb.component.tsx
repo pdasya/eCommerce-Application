@@ -1,7 +1,7 @@
 import React, { ComponentType, FC, PropsWithChildren, ReactElement, ReactNode } from 'react';
 import { Breadcrumbs } from '@mui/material';
 import classNames from 'classnames';
-import styles from './breadcrumb.component.module.scss';
+import * as styles from './breadcrumb.component.module.scss';
 
 type PathItem = { caption: string; id?: string };
 

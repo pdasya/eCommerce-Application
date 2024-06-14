@@ -6,7 +6,7 @@ import { clear, select } from '@store/product/product.slice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductBreadcrumb } from '@modules/category-selector';
 import { getProduct } from '@/API/product/product-adapter';
-import styles from './product.page.module.scss';
+import * as styles from './product.page.module.scss';
 
 export const ProductPage: FC = () => {
   const dispatch = useAppDispatch();

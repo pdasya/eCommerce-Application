@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { CircularProgress } from '@mui/material';
 import classNames from 'classnames';
-import styles from './full-size-loading.component.module.scss';
+import * as styles from './full-size-loading.component.module.scss';
 
 type FullSizeLoadingProps = {
   isLoading?: boolean;

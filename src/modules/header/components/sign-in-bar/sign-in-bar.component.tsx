@@ -4,7 +4,7 @@ import { HowToReg, Login } from '@mui/icons-material';
 import { RoutePath } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 
-import styles from './sign-in-bar.component.module.scss';
+import * as styles from './sign-in-bar.component.module.scss';
 
 export const SignInBar: FC = () => (
   <div className={styles.bar}>

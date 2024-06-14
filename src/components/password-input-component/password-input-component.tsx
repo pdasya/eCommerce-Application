@@ -3,7 +3,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import { FormControl, TextField, InputAdornment, IconButton } from '@mui/material';
 import { Field, FieldProps } from 'formik';
 import { VisibilityOff } from '@mui/icons-material';
-import styles from './password-input.component.module.scss';
+import * as styles from './password-input.component.module.scss';
 
 const PasswordInputComponent: FC<FieldProps> = ({ field, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);

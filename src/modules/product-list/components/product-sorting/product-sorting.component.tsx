@@ -7,7 +7,7 @@ import { selectSort, sort } from '@store/catalog/catalog.slice';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { SortBy } from '@config/sorting-options';
 import { Typography } from '@mui/material';
-import styles from './product-sorting.component.module.scss';
+import * as styles from './product-sorting.component.module.scss';
 
 export const ProductSort: FC = () => {
   const dispatch = useAppDispatch();

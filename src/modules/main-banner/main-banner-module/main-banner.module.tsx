@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
-import styles from './main-banner.module.scss';
+import * as styles from './main-banner.module.scss';
 
 export const MainBanner: FC = () => (
   <Paper className={styles.banner}>

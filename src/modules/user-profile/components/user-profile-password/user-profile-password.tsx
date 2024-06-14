@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import PasswordInputComponent from '@components/password-input-component/password-input-component';
 import { baseSchema } from '@config/validation-schema';
-import styles from './user-profile-password.module.scss';
 import { authService } from '@/services/auth.service';
+import * as styles from './user-profile-password.module.scss';
 
 const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />

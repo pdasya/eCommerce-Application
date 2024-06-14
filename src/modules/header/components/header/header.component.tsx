@@ -5,10 +5,10 @@ import { selectAuthPending } from '@store/misc/misc.slice';
 import { NavBar } from '../nav-bar/nav-bar.component';
 import { Logo } from '../../../../components/logo-component/logo.component';
 import { Cart } from '../cart/cart.component';
-import styles from './header.component.module.scss';
 import { SignInBar } from '../sign-in-bar/sign-in-bar.component';
 import { UserBar } from '../user-bar/user-bar.component';
 import { useAppSelector } from '@/hooks/use-app-selector.hook';
+import * as styles from './header.component.module.scss';
 
 export const Header: FC = () => {
   const isAuthorized = useAppSelector(selectAuthorization);

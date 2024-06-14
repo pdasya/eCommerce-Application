@@ -6,12 +6,12 @@ import { selectCart } from '@store/cart/cart.slice';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { cartService } from '@modules/cart/services/cart.service';
 import { selectAuthorization } from '@store/auth/auth.slice';
-import styles from './cart-module.component.module.scss';
 import { CartHeader } from '../components/cart-header/cart-header';
 import { CartItemList } from '../components/cart-item-list/cart-item-list';
 import { PromoCodeForm } from '../components/cart-promocode-form/cart-promocode-form';
 import { CartActions } from '../components/cart-actions/cart-actions';
 import { ICartItem } from '../interfaces/cart-item.interface';
+import * as styles from './cart-module.component.module.scss';
 
 export const CartModule: FC = () => {
   const cart = useAppSelector(selectCart);

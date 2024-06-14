@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControlLabel, Checkbox, IconButton } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
-import styles from './user-profile-address-actions.module.scss';
+import * as styles from './user-profile-address-actions.module.scss';
 
 interface AddressActionsProps {
   addressId: string;
@@ -27,7 +27,6 @@ const AddressActions: React.FC<AddressActionsProps> = ({
         />
       }
       label={`Default ${type} address`}
-      className={styles.defaultCheckbox}
     />
     <IconButton
       aria-label="delete"

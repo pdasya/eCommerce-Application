@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardMedia, Typography, IconButton, Box, CardContent, Card } from '@mui/material';
 import { Delete, Add, Remove } from '@mui/icons-material';
-import styles from './cart-item.module.scss';
+import * as styles from './cart-item.module.scss';
 
 interface CartItemProps {
   name: string;

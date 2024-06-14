@@ -5,7 +5,7 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { IControlBaseProps } from '@modules/filter-panel/interfaces/control-base-props.interface';
 import classNames from 'classnames';
-import styles from './control-wrapper.component.module.scss';
+import * as styles from './control-wrapper.component.module.scss';
 
 interface IControlWrapperProps {
   control: React.ReactElement<IControlBaseProps<unknown>>;

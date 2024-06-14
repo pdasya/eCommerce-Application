@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { CustomRouterLink } from '@components/custom-router-link/custom-router-link.component';
 import { List, ListItem, Typography } from '@mui/material';
-import styles from './nav-footer.component.module.scss';
+import * as styles from './nav-footer.component.module.scss';
 
 interface NavFooterLinkOptions {
   id: number;

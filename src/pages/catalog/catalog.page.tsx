@@ -34,8 +34,8 @@ import { catalogDefaultCategorySlug, defaultRequestPageSize } from '@config/cons
 import { MainBreadcrumb } from '@modules/category-selector';
 import { CustomPagination } from '@modules/pagination';
 import { getCategoryById, getCategoryBySlug } from '@/API/categories/get-categories';
-import styles from './catalog.page.module.scss';
 import { getProductsList } from '@/API/products/products-service';
+import * as styles from './catalog.page.module.scss';
 
 export const CatalogPage: FC = () => {
   const dispatch = useAppDispatch();

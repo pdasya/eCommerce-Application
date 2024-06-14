@@ -3,7 +3,7 @@
 exports[`SignIn snapshot match: sign-in-form-snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 form css-3su884-MuiPaper-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 css-3su884-MuiPaper-root"
   >
     <h2
       class="MuiTypography-root MuiTypography-h2 MuiTypography-alignCenter MuiTypography-gutterBottom css-6exuqi-MuiTypography-root"
@@ -64,7 +64,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 1`] = `
             class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
           >
             <div
-              class="MuiFormControl-root MuiFormControl-fullWidth passwordInput css-q8hpuo-MuiFormControl-root"
+              class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
             >
               <div
                 class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
@@ -99,9 +99,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 1`] = `
                   />
                 </div>
               </div>
-              <div
-                class="passwordIcon"
-              >
+              <div>
                 <div
                   class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
                 >
@@ -133,7 +131,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 1`] = `
         </div>
       </div>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth button css-1fu7jd5-MuiButtonBase-root-MuiButton-root"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth css-1fu7jd5-MuiButtonBase-root-MuiButton-root"
         tabindex="0"
         type="submit"
       >
@@ -143,7 +141,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 1`] = `
         />
       </button>
       <a
-        class="link registerLink"
+        class=""
         href="/sign-up"
       >
         Don't have an account yet? Register
@@ -156,7 +154,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 1`] = `
 exports[`SignIn snapshot match: sign-in-form-snapshot 2`] = `
 <DocumentFragment>
   <div
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 form css-3su884-MuiPaper-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation3 css-3su884-MuiPaper-root"
   >
     <h2
       class="MuiTypography-root MuiTypography-h2 MuiTypography-alignCenter MuiTypography-gutterBottom css-6exuqi-MuiTypography-root"
@@ -217,7 +215,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 2`] = `
             class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
           >
             <div
-              class="MuiFormControl-root MuiFormControl-fullWidth passwordInput css-q8hpuo-MuiFormControl-root"
+              class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
             >
               <div
                 class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
@@ -252,9 +250,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 2`] = `
                   />
                 </div>
               </div>
-              <div
-                class="passwordIcon"
-              >
+              <div>
                 <div
                   class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
                 >
@@ -286,7 +282,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 2`] = `
         </div>
       </div>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth button css-1fu7jd5-MuiButtonBase-root-MuiButton-root"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth css-1fu7jd5-MuiButtonBase-root-MuiButton-root"
         tabindex="0"
         type="submit"
       >
@@ -296,7 +292,7 @@ exports[`SignIn snapshot match: sign-in-form-snapshot 2`] = `
         />
       </button>
       <a
-        class="link registerLink"
+        class=""
         href="/sign-up"
       >
         Don't have an account yet? Register

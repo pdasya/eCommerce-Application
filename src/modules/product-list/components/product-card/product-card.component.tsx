@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
 import { RoutePath } from '@routes/index';
 import { IProduct } from '@/interfaces/interfaces';
-import styles from './product-card.component.module.scss';
+import * as styles from './product-card.component.module.scss';
 
 type ProductCardProps = IProduct;
 

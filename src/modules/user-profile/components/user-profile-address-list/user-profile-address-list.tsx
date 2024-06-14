@@ -2,8 +2,8 @@ import React from 'react';
 import { List, Typography } from '@mui/material';
 import { Address } from '@commercetools/platform-sdk';
 import { AddressListErrors } from '@modules/user-profile/interfaces/user-profile.interfaces';
-import styles from './user-profile-address-list.module.scss';
 import AddressItem from '../user-profile-address-item/user-profile-address-item';
+import * as styles from './user-profile-address-list.module.scss';
 
 interface AddressListProps {
   addresses: Address[];

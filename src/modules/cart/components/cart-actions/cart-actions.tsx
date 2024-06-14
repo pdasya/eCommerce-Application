@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Box, Button } from '@mui/material';
-import styles from './cart-actions.module.scss';
+import * as styles from './cart-actions.module.scss';
 
 interface CartActionsProps {
   handleCartClear: () => void;

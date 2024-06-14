@@ -3,11 +3,9 @@
 exports[`Filter panel snapshot match: filter-panel-snapshot-1 1`] = `
 <DocumentFragment>
   <div
-    class="root"
+    class=""
   >
-    <div
-      class="root"
-    >
+    <div>
       <div
         class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
         role="button"
@@ -49,15 +47,9 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-1 1`] = `
           <div
             class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
           >
-            <div
-              class="outlet"
-            >
-              <div
-                class="root"
-              >
-                <div
-                  class="inputs"
-                >
+            <div>
+              <div>
+                <div>
                   <div
                     class="base-NumberInput-root css-15az5pb"
                   >
@@ -132,7 +124,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-1 1`] = `
                   </div>
                 </div>
                 <span
-                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium slider css-188mx6n-MuiSlider-root"
+                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium css-188mx6n-MuiSlider-root"
                 >
                   <span
                     class="MuiSlider-rail css-7o8aqz-MuiSlider-rail"
@@ -207,7 +199,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-1 1`] = `
                 </span>
               </div>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1e6y48t-MuiButtonBase-root-MuiButton-root"
                 tabindex="0"
                 type="button"
               >
@@ -248,13 +240,11 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-1 1`] = `
 exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
 <DocumentFragment>
   <div
-    class="root"
+    class=""
   >
-    <div
-      class="root"
-    >
+    <div>
       <div
-        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters headerActive css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
         role="button"
         tabindex="0"
       >
@@ -294,15 +284,9 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
           <div
             class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
           >
-            <div
-              class="outlet"
-            >
-              <div
-                class="root"
-              >
-                <div
-                  class="inputs"
-                >
+            <div>
+              <div>
+                <div>
                   <div
                     class="base-NumberInput-root css-15az5pb"
                   >
@@ -373,7 +357,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                   </div>
                 </div>
                 <span
-                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium slider css-188mx6n-MuiSlider-root"
+                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium css-188mx6n-MuiSlider-root"
                 >
                   <span
                     class="MuiSlider-rail css-7o8aqz-MuiSlider-rail"
@@ -451,7 +435,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
                 </span>
               </div>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1e6y48t-MuiButtonBase-root-MuiButton-root"
                 tabindex="0"
                 type="button"
               >
@@ -492,13 +476,11 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-2 1`] = `
 exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
 <DocumentFragment>
   <div
-    class="root"
+    class=""
   >
-    <div
-      class="root"
-    >
+    <div>
       <div
-        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters headerActive css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
         role="button"
         tabindex="0"
       >
@@ -538,15 +520,9 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
           <div
             class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
           >
-            <div
-              class="outlet"
-            >
-              <div
-                class="root"
-              >
-                <div
-                  class="inputs"
-                >
+            <div>
+              <div>
+                <div>
                   <div
                     class="base-NumberInput-root css-15az5pb"
                   >
@@ -617,7 +593,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                   </div>
                 </div>
                 <span
-                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium slider css-188mx6n-MuiSlider-root"
+                  class="MuiSlider-root MuiSlider-colorPrimary MuiSlider-sizeMedium css-188mx6n-MuiSlider-root"
                 >
                   <span
                     class="MuiSlider-rail css-7o8aqz-MuiSlider-rail"
@@ -695,7 +671,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                 </span>
               </div>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1e6y48t-MuiButtonBase-root-MuiButton-root"
                 tabindex="0"
                 type="button"
               >
@@ -709,9 +685,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="root"
-    >
+    <div>
       <div
         class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
         role="button"
@@ -753,12 +727,8 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
           <div
             class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
           >
-            <div
-              class="outlet"
-            >
-              <div
-                class="root"
-              >
+            <div>
+              <div>
                 <div
                   class="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
                 >
@@ -864,7 +834,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                 </div>
               </div>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1e6y48t-MuiButtonBase-root-MuiButton-root"
                 tabindex="0"
                 type="button"
               >
@@ -878,9 +848,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="root"
-    >
+    <div>
       <div
         class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
         role="button"
@@ -922,12 +890,8 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
           <div
             class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
           >
-            <div
-              class="outlet"
-            >
-              <div
-                class="root"
-              >
+            <div>
+              <div>
                 <div
                   class="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
                 >
@@ -1033,7 +997,7 @@ exports[`Filter panel snapshot match: filter-panel-snapshot-3 1`] = `
                 </div>
               </div>
               <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary resetButton hidden css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1e6y48t-MuiButtonBase-root-MuiButton-root"
                 tabindex="0"
                 type="button"
               >

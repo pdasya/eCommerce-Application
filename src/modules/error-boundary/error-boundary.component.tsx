@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import { Http404Page } from '@pages/http-404/http-404.page';
 import { ErrorPage } from '@pages/error/error.page';
-import styles from './error-boundary.component.module.scss';
+import * as styles from './error-boundary.component.module.scss';
 
 export const ErrorBoundary: FC = () => {
   const error = useRouteError();

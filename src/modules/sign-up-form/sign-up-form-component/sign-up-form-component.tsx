@@ -3,10 +3,10 @@ import { Formik, Form } from 'formik';
 import { Button, Paper, Typography, Grid, Divider } from '@mui/material';
 import * as Yup from 'yup';
 import { baseSchema, billingSchema } from '@config/validation-schema';
-import styles from './sign-up-form-component.module.scss';
 import FieldComponent from '../components/field-component/field-component';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@/routes';
+import * as styles from './sign-up-form-component.module.scss';
 
 export interface IFormField {
   id: string;

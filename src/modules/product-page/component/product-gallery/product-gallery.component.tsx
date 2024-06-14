@@ -3,7 +3,7 @@ import { Image } from '@commercetools/platform-sdk';
 import { ProductImages } from '../product-images/product-images';
 import { Fancybox } from '../../../../components/fancybox/fancybox.component';
 import { Carousel } from '../../../../components/fancybox/carousel.component';
-import styles from './product-gallery.module.scss';
+import * as styles from './product-gallery.module.scss';
 
 type GalleryType = {
   images: Image[];

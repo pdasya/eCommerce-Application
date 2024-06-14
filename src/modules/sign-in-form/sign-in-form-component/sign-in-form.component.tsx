@@ -5,7 +5,7 @@ import PasswordInputComponent from '../../../components/password-input-component
 import { ISignInFormComponentProperties } from '@/modules/sign-in-form/interfaces/sign-in-form.interfaces';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@/routes';
-import styles from './sign-in-form.component.module.scss';
+import * as styles from './sign-in-form.component.module.scss';
 
 const BoldUppercaseError: FC<{ name: string }> = ({ name }) => (
   <ErrorMessage name={name} render={msg => <span className={styles.errorMessage}>{msg}</span>} />

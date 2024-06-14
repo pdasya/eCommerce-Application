@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { RamenDining } from '@mui/icons-material';
 import { RoutePath } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
-import styles from './logo.component.module.scss';
+import * as styles from './logo.component.module.scss';
 
 export const Logo: FC = () => (
   <CustomRouterLink to={RoutePath.main} className={styles.logo}>

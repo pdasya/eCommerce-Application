@@ -4,8 +4,8 @@ import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '@/routes';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
-import styles from './user-bar.component.module.scss';
 import { authService } from '@/services/auth.service';
+import * as styles from './user-bar.component.module.scss';
 
 export const UserBar: FC = () => {
   const navigate = useNavigate();

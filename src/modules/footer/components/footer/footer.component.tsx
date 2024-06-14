@@ -5,7 +5,7 @@ import { Logo } from '@components/logo-component/logo.component';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import { NavFooter } from '../nav-footer/nav-footer.component';
-import styles from './footer.component.module.scss';
+import * as styles from './footer.component.module.scss';
 
 export const Footer: FC = () => {
   const navItemsCustomers = {

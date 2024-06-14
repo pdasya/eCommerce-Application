@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 import { Button } from '@mui/material';
-import styles from './http-404.page.module.scss';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@/routes';
+import * as styles from './http-404.page.module.scss';
 
 export const Http404Page: FC = () => (
   <div className={styles.page}>

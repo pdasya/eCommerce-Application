@@ -6,10 +6,10 @@ exports[`Header snapshot match: header-snapshot 1`] = `
     class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionStatic css-hip9hq-MuiPaper-root-MuiAppBar-root"
   >
     <div
-      class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular toolbar css-hyum1k-MuiToolbar-root"
+      class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-hyum1k-MuiToolbar-root"
     >
       <a
-        class="link logo"
+        class=""
         href="/"
       >
         <svg
@@ -29,9 +29,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
           FOOD STORE
         </h6>
       </a>
-      <div
-        class="bar"
-      >
+      <div>
         <div
           class="MuiBox-root css-1lvtzne"
         >
@@ -64,7 +62,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
           class="MuiBox-root css-uwxyu2"
         >
           <a
-            class="link"
+            class=""
             href="/"
             role="navigation"
           >
@@ -80,7 +78,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             </button>
           </a>
           <a
-            class="link"
+            class=""
             href="/catalog/all"
             role="navigation"
           >
@@ -96,7 +94,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
             </button>
           </a>
           <a
-            class="link"
+            class=""
             href="/about"
             role="navigation"
           >
@@ -133,7 +131,7 @@ exports[`Header snapshot match: header-snapshot 1`] = `
         </svg>
       </span>
       <a
-        class="link cart"
+        class=""
         href="/cart"
       >
         <button

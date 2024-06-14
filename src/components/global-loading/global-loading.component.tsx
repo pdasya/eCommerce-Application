@@ -3,7 +3,7 @@ import { LinearProgress } from '@mui/material';
 import classNames from 'classnames';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { selectLoading } from '@store/misc/misc.slice';
-import styles from './global-loading.component.module.scss';
+import * as styles from './global-loading.component.module.scss';
 
 export const GlobalLoading: FC = () => {
   const isLoading = useAppSelector(selectLoading);

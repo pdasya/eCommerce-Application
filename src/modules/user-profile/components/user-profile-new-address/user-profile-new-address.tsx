@@ -13,7 +13,7 @@ import {
 import { Address } from '@commercetools/platform-sdk';
 import { addressValidationSchema } from '@config/validation-schema';
 import * as Yup from 'yup';
-import styles from './user-profile-new-address.module.scss';
+import * as styles from './user-profile-new-address.module.scss';
 
 interface NewAddressFormProps {
   address: Address;
@@ -106,7 +106,7 @@ const NewAddressForm: React.FC<NewAddressFormProps> = ({
           <Divider variant="fullWidth" className={styles.dividerNewAddress} />
         </>
       )}
-      <Button variant="outlined" onClick={validateAndSubmit} className={styles.addNewAddressButton}>
+      <Button variant="outlined" onClick={validateAndSubmit}>
         {isAdding
           ? `Save New ${type.charAt(0).toUpperCase() + type.slice(1)} Address`
           : `Add New ${type.charAt(0).toUpperCase() + type.slice(1)} Address`}

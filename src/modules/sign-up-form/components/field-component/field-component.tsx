@@ -12,7 +12,7 @@ import {
   Checkbox,
 } from '@mui/material';
 import PasswordInputComponent from '@/components/password-input-component/password-input-component';
-import styles from './field-component.module.scss';
+import * as styles from './field-component.module.scss';
 
 interface IFormField {
   id: string;

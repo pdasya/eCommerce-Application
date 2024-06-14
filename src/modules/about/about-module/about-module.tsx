@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box, Grid, Link, Paper, Typography } from '@mui/material';
 import styles from './about-module.module.scss';
 import { IMember } from '../interface/about-interface';
-import { MemberCard } from '../components/member-card';
+import { MemberCard } from '../components/member-card/member-card';
 
 export const AboutContent: FC = () => {
   const members: IMember[] = [

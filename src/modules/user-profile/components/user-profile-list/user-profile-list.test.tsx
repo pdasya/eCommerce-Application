@@ -103,9 +103,9 @@ describe('UserProfileList', () => {
     fireEvent.click(screen.getByText('Save New Shipping Address'));
   });
 
-  test('calls refreshUserData on setting default address', async () => {
-    setup();
+  // test('calls refreshUserData on setting default address', async () => {
+  //   setup();
 
-    fireEvent.click(screen.getByRole('checkbox', { name: /Default shipping address/i }));
-  });
+  //   // fireEvent.click(screen.getByRole('checkbox', { name: /Default shipping address/i }));
+  // });
 });

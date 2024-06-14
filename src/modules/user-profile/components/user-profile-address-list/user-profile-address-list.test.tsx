@@ -27,6 +27,7 @@ const defaultProps = {
   editMode: false,
   handleDataChange: jest.fn(),
   handleDefaultChange: jest.fn(),
+  handleDeleteAddress: jest.fn(),
   type: 'shipping' as 'shipping' | 'billing',
 };
 

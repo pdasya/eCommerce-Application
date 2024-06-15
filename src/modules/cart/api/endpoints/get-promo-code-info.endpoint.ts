@@ -8,7 +8,9 @@ export const getPromoCodeInfoEndpoint = async (ID: string) => {
     const promoName = (await getPromoCodeInfo(ID)).body.key;
     return { promoName, ID };
   } catch (error) {
-    console.error(error);
-    return '';
+    if (error.code === 404) {
+      return '';
+    }
+    throw error;
   }
 };

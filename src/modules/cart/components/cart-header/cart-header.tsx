@@ -15,14 +15,14 @@ const LinkToCatalogPage: FC = () => (
 export const CartHeader: FC = () => (
   <Grid item xs={12} className={styles.cartModuleHeaderWrapper}>
     <Box textAlign="center" className={styles.cartHeader}>
-      <Typography variant="h4" component="h2" gutterBottom>
+      <Typography variant="h4" component="h2">
         Your cart
       </Typography>
-      <ShoppingCartIcon fontSize="large" className={styles.cartImage} />
     </Box>
     <Box textAlign="center" className={styles.cartContinueHeader}>
       <LinkToCatalogPage />
       <ArrowForwardIosIcon fontSize="small" />
     </Box>
+    <ShoppingCartIcon fontSize="large" className={styles.cartImage} />
   </Grid>
 );

@@ -1,4 +1,5 @@
 .cartModuleHeaderWrapper {
+  position: relative;
   display: flex;
   width: 90%;
   max-width: 1200px !important;
@@ -6,6 +7,13 @@
   align-items: center;
   justify-content: space-between;
   margin: 0 auto !important;
+  gap: 10px;
+
+  @media (width <= 380px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px !important;
+  }
 }
 
 .cartHeader {
@@ -15,20 +23,27 @@
 
 @keyframes cart-move {
   0% {
-    transform: translateX(0);
+    left: 5%;
   }
 
   50% {
-    transform: translateX(200px);
+    left: 90%;
   }
 
   100% {
-    transform: translateX(0);
+    left: 5%;
   }
 }
 
 .cartImage {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
   animation: cart-move 15s ease-in-out infinite;
+
+  @media (width <= 380px) {
+    bottom: -40px;
+  }
 }
 
 .cartContinueHeader {

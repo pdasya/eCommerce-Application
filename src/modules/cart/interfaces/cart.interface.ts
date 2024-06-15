@@ -8,4 +8,5 @@ export interface ICart {
   initialPrice: number;
   discount: number;
   finalPrice: number;
+  discountCodeId: string;
 }

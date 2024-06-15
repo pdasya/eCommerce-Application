@@ -1,5 +1,5 @@
 .cartItem {
-  display: flex;
+  display: grid;
   width: 100%;
   align-items: center;
   padding: 16px;
@@ -7,31 +7,46 @@
   border-radius: 4px;
   margin-bottom: 16px;
   background-color: #fff;
+  gap: 20px;
+  grid-template-columns: 150px 1fr repeat(2, 130px);
 
-  @media (width <= 1070px) {
-    flex-direction: column;
-    align-items: flex-start;
+  @media (width <= 780px) {
+    grid-template-areas:
+      'image name price'
+      'quantity quantity quantity';
+    grid-template-columns: unset;
+  }
+
+  @media (width <= 590px) {
+    grid-template-areas:
+      'image'
+      'name'
+      'price'
+      'quantity';
+    grid-template-columns: unset;
   }
 }
 
 .cartItemMedia {
-  width: 100px !important;
-  height: 100px !important;
+  width: 150px !important;
+  height: 150px !important;
   object-fit: contain;
 
-  @media (width <= 400px) {
+  @media (width <= 780px) {
+    grid-area: image;
+  }
+
+  @media (width <= 590px) {
     width: 100% !important;
     height: auto !important;
   }
 }
 
 .cartItemContent {
-  flex: 1 0 auto;
-  padding-left: 20px;
+  padding: 0 !important;
 
-  @media (width <= 1070px) {
-    padding-top: 10px;
-    padding-left: 0;
+  @media (width <= 780px) {
+    grid-area: name;
   }
 }
 
@@ -44,11 +59,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 20px;
 
-  @media (width <= 1070px) {
-    padding-top: 10px;
-    margin-left: 0;
+  @media (width <= 780px) {
+    justify-content: center;
+    grid-area: quantity;
   }
 }
 
@@ -56,15 +70,8 @@
   display: flex;
   align-items: center;
 
-  @media (width <= 1070px) {
-    width: 100%;
-    justify-content: space-between;
-    padding-top: 10px;
-  }
-
-  @media (width <= 400px) {
-    flex-direction: column;
-    align-items: flex-start;
+  @media (width <= 780px) {
+    gap: 20px;
   }
 }
 
@@ -81,12 +88,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-left: 20px;
+  padding: 0 !important;
   font-weight: bold;
 
-  @media (width <= 1000px) {
-    margin-top: 10px;
-    margin-left: 0;
+  @media (width <= 780px) {
+    grid-area: price;
   }
 }
 
@@ -117,7 +123,7 @@
 }
 
 .deleteButton:hover {
-  animation: shake 0.5s ease-in-out infinite;
+  animation: shake 0.5s ease-in-out;
 }
 
 .discountedPrice {

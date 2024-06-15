@@ -1,3 +1,14 @@
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 15px;
+
+  @media (width <= 380px) {
+    flex-wrap: wrap;
+  }
+}
+
 .buttonSize {
   width: 600px !important;
 }

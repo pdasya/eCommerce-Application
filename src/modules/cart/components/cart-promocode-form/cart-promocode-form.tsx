@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Box, TextField, Button } from '@mui/material';
+import * as styles from './cart-promocode-form.module.scss';
 
 interface PromoCodeFormProps {
   promoCode: string;
@@ -20,8 +21,9 @@ export const PromoCodeForm: FC<PromoCodeFormProps> = ({
   handlePromoCodeDeleteItems,
   handlePromoCodePressEnter,
 }) => (
-  <Box display="flex" justifyContent="flex-end" alignItems="center" marginTop={2}>
+  <Box className={styles.content} marginTop={2} marginBottom={2}>
     <TextField
+      className={styles.textField}
       label="Promo Code"
       variant="outlined"
       size="small"
@@ -29,24 +31,27 @@ export const PromoCodeForm: FC<PromoCodeFormProps> = ({
       onChange={handlePromoCodeChange}
       onKeyDown={handlePromoCodePressEnter}
       error={!!promoError}
+      FormHelperTextProps={{
+        className: styles.helperText,
+      }}
       helperText={promoError}
       disabled={promoCodeState}
     />
     {promoCodeState ? (
       <Button
+        className={styles.button}
         variant="contained"
         color="error"
-        onClick={handlePromoCodeDeleteItems}
-        style={{ marginLeft: 8 }}>
+        onClick={handlePromoCodeDeleteItems}>
         Delete
       </Button>
     ) : (
       <Button
+        className={styles.button}
         variant="contained"
         color="primary"
         onClick={handlePromoCodeApply}
-        disabled={!promoCode.length}
-        style={{ marginLeft: 8 }}>
+        disabled={!promoCode.length}>
         Apply
       </Button>
     )}

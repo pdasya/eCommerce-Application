@@ -18,6 +18,7 @@ describe('Product list', () => {
         imageSrc: 'src1',
         slug: 'slug1',
         title: 'title1',
+        sku: '',
       },
       {
         currency: 'currency2',
@@ -29,6 +30,7 @@ describe('Product list', () => {
         slug: 'slug2',
         title: 'title2',
         discountPrice: 'description2',
+        sku: '',
       },
     ];
     const { store, asFragment } = renderWithProviders(<ProductList />);

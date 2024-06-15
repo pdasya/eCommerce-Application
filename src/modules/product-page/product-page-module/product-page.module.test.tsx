@@ -23,6 +23,7 @@ describe('Product page module', () => {
       ],
       title: 'title',
       discountPrice: 'description',
+      sku: 'sku',
     };
 
     const { store, asFragment } = renderWithProviders(<Product />);

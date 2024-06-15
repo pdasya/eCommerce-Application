@@ -91,7 +91,6 @@ export const ProductCard: FC<ProductCardProps> = ({
                 variant="contained"
                 onClick={event => {
                   event.preventDefault();
-                  console.log(sku);
                   addToCartClickHandler(sku);
                 }}>
                 Add to cart

@@ -19,12 +19,26 @@ export const CartModule: FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState('');
+  const [promoCodeState, setPromoCodeState] = useState(false);
   const [promoError, setPromoError] = useState('');
+
+  const getPromoName = async () => {
+    try {
+      const promoName = await cartService.getPromoCodeName();
+      if (promoName) {
+        setPromoCode(promoName.en);
+        setPromoCodeState(true);
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
     cartService
       .synchronize()
+      .then(() => getPromoName())
       .catch(error => toast.error(error))
       .finally(() => setLoading(false));
   }, [isAuthorized]);
@@ -112,7 +126,7 @@ export const CartModule: FC = () => {
     try {
       await cartService.applyPromoCode(promoCode);
       toast.success(`Promo code "${promoCode}" is successfully applied`);
-      setPromoCode('');
+      setPromoCodeState(true);
     } catch (error) {
       setPromoError('Invalid promo code');
       toast.warning(`Unable apply promo code: ${error.message}`);
@@ -150,6 +164,7 @@ export const CartModule: FC = () => {
               </Box>
               <PromoCodeForm
                 promoCode={promoCode}
+                promoCodeState={promoCodeState}
                 promoError={promoError}
                 handlePromoCodeChange={handlePromoCodeChange}
                 handlePromoCodeApply={handlePromoCodeApplyItems}

@@ -15,6 +15,7 @@ const initialState: ICartState = {
     initialPrice: 0,
     discount: 0,
     finalPrice: 0,
+    discountCodeId: '',
   },
 };
 

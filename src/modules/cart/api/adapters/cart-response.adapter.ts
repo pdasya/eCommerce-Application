@@ -24,11 +24,11 @@ const cartItemParser = ({ id, variant, name, quantity, price }: LineItem): ICart
 };
 
 const cartParser = (cart: Cart): ICart => {
-  const { id, version, lineItems, totalPrice, discountOnTotalPrice } = cart;
-
+  const { id, version, lineItems, totalPrice, discountOnTotalPrice, discountCodes } = cart;
   const finalPrice = totalPrice.centAmount / 100;
   const discount = (discountOnTotalPrice?.discountedAmount.centAmount || 0) / 100;
   const initialPrice = finalPrice + discount;
+  const discountCodeId = discountCodes.length > 0 ? discountCodes[0].discountCode.id : '';
 
   return {
     id,
@@ -38,6 +38,7 @@ const cartParser = (cart: Cart): ICart => {
     initialPrice,
     discount,
     finalPrice,
+    discountCodeId,
   };
 };
 

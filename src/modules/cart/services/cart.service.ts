@@ -3,6 +3,7 @@ import {
   addCartItemsEndpoint,
   createMyCartEndpoint,
   deleteCartEndpoint,
+  getDiscountCodeNameEndpoint,
   getMyActiveCartEndpoint,
   updateCartItemsQuantityEndpoint,
 } from '@modules/cart/api';
@@ -75,6 +76,15 @@ class CartService {
     const { id, version } = await this._getMyActiveCartOrCreate();
     const cart = await applyPromoCodeEndpoint({ id, version, promoCode });
     store.dispatch(updateCart(cart));
+  }
+
+  /**
+   * Return promo code name.
+   */
+  public async getPromoCodeName() {
+    const { discountCodeId } = await this._getMyActiveCartOrCreate();
+    const promoName = await getDiscountCodeNameEndpoint(discountCodeId);
+    return promoName;
   }
 
   /**

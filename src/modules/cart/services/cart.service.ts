@@ -13,21 +13,24 @@ import { ICartItem } from '@modules/cart/interfaces/cart-item.interface';
 
 class CartService {
   /**
-   * Fetches active cart and update store.
-   * New cart will be created if not exists.
-   * May be used on first render or flow change.
+   * Fetches active cart (if exists) and update store.
    */
   public async synchronize() {
     store.dispatch(resetCart());
     const cart = await this._getMyActiveCart();
-    store.dispatch(updateCart(cart));
+
+    if (cart) {
+      store.dispatch(updateCart(cart));
+    } else {
+      store.dispatch(resetCart());
+    }
   }
 
   /**
    * Add item to cart. Create cart (if not exists).
    */
   public async addCartItem(items: { sku: string; quantity?: number }[]) {
-    const { id, version } = await this._getMyActiveCart();
+    const { id, version } = await this._getMyActiveCartOrCreate();
     const cart = await addCartItemsEndpoint({ id, version, items });
     store.dispatch(updateCart(cart));
   }
@@ -36,16 +39,17 @@ class CartService {
    * Updates cart items quantity.
    */
   public async updateCartItemQuantity(items: { id: string; quantity: number }[]) {
-    const { id, version } = await this._getMyActiveCart();
+    const { id, version } = await this._getMyActiveCartOrCreate();
     const cart = await updateCartItemsQuantityEndpoint({ id, version, items });
     store.dispatch(updateCart(cart));
   }
 
   /**
-   * Removes item from cart.
+   * Removes item from cart (if cart exists).
+   * Cart will be created if not exists.
    */
   public async removeCartItem(item: ICartItem) {
-    const { id, version } = await this._getMyActiveCart();
+    const { id, version } = await this._getMyActiveCartOrCreate();
     const cart = await removeCartItemsEndpoint({ id, version, items: [item] });
     store.dispatch(updateCart(cart));
   }
@@ -65,17 +69,26 @@ class CartService {
 
   /**
    * Applies promo code to cart.
+   * Cart will be created if not exists.
    */
   public async applyPromoCode(promoCode: string) {
-    const { id, version } = await this._getMyActiveCart();
+    const { id, version } = await this._getMyActiveCartOrCreate();
     const cart = await applyPromoCodeEndpoint({ id, version, promoCode });
     store.dispatch(updateCart(cart));
   }
 
   /**
-   * Return active cart. Create cart (if not exists).
+   * Return active cart (if exists).
    */
   private async _getMyActiveCart() {
+    const cart = await getMyActiveCartEndpoint();
+    return cart;
+  }
+
+  /**
+   * Return active cart or create it (if not exists).
+   */
+  private async _getMyActiveCartOrCreate() {
     const cart = await getMyActiveCartEndpoint();
 
     if (!cart) {

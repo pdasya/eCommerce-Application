@@ -25,6 +25,7 @@ function productAdapter(product: ProductProjection): ISingleProduct {
     currency,
     discountPrice,
     attributes,
+    sku: product.masterVariant.sku || '',
   };
 }
 

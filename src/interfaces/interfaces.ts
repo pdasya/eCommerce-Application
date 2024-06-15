@@ -10,6 +10,7 @@ export interface IProduct {
   currency: string;
   discountPrice?: string;
   slug: string;
+  sku: string;
 }
 
 export interface ISingleProduct extends Omit<IProduct, 'slug' | 'imageSrc' | 'imageAlt'> {

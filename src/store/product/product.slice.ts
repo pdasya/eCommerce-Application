@@ -19,6 +19,7 @@ const initialState: IProductState = {
     currency: '',
     discountPrice: '0',
     attributes: [],
+    sku: '',
   },
 };
 

@@ -40,6 +40,7 @@ export const productParser = (product: ProductProjection): IProduct => {
     currency,
     discountPrice,
     slug,
+    sku: product.masterVariant.sku || '',
   };
 };
 

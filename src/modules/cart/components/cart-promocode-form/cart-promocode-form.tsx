@@ -7,7 +7,8 @@ interface PromoCodeFormProps {
   promoError: string;
   handlePromoCodeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handlePromoCodeApply: () => void;
-  // handlePromoCodeDeleteItems: () => void;
+  handlePromoCodeDeleteItems: () => void;
+  handlePromoCodePressEnter: (e: React.KeyboardEvent) => void;
 }
 
 export const PromoCodeForm: FC<PromoCodeFormProps> = ({
@@ -16,7 +17,8 @@ export const PromoCodeForm: FC<PromoCodeFormProps> = ({
   promoError,
   handlePromoCodeChange,
   handlePromoCodeApply,
-  // handlePromoCodeDeleteItems,
+  handlePromoCodeDeleteItems,
+  handlePromoCodePressEnter,
 }) => (
   <Box display="flex" justifyContent="flex-end" alignItems="center" marginTop={2}>
     <TextField
@@ -25,6 +27,7 @@ export const PromoCodeForm: FC<PromoCodeFormProps> = ({
       size="small"
       value={promoCode}
       onChange={handlePromoCodeChange}
+      onKeyDown={handlePromoCodePressEnter}
       error={!!promoError}
       helperText={promoError}
       disabled={promoCodeState}
@@ -33,7 +36,7 @@ export const PromoCodeForm: FC<PromoCodeFormProps> = ({
       <Button
         variant="contained"
         color="error"
-        // onClick={handlePromoCodeDeleteItems}
+        onClick={handlePromoCodeDeleteItems}
         style={{ marginLeft: 8 }}>
         Delete
       </Button>

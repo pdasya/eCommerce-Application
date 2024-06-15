@@ -19,26 +19,31 @@ export const CartModule: FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState('');
+  const [promoCodeId, setPromoCodeId] = useState('');
   const [promoCodeState, setPromoCodeState] = useState(false);
   const [promoError, setPromoError] = useState('');
 
   const getPromoName = async () => {
     try {
-      const promoName = await cartService.getPromoCodeName();
-      if (promoName) {
-        setPromoCode(promoName.en);
-        setPromoCodeState(true);
+      const results = await cartService.getPromoCodeInfo();
+      if (results) {
+        if (results.promoName) {
+          setPromoCode(results.promoName);
+          setPromoCodeId(results.ID);
+          setPromoCodeState(true);
+        }
       }
     } catch (error) {
       toast.error(error);
     }
   };
 
+  getPromoName();
+
   useEffect(() => {
     setLoading(true);
     cartService
       .synchronize()
-      .then(() => getPromoName())
       .catch(error => toast.error(error))
       .finally(() => setLoading(false));
   }, [isAuthorized]);
@@ -133,6 +138,24 @@ export const CartModule: FC = () => {
     }
   };
 
+  const handlePromoCodeDeleteItems = async () => {
+    try {
+      await cartService.removePromoCode(promoCodeId);
+      toast.success(`Promo code "${promoCode}" is successfully deleted`);
+      setPromoCode('');
+      setPromoCodeState(false);
+    } catch (error) {
+      setPromoError('Invalid promo code');
+      toast.warning(`Unable deleted promo code: ${error.message}`);
+    }
+  };
+
+  const handlePromoCodePressEnter = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && promoCode.length > 0) {
+      handlePromoCodeApplyItems();
+    }
+  };
+
   return (
     <Grid container spacing={2} className={styles.cartModuleWrapper}>
       <CartHeader />
@@ -167,7 +190,9 @@ export const CartModule: FC = () => {
                 promoCodeState={promoCodeState}
                 promoError={promoError}
                 handlePromoCodeChange={handlePromoCodeChange}
+                handlePromoCodePressEnter={handlePromoCodePressEnter}
                 handlePromoCodeApply={handlePromoCodeApplyItems}
+                handlePromoCodeDeleteItems={handlePromoCodeDeleteItems}
               />
               <CartActions handleCartClear={handleCartClearItems} />
             </>

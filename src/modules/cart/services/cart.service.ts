@@ -4,13 +4,14 @@ import {
   createMyCartEndpoint,
   deleteCartEndpoint,
   getMyActiveCartEndpoint,
-  getPromoCodeNameEndpoint,
+  getPromoCodeInfoEndpoint,
   updateCartItemsQuantityEndpoint,
 } from '@modules/cart/api';
 import { resetCart, updateCart } from '@store/cart/cart.slice';
 import { removeCartItemsEndpoint } from '@modules/cart/api/endpoints/remove-cart-items.endpoint';
 import { applyPromoCodeEndpoint } from '@modules/cart/api/endpoints/apply-promo-code.endpoint';
 import { ICartItem } from '@modules/cart/interfaces/cart-item.interface';
+import { removePromoCodeEndpoint } from '../api/endpoints/remove-promo-code.endpoint';
 
 class CartService {
   /**
@@ -82,18 +83,18 @@ class CartService {
    * Remove promo code to cart.
    * Cart will be created if not exists.
    */
-  public async removePromoCode(promoCode: string) {
+  public async removePromoCode(promoCodeId: string) {
     const { id, version } = await this._getMyActiveCartOrCreate();
-    const cart = await applyPromoCodeEndpoint({ id, version, promoCode });
+    const cart = await removePromoCodeEndpoint({ id, version, promoCodeId });
     store.dispatch(updateCart(cart));
   }
 
   /**
    * Return promo code name.
    */
-  public async getPromoCodeName() {
+  public async getPromoCodeInfo() {
     const { discountCodeId } = await this._getMyActiveCartOrCreate();
-    const promoName = await getPromoCodeNameEndpoint(discountCodeId);
+    const promoName = await getPromoCodeInfoEndpoint(discountCodeId);
     return promoName;
   }
 

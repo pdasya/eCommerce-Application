@@ -1,12 +1,12 @@
 import { apiFlowManager } from '@config/constants';
 
-const getPromoCodeName = async (ID: string) =>
+const getPromoCodeInfo = async (ID: string) =>
   apiFlowManager.getClient().discountCodes().withId({ ID }).get().execute();
 
-export const getPromoCodeNameEndpoint = async (ID: string) => {
+export const getPromoCodeInfoEndpoint = async (ID: string) => {
   try {
-    const promoName = (await getPromoCodeName(ID)).body.name;
-    return promoName;
+    const promoName = (await getPromoCodeInfo(ID)).body.key;
+    return { promoName, ID };
   } catch (error) {
     console.error(error);
     return '';

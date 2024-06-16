@@ -101,6 +101,7 @@ export class ApiFlowManager {
 
   public switchPasswordFlow(userDraft: IPasswordFlowUserDraft): this {
     this._anonymousTokenKeeper?.reset();
+    this._authorizedTokenKeeper?.reset();
     this._isAuthorizedFlow = true;
 
     const options: PasswordAuthMiddlewareOptions = {
@@ -141,6 +142,7 @@ export class ApiFlowManager {
         clientSecret: this._clientSecret,
       },
       refreshToken,
+      tokenCache: this._authorizedTokenKeeper,
     };
 
     const ctpClient = new ClientBuilder()

@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DiscountIcon from '@mui/icons-material/Discount';
 import classNames from 'classnames';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath } from 'react-router-dom';
 import { RoutePath } from '@routes/index';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { selectCart } from '@store/cart/cart.slice';
@@ -77,13 +77,13 @@ export const ProductCard: FC<ProductCardProps> = ({
               )}
             </div>
             {isInCart ? (
-              <object className={styles.button}>
-                <Link to={RoutePath.cart}>
+              <object className={styles.buttonWrapperObject}>
+                <CustomRouterLink className={styles.buttonWrapperObject} to={RoutePath.cart}>
                   <Button className={styles.button} variant="contained" color="success">
                     Go to cart
                     <ShoppingCartCheckoutIcon />
                   </Button>
-                </Link>
+                </CustomRouterLink>
               </object>
             ) : (
               <Button

@@ -4,7 +4,7 @@ import { updateCartEndpoint } from './update-cart.endpoint';
 type Options = {
   id: string;
   version: number;
-  items: ICartItem[];
+  items: Pick<ICartItem, 'id'>[];
 };
 
 export const removeCartItemsEndpoint = ({ id, version, items }: Options) =>

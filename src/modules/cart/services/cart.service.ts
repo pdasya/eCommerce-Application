@@ -10,7 +10,6 @@ import {
 import { resetCart, updateCart } from '@store/cart/cart.slice';
 import { removeCartItemsEndpoint } from '@modules/cart/api/endpoints/remove-cart-items.endpoint';
 import { applyPromoCodeEndpoint } from '@modules/cart/api/endpoints/apply-promo-code.endpoint';
-import { ICartItem } from '@modules/cart/interfaces/cart-item.interface';
 import { removePromoCodeEndpoint } from '../api/endpoints/remove-promo-code.endpoint';
 
 class CartService {
@@ -50,7 +49,7 @@ class CartService {
    * Removes item from cart (if cart exists).
    * Cart will be created if not exists.
    */
-  public async removeCartItem(item: ICartItem) {
+  public async removeCartItem(item: { id: string }) {
     const { id, version } = await this._getMyActiveCartOrCreate();
     const cart = await removeCartItemsEndpoint({ id, version, items: [item] });
     store.dispatch(updateCart(cart));

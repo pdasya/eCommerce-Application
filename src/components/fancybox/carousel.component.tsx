@@ -31,7 +31,7 @@ export const Carousel: FC<PropsWithChildren<Props>> = ({ options, children }) =>
     return () => {
       instance.destroy();
     };
-  });
+  }, []);
 
   return (
     <div className="f-carousel" ref={containerRef}>

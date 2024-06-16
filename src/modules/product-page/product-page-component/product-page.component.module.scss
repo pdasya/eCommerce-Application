@@ -1,4 +1,5 @@
 .item {
+  position: relative;
   border-radius: 5px;
   background-color: white;
 }
@@ -39,11 +40,17 @@
 }
 
 .button {
+  position: relative;
   margin-top: 20px !important;
 
   &:hover {
     background-color: var(--bg-color-accent) !important;
   }
+}
+
+.buttonWrapperObject {
+  display: flex;
+  gap: var(--spacing-s-8px);
 }
 
 @media screen and (width <=768px) {

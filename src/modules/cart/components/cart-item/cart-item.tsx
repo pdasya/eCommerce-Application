@@ -1,10 +1,14 @@
 import React from 'react';
 import { CardMedia, Typography, IconButton, Box, CardContent, Card } from '@mui/material';
 import { Delete, Add, Remove } from '@mui/icons-material';
+import { CustomRouterLink } from '@components/custom-router-link/custom-router-link.component';
+import { RoutePath } from '@routes/index';
+import { generatePath } from 'react-router-dom';
 import * as styles from './cart-item.module.scss';
 
 interface CartItemProps {
   name: string;
+  slug: string;
   imageUrl: string;
   initialPrice: number;
   finalPrice: number;
@@ -16,6 +20,7 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({
   name,
+  slug,
   imageUrl,
   initialPrice,
   finalPrice,
@@ -30,9 +35,13 @@ const CartItem: React.FC<CartItemProps> = ({
     <Card className={styles.cartItem}>
       <CardMedia component="img" className={styles.cartItemMedia} image={imageUrl} alt={name} />
       <CardContent className={styles.cartItemContent}>
-        <Typography component="h5" variant="h6" className={styles.cartItemName}>
-          {name}
-        </Typography>
+        <CustomRouterLink
+          to={generatePath(RoutePath.product, { id: slug })}
+          className={styles.cartItemLink}>
+          <Typography component="h5" variant="h6" className={styles.cartItemName}>
+            {name}
+          </Typography>
+        </CustomRouterLink>
         {initialPrice !== finalPrice ? (
           <Typography
             variant="body2"

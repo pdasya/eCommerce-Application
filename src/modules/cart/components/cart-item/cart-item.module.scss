@@ -10,14 +10,14 @@
   gap: 20px;
   grid-template-columns: 150px 1fr repeat(2, 130px);
 
-  @media (width <= 780px) {
+  @media (width <=780px) {
     grid-template-areas:
       'image name price'
       'quantity quantity quantity';
     grid-template-columns: unset;
   }
 
-  @media (width <= 590px) {
+  @media (width <=590px) {
     grid-template-areas:
       'image'
       'name'
@@ -32,20 +32,29 @@
   height: 150px !important;
   object-fit: contain;
 
-  @media (width <= 780px) {
+  @media (width <=780px) {
     grid-area: image;
   }
 
-  @media (width <= 590px) {
+  @media (width <=590px) {
     width: 100% !important;
     height: auto !important;
+  }
+}
+
+.cartItemLink {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
   }
 }
 
 .cartItemContent {
   padding: 0 !important;
 
-  @media (width <= 780px) {
+  @media (width <=780px) {
     grid-area: name;
   }
 }
@@ -60,7 +69,7 @@
   align-items: center;
   justify-content: center;
 
-  @media (width <= 780px) {
+  @media (width <=780px) {
     justify-content: center;
     grid-area: quantity;
   }
@@ -70,7 +79,7 @@
   display: flex;
   align-items: center;
 
-  @media (width <= 780px) {
+  @media (width <=780px) {
     gap: 20px;
   }
 }
@@ -78,7 +87,7 @@
 .cartItemBoxQuantityText {
   margin: 0 10px;
 
-  @media (width <= 400px) {
+  @media (width <=400px) {
     margin: 10px 0;
   }
 }
@@ -91,7 +100,7 @@
   padding: 0 !important;
   font-weight: bold;
 
-  @media (width <= 780px) {
+  @media (width <=780px) {
     grid-area: price;
   }
 }

@@ -18,9 +18,6 @@ const cartItemParser = ({
   if (!variant.sku) {
     throw Error('Cart line item parse error: "sku" is not specified.');
   }
-  if (!productSlug) {
-    throw Error('Cart line item parse error: "slug" is not specified.');
-  }
 
   const imageUrl = variant.images
     ? variant.images.length > 0
@@ -28,11 +25,13 @@ const cartItemParser = ({
       : './assets/images/no-image.jpg'
     : './assets/images/no-image.jpg';
 
+  const slug = productSlug ? productSlug.en : '#';
+
   return {
     id,
     sku: variant.sku,
     name: name.en,
-    slug: productSlug.en,
+    slug,
     imageUrl,
     quantity,
     initialPrice: price.value.centAmount / 100,

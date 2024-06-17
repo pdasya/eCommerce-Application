@@ -7,12 +7,21 @@ export const MainBanner: FC = () => (
     <Grid container className={styles.banner} alignItems="center" justifyContent="center">
       <Grid item md={4} sm={6} xs={12} className={styles.bannerText}>
         <Typography variant="h4" component="h4" className={styles.bannerTitle}>
-          Enjoy 20% OFF
+          Enjoy discounts
         </Typography>
         <Typography variant="h6" component="h6" className={styles.bannerSubtitle}>
-          Promo code for everyone. When ordering over $100, use the promo code{' '}
-          <span className={styles.bannerPromo}>promo20</span> and receive a 20% discount on your
-          entire cart.
+          Promo code for everyone.{' '}
+          <Typography paragraph>
+            Use <span className={styles.bannerPromo}>promo20</span> and receive a 20% discount on
+            your entire cart.
+          </Typography>
+        </Typography>
+        <Typography variant="h6" component="h6" className={styles.bannerSubtitle}>
+          Promo code for registered users.
+          <Typography paragraph>
+            Use <span className={styles.bannerPromo}>client30</span> and receive a 30% discount on
+            your entire cart.
+          </Typography>
         </Typography>
       </Grid>
       <Grid

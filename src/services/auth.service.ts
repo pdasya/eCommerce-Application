@@ -3,6 +3,7 @@ import { authorize, unauthorize } from '@store/auth/auth.slice';
 import { CartResourceIdentifier, CustomerDraft } from '@commercetools/platform-sdk';
 import { authEnd, authPending } from '@store/misc/misc.slice';
 import { apiFlowManager } from '@config/constants';
+import { resetCart } from '@store/cart/cart.slice';
 import { ApiFlowManager } from './api-flow-manager.class';
 import { IUserDraft } from '@/interfaces/user-draft.interface';
 import { ICustomer } from '@/interfaces/customer.interface';
@@ -102,7 +103,7 @@ class AuthService {
       })
       .execute();
 
-    this.logout();
+    store.dispatch(resetCart());
 
     await this.signIn({ email: customer.email, password: data.newPassword });
   }

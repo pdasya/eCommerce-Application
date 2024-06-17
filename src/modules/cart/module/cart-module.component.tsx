@@ -47,7 +47,9 @@ export const CartModule: FC = () => {
     }
   };
 
-  getPromoName();
+  useEffect(() => {
+    getPromoName();
+  }, [promoCodeState]);
 
   useEffect(() => {
     setLoading(true);
@@ -57,10 +59,19 @@ export const CartModule: FC = () => {
       .finally(() => setLoading(false));
   }, [isAuthorized]);
 
+  const promoCodeRemover = async () => {
+    if (promoCode) {
+      await cartService.removePromoCode(promoCodeId);
+    }
+    setPromoCode('');
+    setPromoCodeState(false);
+  };
+
   const handleCartClearItems = async () => {
     if (window.confirm('Are you sure you want to clear the cart?')) {
       setLoading(true);
       try {
+        await promoCodeRemover();
         await cartService.deleteCart();
         toast.success('Cart has been cleared');
       } catch (error) {
@@ -90,10 +101,8 @@ export const CartModule: FC = () => {
 
   const handlePromoCodeDeleteItems = async () => {
     try {
-      await cartService.removePromoCode(promoCodeId);
+      await promoCodeRemover();
       toast.success(`Promo code "${promoCode}" is successfully deleted`);
-      setPromoCode('');
-      setPromoCodeState(false);
     } catch (error) {
       setPromoError('Invalid promo code');
       toast.warning(`Unable deleted promo code: ${error.message}`);

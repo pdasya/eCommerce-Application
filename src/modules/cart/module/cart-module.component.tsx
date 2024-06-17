@@ -48,7 +48,9 @@ export const CartModule: FC = () => {
     }
   };
 
-  getPromoName();
+  useEffect(() => {
+    getPromoName();
+  }, [promoCodeState]);
 
   useEffect(() => {
     setLoading(true);
@@ -57,6 +59,14 @@ export const CartModule: FC = () => {
       .catch(error => toast.error(error))
       .finally(() => setLoading(false));
   }, [isAuthorized]);
+
+  const promoCodeRemover = async () => {
+    if (promoCode) {
+      await cartService.removePromoCode(promoCodeId);
+    }
+    setPromoCode('');
+    setPromoCodeState(false);
+  };
 
   const removeItemHandler = async (item: ICartItem) => {
     try {
@@ -70,7 +80,6 @@ export const CartModule: FC = () => {
   const incrementItemHandler = async (item: ICartItem) => {
     try {
       cartService.updateCartItemQuantity([{ ...item, quantity: item.quantity + 1 }]);
-      // toast.success(`Item ${item.name} quantity successfully changed`);
     } catch (error) {
       toast.error(`Error updating quantity: ${error}`);
     }
@@ -79,7 +88,6 @@ export const CartModule: FC = () => {
   const decrementItemHandler = async (item: ICartItem) => {
     try {
       cartService.updateCartItemQuantity([{ ...item, quantity: item.quantity + -1 }]);
-      // toast.success(`Item ${item.name} quantity successfully changed`);
     } catch (error) {
       toast.error(`Error updating quantity: ${error}`);
     }
@@ -89,6 +97,7 @@ export const CartModule: FC = () => {
     if (window.confirm('Are you sure you want to clear the cart?')) {
       setLoading(true);
       try {
+        await promoCodeRemover();
         await cartService.deleteCart();
         toast.success('Cart has been cleared');
       } catch (error) {
@@ -118,10 +127,8 @@ export const CartModule: FC = () => {
 
   const handlePromoCodeDeleteItems = async () => {
     try {
-      await cartService.removePromoCode(promoCodeId);
+      await promoCodeRemover();
       toast.success(`Promo code "${promoCode}" is successfully deleted`);
-      setPromoCode('');
-      setPromoCodeState(false);
     } catch (error) {
       setPromoError('Invalid promo code');
       toast.warning(`Unable deleted promo code: ${error.message}`);

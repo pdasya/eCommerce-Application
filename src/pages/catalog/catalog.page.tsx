@@ -121,7 +121,7 @@ export const CatalogPage: FC = () => {
   }, [location]);
 
   useEffect(() => {
-    navigate(`${location.pathname}`);
+    navigate(`${location.pathname}${location.search}`, { replace: true });
   }, [
     sortBy,
     priceFilter,

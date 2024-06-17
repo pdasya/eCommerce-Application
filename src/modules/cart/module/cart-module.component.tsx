@@ -12,7 +12,6 @@ import { CartHeader } from '../components/cart-header/cart-header';
 import { CartItemList } from '../components/cart-item-list/cart-item-list';
 import { PromoCodeForm } from '../components/cart-promocode-form/cart-promocode-form';
 import { CartActions } from '../components/cart-actions/cart-actions';
-import { ICartItem } from '../interfaces/cart-item.interface';
 import * as styles from './cart-module.component.module.scss';
 
 const LinkToCatalogPage: FC = () => (
@@ -66,31 +65,6 @@ export const CartModule: FC = () => {
     }
     setPromoCode('');
     setPromoCodeState(false);
-  };
-
-  const removeItemHandler = async (item: ICartItem) => {
-    try {
-      await cartService.removeCartItem(item);
-      toast.success(`Item ${item.name} is successfully deleted from the cart`);
-    } catch (error) {
-      toast.error(`Error deleting item`);
-    }
-  };
-
-  const incrementItemHandler = async (item: ICartItem) => {
-    try {
-      cartService.updateCartItemQuantity([{ ...item, quantity: item.quantity + 1 }]);
-    } catch (error) {
-      toast.error(`Error updating quantity: ${error}`);
-    }
-  };
-
-  const decrementItemHandler = async (item: ICartItem) => {
-    try {
-      cartService.updateCartItemQuantity([{ ...item, quantity: item.quantity + -1 }]);
-    } catch (error) {
-      toast.error(`Error updating quantity: ${error}`);
-    }
   };
 
   const handleCartClearItems = async () => {
@@ -156,12 +130,7 @@ export const CartModule: FC = () => {
             </Typography>
           ) : (
             <>
-              <CartItemList
-                cartItems={cart.items}
-                onIncrement={incrementItemHandler}
-                onDecrement={decrementItemHandler}
-                onRemove={removeItemHandler}
-              />
+              <CartItemList cartItems={cart.items} />
               <Box textAlign="right" marginTop={2}>
                 {cart.initialPrice !== cart.finalPrice && (
                   <Typography variant="body2" style={{ textDecoration: 'line-through' }}>

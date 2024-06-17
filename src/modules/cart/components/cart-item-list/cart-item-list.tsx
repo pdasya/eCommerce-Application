@@ -5,6 +5,7 @@ import CartItem from '../cart-item/cart-item';
 interface ICartItem {
   id: string;
   name: string;
+  slug: string;
   imageUrl: string;
   initialPrice: number;
   finalPrice: number;
@@ -29,6 +30,7 @@ export const CartItemList: FC<CartItemListProps> = ({
       <CartItem
         key={item.id}
         name={item.name}
+        slug={item.slug}
         imageUrl={item.imageUrl}
         initialPrice={item.initialPrice}
         finalPrice={item.finalPrice}

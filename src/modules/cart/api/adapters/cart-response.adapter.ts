@@ -7,16 +7,32 @@ import {
 import { ICart } from '../../interfaces/cart.interface';
 import { ICartItem } from '../../interfaces/cart-item.interface';
 
-const cartItemParser = ({ id, variant, name, quantity, price }: LineItem): ICartItem => {
+const cartItemParser = ({
+  id,
+  variant,
+  name,
+  quantity,
+  price,
+  productSlug,
+}: LineItem): ICartItem => {
   if (!variant.sku) {
     throw Error('Cart line item parse error: "sku" is not specified.');
   }
+
+  const imageUrl = variant.images
+    ? variant.images.length > 0
+      ? variant.images[0].url
+      : './assets/images/no-image.jpg'
+    : './assets/images/no-image.jpg';
+
+  const slug = productSlug ? productSlug.en : '#';
 
   return {
     id,
     sku: variant.sku,
     name: name.en,
-    imageUrl: 'https://via.placeholder.com/150',
+    slug,
+    imageUrl,
     quantity,
     initialPrice: price.value.centAmount / 100,
     finalPrice: (price.discounted?.value.centAmount || price.value.centAmount) / 100,

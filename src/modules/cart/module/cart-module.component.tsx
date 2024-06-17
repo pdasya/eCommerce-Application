@@ -70,7 +70,7 @@ export const CartModule: FC = () => {
   const incrementItemHandler = async (item: ICartItem) => {
     try {
       cartService.updateCartItemQuantity([{ ...item, quantity: item.quantity + 1 }]);
-      toast.success(`Item ${item.name} quantity successfully changed`);
+      // toast.success(`Item ${item.name} quantity successfully changed`);
     } catch (error) {
       toast.error(`Error updating quantity: ${error}`);
     }
@@ -79,7 +79,7 @@ export const CartModule: FC = () => {
   const decrementItemHandler = async (item: ICartItem) => {
     try {
       cartService.updateCartItemQuantity([{ ...item, quantity: item.quantity + -1 }]);
-      toast.success(`Item ${item.name} quantity successfully changed`);
+      // toast.success(`Item ${item.name} quantity successfully changed`);
     } catch (error) {
       toast.error(`Error updating quantity: ${error}`);
     }

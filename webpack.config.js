@@ -121,7 +121,11 @@ module.exports = {
     clean: true,
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      path: './.env',
+      safe: false,
+      silent: true,
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',

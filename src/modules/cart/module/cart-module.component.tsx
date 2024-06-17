@@ -6,12 +6,22 @@ import { selectCart } from '@store/cart/cart.slice';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { cartService } from '@modules/cart/services/cart.service';
 import { selectAuthorization } from '@store/auth/auth.slice';
+import { CustomRouterLink } from '@components/custom-router-link/custom-router-link.component';
+import { RoutePath } from '@routes/index';
 import { CartHeader } from '../components/cart-header/cart-header';
 import { CartItemList } from '../components/cart-item-list/cart-item-list';
 import { PromoCodeForm } from '../components/cart-promocode-form/cart-promocode-form';
 import { CartActions } from '../components/cart-actions/cart-actions';
 import { ICartItem } from '../interfaces/cart-item.interface';
 import * as styles from './cart-module.component.module.scss';
+
+const LinkToCatalogPage: FC = () => (
+  <Button variant="contained" color="info">
+    <CustomRouterLink to={RoutePath.catalogDefault} className={styles.continueShoppingButtonLink}>
+      Continue Shopping
+    </CustomRouterLink>
+  </Button>
+);
 
 export const CartModule: FC = () => {
   const cart = useAppSelector(selectCart);
@@ -47,38 +57,6 @@ export const CartModule: FC = () => {
       .catch(error => toast.error(error))
       .finally(() => setLoading(false));
   }, [isAuthorized]);
-
-  const addMockItems = async () => {
-    setLoading(true);
-
-    const items = [
-      {
-        sku: 'yamato-sauces-3_1',
-        quantity: 1,
-      },
-      {
-        sku: 'itoen-tea-1_1',
-        quantity: 1,
-      },
-      {
-        sku: 'itoen-tea-4_1',
-        quantity: 1,
-      },
-      {
-        sku: 'itoen-tea-3_1',
-        quantity: 1,
-      },
-    ];
-
-    try {
-      await cartService.addCartItem(items);
-      setLoading(false);
-    } catch (error) {
-      toast.error('Error fetching cart:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const removeItemHandler = async (item: ICartItem) => {
     try {
@@ -197,11 +175,7 @@ export const CartModule: FC = () => {
               <CartActions handleCartClear={handleCartClearItems} />
             </>
           )}
-          {cart.items.length === 0 && (
-            <Button variant="contained" color="info" onClick={addMockItems}>
-              Add Cart Items
-            </Button>
-          )}
+          {cart.items.length === 0 && <LinkToCatalogPage />}
         </Box>
       </Grid>
     </Grid>

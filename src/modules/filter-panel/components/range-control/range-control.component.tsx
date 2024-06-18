@@ -5,7 +5,7 @@ import { IControlBaseProps } from '@modules/filter-panel/interfaces/control-base
 import { selectPriceFilter } from '@store/catalog/catalog.slice';
 import { useAppSelector } from '@hooks/use-app-selector.hook';
 import { NumberInput } from '../number-input/number-input.component';
-import styles from './range-control.component.module.scss';
+import * as styles from './range-control.component.module.scss';
 
 type Value = { min: number; max: number };
 

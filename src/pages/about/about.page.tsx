@@ -1,4 +1,4 @@
 import React, { FC } from 'react';
-import styles from './about.page.module.scss';
+import { AboutContent } from '@modules/about';
 
-export const AboutPage: FC = () => <div className={styles.page}>About page works!</div>;
+export const AboutPage: FC = () => <AboutContent />;

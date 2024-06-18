@@ -5,7 +5,7 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 import Menu from '@mui/material/Menu';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@/routes';
-import styles from './nav-bar.component.module.scss';
+import * as styles from './nav-bar.component.module.scss';
 
 export const NavBar: FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -26,7 +26,7 @@ export const NavBar: FC = () => {
       rootPath: RoutePath.catalogBlank,
       isFullMatch: false,
     },
-    { caption: 'About', path: RoutePath.about, isFullMatch: true },
+    { caption: 'About Us', path: RoutePath.about, isFullMatch: true },
   ];
 
   return (

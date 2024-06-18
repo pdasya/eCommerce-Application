@@ -6,7 +6,7 @@ import { RoutePath } from '@routes/index';
 import { catalogDefaultCategorySlug } from '@config/constants';
 import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
 import { ICategory } from '@/interfaces/category.interface';
-import styles from './main-breadcrumb.component.module.scss';
+import * as styles from './main-breadcrumb.component.module.scss';
 
 export const MainBreadcrumb: FC = () => {
   const navigate = useNavigate();

@@ -33,7 +33,7 @@ export const Fancybox: FC<PropsWithChildren<Props>> = ({ options, delegate, chil
       NativeFancybox.unbind(container);
       NativeFancybox.close();
     };
-  });
+  }, []);
 
   return (
     <div className="f-carousel" ref={containerRef}>

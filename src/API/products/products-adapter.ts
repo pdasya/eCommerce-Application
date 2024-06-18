@@ -1,13 +1,16 @@
-import { ProductProjection } from '@commercetools/platform-sdk';
-import { IProduct } from '@/interfaces/interfaces';
-import { fetchAllProducts, FetchProductsOptions } from './products-service';
+import {
+  ClientResponse,
+  ProductProjection,
+  ProductProjectionPagedSearchResponse,
+} from '@commercetools/platform-sdk';
+import { IProduct, IProductList } from '@/interfaces/interfaces';
 
-function productsAdapter(product: ProductProjection): IProduct {
+export const productParser = (product: ProductProjection): IProduct => {
   const imageSrc = product.masterVariant.images
     ? product.masterVariant.images[0]
       ? product.masterVariant.images[0].url
-      : '../public/assets/images/no-image.jpg'
-    : '../public/assets/images/no-image.jpg';
+      : './assets/images/no-image.jpg'
+    : './assets/images/no-image.jpg';
   const imageAlt = product.masterVariant.images
     ? product.masterVariant.images.length > 0
       ? product.masterVariant.images[0].label
@@ -37,10 +40,13 @@ function productsAdapter(product: ProductProjection): IProduct {
     currency,
     discountPrice,
     slug,
+    sku: product.masterVariant.sku || '',
   };
-}
-
-export const getProductsList = async (options: FetchProductsOptions) => {
-  const allProducts = await fetchAllProducts(options);
-  return allProducts.map(product => productsAdapter(product));
 };
+
+export const getProductsResponseAdapter = (
+  response: ClientResponse<ProductProjectionPagedSearchResponse>,
+): IProductList => ({
+  products: response.body.results.map(productParser),
+  totalCount: response.body.total || 0,
+});

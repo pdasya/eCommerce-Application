@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, LinkProps, useMatch, useResolvedPath } from 'react-router-dom';
 import classNames from 'classnames';
-import styles from './custom-router-link.component.module.scss';
+import * as styles from './custom-router-link.component.module.scss';
 
 interface ICustomRouterLinkProperties extends LinkProps {
   activeClassName?: string;

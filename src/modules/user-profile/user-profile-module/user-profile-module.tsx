@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Typography, Grid, Paper, Button, Avatar, Divider } from '@mui/material';
 import { toast } from 'react-toastify';
-import { client } from '@config/constants';
 import { baseSchemaUser } from '@config/validation-schema';
 import { ValidationError } from 'yup';
 import { Address } from '@commercetools/platform-sdk';
+import { apiFlowManager } from '@config/constants';
 import { fetchUserData } from '../user-profile-api/fetch-user-data';
 import UserProfileList from '../components/user-profile-list/user-profile-list';
 import {
@@ -14,7 +14,24 @@ import {
   AddressErrors,
 } from '../interfaces/user-profile.interfaces';
 import { PasswordChangeForm } from '../components/user-profile-password/user-profile-password';
-import styles from './user-profile-module.module.scss';
+import * as styles from './user-profile-module.module.scss';
+
+const avatars = [
+  'https://goo.su/CZsMR1',
+  'https://goo.su/zINhx',
+  'https://goo.su/68L2p',
+  'https://goo.su/DQTYtL1',
+  'https://goo.su/2SDwk',
+  'https://goo.su/vboelqK',
+  'https://goo.su/h5jq',
+  'https://goo.su/sEzRQHA',
+  'https://goo.su/VaVIPq',
+];
+
+const getRandomAvatar = () => {
+  const randomIndex = Math.floor(Math.random() * avatars.length);
+  return avatars[randomIndex];
+};
 
 const initialValues = {
   firstName: '',
@@ -32,6 +49,11 @@ export const UserProfileModule: FC = () => {
   const [userErrors, setUserErrors] = useState<Errors>(initialValues);
   const [editMode, setEditMode] = useState(false);
   const [isPasswordChangeMode, setIsPasswordChangeMode] = useState(false);
+  const [avatar, setAvatar] = useState<string>('');
+
+  useEffect(() => {
+    setAvatar(getRandomAvatar());
+  }, []);
 
   const updateUserData = async () => {
     try {
@@ -180,10 +202,10 @@ export const UserProfileModule: FC = () => {
     } else if (await validateData()) {
       const updateActions = createUpdateActions(userData);
       try {
-        const response = await client.getClient().me().get().execute();
+        const response = await apiFlowManager.getClient().me().get().execute();
         const customerVersion = response.body.version;
 
-        await client
+        await apiFlowManager
           .getClient()
           .me()
           .post({
@@ -216,11 +238,7 @@ export const UserProfileModule: FC = () => {
     <Paper elevation={3} className={styles.paperContainer}>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs={12} sm={3}>
-          <Avatar
-            src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-3ngo-p-totoro-png-27.png"
-            className={styles.profileAvatar}
-            alt="Profile Photo"
-          />
+          <Avatar src={avatar} className={styles.profileAvatar} alt="Profile Photo" />
         </Grid>
         <Grid item xs={12} sm={9}>
           <Typography gutterBottom variant="h4">

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Button } from '@mui/material';
 import classNames from 'classnames';
-import styles from './error.page.module.scss';
 import { CustomRouterLink } from '@/components/custom-router-link/custom-router-link.component';
 import { RoutePath } from '@/routes';
+import * as styles from './error.page.module.scss';
 
 export const ErrorPage: FC = () => (
   <div className={styles.page}>

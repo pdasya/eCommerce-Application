@@ -17,7 +17,7 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import * as Yup from 'yup';
-import styles from './input-form.component.module.scss';
+import * as styles from './input-form.component.module.scss';
 
 interface IFormField {
   id: string;

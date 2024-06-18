@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
-import { client } from '@config/constants';
+import { apiFlowManager } from '@config/constants';
 import { PersonalUserData } from '../interfaces/user-profile.interfaces';
 
 export const fetchUserData = async (setUserData: Dispatch<SetStateAction<PersonalUserData>>) => {
   try {
-    const response = await client.getClient().me().get().execute();
+    const response = await apiFlowManager.getClient().me().get().execute();
     const {
       firstName,
       lastName,

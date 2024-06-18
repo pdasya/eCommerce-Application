@@ -1,0 +1,20 @@
+.list {
+  &Item {
+    padding: 5px 0;
+    transition: opacity 0.3s ease;
+
+    @media (width <= 520px) {
+      justify-content: center !important;
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  &Link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

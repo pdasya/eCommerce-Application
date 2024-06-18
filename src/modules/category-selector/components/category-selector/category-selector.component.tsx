@@ -13,7 +13,7 @@ import {
 } from '@/API/categories/get-categories';
 import { ICategory } from '@/interfaces/category.interface';
 import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
-import styles from './category-selector.component.module.scss';
+import * as styles from './category-selector.component.module.scss';
 
 export const CategorySelector: FC = () => {
   const navigate = useNavigate();

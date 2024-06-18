@@ -1,6 +1,5 @@
-import SaveStorage from '@utils/save-storage';
-import BuildClient from '@/commercetools/build-client';
-import TokenCacheUtil from '@/utils/token-cache';
+import { ApiFlowManager } from '@/services/api-flow-manager.class';
+import { clientSideStorage } from './local-storage';
 
 export const projectKey = process.env.CTP_PROJECT_KEY as string;
 export const clientSecret = process.env.CTP_CLIENT_SECRET as string;
@@ -12,12 +11,17 @@ export const storeKey = process.env.STORE_KEY as string;
 
 export const minPasswordLength = 8;
 
-export const tokenCache = new TokenCacheUtil();
-export const saveStorage = new SaveStorage(localStorage);
-export const client = new BuildClient(projectKey, clientId, clientSecret, authUrl, apiUrl, [
-  scopes,
-]);
-export const tokenName = 'authorize_token';
-
-export const defaultRequestPageSize = 20;
+export const defaultRequestPageSize = 10;
 export const catalogDefaultCategorySlug = 'all';
+
+export const apiFlowManager = new ApiFlowManager(
+  projectKey,
+  clientId,
+  clientSecret,
+  authUrl,
+  apiUrl,
+  [
+    scopes,
+  ],
+  clientSideStorage,
+);

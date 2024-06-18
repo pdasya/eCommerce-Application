@@ -11,7 +11,7 @@ describe('Header', () => {
     const navItemsNames = [
       'Home',
       'Catalog',
-      'About',
+      'About Us',
     ];
 
     renderWithProviders(<Header />);

@@ -1,8 +1,10 @@
 .toolbar {
   display: flex;
   width: 100%;
+  max-width: 1920px;
   box-sizing: border-box;
   justify-content: space-between;
   padding: 5px;
+  margin: 0 auto;
   gap: 10px;
 }

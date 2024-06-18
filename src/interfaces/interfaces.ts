@@ -10,9 +10,15 @@ export interface IProduct {
   currency: string;
   discountPrice?: string;
   slug: string;
+  sku: string;
 }
 
 export interface ISingleProduct extends Omit<IProduct, 'slug' | 'imageSrc' | 'imageAlt'> {
   images: Image[];
   attributes: Attribute[];
+}
+
+export interface IProductList {
+  products: IProduct[];
+  totalCount: number;
 }

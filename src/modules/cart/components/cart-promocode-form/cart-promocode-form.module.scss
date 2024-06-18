@@ -1,0 +1,30 @@
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 10px;
+
+  @media (width <= 380px) {
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+.helperText {
+  position: absolute;
+  bottom: -20px;
+  left: -15px;
+}
+
+.textField {
+  @media (width <= 380px) {
+    width: 100%;
+  }
+}
+
+.button {
+  @media (width <= 380px) {
+    width: 100%;
+  }
+}

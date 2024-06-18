@@ -1,0 +1,44 @@
+.text {
+  text-align: center;
+}
+
+.about {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  margin: 0 auto 20px;
+  font-size: 34px !important;
+  font-weight: 700 !important;
+  text-align: center;
+}
+
+.content {
+  padding: 40px;
+}
+
+.members {
+  justify-content: center;
+  margin-top: -8px !important;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  opacity: 1;
+  text-decoration: none !important;
+  transition: opacity 0.3s ease;
+
+  &Text {
+    color: initial;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

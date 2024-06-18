@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Attribute } from '@commercetools/platform-sdk';
-import styles from './product-attribute-list.module.scss';
+import * as styles from './product-attribute-list.module.scss';
 
 export const AttributeList: FC<Attribute> = (attribute: Attribute) => {
   const existAttribute = (item: string, field: string) => item.includes(field);

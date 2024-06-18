@@ -25,23 +25,27 @@ const styleHandler = devMode
 const cssLoaderWithModules = {
   loader: 'css-loader',
   options: {
-    modules: true,
+    esModule: true,
+    modules: {
+      namedExport: true,
+    },
   },
 };
 
 const cssLoaderNoModules = {
   loader: 'css-loader',
   options: {
-    modules: false,
+    esModule: false,
   },
 };
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index'),
-  mode: mode,
+  mode,
   devtool: devTool,
   devServer: devMode ? devServer : undefined,
   module: {
+    strictExportPresence: true,
     rules: [
       {
         test: /\.css$/i,
